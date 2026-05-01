@@ -1,0 +1,9 @@
+{
+  "product": ["Establishing Shot", "Medium Shot", "Insert Shot", "Close-Up", "Macro Shot", "B-Roll"],
+  "travel": ["Establishing Shot", "Tracking Shot", "Wide Shot", "Insert Shot", "Close-Up", "B-Roll"],
+  "dialogue": ["Establishing Shot", "Two Shot", "Over-the-Shoulder", "Close-Up", "Reaction Shot", "Cutaway"],
+  "tutorial": ["Medium Shot", "Insert Shot", "Top Light", "Close-Up", "B-Roll"],
+  "cinematic": ["Wide Shot", "Low Angle", "Dolly In", "Close-Up", "Back Light"],
+  "lifestyle": ["Establishing Shot", "Medium Shot", "Insert Shot", "Close-Up", "B-Roll"],
+  "narrative": ["Establishing Shot", "Master Shot", "Medium Shot", "Close-Up", "Reaction Shot", "Cutaway"]
+}

@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PlannerInput from "../../components/PlannerInput.astro";
+import AIPromptOutput from "../../components/AIPromptOutput.astro";
+import PreviewConcept from "../../components/PreviewConcept.astro";
+import { getAllTerms } from "../../lib/termSearch";
+
+const terms = getAllTerms();
+const previewTerms = ["Establishing Shot", "Insert Shot", "Close-Up"]
+  .map((name) => terms.find((term) => term.name === name))
+  .filter((term): term is (typeof terms)[number] => Boolean(term));
+---
+
+<BaseLayout
+  title="CineCards AI Planner - Topic to shot sequence and AI prompts"
+  description="Convert a topic or story into a prioritized sequence of cinematography shots and AI video prompts."
+>
+  <PlannerInput />
+  <AIPromptOutput terms={terms} />
+  <PreviewConcept terms={previewTerms} />
+</BaseLayout>

@@ -1,0 +1,27 @@
+title: "[Teaching] "
+labels: ["teaching"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask a "how do I teach / learn this?" question. Beginner-friendly questions are very welcome.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What have you tried, watched, or read so far?
+    validations:
+      required: false
+  - type: input
+    id: related-terms
+    attributes:
+      label: Related term ids
+      placeholder: rule-of-thirds, leading-lines
+    validations:
+      required: false

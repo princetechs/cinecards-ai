@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "glossary": "शब्दकोश",
+    "planner": "प्लानर",
+    "learn": "सीखें",
+    "packs": "पैक",
+    "contribute": "योगदान"
+  },
+  "cta": {
+    "planSequence": "एक सीक्वेंस बनाएँ",
+    "planShotSequence": "शॉट सीक्वेंस बनाएँ",
+    "exploreGlossary": "शब्दकोश देखें",
+    "viewAllTerms": "सभी शब्द देखें",
+    "backToGlossary": "शब्दकोश पर वापस",
+    "copy": "कॉपी करें",
+    "copied": "कॉपी हो गया"
+  },
+  "glossary": {
+    "eyebrow": "शब्दकोश"
+  },
+  "termDetail": {
+    "whyItMatters": "यह क्यों मायने रखता है",
+    "whenToUse": "कब उपयोग करें",
+    "humanShootHint": "शूटिंग सुझाव",
+    "aiPromptTemplate": "AI प्रॉम्प्ट टेम्पलेट",
+    "previewPrompts": "प्रीव्यू प्रॉम्प्ट",
+    "commonMistakes": "सामान्य गलतियाँ",
+    "prerequisites": "पूर्वापेक्षाएँ",
+    "relatedTerms": "संबंधित शब्द",
+    "tags": "टैग"
+  },
+  "locale": {
+    "label": "भाषा"
+  }
+}

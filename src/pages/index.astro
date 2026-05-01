@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../../components/Hero.astro";
+import LearningPath from "../../components/LearningPath.astro";
+import GlossaryGrid from "../../components/GlossaryGrid.astro";
+import PlannerInput from "../../components/PlannerInput.astro";
+import AIPromptOutput from "../../components/AIPromptOutput.astro";
+import PreviewConcept from "../../components/PreviewConcept.astro";
+import OpenSource from "../../components/OpenSource.astro";
+import { getAllTerms } from "../../lib/termSearch";
+
+const terms = getAllTerms();
+const foundationTerms = terms.filter((term) => term.priorityGroup === "Foundation").slice(0, 6);
+const previewTerms = ["Close-Up", "Dolly In", "Back Light"]
+  .map((name) => terms.find((term) => term.name === name))
+  .filter((term): term is (typeof terms)[number] => Boolean(term));
+---
+
+<BaseLayout>
+  <Hero />
+  <LearningPath terms={terms} />
+  <section class="section-pad bg-bone" id="glossary-preview">
+    <div class="container-pad">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="max-w-2xl">
+          <p class="eyebrow text-clay">Visual glossary</p>
+          <h2 class="mt-3 text-3xl font-black tracking-tight text-ink sm:text-4xl">Start with the terms that unlock the rest.</h2>
+        </div>
+        <a class="focus-ring rounded-lg border border-ink/12 px-4 py-2 text-sm font-black text-ink hover:bg-ink hover:text-bone" href="/glossary">View all terms</a>
+      </div>
+      <div class="mt-8">
+        <GlossaryGrid terms={foundationTerms} showFilters={false} />
+      </div>
+    </div>
+  </section>
+  <PlannerInput />
+  <AIPromptOutput terms={terms} />
+  <PreviewConcept terms={previewTerms} />
+  <OpenSource />
+</BaseLayout>

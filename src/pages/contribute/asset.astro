@@ -1,0 +1,244 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pageTitle = "Submit an asset - CineCards AI";
+const pageDescription =
+  "Generate a rights-attested JSON snippet to attach to a media-asset pull request.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="bg-paper py-10">
+    <div class="container-pad">
+      <nav class="text-xs font-bold uppercase tracking-wide text-ink/55">
+        <a class="hover:text-ink" href="/">Home</a>
+        <span class="px-2 text-ink/30">/</span>
+        <span class="text-ink/70">Contribute</span>
+      </nav>
+      <h1 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">Submit a media asset</h1>
+      <p class="mt-4 max-w-3xl text-base leading-7 text-ink/72">
+        CineCards AI accepts media contributions only with explicit rights and consent attestations.
+        Fill in the form below to generate a JSON snippet, then open a pull request adding it to the
+        matching term's <code class="rounded bg-bone px-1.5 py-0.5 font-mono text-xs">assets</code> array
+        in <code class="rounded bg-bone px-1.5 py-0.5 font-mono text-xs">data/terms.json</code>. PRs missing
+        these attestations will be closed.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="container-pad grid gap-6 lg:grid-cols-3">
+      <form id="asset-form" class="space-y-6 lg:col-span-2" novalidate>
+        <article class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft">
+          <h2 class="text-xs font-black uppercase tracking-wide text-clay">Asset</h2>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Term ID</span>
+              <input id="termId" name="termId" type="text" required
+                placeholder="e.g. dolly-zoom"
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 font-mono text-sm text-ink focus-ring" />
+            </label>
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Type</span>
+              <select id="type" name="type" required
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring">
+                <option value="image">image</option>
+                <option value="clip">clip</option>
+                <option value="thumbnail">thumbnail</option>
+                <option value="diagram">diagram</option>
+              </select>
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Asset URL</span>
+              <input id="url" name="url" type="url" required
+                placeholder="https://..."
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring" />
+            </label>
+          </div>
+        </article>
+
+        <article class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft">
+          <h2 class="text-xs font-black uppercase tracking-wide text-clay">Required attestations</h2>
+          <p class="mt-2 text-sm text-ink/64">All four must be checked. There is no override.</p>
+          <div class="mt-4 space-y-3 text-sm text-ink/74">
+            <label class="flex items-start gap-3">
+              <input id="iOwnOrLicensed" type="checkbox" required class="mt-1" />
+              <span>I own this asset or hold a licence that permits redistribution under the licence I select below.</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input id="subjectsConsented" type="checkbox" required class="mt-1" />
+              <span>Every identifiable person depicted has given informed consent to publication on CineCards AI.</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input id="noPII" type="checkbox" required class="mt-1" />
+              <span>The asset contains no personally identifying information of third parties (faces of bystanders, IDs, plates, addresses, etc.).</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input id="readContrib" type="checkbox" required class="mt-1" />
+              <span>I have read <a class="underline hover:text-ink" href="https://github.com/" target="_blank" rel="noreferrer">CONTRIBUTING.md</a> and agree to the licensing split.</span>
+            </label>
+          </div>
+        </article>
+
+        <article class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft">
+          <h2 class="text-xs font-black uppercase tracking-wide text-clay">Licence &amp; attribution</h2>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Licence</span>
+              <select id="licence" name="licence" required
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring">
+                <option value="CC-BY-4.0">CC-BY-4.0</option>
+                <option value="CC-BY-SA-4.0">CC-BY-SA-4.0</option>
+                <option value="CC0-1.0">CC0-1.0</option>
+                <option value="All-Rights-Reserved">All-Rights-Reserved</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Rights holder (optional)</span>
+              <input id="holder" name="holder" type="text"
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring" />
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Attribution string (optional)</span>
+              <input id="attribution" name="attribution" type="text"
+                placeholder='e.g. "Photo by Jane Doe, 2025"'
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring" />
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="text-xs font-bold uppercase tracking-wide text-ink/64">Derivative of (optional URL or work)</span>
+              <input id="derivativeOf" name="derivativeOf" type="text"
+                class="mt-1 block w-full rounded-lg border border-ink/12 bg-paper px-3 py-2 text-sm text-ink focus-ring" />
+            </label>
+          </div>
+        </article>
+
+        <div id="errors" class="hidden rounded-lg border border-clay/40 bg-clay/10 p-4 text-sm text-clay" aria-live="polite"></div>
+
+        <div class="flex flex-wrap gap-3">
+          <button type="submit"
+            class="focus-ring rounded-lg bg-ink px-4 py-2 text-sm font-bold text-bone hover:opacity-90">
+            Generate JSON
+          </button>
+          <button type="reset"
+            class="focus-ring rounded-lg border border-ink/12 bg-paper px-4 py-2 text-sm font-bold text-ink/70 hover:bg-ink hover:text-bone">
+            Reset
+          </button>
+        </div>
+      </form>
+
+      <aside class="space-y-6">
+        <div id="output-block" class="hidden rounded-lg border border-ink/10 bg-bone p-6 shadow-soft">
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="text-xs font-black uppercase tracking-wide text-clay">JSON snippet</h2>
+            <button id="copy-json" type="button"
+              class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone">
+              Copy JSON
+            </button>
+          </div>
+          <pre id="output" class="mt-3 max-h-[60vh] overflow-auto break-words rounded-lg bg-ink p-4 font-mono text-xs leading-5 text-bone whitespace-pre-wrap"></pre>
+          <p class="mt-3 text-xs text-ink/64">
+            Open a PR adding this object to the matching term's <code class="font-mono">assets</code> array
+            in <code class="font-mono">data/terms.json</code>. PRs missing these attestations will be rejected.
+          </p>
+        </div>
+
+        <div class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft">
+          <h2 class="text-xs font-black uppercase tracking-wide text-clay">Why we ask</h2>
+          <p class="mt-3 text-sm leading-6 text-ink/72">
+            CineCards AI is a teaching catalogue for the open web. We cannot republish media without
+            traceable rights. Attestations are stored alongside the asset so future contributors can
+            audit provenance.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById("asset-form") as HTMLFormElement | null;
+  const errorsBox = document.getElementById("errors") as HTMLDivElement | null;
+  const outputBlock = document.getElementById("output-block") as HTMLDivElement | null;
+  const output = document.getElementById("output") as HTMLPreElement | null;
+  const copyBtn = document.getElementById("copy-json") as HTMLButtonElement | null;
+
+  function val(id: string): string {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | null;
+    return el ? (el.value ?? "").trim() : "";
+  }
+  function checked(id: string): boolean {
+    const el = document.getElementById(id) as HTMLInputElement | null;
+    return !!(el && el.checked);
+  }
+  function isUrl(s: string): boolean {
+    try {
+      const u = new URL(s);
+      return u.protocol === "http:" || u.protocol === "https:";
+    } catch {
+      return false;
+    }
+  }
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!errorsBox || !outputBlock || !output) return;
+    const errors: string[] = [];
+    const termId = val("termId");
+    const type = val("type");
+    const url = val("url");
+    const licence = val("licence");
+    const iOwnOrLicensed = checked("iOwnOrLicensed");
+    const subjectsConsented = checked("subjectsConsented");
+    const noPII = checked("noPII");
+    const readContrib = checked("readContrib");
+
+    if (!termId) errors.push("Term ID is required.");
+    if (!type) errors.push("Type is required.");
+    if (!url || !isUrl(url)) errors.push("A valid http(s) asset URL is required.");
+    if (!licence) errors.push("Licence is required.");
+    if (!iOwnOrLicensed) errors.push("You must attest that you own or have licensed the asset.");
+    if (!subjectsConsented) errors.push("You must attest that subjects have consented.");
+    if (!noPII) errors.push("You must attest the asset contains no third-party PII.");
+    if (!readContrib) errors.push("You must confirm you have read CONTRIBUTING.md.");
+
+    if (errors.length > 0) {
+      errorsBox.innerHTML = "<strong>Cannot submit:</strong><ul class='mt-2 list-disc pl-5'>" +
+        errors.map((m) => `<li>${m}</li>`).join("") + "</ul>";
+      errorsBox.classList.remove("hidden");
+      outputBlock.classList.add("hidden");
+      return;
+    }
+
+    errorsBox.classList.add("hidden");
+    errorsBox.innerHTML = "";
+
+    const holder = val("holder");
+    const attribution = val("attribution");
+    const derivativeOf = val("derivativeOf");
+
+    const rights: Record<string, unknown> = {
+      iOwnOrLicensed: true,
+      subjectsConsented: true,
+      noPII: true,
+      licence
+    };
+    if (holder) rights.holder = holder;
+    if (attribution) rights.attribution = attribution;
+    if (derivativeOf) rights.derivativeOf = derivativeOf;
+
+    const submission = { termId, type, url, rights };
+    output.textContent = JSON.stringify(submission, null, 2);
+    outputBlock.classList.remove("hidden");
+  });
+
+  copyBtn?.addEventListener("click", async () => {
+    if (!output) return;
+    try {
+      await navigator.clipboard.writeText(output.textContent ?? "");
+      const original = copyBtn.textContent;
+      copyBtn.textContent = "Copied";
+      setTimeout(() => { copyBtn.textContent = original; }, 1200);
+    } catch {
+      /* ignore */
+    }
+  });
+</script>

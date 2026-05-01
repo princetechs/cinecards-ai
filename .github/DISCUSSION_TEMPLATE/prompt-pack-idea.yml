@@ -1,0 +1,33 @@
+title: "[Prompt pack] "
+labels: ["prompt-pack"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Pitch a themed pack of prompts (e.g. "Noir interrogation", "Travel vlog B-roll").
+  - type: input
+    id: pack-name
+    attributes:
+      label: Pack name
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Who it is for
+      description: Phone creators? Indie filmmakers? AI-first storytellers?
+    validations:
+      required: true
+  - type: textarea
+    id: terms-covered
+    attributes:
+      label: Terms covered
+      description: List existing term ids (or proposed new ones).
+    validations:
+      required: true
+  - type: textarea
+    id: example-prompts
+    attributes:
+      label: Example prompts
+    validations:
+      required: false

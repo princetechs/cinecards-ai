@@ -1,0 +1,30 @@
+# CineCards AI — CODEOWNERS
+#
+# Lanes follow CONTRIBUTING.md. Replace @maintainers with real GitHub handles
+# once the team is public. Multiple owners can be listed per line.
+#
+# Default owner for anything not matched below.
+*                       @maintainers
+
+# Content lane: term cards, sequence rules, glossary data.
+/data/                  @maintainers
+
+# Code lane: app, components, lib, types, build tooling.
+/src/                   @maintainers
+/lib/                   @maintainers
+/types/                 @maintainers
+/astro.config.*         @maintainers
+/package.json           @maintainers
+/tsconfig.json          @maintainers
+
+# Media lane: previews, generated assets, provenance metadata.
+/public/                @maintainers
+/media/                 @maintainers
+
+# Governance lane: docs, licensing, community config.
+/README.md              @maintainers
+/CONTRIBUTING.md        @maintainers
+/CODE_OF_CONDUCT.md     @maintainers
+/LICENSE                @maintainers
+/.github/               @maintainers
+/tasks/                 @maintainers

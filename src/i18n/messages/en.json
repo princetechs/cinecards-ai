@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "glossary": "Glossary",
+    "planner": "Planner",
+    "learn": "Learn",
+    "packs": "Packs",
+    "contribute": "Contribute"
+  },
+  "cta": {
+    "planSequence": "Plan a Sequence",
+    "planShotSequence": "Plan a Shot Sequence",
+    "exploreGlossary": "Explore Glossary",
+    "viewAllTerms": "View all terms",
+    "backToGlossary": "Back to glossary",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "home": {
+    "eyebrow": "Open-source visual learning for human and AI video",
+    "title": "CineCards AI",
+    "subtitle": "Learn film terms visually, turn any topic into a prioritized shot sequence, and copy cleaner AI video prompts without memorizing a film-school glossary first.",
+    "glossaryEyebrow": "Visual glossary",
+    "glossaryHeading": "Start with the terms that unlock the rest."
+  },
+  "glossary": {
+    "eyebrow": "Glossary",
+    "title": "Film language as searchable, copyable cards.",
+    "subtitle": "Each card teaches the meaning, the visual purpose, a real-world shooting hint, AI prompt structure, related terms, and common beginner mistakes."
+  },
+  "termDetail": {
+    "whyItMatters": "Why it matters",
+    "whenToUse": "When to use",
+    "humanShootHint": "Human shoot hint",
+    "aiPromptTemplate": "AI prompt template",
+    "previewPrompts": "Preview prompts",
+    "commonMistakes": "Common mistakes",
+    "prerequisites": "Prerequisites",
+    "relatedTerms": "Related terms",
+    "tags": "Tags"
+  },
+  "footer": {
+    "tagline": "is open-source visual grammar for human and AI video creation."
+  },
+  "locale": {
+    "label": "Language",
+    "en": "EN",
+    "es": "ES",
+    "hi": "HI"
+  }
+}

@@ -1,0 +1,28 @@
+title: "[Terminology] "
+labels: ["terminology"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for debates over a definition, naming, category, or priority group.
+  - type: input
+    id: term
+    attributes:
+      label: Term or concept
+      placeholder: dolly-zoom
+    validations:
+      required: true
+  - type: textarea
+    id: position
+    attributes:
+      label: Your position
+      description: What do you think the right answer is, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: Books, films, articles, or existing card ids that support your view.
+    validations:
+      required: false

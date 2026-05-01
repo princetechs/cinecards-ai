@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: General questions and ideas
+    url: https://github.com/cinecards/cinecards-ai/discussions
+    about: For open-ended questions, terminology debates, prompt-pack ideas, and teaching questions, please use Discussions.
+  - name: Code of Conduct
+    url: https://github.com/cinecards/cinecards-ai/blob/main/CODE_OF_CONDUCT.md
+    about: Please review our Code of Conduct before participating.

@@ -1,0 +1,114 @@
+---
+import ShotSequence from "./ShotSequence.astro";
+---
+
+<section class="section-pad bg-night text-bone" id="planner">
+  <div class="container-pad grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+    <div>
+      <p class="eyebrow text-bone/55">Topic-to-shot planner</p>
+      <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Turn a vague idea into shots that cut together.</h2>
+      <p class="mt-4 max-w-xl text-base leading-7 text-bone/68">
+        The planner classifies the topic, picks a sequence rule, then fills each shot with a beginner-friendly reason and AI-ready prompt.
+      </p>
+      <form class="mt-8 rounded-lg border border-bone/12 bg-bone/6 p-4 shadow-soft" data-planner-form>
+        <label class="block">
+          <span class="text-sm font-bold text-bone/78">Topic or story</span>
+          <textarea
+            class="focus-ring mt-2 min-h-28 w-full resize-y rounded-lg border border-bone/15 bg-bone px-4 py-3 text-base text-ink placeholder:text-ink/42"
+            data-planner-topic
+            placeholder="coffee shop morning reel"
+          ></textarea>
+        </label>
+        <button class="focus-ring mt-4 w-full rounded-lg bg-clay px-5 py-3 text-sm font-black text-bone shadow-soft transition hover:bg-[#9f583d]" type="button" data-planner-submit>
+          Build Shot Sequence
+        </button>
+      </form>
+    </div>
+    <ShotSequence />
+  </div>
+</section>
+
+<script>
+  import { buildShotSequence } from "../lib/planner";
+
+  const escapeHtml = (value: string) =>
+    value.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#039;"
+    })[char] ?? char);
+
+  const renderPlan = (topic: string) => {
+    const plan = buildShotSequence(topic);
+    const output = document.querySelector<HTMLElement>("[data-plan-output]");
+    const type = document.querySelector<HTMLElement>("[data-plan-type]");
+    if (!output || !type) return;
+
+    type.textContent = plan.type.replace("-", " ");
+    output.innerHTML = plan.sequence.map((item) => `
+      <article class="rounded-lg border border-ink/10 bg-paper p-4 text-ink">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="grid size-8 place-items-center rounded-lg bg-ink text-sm font-black text-bone">${item.order}</span>
+            <div>
+              <h4 class="font-black">${escapeHtml(item.term)}</h4>
+              <p class="text-xs font-bold uppercase tracking-wide text-ink/48">${escapeHtml(item.category)} - ${item.duration}</p>
+            </div>
+          </div>
+          <button class="rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" type="button" data-copy-prompt="${escapeHtml(item.prompt)}">Copy prompt</button>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-ink/68">${escapeHtml(item.reason)}</p>
+        <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone">${escapeHtml(item.prompt)}</p>
+      </article>
+    `).join("");
+    window.dispatchEvent(new CustomEvent("cinecards:plan-built"));
+  };
+
+  window.cinecardsBuildPlanFromForm = (form: HTMLFormElement) => {
+    const topic = form.querySelector<HTMLTextAreaElement>("[data-planner-topic]")?.value.trim() || "coffee shop morning reel";
+    renderPlan(topic);
+  };
+
+  window.cinecardsBuildPlanFromButton = (button: HTMLButtonElement) => {
+    const form = button.closest<HTMLFormElement>("[data-planner-form]");
+    if (form) window.cinecardsBuildPlanFromForm?.(form);
+  };
+
+  document.querySelectorAll<HTMLFormElement>("[data-planner-form]").forEach((form) => {
+    const submitButton = form.querySelector<HTMLButtonElement>("[data-planner-submit]");
+    submitButton?.addEventListener("click", () => {
+      window.cinecardsBuildPlanFromForm?.(form);
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const topic = form.querySelector<HTMLTextAreaElement>("[data-planner-topic]")?.value.trim() || "coffee shop morning reel";
+      renderPlan(topic);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    const submitButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-planner-submit]");
+    if (!submitButton) return;
+    event.preventDefault();
+    const form = submitButton.closest<HTMLFormElement>("[data-planner-form]");
+    const topic = form?.querySelector<HTMLTextAreaElement>("[data-planner-topic]")?.value.trim() || "coffee shop morning reel";
+    renderPlan(topic);
+  });
+
+  document.addEventListener("click", async (event) => {
+    const copyButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-prompt]");
+    if (!copyButton) return;
+    await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
+    const original = copyButton.textContent;
+    copyButton.textContent = "Copied";
+    window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+    setTimeout(() => {
+      copyButton.textContent = original;
+    }, 1200);
+  });
+
+  renderPlan("coffee shop morning reel");
+</script>

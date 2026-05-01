@@ -1,0 +1,25 @@
+{
+  "name": "cinecards-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check && npm run validate:content",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "worker:start": "npm start --prefix apps/worker --",
+    "worker:enqueue": "npm run enqueue --prefix apps/worker --",
+    "test:quality": "node --experimental-strip-types --import 'data:text/javascript,import{register}from\"node:module\";import{pathToFileURL}from\"node:url\";register(\"./scripts/ts-resolver.mjs\",pathToFileURL(\"./\"));' scripts/test-quality-score.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/node": "^25.6.0",
+    "ajv": "^8.20.0",
+    "astro": "^5.18.1",
+    "tailwindcss": "^3.4.19",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

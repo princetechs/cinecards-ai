@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+  background: #f5f0e8;
+  color: #2a2620;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(184, 111, 77, 0.08), transparent 32rem),
+    linear-gradient(180deg, #f5f0e8 0%, #fffaf2 44%, #f1eadf 100%);
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #2a2620;
+  letter-spacing: 0.005em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.012em;
+  color: #171513;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+button {
+  cursor: pointer;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+code, pre, kbd, samp {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+.font-ui {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.container-pad {
+  width: min(1120px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.section-pad {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+
+/* Calmer all-caps section labels — replaces the previous shouty pattern.
+   Use on every "Why it matters / Human shoot hint / Related" subhead. */
+.label {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6875rem;          /* 11px */
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8c7d70;                /* ink-muted: present but recedes */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.label::before {
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: #c9b8a8;
+  flex-shrink: 0;
+}
+
+.label-accent {
+  color: #8c5b42;                /* clay-quiet: only when emphasis is meant */
+}
+
+.label-accent::before {
+  background: #d6a48b;
+}
+
+/* Reading prose: serif body, comfortable measure, warm-charcoal ink. */
+.reading-prose {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: 1rem;               /* 16px inside cards */
+  line-height: 1.65;
+  color: #2a2620;
+  max-width: 62ch;
+}
+
+.reading-prose p + p {
+  margin-top: 0.85em;
+}
+
+.reading-prose strong {
+  font-weight: 600;
+  color: #171513;
+}
+
+/* Older eyebrow class still used in places — soften it inline so legacy
+   call sites benefit without component edits. */
+.eyebrow {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #8c7d70;
+}
+
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+}
+
+.focus-ring:focus-visible {
+  outline-color: #b86f4d;
+}
+
+/* Drop-cap option for the very first paragraph of a long-form term page. */
+.first-letter-display::first-letter {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-weight: 700;
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.9;
+  margin: 0.05em 0.08em 0 0;
+  color: #171513;
+}
+
+.film-frame {
+  background:
+    linear-gradient(90deg, rgba(255, 250, 242, 0.10), rgba(255, 250, 242, 0.46), rgba(255, 250, 242, 0.08)),
+    linear-gradient(135deg, rgba(17, 16, 15, 0.92), rgba(60, 46, 38, 0.86));
+}
+
+.film-frame::before,
+.film-frame::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 7px;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.55) 0 8px, transparent 8px 17px);
+  opacity: 0.4;
+}
+
+.film-frame::before {
+  top: 12px;
+}
+
+.film-frame::after {
+  bottom: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

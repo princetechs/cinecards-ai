@@ -1,0 +1,26 @@
+name: Fix term
+description: Correct a definition, prompt, or metadata on an existing term.
+title: "[Fix term] "
+labels: ["content", "fix"]
+body:
+  - type: input
+    id: term-id
+    attributes:
+      label: Term id / slug
+      placeholder: dutch-angle
+    validations:
+      required: true
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What's wrong
+      description: Quote the current text or field that needs fixing.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-correction
+    attributes:
+      label: Suggested correction
+      description: Exact replacement text or values, when possible.
+    validations:
+      required: true

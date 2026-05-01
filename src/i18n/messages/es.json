@@ -1,0 +1,35 @@
+{
+  "nav": {
+    "glossary": "Glosario",
+    "planner": "Planificador",
+    "learn": "Aprender",
+    "packs": "Paquetes",
+    "contribute": "Contribuir"
+  },
+  "cta": {
+    "planSequence": "Planificar una secuencia",
+    "planShotSequence": "Planificar una secuencia de planos",
+    "exploreGlossary": "Explorar glosario",
+    "viewAllTerms": "Ver todos los términos",
+    "backToGlossary": "Volver al glosario",
+    "copy": "Copiar",
+    "copied": "Copiado"
+  },
+  "glossary": {
+    "eyebrow": "Glosario"
+  },
+  "termDetail": {
+    "whyItMatters": "Por qué importa",
+    "whenToUse": "Cuándo usarlo",
+    "humanShootHint": "Consejo de rodaje humano",
+    "aiPromptTemplate": "Plantilla de prompt de IA",
+    "previewPrompts": "Prompts de vista previa",
+    "commonMistakes": "Errores comunes",
+    "prerequisites": "Requisitos previos",
+    "relatedTerms": "Términos relacionados",
+    "tags": "Etiquetas"
+  },
+  "locale": {
+    "label": "Idioma"
+  }
+}

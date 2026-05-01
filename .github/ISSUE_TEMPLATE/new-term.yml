@@ -1,0 +1,74 @@
+name: New term
+description: Propose a new film-language term for the glossary.
+title: "[New term] "
+labels: ["content", "new-term"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a new term. Keep it short and card-friendly. See CONTRIBUTING.md for the term checklist.
+  - type: input
+    id: term-name
+    attributes:
+      label: Term name
+      description: Human-readable name (e.g. "Dutch Angle"). The id/slug will be derived from this.
+      placeholder: Dutch Angle
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Shots
+        - Angles
+        - Movement
+        - Lighting
+        - Composition
+        - Editing
+        - Lens / Optics
+        - AI Workflow
+    validations:
+      required: true
+  - type: dropdown
+    id: priority-group
+    attributes:
+      label: Priority group
+      options:
+        - Foundation
+        - Core Visual Grammar
+        - Coverage and Edit Logic
+        - Advanced Look
+        - AI-Native Workflow
+    validations:
+      required: true
+  - type: textarea
+    id: short-definition
+    attributes:
+      label: Short definition
+      description: One or two sentences. Must fit on a card.
+    validations:
+      required: true
+  - type: textarea
+    id: why-it-matters
+    attributes:
+      label: Why it matters
+      description: Why a creator should learn this. Practical, not academic.
+    validations:
+      required: true
+  - type: textarea
+    id: ai-prompt
+    attributes:
+      label: AI prompt template
+      description: Use `[subject]` and `[duration]` placeholders.
+      placeholder: "A [duration] shot of [subject] framed with a Dutch angle, ..."
+    validations:
+      required: true
+  - type: textarea
+    id: related-terms
+    attributes:
+      label: Related terms
+      description: Existing term ids that connect to this one (comma-separated).
+      placeholder: low-angle, canted-frame
+    validations:
+      required: false

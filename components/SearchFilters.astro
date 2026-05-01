@@ -1,0 +1,45 @@
+---
+interface Props {
+  categories: string[];
+  priorityGroups: string[];
+  difficulties: string[];
+}
+
+const { categories, priorityGroups, difficulties } = Astro.props;
+---
+
+<div class="rounded-lg border border-ink/10 bg-bone p-4 shadow-soft" data-search-filters>
+  <div class="grid gap-3 lg:grid-cols-[1fr_180px_220px_160px]">
+    <label class="block">
+      <span class="sr-only">Search terms</span>
+      <input
+        class="focus-ring w-full rounded-lg border border-ink/12 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/42"
+        data-filter-search
+        type="search"
+        placeholder="Search shots, lighting, AI workflow..."
+      />
+    </label>
+    <label class="block">
+      <span class="sr-only">Category</span>
+      <select class="focus-ring w-full rounded-lg border border-ink/12 bg-white px-3 py-3 text-sm text-ink" data-filter-category>
+        <option value="">All categories</option>
+        {categories.map((category) => <option value={category}>{category}</option>)}
+      </select>
+    </label>
+    <label class="block">
+      <span class="sr-only">Priority</span>
+      <select class="focus-ring w-full rounded-lg border border-ink/12 bg-white px-3 py-3 text-sm text-ink" data-filter-priority>
+        <option value="">All priorities</option>
+        {priorityGroups.map((group) => <option value={group}>{group}</option>)}
+      </select>
+    </label>
+    <label class="block">
+      <span class="sr-only">Difficulty</span>
+      <select class="focus-ring w-full rounded-lg border border-ink/12 bg-white px-3 py-3 text-sm text-ink" data-filter-difficulty>
+        <option value="">All levels</option>
+        {difficulties.map((difficulty) => <option value={difficulty}>{difficulty}</option>)}
+      </select>
+    </label>
+  </div>
+  <p class="mt-3 text-sm font-semibold text-ink/58" data-filter-count></p>
+</div>

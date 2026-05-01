@@ -1,0 +1,95 @@
+---
+import type { Term } from "../types/term";
+import TermCard from "./TermCard.astro";
+import SearchFilters from "./SearchFilters.astro";
+// Analytics is wired in the inline <script> below via dynamic import.
+
+interface Props {
+  terms: Term[];
+  showFilters?: boolean;
+}
+
+const { terms, showFilters = true } = Astro.props;
+const categories = Array.from(new Set(terms.map((term) => term.category))).sort();
+const priorityGroups = Array.from(new Set(terms.map((term) => term.priorityGroup)));
+const difficulties = Array.from(new Set(terms.map((term) => term.difficulty))).sort();
+---
+
+<div data-glossary-root>
+  {showFilters && <SearchFilters categories={categories} priorityGroups={priorityGroups} difficulties={difficulties} />}
+  <div class:list={["grid gap-4 md:grid-cols-2 xl:grid-cols-3", showFilters ? "mt-6" : ""]} data-glossary-grid>
+    {terms.map((term) => <TermCard term={term} />)}
+  </div>
+  <div class="mt-8 hidden rounded-lg border border-ink/10 bg-bone p-6 text-center text-ink/62" data-empty-state>
+    No cards match those filters.
+  </div>
+</div>
+
+<script>
+  import { track } from "../lib/analytics";
+
+  const applyGlossaryFilters = (root: HTMLElement) => {
+    const search = root.querySelector<HTMLInputElement>("[data-filter-search]")?.value.toLowerCase().trim() ?? "";
+    const category = root.querySelector<HTMLSelectElement>("[data-filter-category]")?.value ?? "";
+    const priority = root.querySelector<HTMLSelectElement>("[data-filter-priority]")?.value ?? "";
+    const difficulty = root.querySelector<HTMLSelectElement>("[data-filter-difficulty]")?.value ?? "";
+    const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-term-card]"));
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const matchesSearch = !search || (card.dataset.search ?? "").includes(search);
+      const matchesCategory = !category || card.dataset.category === category;
+      const matchesPriority = !priority || card.dataset.priority === priority;
+      const matchesDifficulty = !difficulty || card.dataset.difficulty === difficulty;
+      const show = matchesSearch && matchesCategory && matchesPriority && matchesDifficulty;
+      card.classList.toggle("hidden", !show);
+      if (show) visible += 1;
+    });
+
+    const count = root.querySelector<HTMLElement>("[data-filter-count]");
+    if (count) count.textContent = `${visible} cards visible`;
+    root.querySelector<HTMLElement>("[data-empty-state]")?.classList.toggle("hidden", visible !== 0);
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-glossary-root]").forEach((root) => {
+    root.querySelectorAll("input, select").forEach((control) => {
+      control.addEventListener("input", () => applyGlossaryFilters(root));
+      control.addEventListener("change", () => applyGlossaryFilters(root));
+    });
+    applyGlossaryFilters(root);
+  });
+
+  document.addEventListener("click", async (event) => {
+    const copyButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-prompt]");
+    if (copyButton) {
+      await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
+      const original = copyButton.textContent;
+      copyButton.textContent = "Copied";
+      const card = copyButton.closest<HTMLElement>("[data-term-card]");
+      const termId = card?.querySelector<HTMLAnchorElement>("a[href^='/glossary/']")?.getAttribute("href")?.split("/").pop();
+      track("term_prompt_copied", { termId, surface: "card" });
+      window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+      setTimeout(() => {
+        copyButton.textContent = original;
+      }, 1200);
+    }
+
+    const previewButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-preview-option]");
+    if (previewButton) {
+      const scope = previewButton.closest<HTMLElement>("[data-preview-scope]");
+      if (!scope) return;
+      const duration = previewButton.dataset.previewOption === "5" ? "5" : "3";
+      const prompt = duration === "5" ? scope.dataset.preview5 : scope.dataset.preview3;
+      const promptTarget = scope.querySelector<HTMLElement>("[data-preview-prompt]");
+      if (promptTarget && prompt) promptTarget.textContent = prompt;
+      scope.querySelectorAll<HTMLButtonElement>("[data-preview-option]").forEach((button) => {
+        const active = button === previewButton;
+        button.classList.toggle("bg-ink", active);
+        button.classList.toggle("text-bone", active);
+        button.classList.toggle("border", !active);
+        button.classList.toggle("border-ink/12", !active);
+        button.classList.toggle("text-ink/64", !active);
+      });
+    }
+  });
+</script>

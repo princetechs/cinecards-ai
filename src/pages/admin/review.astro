@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllTerms } from "../../../lib/termSearch";
+import { loadProvenance } from "../../../lib/provenance";
+import { scoreRender } from "../../../lib/qualityScore";
+import type { Term } from "../../../types/term";
+
+// Build-time: pull all terms whose review.status is 'pending' or 'draft',
+// sorted by qualityConfidence ascending. The page is intentionally local-only:
+// decisions go to localStorage and are exported as a JSON snippet for PR.
+
+const allTerms = getAllTerms() as Term[];
+const queue = allTerms
+  .filter((t) => {
+    const status = t.review?.status;
+    return status === "pending" || status === "draft";
+  })
+  .sort((a, b) => (a.qualityConfidence ?? 0) - (b.qualityConfidence ?? 0));
+
+interface Row {
+  id: string;
+  name: string;
+  status: string;
+  score: number | null;
+  reasons: string[];
+  provenanceSummary: string | null;
+}
+
+const rows: Row[] = [];
+for (const term of queue) {
+  // Re-derive reasons from previewPrompt5s as a representative sample.
+  // (The worker writes the score itself; we just want to show *why* a card
+  // was flagged, even for hand-authored 'draft' cards.)
+  const sampleProvider = (term.providerSupport && Object.keys(term.providerSupport)[0]) ?? "runway";
+  const sample = scoreRender({
+    prompt: term.previewPrompt5s ?? term.aiPromptTemplate ?? "",
+    durationSec: 5,
+    mode: "text-to-video",
+    providerId: sampleProvider,
+  });
+
+  const provenanceRecords = await loadProvenance(term.id);
+  const latest = provenanceRecords[0];
+  const provenanceSummary = latest
+    ? `${latest.provider}${latest.modelVersion ? ` ${latest.modelVersion}` : ""} - ${latest.renderDate ?? "?"}`
+    : null;
+
+  rows.push({
+    id: term.id,
+    name: term.name,
+    status: term.review?.status ?? "draft",
+    score: term.qualityConfidence ?? sample.score,
+    reasons: sample.reasons,
+    provenanceSummary,
+  });
+}
+
+const pageTitle = "Maintainer review queue - CineCards AI";
+const pageDescription = "Local-only review queue for AI-generated cards.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <section class="bg-paper py-10">
+    <div class="container-pad">
+      <h1 class="text-3xl font-black tracking-tight text-ink sm:text-4xl">Review queue</h1>
+      <p class="mt-2 max-w-2xl text-sm leading-6 text-ink/70">
+        Cards awaiting maintainer judgement, lowest-confidence first.
+      </p>
+      <div class="mt-4 rounded-lg border border-clay/40 bg-clay/10 p-4 text-sm text-ink/80">
+        <strong class="font-black">Local-only review tool.</strong>
+        Decisions are recorded in your browser; submit them via PR.
+      </div>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button
+          type="button"
+          class="focus-ring rounded-lg border border-ink/12 bg-bone px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+          data-toggle-maintainer
+        >
+          Toggle maintainer mode
+        </button>
+        <button
+          type="button"
+          class="focus-ring rounded-lg border border-ink/12 bg-bone px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+          data-copy-patch
+        >
+          Copy as PR patch
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="container-pad">
+      {rows.length === 0 ? (
+        <p class="text-sm text-ink/60">Nothing pending. The queue is empty.</p>
+      ) : (
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-ink/10 text-xs font-bold uppercase tracking-wide text-ink/55">
+                <th class="py-2 pr-4">Term</th>
+                <th class="py-2 pr-4">Status</th>
+                <th class="py-2 pr-4">Score</th>
+                <th class="py-2 pr-4">Reasons</th>
+                <th class="py-2 pr-4">Provenance</th>
+                <th class="py-2 pr-4">Decision</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => (
+                <tr class="border-b border-ink/5 align-top" data-review-row data-term-id={row.id}>
+                  <td class="py-3 pr-4">
+                    <a class="font-bold text-ink hover:text-clay" href={`/glossary/${row.id}`}>{row.name}</a>
+                    <div class="text-xs text-ink/55">{row.id}</div>
+                  </td>
+                  <td class="py-3 pr-4">
+                    <span class="rounded-full bg-paper px-2 py-0.5 text-xs font-bold text-ink/64" data-decided-status>{row.status}</span>
+                  </td>
+                  <td class="py-3 pr-4 font-mono text-xs text-ink/72">{row.score?.toFixed(2) ?? "—"}</td>
+                  <td class="py-3 pr-4 text-xs text-ink/72">
+                    {row.reasons.length === 0 ? "—" : (
+                      <ul class="space-y-1">
+                        {row.reasons.map((reason) => <li>- {reason}</li>)}
+                      </ul>
+                    )}
+                  </td>
+                  <td class="py-3 pr-4 text-xs text-ink/72">{row.provenanceSummary ?? "—"}</td>
+                  <td class="py-3 pr-4">
+                    <div class="flex flex-wrap gap-1">
+                      <button type="button" class="focus-ring rounded-lg border border-ink/12 px-2 py-1 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" data-decide="approved">Approve</button>
+                      <button type="button" class="focus-ring rounded-lg border border-ink/12 px-2 py-1 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" data-decide="pending">Request changes</button>
+                      <button type="button" class="focus-ring rounded-lg border border-ink/12 px-2 py-1 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" data-decide="deprecated">Deprecate</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      <pre class="mt-6 hidden whitespace-pre-wrap break-words rounded-lg bg-ink p-4 font-mono text-xs leading-5 text-bone" data-patch-output></pre>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const STORAGE_KEY = "cinecards.reviewDecisions";
+  const MAINTAINER_KEY = "cinecards.maintainerMode";
+
+  type Decision = { decidedStatus: string; reviewer: string; decidedAt: string };
+
+  function loadDecisions(): Record<string, Decision> {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as Record<string, Decision>) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveDecisions(map: Record<string, Decision>): void {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(map));
+    } catch {
+      /* ignore quota */
+    }
+  }
+
+  function paintExisting(): void {
+    const map = loadDecisions();
+    document.querySelectorAll<HTMLElement>("[data-review-row]").forEach((row) => {
+      const id = row.dataset.termId;
+      if (!id) return;
+      const d = map[id];
+      if (!d) return;
+      const tag = row.querySelector<HTMLElement>("[data-decided-status]");
+      if (tag) tag.textContent = d.decidedStatus + " (local)";
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const decideBtn = target.closest<HTMLButtonElement>("[data-decide]");
+    if (decideBtn) {
+      const row = decideBtn.closest<HTMLElement>("[data-review-row]");
+      const id = row?.dataset.termId;
+      const decided = decideBtn.dataset.decide;
+      if (!id || !decided) return;
+      const map = loadDecisions();
+      map[id] = {
+        decidedStatus: decided,
+        reviewer: "local",
+        decidedAt: new Date().toISOString(),
+      };
+      saveDecisions(map);
+      const tag = row!.querySelector<HTMLElement>("[data-decided-status]");
+      if (tag) tag.textContent = decided + " (local)";
+      return;
+    }
+
+    if (target.closest("[data-toggle-maintainer]")) {
+      const current = window.localStorage.getItem(MAINTAINER_KEY) === "true";
+      window.localStorage.setItem(MAINTAINER_KEY, current ? "false" : "true");
+      window.location.reload();
+      return;
+    }
+
+    if (target.closest("[data-copy-patch]")) {
+      const map = loadDecisions();
+      const snippet = JSON.stringify(map, null, 2);
+      const out = document.querySelector<HTMLElement>("[data-patch-output]");
+      if (out) {
+        out.textContent = snippet;
+        out.classList.remove("hidden");
+      }
+      navigator.clipboard?.writeText(snippet).catch(() => { /* ignore */ });
+      return;
+    }
+  });
+
+  paintExisting();
+</script>

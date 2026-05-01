@@ -1,0 +1,26 @@
+name: Broken preview
+description: A 3s or 5s preview is missing, broken, or rendering incorrectly.
+title: "[Broken preview] "
+labels: ["media", "bug"]
+body:
+  - type: input
+    id: term-id
+    attributes:
+      label: Term id
+      placeholder: dolly-zoom
+    validations:
+      required: true
+  - type: textarea
+    id: what-you-saw
+    attributes:
+      label: What you saw
+      description: Describe the breakage. Screenshots or short clips welcome.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Chrome 130 on macOS 14
+    validations:
+      required: true

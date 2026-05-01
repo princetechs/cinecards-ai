@@ -1,0 +1,84 @@
+---
+import type { Term } from "../types/term";
+import PreviewCard from "./PreviewCard.astro";
+import { getTermByName } from "../lib/termSearch";
+
+interface Props {
+  term: Term;
+}
+
+const { term } = Astro.props;
+const searchText = [
+  term.name,
+  term.category,
+  term.priorityGroup,
+  term.difficulty,
+  term.shortDefinition,
+  term.whyItMatters,
+  term.tags.join(" "),
+  term.relatedTerms.join(" ")
+].join(" ").toLowerCase();
+---
+
+<article
+  class="flex h-full flex-col rounded-xl border border-rule bg-bone p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
+  data-term-card
+  data-category={term.category}
+  data-priority={term.priorityGroup}
+  data-difficulty={term.difficulty}
+  data-search={searchText}
+>
+  <div class="flex flex-wrap items-center gap-2 font-ui">
+    <span class="rounded-full bg-ink px-3 py-1 text-[11px] font-semibold tracking-wide text-bone">{term.category}</span>
+    <span class="rounded-full bg-paper px-3 py-1 text-[11px] font-medium text-ink-soft">{term.priorityGroup}</span>
+    <span class="rounded-full border border-rule px-3 py-1 text-[11px] font-medium text-ink-muted">{term.difficulty}</span>
+  </div>
+
+  <h3 class="mt-5 font-display text-[1.65rem] font-semibold leading-tight tracking-tight text-ink">
+    <a class="hover:text-clay-quiet focus-ring rounded" href={`/glossary/${term.id}`}>{term.name}</a>
+  </h3>
+
+  <p class="reading-prose mt-3 text-[1.0625rem] text-ink-prose">{term.shortDefinition}</p>
+
+  <div class="mt-6 grid gap-5">
+    <div>
+      <p class="label">Why it matters</p>
+      <p class="reading-prose mt-2 text-ink-prose">{term.whyItMatters}</p>
+    </div>
+    <div>
+      <p class="label">Human shoot hint</p>
+      <p class="reading-prose mt-2 text-ink-prose">{term.humanShootHint}</p>
+    </div>
+    <div>
+      <div class="flex items-center justify-between gap-3">
+        <p class="label label-accent">AI prompt template</p>
+        <button class="focus-ring rounded-lg border border-rule bg-bone px-3 py-1.5 font-ui text-[11px] font-semibold uppercase tracking-wider text-ink-soft hover:bg-ink hover:text-bone hover:border-ink" type="button" data-copy-prompt={term.aiPromptTemplate}>Copy</button>
+      </div>
+      <p class="mt-2 break-words rounded-lg bg-ink p-4 font-mono text-[13px] leading-6 text-bone/95">{term.aiPromptTemplate}</p>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <PreviewCard term={term} />
+  </div>
+
+  <div class="mt-6 grid gap-5">
+    <div>
+      <p class="label">Related</p>
+      <div class="mt-2 flex flex-wrap gap-2 font-ui">
+        {term.relatedTerms.map((related) => {
+          const match = getTermByName(related);
+          return match
+            ? <a class="rounded-full bg-paper px-3 py-1 text-[11px] font-medium text-ink-soft hover:bg-ink hover:text-bone" href={`/glossary/${match.id}`}>{related}</a>
+            : <span class="rounded-full bg-paper px-3 py-1 text-[11px] font-medium text-ink-muted">{related}</span>;
+        })}
+      </div>
+    </div>
+    <div>
+      <p class="label">Common mistakes</p>
+      <ul class="reading-prose mt-2 list-disc space-y-1 pl-5 text-ink-prose marker:text-ink-muted">
+        {term.commonMistakes.map((mistake) => <li>{mistake}</li>)}
+      </ul>
+    </div>
+  </div>
+</article>

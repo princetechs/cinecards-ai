@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cinecards.ai/schema/sequence-rules.schema.json",
+  "title": "SequenceRules",
+  "description": "Map of content type -> ordered list of term NAMES (not ids) for the planner. Allowed keys: product, travel, dialogue, tutorial, cinematic, lifestyle, narrative.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "product":   { "$ref": "#/$defs/termNameList" },
+    "travel":    { "$ref": "#/$defs/termNameList" },
+    "dialogue":  { "$ref": "#/$defs/termNameList" },
+    "tutorial":  { "$ref": "#/$defs/termNameList" },
+    "cinematic": { "$ref": "#/$defs/termNameList" },
+    "lifestyle": { "$ref": "#/$defs/termNameList" },
+    "narrative": { "$ref": "#/$defs/termNameList" }
+  },
+  "$defs": {
+    "termNameList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

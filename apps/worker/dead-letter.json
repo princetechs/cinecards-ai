@@ -1,0 +1,18 @@
+{
+  "jobs": [
+    {
+      "id": "f1ed1370-f44d-45d1-9f50-a07b53667b0c",
+      "termId": "frame",
+      "providerId": "runway",
+      "mode": "text-to-video",
+      "prompt": "clean cinematic frame of a glass of water on a wooden table",
+      "durationSec": 3,
+      "status": "failed",
+      "enqueuedAt": "2026-05-01T18:51:14.599Z",
+      "attempts": 3,
+      "startedAt": "2026-05-01T18:51:27.259Z",
+      "error": "Cannot find module '/Users/sandipparida/personal/video_king/lib/providers/pika' imported from /Users/sandipparida/personal/video_king/lib/providers/index.ts",
+      "finishedAt": "2026-05-01T18:51:27.263Z"
+    }
+  ]
+}

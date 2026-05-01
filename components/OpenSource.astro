@@ -1,0 +1,24 @@
+<section class="section-pad bg-night text-bone" id="contribute">
+  <div class="container-pad grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+    <div>
+      <p class="eyebrow text-bone/55">Open source</p>
+      <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Built as a content graph, not a blog.</h2>
+      <p class="mt-4 max-w-xl text-base leading-7 text-bone/68">
+        Filmmakers can improve definitions, AI creators can improve prompts, and developers can add provider adapters without rewriting the learning experience.
+      </p>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {[
+        ["Content lane", "Add terms, examples, mistakes, related cards, and translations."],
+        ["Media lane", "Attach rights-cleared stills, diagrams, preview recipes, and provenance."],
+        ["Code lane", "Improve UI, search, planner scoring, auth, and future render workers."],
+        ["Governance lane", "Review taxonomy changes, moderation issues, and provider policies."]
+      ].map(([title, text]) => (
+        <article class="rounded-lg border border-bone/12 bg-bone/6 p-5">
+          <h3 class="font-black text-bone">{title}</h3>
+          <p class="mt-2 text-sm leading-6 text-bone/66">{text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

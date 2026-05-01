@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cinecards.ai/schema/term.schema.json",
+  "title": "Term",
+  "description": "A single CineCards term card (v2). Required fields are the v1 baseline; v2 fields are optional and backwards compatible.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "category",
+    "priorityGroup",
+    "priorityScore",
+    "shortDefinition",
+    "whyItMatters",
+    "whenToUse",
+    "humanShootHint",
+    "aiPromptTemplate",
+    "previewPrompt3s",
+    "previewPrompt5s",
+    "previewVideoUrl",
+    "relatedTerms",
+    "commonMistakes",
+    "difficulty",
+    "tags"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Shots",
+        "Angles",
+        "Movement",
+        "Lighting",
+        "Composition",
+        "Editing",
+        "Lens / Optics",
+        "AI Workflow"
+      ]
+    },
+    "priorityGroup": {
+      "type": "string",
+      "enum": [
+        "Foundation",
+        "Core Visual Grammar",
+        "Coverage and Edit Logic",
+        "Advanced Look",
+        "AI-Native Workflow"
+      ]
+    },
+    "priorityScore": { "type": "number" },
+    "shortDefinition": { "type": "string", "minLength": 1 },
+    "whyItMatters": { "type": "string", "minLength": 1 },
+    "whenToUse": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "humanShootHint": { "type": "string" },
+    "aiPromptTemplate": { "type": "string" },
+    "previewPrompt3s": { "type": "string" },
+    "previewPrompt5s": { "type": "string" },
+    "previewVideoUrl": { "type": ["string", "null"] },
+    "relatedTerms": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "commonMistakes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["Beginner", "Intermediate", "Advanced"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "providerSupport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "runway": { "type": "string", "enum": ["full", "partial", "none"] },
+        "pika": { "type": "string", "enum": ["full", "partial", "none"] },
+        "stability": { "type": "string", "enum": ["full", "partial", "none"] },
+        "soraLegacy": { "type": "string", "enum": ["full", "partial", "none"] }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["licence"],
+      "properties": {
+        "licence": { "type": "string", "minLength": 1 },
+        "holder": { "type": "string" },
+        "attribution": { "type": "string" },
+        "consentFlags": { "type": "array", "items": { "type": "string" } },
+        "derivativeOf": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["provider"],
+      "properties": {
+        "provider": { "type": "string", "minLength": 1 },
+        "modelVersion": { "type": "string" },
+        "promptHash": { "type": "string" },
+        "sourceAssetIds": { "type": "array", "items": { "type": "string" } },
+        "renderDate": { "type": "string" },
+        "c2pa": { "type": "string" }
+      }
+    },
+    "qualityConfidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["draft", "pending", "approved", "deprecated"]
+        },
+        "reviewer": { "type": "string" },
+        "reviewedAt": { "type": "string" }
+      }
+    },
+    "community": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "upvotes": { "type": "number" },
+        "bookmarks": { "type": "number" },
+        "remixCount": { "type": "number" },
+        "completionCount": { "type": "number" }
+      }
+    },
+    "localisation": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "shortDefinition": { "type": "string" },
+          "whyItMatters": { "type": "string" }
+        }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "url"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["image", "clip", "thumbnail", "diagram"]
+          },
+          "url": { "type": "string" },
+          "hash": { "type": "string" },
+          "rights": { "type": "object", "additionalProperties": true }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,230 @@
+[
+  {
+    "id": "coffee-shop-reel",
+    "name": "Coffee Shop Reel",
+    "useCase": "Short-form social reel inside a cafe at morning",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "macro-shot", "promptOverride": "macro shot of espresso pour into a ceramic cup, crema swirl, soft window light, shallow focus, 5 seconds", "durationSec": 5 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "b-roll", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Lead with the room, end with the pour. Hold the macro for the social hook."
+  },
+  {
+    "id": "two-person-dialogue",
+    "name": "Two-Person Dialogue",
+    "useCase": "Coverage for a conversation between two characters",
+    "items": [
+      { "termId": "master-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "two-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "over-the-shoulder", "promptOverride": null, "durationSec": 3 },
+      { "termId": "reverse-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "reaction-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "eyeline-match", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Respect the 180 line. Keep eyelines consistent across the OTS pair."
+  },
+  {
+    "id": "product-macro-hero",
+    "name": "Product Macro Hero",
+    "useCase": "Premium product launch with macro detail and clean light",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "macro-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "rack-focus", "promptOverride": null, "durationSec": 3 },
+      { "termId": "dolly-in", "promptOverride": null, "durationSec": 5 },
+      { "termId": "back-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "negative-space", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Negative space sells premium. Use back-light to separate the product from a dark backdrop."
+  },
+  {
+    "id": "travel-sunrise-montage",
+    "name": "Travel Sunrise Montage",
+    "useCase": "Cinematic sunrise sequence over a city or coast",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": "establishing shot of a coastal city skyline at sunrise, warm golden light, low haze, slow drift, 5 seconds", "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "time-lapse", "promptOverride": null, "durationSec": 5 },
+      { "termId": "tracking-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "silhouette", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "montage", "promptOverride": null, "durationSec": 5 }
+    ],
+    "notes": "Stack time-lapse against a held silhouette to give the cut a heartbeat."
+  },
+  {
+    "id": "tutorial-talking-head",
+    "name": "Tutorial Talking Head",
+    "useCase": "How-to video with a host explaining a process",
+    "items": [
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "rule-of-thirds", "promptOverride": null, "durationSec": 3 },
+      { "termId": "key-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "top-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "cutaway", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Frame the host on a third. Top-light any hands-on demo so steps read."
+  },
+  {
+    "id": "interview-broll",
+    "name": "Interview B-Roll",
+    "useCase": "Documentary interview with cutaway coverage",
+    "items": [
+      { "termId": "medium-close-up", "promptOverride": null, "durationSec": 5 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "b-roll", "promptOverride": null, "durationSec": 5 },
+      { "termId": "cutaway", "promptOverride": null, "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "j-cut", "promptOverride": null, "durationSec": 3 },
+      { "termId": "l-cut", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Layer J-cuts to bridge audio while picture rests on environment B-roll."
+  },
+  {
+    "id": "cinematic-chase",
+    "name": "Cinematic Chase",
+    "useCase": "Action chase through a tight urban environment",
+    "items": [
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "tracking-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "handheld-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "whip-pan", "promptOverride": null, "durationSec": 3 },
+      { "termId": "low-angle", "promptOverride": null, "durationSec": 3 },
+      { "termId": "pov-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "match-on-action", "promptOverride": null, "durationSec": 3 },
+      { "termId": "jump-cut", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Whip-pans hide cuts. Match-on-action keeps the geography legible at speed."
+  },
+  {
+    "id": "lifestyle-morning-routine",
+    "name": "Lifestyle Morning Routine",
+    "useCase": "Aspirational morning routine in natural light",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "soft-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "match-cut", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Match-cut on repeated gestures (cup, hand, door) to compress time."
+  },
+  {
+    "id": "food-close-up",
+    "name": "Food Close-Up",
+    "useCase": "Restaurant or recipe hero shots with appetising detail",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "macro-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "extreme-close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "top-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "side-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "shallow-depth-of-field", "promptOverride": null, "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Side-light sells texture; top-light flattens. Mix both for variety."
+  },
+  {
+    "id": "real-estate-walkthrough",
+    "name": "Real Estate Walkthrough",
+    "useCase": "Listing tour through a property",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "tracking-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "dolly-in", "promptOverride": null, "durationSec": 5 },
+      { "termId": "tilt", "promptOverride": null, "durationSec": 3 },
+      { "termId": "wide-angle-lens", "promptOverride": null, "durationSec": 3 },
+      { "termId": "deep-focus", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Wide-angle plus deep focus keeps every room legible end-to-end."
+  },
+  {
+    "id": "fitness-demo",
+    "name": "Fitness Demo",
+    "useCase": "Workout move demonstration with form coverage",
+    "items": [
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "low-angle", "promptOverride": null, "durationSec": 3 },
+      { "termId": "tracking-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "slow-motion", "promptOverride": null, "durationSec": 5 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "cutaway", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Slow-mo on the rep, then cut to a CU on the working muscle."
+  },
+  {
+    "id": "fashion-lookbook",
+    "name": "Fashion Lookbook",
+    "useCase": "Editorial-style outfit reveals against clean backdrops",
+    "items": [
+      { "termId": "full-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "rim-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "back-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "match-cut", "promptOverride": null, "durationSec": 3 },
+      { "termId": "negative-space", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Match-cut between looks on the same gesture to chain outfits cleanly."
+  },
+  {
+    "id": "music-performance",
+    "name": "Music Performance",
+    "useCase": "Live performance coverage for a single song",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "extreme-close-up", "promptOverride": "extreme close-up of fingers on guitar strings, stage haze, warm rim light, shallow focus, 3 seconds", "durationSec": 3 },
+      { "termId": "low-angle", "promptOverride": null, "durationSec": 3 },
+      { "termId": "back-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "reaction-shot", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Hold the wide for the chorus. ECU on hands during instrumental fills."
+  },
+  {
+    "id": "kids-birthday",
+    "name": "Kids Birthday",
+    "useCase": "Family event coverage for a kid's birthday party",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "medium-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "close-up", "promptOverride": null, "durationSec": 3 },
+      { "termId": "reaction-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "low-angle", "promptOverride": "low-angle medium shot at a child's eye level, warm afternoon light, balloons in soft focus, 3 seconds", "durationSec": 3 },
+      { "termId": "insert-shot", "promptOverride": null, "durationSec": 3 },
+      { "termId": "montage", "promptOverride": null, "durationSec": 5 }
+    ],
+    "notes": "Drop the camera to the kids' eye level. Reaction shots carry the edit."
+  },
+  {
+    "id": "sunset-establishing",
+    "name": "Sunset Establishing",
+    "useCase": "Golden-hour openers for travel, lifestyle, or narrative",
+    "items": [
+      { "termId": "establishing-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "wide-shot", "promptOverride": null, "durationSec": 5 },
+      { "termId": "silhouette", "promptOverride": null, "durationSec": 3 },
+      { "termId": "back-light", "promptOverride": null, "durationSec": 3 },
+      { "termId": "telephoto-lens", "promptOverride": null, "durationSec": 3 },
+      { "termId": "time-lapse", "promptOverride": null, "durationSec": 5 },
+      { "termId": "dissolve", "promptOverride": null, "durationSec": 3 }
+    ],
+    "notes": "Telephoto compresses the sun. Dissolve out to push into the next scene."
+  }
+]

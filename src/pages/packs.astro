@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import promptPacks from "../../data/promptPacks.json";
+import { getAllTerms } from "../../lib/termSearch";
+import { buildPrompt } from "../../lib/promptBuilder";
+import type { PromptPack } from "../../types/pack";
+import type { Term } from "../../types/term";
+
+const packs = promptPacks as PromptPack[];
+const terms = getAllTerms();
+const termsById = new Map<string, Term>(terms.map((term) => [term.id, term]));
+
+type ResolvedItem = {
+  order: number;
+  termId: string;
+  termName: string;
+  category: string;
+  durationSec: number;
+  duration: "3s" | "5s";
+  prompt: string;
+};
+
+type ResolvedPack = PromptPack & { resolvedItems: ResolvedItem[] };
+
+const resolved: ResolvedPack[] = packs.map((pack) => ({
+  ...pack,
+  resolvedItems: pack.items
+    .map((item, index): ResolvedItem | null => {
+      const term = termsById.get(item.termId);
+      if (!term) return null;
+      const duration: "3s" | "5s" = item.durationSec >= 5 ? "5s" : "3s";
+      const prompt = item.promptOverride && item.promptOverride.trim().length > 0
+        ? item.promptOverride
+        : buildPrompt(term, pack.useCase, duration);
+      return {
+        order: index + 1,
+        termId: term.id,
+        termName: term.name,
+        category: term.category,
+        durationSec: item.durationSec,
+        duration,
+        prompt
+      };
+    })
+    .filter((item): item is ResolvedItem => Boolean(item))
+}));
+---
+
+<BaseLayout
+  title="CineCards AI Prompt Packs - Curated shot bundles for AI video"
+  description="Curated reusable bundles of cinematography terms and AI video prompts for common use cases."
+>
+  <section class="bg-paper py-14">
+    <div class="container-pad">
+      <p class="eyebrow text-clay">Prompt Packs</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-black tracking-tight text-ink sm:text-5xl">Reusable shot bundles for fast coverage.</h1>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-ink/68">
+        Each pack is a curated sequence of terms and prompts for a specific use case. Copy any prompt, or save your own plans from the planner.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-bone py-12">
+    <div class="container-pad">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow text-clay">Your saved packs</p>
+          <h2 class="mt-2 text-2xl font-black tracking-tight text-ink">From this device</h2>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wide text-ink/48" data-saved-count>0 saved</span>
+      </div>
+      <div
+        class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        data-saved-grid
+      >
+        <div
+          class="rounded-lg border border-dashed border-ink/15 bg-paper p-6 text-sm leading-6 text-ink/62"
+          data-saved-empty
+        >
+          No saved packs yet. Build a sequence in the planner and use "Save current plan as pack" to store it locally.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper py-14">
+    <div class="container-pad">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow text-clay">Curated</p>
+          <h2 class="mt-2 text-2xl font-black tracking-tight text-ink">Ready-to-use packs</h2>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wide text-ink/48">{resolved.length} packs</span>
+      </div>
+      <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        {resolved.map((pack) => (
+          <article
+            class="flex h-full flex-col rounded-lg border border-ink/10 bg-bone p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
+            data-pack
+            id={`pack-${pack.id}`}
+          >
+            <header class="flex items-start justify-between gap-3">
+              <div>
+                <p class="eyebrow text-clay">Pack</p>
+                <h3 class="mt-1 text-2xl font-black tracking-tight text-ink">{pack.name}</h3>
+                <p class="mt-2 text-sm leading-6 text-ink/72">{pack.useCase}</p>
+              </div>
+              <span class="rounded-full bg-paper px-3 py-1 text-xs font-bold text-ink/62">{pack.resolvedItems.length} shots</span>
+            </header>
+
+            <details class="group mt-5 rounded-lg border border-ink/10 bg-paper/60">
+              <summary class="focus-ring flex cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm font-bold text-ink/78 hover:bg-ink/5">
+                <span>Open shot list</span>
+                <span class="text-xs font-bold text-ink/48 group-open:hidden">Show</span>
+                <span class="hidden text-xs font-bold text-ink/48 group-open:inline">Hide</span>
+              </summary>
+              <div class="space-y-3 p-4">
+                {pack.resolvedItems.map((item) => (
+                  <article class="rounded-lg border border-ink/10 bg-bone p-4">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                      <div class="flex items-center gap-3">
+                        <span class="grid size-8 place-items-center rounded-lg bg-ink text-sm font-black text-bone">{item.order}</span>
+                        <div>
+                          <h4 class="font-black text-ink">{item.termName}</h4>
+                          <p class="text-xs font-bold uppercase tracking-wide text-ink/48">{item.category} - {item.duration}</p>
+                        </div>
+                      </div>
+                      <button
+                        class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+                        type="button"
+                        data-copy-prompt={item.prompt}
+                      >Copy prompt</button>
+                    </div>
+                    <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone">{item.prompt}</p>
+                  </article>
+                ))}
+              </div>
+            </details>
+
+            <p class="mt-5 text-xs leading-5 text-ink/56"><span class="font-black uppercase tracking-wide text-clay">Notes</span> {pack.notes}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+<script>
+  type SavedPackItem = {
+    termId: string;
+    termName: string;
+    prompt: string;
+    durationSec: number;
+  };
+  type SavedPack = {
+    id: string;
+    name: string;
+    topic: string;
+    savedAt: string;
+    items: SavedPackItem[];
+  };
+
+  const escapeHtml = (value: string) =>
+    value.replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#039;"
+    })[char] ?? char);
+
+  const readSaved = (): SavedPack[] => {
+    if (typeof localStorage === "undefined") return [];
+    try {
+      const raw = localStorage.getItem("cinecards.savedPacks");
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed as SavedPack[] : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const writeSaved = (packs: SavedPack[]) => {
+    localStorage.setItem("cinecards.savedPacks", JSON.stringify(packs));
+  };
+
+  const renderSaved = () => {
+    const grid = document.querySelector<HTMLElement>("[data-saved-grid]");
+    const empty = document.querySelector<HTMLElement>("[data-saved-empty]");
+    const count = document.querySelector<HTMLElement>("[data-saved-count]");
+    if (!grid) return;
+
+    const saved = readSaved();
+    if (count) count.textContent = `${saved.length} saved`;
+
+    grid.querySelectorAll("[data-saved-card]").forEach((node) => node.remove());
+
+    if (saved.length === 0) {
+      if (empty) empty.classList.remove("hidden");
+      return;
+    }
+    if (empty) empty.classList.add("hidden");
+
+    const html = saved.map((pack) => `
+      <article class="flex h-full flex-col rounded-lg border border-ink/10 bg-paper p-5 shadow-soft" data-saved-card>
+        <header class="flex items-start justify-between gap-3">
+          <div>
+            <p class="eyebrow text-clay">Saved</p>
+            <h3 class="mt-1 text-xl font-black tracking-tight text-ink">${escapeHtml(pack.name)}</h3>
+            <p class="mt-1 text-xs font-bold uppercase tracking-wide text-ink/48">${escapeHtml(pack.topic)}</p>
+          </div>
+          <span class="rounded-full bg-bone px-3 py-1 text-xs font-bold text-ink/62">${pack.items.length} shots</span>
+        </header>
+        <details class="group mt-4 rounded-lg border border-ink/10 bg-bone/60">
+          <summary class="flex cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm font-bold text-ink/78 hover:bg-ink/5">
+            <span>Open shot list</span>
+            <span class="text-xs font-bold text-ink/48 group-open:hidden">Show</span>
+            <span class="hidden text-xs font-bold text-ink/48 group-open:inline">Hide</span>
+          </summary>
+          <div class="space-y-3 p-4">
+            ${pack.items.map((item, index) => `
+              <article class="rounded-lg border border-ink/10 bg-bone p-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <span class="grid size-8 place-items-center rounded-lg bg-ink text-sm font-black text-bone">${index + 1}</span>
+                    <div>
+                      <h4 class="font-black text-ink">${escapeHtml(item.termName)}</h4>
+                      <p class="text-xs font-bold uppercase tracking-wide text-ink/48">${item.durationSec}s</p>
+                    </div>
+                  </div>
+                  <button class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" type="button" data-copy-prompt="${escapeHtml(item.prompt)}">Copy prompt</button>
+                </div>
+                <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone">${escapeHtml(item.prompt)}</p>
+              </article>
+            `).join("")}
+          </div>
+        </details>
+        <div class="mt-4 flex items-center justify-between text-xs text-ink/48">
+          <span>Saved ${escapeHtml(new Date(pack.savedAt).toLocaleString())}</span>
+          <button class="focus-ring rounded-lg border border-ink/12 px-3 py-1 font-bold text-ink/62 hover:bg-ink hover:text-bone" type="button" data-delete-saved="${escapeHtml(pack.id)}">Delete</button>
+        </div>
+      </article>
+    `).join("");
+
+    grid.insertAdjacentHTML("beforeend", html);
+  };
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    const del = target.closest<HTMLButtonElement>("[data-delete-saved]");
+    if (!del) return;
+    const id = del.dataset.deleteSaved;
+    if (!id) return;
+    writeSaved(readSaved().filter((pack) => pack.id !== id));
+    renderSaved();
+  });
+
+  document.addEventListener("click", async (event) => {
+    const copyButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-prompt]");
+    if (!copyButton) return;
+    await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
+    const original = copyButton.textContent;
+    copyButton.textContent = "Copied";
+    window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+    setTimeout(() => { copyButton.textContent = original; }, 1200);
+  });
+
+  window.addEventListener("cinecards:saved-packs-updated", renderSaved);
+  renderSaved();
+</script>
+</BaseLayout>

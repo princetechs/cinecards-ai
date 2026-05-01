@@ -1,0 +1,83 @@
+---
+// Dev-only inspector for the local analytics event log.
+// Lives at /_debug-events. Static page, list rendered client-side from
+// localStorage (`cinecards.events`). See docs/analytics-events.md.
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Debug — Analytics Events">
+  <section class="container-pad py-12">
+    <h1 class="text-3xl font-black tracking-tight text-ink">Analytics events (debug)</h1>
+    <p class="mt-2 text-sm text-ink/64">
+      Last 50 events from <code class="rounded bg-paper px-1">localStorage["cinecards.events"]</code>.
+      Dev-only — not linked from navigation.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      <button
+        type="button"
+        data-debug-refresh
+        class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+      >Refresh</button>
+      <button
+        type="button"
+        data-debug-clear
+        class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+      >Clear log</button>
+      <span class="self-center text-xs text-ink/48" data-debug-count></span>
+    </div>
+    <div class="mt-6 overflow-x-auto rounded-lg border border-ink/10 bg-bone">
+      <table class="w-full text-left text-sm">
+        <thead class="border-b border-ink/10 text-xs uppercase tracking-wide text-ink/56">
+          <tr>
+            <th class="px-3 py-2">Time</th>
+            <th class="px-3 py-2">Event</th>
+            <th class="px-3 py-2">Props</th>
+          </tr>
+        </thead>
+        <tbody data-debug-body>
+          <tr><td class="px-3 py-4 text-ink/48" colspan="3">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { getEvents, clearEvents } from "../../lib/analytics";
+
+  const body = document.querySelector<HTMLElement>("[data-debug-body]");
+  const count = document.querySelector<HTMLElement>("[data-debug-count]");
+
+  const escape = (s: string) =>
+    s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] ?? c);
+
+  const render = () => {
+    if (!body) return;
+    const all = getEvents();
+    const events = all.slice(-50).reverse();
+    if (count) count.textContent = `${events.length} shown / ${all.length} total`;
+    if (events.length === 0) {
+      body.innerHTML = '<tr><td class="px-3 py-4 text-ink/48" colspan="3">No events yet. Interact with the site, then refresh.</td></tr>';
+      return;
+    }
+    body.innerHTML = events
+      .map((e) => {
+        const ts = new Date(e.ts).toISOString().replace("T", " ").slice(0, 19);
+        const props = e.props ? escape(JSON.stringify(e.props)) : "";
+        return `<tr class="border-b border-ink/5 last:border-0">
+          <td class="px-3 py-2 font-mono text-xs text-ink/64">${ts}</td>
+          <td class="px-3 py-2 font-mono text-xs font-bold text-ink">${escape(e.event)}</td>
+          <td class="px-3 py-2 font-mono text-xs text-ink/72">${props}</td>
+        </tr>`;
+      })
+      .join("");
+  };
+
+  document.querySelector("[data-debug-refresh]")?.addEventListener("click", render);
+  document.querySelector("[data-debug-clear]")?.addEventListener("click", () => {
+    clearEvents();
+    render();
+  });
+
+  render();
+</script>

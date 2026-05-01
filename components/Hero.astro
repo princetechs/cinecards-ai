@@ -1,0 +1,40 @@
+---
+const stats = [
+  { label: "terms", value: "124" },
+  { label: "planner modes", value: "7" },
+  { label: "preview lengths", value: "3s / 5s" }
+];
+---
+
+<section class="relative isolate min-h-[82svh] overflow-hidden bg-night text-bone">
+  <img
+    class="absolute inset-0 -z-20 h-full w-full object-cover"
+    src="/images/cinecards-hero.png"
+    alt=""
+    loading="eager"
+  />
+  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/78 to-night/20"></div>
+  <div class="container-pad flex min-h-[82svh] items-center py-20">
+    <div class="max-w-3xl">
+      <p class="eyebrow text-bone/68">Open-source visual learning for human and AI video</p>
+      <h1 class="mt-5 max-w-2xl text-5xl font-black leading-[0.95] text-bone sm:text-6xl lg:text-7xl">
+        CineCards AI
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-bone/78 sm:text-xl">
+        Learn film terms visually, turn any topic into a prioritized shot sequence, and copy cleaner AI video prompts without memorizing a film-school glossary first.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a class="focus-ring rounded-lg bg-bone px-5 py-3 text-center text-sm font-black text-ink shadow-soft transition hover:bg-white" href="/planner">Plan a Shot Sequence</a>
+        <a class="focus-ring rounded-lg border border-bone/30 px-5 py-3 text-center text-sm font-black text-bone transition hover:bg-bone/10" href="/glossary">Explore Glossary</a>
+      </div>
+      <dl class="mt-12 grid max-w-xl grid-cols-3 gap-3">
+        {stats.map((item) => (
+          <div class="border-l border-bone/24 pl-4">
+            <dt class="text-2xl font-black text-bone">{item.value}</dt>
+            <dd class="mt-1 text-xs font-semibold uppercase tracking-wide text-bone/56">{item.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>

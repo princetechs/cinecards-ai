@@ -1,0 +1,96 @@
+---
+import CreatorLogin from "./CreatorLogin.astro";
+import { getUiStrings, LOCALES, localisedPath, type Locale } from "../src/i18n";
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = "en" } = Astro.props as Props;
+const t = getUiStrings(lang);
+const home = localisedPath("/", lang);
+const localeLabels = t.locale as unknown as Record<string, string>;
+---
+
+<header class="sticky top-0 z-40 border-b border-ink/10 bg-paper/82 backdrop-blur-xl">
+  <div class="container-pad flex h-16 items-center justify-between gap-4">
+    <a class="focus-ring flex items-center gap-2 rounded-lg" href={home}>
+      <span class="grid size-8 place-items-center rounded-lg bg-ink text-sm font-black text-bone">C</span>
+      <span class="text-sm font-black tracking-wide text-ink">CineCards AI</span>
+    </a>
+    <nav class="hidden items-center gap-1 text-sm font-semibold text-ink/68 sm:flex">
+      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href={localisedPath("/glossary", lang)}>{t.nav.glossary}</a>
+      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href={localisedPath("/planner", lang)}>{t.nav.planner}</a>
+      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/learn">{t.nav.learn}</a>
+      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/packs">{t.nav.packs}</a>
+      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/#contribute">{t.nav.contribute}</a>
+      <a
+        class="focus-ring hidden rounded-lg px-3 py-2 text-xs uppercase tracking-wide text-ink/55 hover:bg-ink/5 hover:text-ink"
+        href="/admin/review"
+        data-maintainer-link
+      >review</a>
+    </nav>
+    <div class="flex items-center gap-2">
+      <div
+        class="flex items-center gap-1 rounded-full border border-ink/12 bg-bone p-0.5 text-xs font-bold text-ink/68"
+        data-locale-toggle
+        data-current-locale={lang}
+        data-locales={LOCALES.join(",")}
+        aria-label={t.locale.label}
+      >
+        {LOCALES.map((loc) => (
+          <button
+            type="button"
+            class={`focus-ring rounded-full px-2.5 py-1 transition ${loc === lang ? "bg-ink text-bone" : "hover:bg-ink/5"}`}
+            data-locale-option={loc}
+            aria-pressed={loc === lang ? "true" : "false"}
+          >
+            {localeLabels[loc] ?? loc.toUpperCase()}
+          </button>
+        ))}
+      </div>
+      <a class="focus-ring hidden rounded-full bg-ink px-4 py-2 text-sm font-bold text-bone shadow-sm transition hover:bg-clay sm:inline-flex" href={localisedPath("/planner", lang)}>{t.cta.planSequence}</a>
+      <CreatorLogin />
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Reveal the maintainer "review" link only when the local toggle is on.
+  try {
+    if (window.localStorage.getItem("cinecards.maintainerMode") === "true") {
+      document.querySelectorAll("[data-maintainer-link]").forEach((el) => {
+        el.classList.remove("hidden");
+      });
+    }
+  } catch { /* ignore */ }
+</script>
+
+<script is:inline define:vars={{ LOCALES, DEFAULT_LOCALE: "en" }}>
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    const button = target.closest("[data-locale-option]");
+    if (!button) return;
+    const next = button.getAttribute("data-locale-option");
+    if (!next || !LOCALES.includes(next)) return;
+
+    const path = window.location.pathname;
+    // Detect current locale prefix
+    const segments = path.split("/").filter(Boolean);
+    let rest = path;
+    if (segments.length > 0 && LOCALES.includes(segments[0]) && segments[0] !== DEFAULT_LOCALE) {
+      rest = "/" + segments.slice(1).join("/");
+      if (rest === "/") rest = "/";
+    }
+    if (!rest.startsWith("/")) rest = "/" + rest;
+
+    let target2;
+    if (next === DEFAULT_LOCALE) {
+      target2 = rest === "" ? "/" : rest;
+    } else {
+      target2 = rest === "/" ? `/${next}` : `/${next}${rest}`;
+    }
+    window.location.assign(target2 + window.location.search + window.location.hash);
+  });
+</script>

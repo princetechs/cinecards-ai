@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PlannerInput from "../../../components/PlannerInput.astro";
+import AIPromptOutput from "../../../components/AIPromptOutput.astro";
+import PreviewConcept from "../../../components/PreviewConcept.astro";
+import { getAllTerms } from "../../../lib/termSearch";
+import { LOCALES, DEFAULT_LOCALE, getLocalisedTerm, type Locale } from "../../i18n";
+
+export async function getStaticPaths() {
+  return LOCALES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang },
+    props: { lang }
+  }));
+}
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props as Props;
+const terms = getAllTerms().map((term) => getLocalisedTerm(term, lang));
+const previewTerms = ["Establishing Shot", "Insert Shot", "Close-Up"]
+  .map((name) => terms.find((term) => term.name === name || (term as any).id === name.toLowerCase().replace(/\s+/g, "-")))
+  .filter((term): term is (typeof terms)[number] => Boolean(term));
+---
+
+<BaseLayout
+  lang={lang}
+  title="CineCards AI Planner - Topic to shot sequence and AI prompts"
+  description="Convert a topic or story into a prioritized sequence of cinematography shots and AI video prompts."
+>
+  <PlannerInput />
+  <AIPromptOutput terms={terms} />
+  <PreviewConcept terms={previewTerms} />
+</BaseLayout>

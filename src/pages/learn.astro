@@ -1,0 +1,482 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getAllTerms } from "../../lib/termSearch";
+import sequenceRulesData from "../../data/sequenceRules.json";
+
+const terms = getAllTerms();
+const sequenceRules = sequenceRulesData as Record<string, string[]>;
+const sequenceTypes = Object.keys(sequenceRules);
+
+// Strip fields we do not need on the client to keep the payload small.
+const quizTerms = terms.map((term) => ({
+  id: term.id,
+  name: term.name,
+  priorityGroup: term.priorityGroup,
+  shortDefinition: term.shortDefinition,
+  whenToUse: term.whenToUse
+}));
+---
+
+<BaseLayout
+  title="CineCards AI Learn - Quiz and recall mode for film terms"
+  description="Test your film grammar with three quiz modes drawn from the CineCards term library: name-the-term, pick-the-shot, and order-the-sequence."
+>
+  <section class="bg-paper py-14">
+    <div class="container-pad">
+      <p class="eyebrow text-clay">Learn</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-black tracking-tight text-ink sm:text-5xl">Recall mode for working creators.</h1>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-ink/68">
+        Three short drills built straight from the term library. Your scores stay on this device, grouped by priority track.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-20">
+    <div class="container-pad">
+      <div class="flex flex-wrap gap-2 border-b border-ink/10" role="tablist" data-quiz-tabs>
+        <button
+          class="focus-ring -mb-px rounded-t-lg border border-b-0 border-transparent px-4 py-2 text-sm font-bold text-ink/60 hover:text-ink data-[active=true]:border-ink/10 data-[active=true]:bg-bone data-[active=true]:text-ink"
+          type="button"
+          role="tab"
+          data-quiz-tab="nameTheTerm"
+          data-active="true"
+        >
+          Name the term
+        </button>
+        <button
+          class="focus-ring -mb-px rounded-t-lg border border-b-0 border-transparent px-4 py-2 text-sm font-bold text-ink/60 hover:text-ink data-[active=true]:border-ink/10 data-[active=true]:bg-bone data-[active=true]:text-ink"
+          type="button"
+          role="tab"
+          data-quiz-tab="pickTheShot"
+        >
+          Pick the shot
+        </button>
+        <button
+          class="focus-ring -mb-px rounded-t-lg border border-b-0 border-transparent px-4 py-2 text-sm font-bold text-ink/60 hover:text-ink data-[active=true]:border-ink/10 data-[active=true]:bg-bone data-[active=true]:text-ink"
+          type="button"
+          role="tab"
+          data-quiz-tab="orderSequence"
+        >
+          Order the sequence
+        </button>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
+        <div>
+          <!-- Name the term -->
+          <article class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft" data-quiz-panel="nameTheTerm">
+            <div class="flex items-center justify-between gap-3">
+              <p class="eyebrow text-clay">Name the term</p>
+              <span class="text-xs font-bold text-ink/60" data-ntt-counter>1 / 5</span>
+            </div>
+            <p class="mt-4 text-sm font-bold uppercase tracking-wide text-ink/55">Definition</p>
+            <p class="mt-2 text-xl font-black leading-7 text-ink" data-ntt-prompt>Loading...</p>
+            <div class="mt-6 grid gap-2 sm:grid-cols-2" data-ntt-options></div>
+            <div class="mt-5 flex items-center justify-between gap-3">
+              <p class="text-sm text-ink/68" data-ntt-feedback></p>
+              <button class="focus-ring rounded-lg bg-ink px-4 py-2 text-sm font-bold text-bone hover:bg-clay" type="button" data-ntt-next>Next</button>
+            </div>
+          </article>
+
+          <!-- Pick the shot -->
+          <article class="hidden rounded-lg border border-ink/10 bg-bone p-6 shadow-soft" data-quiz-panel="pickTheShot">
+            <div class="flex items-center justify-between gap-3">
+              <p class="eyebrow text-clay">Pick the shot</p>
+              <span class="text-xs font-bold text-ink/60" data-pts-counter>1 / 5</span>
+            </div>
+            <p class="mt-4 text-sm font-bold uppercase tracking-wide text-ink/55">Scenario</p>
+            <p class="mt-2 text-xl font-black leading-7 text-ink" data-pts-prompt>Loading...</p>
+            <div class="mt-6 grid gap-2 sm:grid-cols-2" data-pts-options></div>
+            <div class="mt-5 flex items-center justify-between gap-3">
+              <p class="text-sm text-ink/68" data-pts-feedback></p>
+              <button class="focus-ring rounded-lg bg-ink px-4 py-2 text-sm font-bold text-bone hover:bg-clay" type="button" data-pts-next>Next</button>
+            </div>
+          </article>
+
+          <!-- Order the sequence -->
+          <article class="hidden rounded-lg border border-ink/10 bg-bone p-6 shadow-soft" data-quiz-panel="orderSequence">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <p class="eyebrow text-clay">Order the sequence</p>
+              <div class="flex items-center gap-2">
+                <label class="text-xs font-bold uppercase tracking-wide text-ink/55" for="ord-type">Type</label>
+                <select class="focus-ring rounded-lg border border-ink/15 bg-white px-2 py-1 text-sm" id="ord-type" data-ord-type>
+                  {sequenceTypes.map((type) => <option value={type}>{type}</option>)}
+                </select>
+              </div>
+            </div>
+            <p class="mt-4 text-sm text-ink/68">Drag the shots into the order a strong sequence usually follows.</p>
+            <ul class="mt-5 space-y-2" data-ord-list></ul>
+            <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p class="text-sm text-ink/68" data-ord-feedback></p>
+              <div class="flex gap-2">
+                <button class="focus-ring rounded-lg border border-ink/15 px-3 py-2 text-sm font-bold text-ink hover:bg-ink hover:text-bone" type="button" data-ord-shuffle>Shuffle</button>
+                <button class="focus-ring rounded-lg bg-ink px-4 py-2 text-sm font-bold text-bone hover:bg-clay" type="button" data-ord-check>Check order</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="rounded-lg border border-ink/10 bg-bone p-6 shadow-soft" aria-label="Score summary">
+          <p class="eyebrow text-clay">Your scores</p>
+          <p class="mt-2 text-sm text-ink/68">Stored locally on this device.</p>
+          <dl class="mt-5 space-y-3 text-sm" data-quiz-scores>
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-paper p-3">
+              <dt class="font-bold text-ink">Name the term</dt>
+              <dd class="font-mono text-ink/72" data-score="nameTheTerm">0 / 0</dd>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-paper p-3">
+              <dt class="font-bold text-ink">Pick the shot</dt>
+              <dd class="font-mono text-ink/72" data-score="pickTheShot">0 / 0</dd>
+            </div>
+            <div class="flex items-center justify-between gap-3 rounded-lg bg-paper p-3">
+              <dt class="font-bold text-ink">Order the sequence</dt>
+              <dd class="font-mono text-ink/72" data-score="orderSequence">0 / 0</dd>
+            </div>
+          </dl>
+          <p class="mt-6 eyebrow text-clay">By priority group</p>
+          <dl class="mt-3 space-y-2 text-xs" data-quiz-group-scores></dl>
+          <button class="mt-6 text-xs font-semibold text-ink/55 hover:text-ink" type="button" data-quiz-reset>Reset quiz scores</button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline type="application/json" id="quiz-terms-data" set:html={JSON.stringify(quizTerms)}></script>
+  <script is:inline type="application/json" id="quiz-rules-data" set:html={JSON.stringify(sequenceRules)}></script>
+
+  <script>
+    type QuizTerm = {
+      id: string;
+      name: string;
+      priorityGroup: string;
+      shortDefinition: string;
+      whenToUse: string[];
+    };
+
+    type ModeKey = "nameTheTerm" | "pickTheShot" | "orderSequence";
+
+    type QuizScores = {
+      nameTheTerm: { correct: number; total: number };
+      pickTheShot: { correct: number; total: number };
+      orderSequence: { correct: number; total: number };
+      byPriorityGroup: Record<string, { correct: number; total: number }>;
+    };
+
+    const SCORES_KEY = "cinecards.quizScores";
+    const PRIORITY_GROUPS = [
+      "Foundation",
+      "Core Visual Grammar",
+      "Coverage and Edit Logic",
+      "Advanced Look",
+      "AI-Native Workflow"
+    ];
+
+    const termsEl = document.getElementById("quiz-terms-data");
+    const rulesEl = document.getElementById("quiz-rules-data");
+    if (!termsEl || !rulesEl) throw new Error("Quiz data missing");
+
+    const allTerms: QuizTerm[] = JSON.parse(termsEl.textContent || "[]");
+    const sequenceRules: Record<string, string[]> = JSON.parse(rulesEl.textContent || "{}");
+    const termByName = new Map(allTerms.map((t) => [t.name, t]));
+
+    const defaultScores = (): QuizScores => ({
+      nameTheTerm: { correct: 0, total: 0 },
+      pickTheShot: { correct: 0, total: 0 },
+      orderSequence: { correct: 0, total: 0 },
+      byPriorityGroup: Object.fromEntries(PRIORITY_GROUPS.map((g) => [g, { correct: 0, total: 0 }]))
+    });
+
+    const readScores = (): QuizScores => {
+      try {
+        const raw = localStorage.getItem(SCORES_KEY);
+        if (!raw) return defaultScores();
+        const parsed = JSON.parse(raw);
+        const merged = { ...defaultScores(), ...parsed };
+        merged.byPriorityGroup = { ...defaultScores().byPriorityGroup, ...(parsed.byPriorityGroup || {}) };
+        return merged;
+      } catch {
+        return defaultScores();
+      }
+    };
+
+    const writeScores = (scores: QuizScores) => {
+      localStorage.setItem(SCORES_KEY, JSON.stringify(scores));
+      window.dispatchEvent(new CustomEvent("cinecards:quiz-scores-updated"));
+      renderScores();
+    };
+
+    const recordAnswer = (mode: ModeKey, group: string | null, correct: boolean) => {
+      const scores = readScores();
+      scores[mode].total += 1;
+      if (correct) scores[mode].correct += 1;
+      if (group) {
+        const entry = scores.byPriorityGroup[group] ?? { correct: 0, total: 0 };
+        entry.total += 1;
+        if (correct) entry.correct += 1;
+        scores.byPriorityGroup[group] = entry;
+      }
+      writeScores(scores);
+    };
+
+    const renderScores = () => {
+      const scores = readScores();
+      document.querySelectorAll<HTMLElement>("[data-score]").forEach((el) => {
+        const key = el.dataset.score as ModeKey;
+        const entry = scores[key];
+        if (entry) el.textContent = `${entry.correct} / ${entry.total}`;
+      });
+      const groupHost = document.querySelector<HTMLElement>("[data-quiz-group-scores]");
+      if (groupHost) {
+        groupHost.innerHTML = PRIORITY_GROUPS
+          .map((group) => {
+            const entry = scores.byPriorityGroup[group] ?? { correct: 0, total: 0 };
+            const pct = entry.total ? Math.round((entry.correct / entry.total) * 100) : 0;
+            return `
+              <div>
+                <div class="flex items-center justify-between gap-3 text-ink/70">
+                  <dt class="font-semibold">${group}</dt>
+                  <dd class="font-mono">${entry.correct} / ${entry.total}</dd>
+                </div>
+                <div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-paper">
+                  <div class="h-full bg-ink" style="width:${pct}%"></div>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+    };
+
+    document.querySelector<HTMLButtonElement>("[data-quiz-reset]")?.addEventListener("click", () => {
+      localStorage.removeItem(SCORES_KEY);
+      renderScores();
+      window.dispatchEvent(new CustomEvent("cinecards:quiz-scores-updated"));
+    });
+
+    // Tabs
+    document.querySelectorAll<HTMLButtonElement>("[data-quiz-tab]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.quizTab;
+        document.querySelectorAll<HTMLButtonElement>("[data-quiz-tab]").forEach((t) => {
+          t.dataset.active = t === tab ? "true" : "false";
+        });
+        document.querySelectorAll<HTMLElement>("[data-quiz-panel]").forEach((panel) => {
+          panel.classList.toggle("hidden", panel.dataset.quizPanel !== target);
+        });
+      });
+    });
+
+    // Helpers
+    const shuffle = <T,>(arr: T[]): T[] => {
+      const copy = arr.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    };
+
+    const sample = <T,>(arr: T[], n: number): T[] => shuffle(arr).slice(0, n);
+
+    // ---------- Name the term ----------
+    type NTTState = { round: number; total: number; current?: { term: QuizTerm; choices: QuizTerm[] }; answered: boolean };
+    const nttState: NTTState = { round: 0, total: 5, answered: false };
+    const nttPrompt = document.querySelector<HTMLElement>("[data-ntt-prompt]");
+    const nttOptions = document.querySelector<HTMLElement>("[data-ntt-options]");
+    const nttFeedback = document.querySelector<HTMLElement>("[data-ntt-feedback]");
+    const nttCounter = document.querySelector<HTMLElement>("[data-ntt-counter]");
+    const nttNext = document.querySelector<HTMLButtonElement>("[data-ntt-next]");
+
+    const nextNTT = () => {
+      nttState.round = (nttState.round % nttState.total) + 1;
+      nttState.answered = false;
+      const term = allTerms[Math.floor(Math.random() * allTerms.length)];
+      const distractors = sample(allTerms.filter((t) => t.id !== term.id), 3);
+      const choices = shuffle([term, ...distractors]);
+      nttState.current = { term, choices };
+      if (nttPrompt) nttPrompt.textContent = term.shortDefinition;
+      if (nttCounter) nttCounter.textContent = `${nttState.round} / ${nttState.total}`;
+      if (nttFeedback) nttFeedback.textContent = "";
+      if (nttOptions) {
+        nttOptions.innerHTML = "";
+        choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "focus-ring rounded-lg border border-ink/15 bg-paper px-4 py-3 text-left text-sm font-bold text-ink hover:bg-ink hover:text-bone";
+          button.textContent = choice.name;
+          button.addEventListener("click", () => {
+            if (nttState.answered || !nttState.current) return;
+            nttState.answered = true;
+            const correct = choice.id === nttState.current.term.id;
+            recordAnswer("nameTheTerm", nttState.current.term.priorityGroup, correct);
+            nttOptions.querySelectorAll("button").forEach((b) => {
+              b.disabled = true;
+              const label = (b.textContent || "").trim();
+              if (label === nttState.current!.term.name) {
+                b.classList.add("bg-ink", "text-bone");
+              } else if (b === button) {
+                b.classList.add("bg-clay/30", "text-ink");
+              }
+            });
+            if (nttFeedback) nttFeedback.textContent = correct ? "Correct." : `Answer: ${nttState.current.term.name}.`;
+          });
+          nttOptions.appendChild(button);
+        });
+      }
+    };
+
+    nttNext?.addEventListener("click", () => nextNTT());
+    nextNTT();
+
+    // ---------- Pick the shot ----------
+    type PTSState = { round: number; total: number; current?: { term: QuizTerm; scenario: string; choices: QuizTerm[] }; answered: boolean };
+    const ptsState: PTSState = { round: 0, total: 5, answered: false };
+    const ptsPrompt = document.querySelector<HTMLElement>("[data-pts-prompt]");
+    const ptsOptions = document.querySelector<HTMLElement>("[data-pts-options]");
+    const ptsFeedback = document.querySelector<HTMLElement>("[data-pts-feedback]");
+    const ptsCounter = document.querySelector<HTMLElement>("[data-pts-counter]");
+    const ptsNext = document.querySelector<HTMLButtonElement>("[data-pts-next]");
+
+    const termsWithScenarios = allTerms.filter((t) => t.whenToUse && t.whenToUse.length > 0);
+
+    const nextPTS = () => {
+      ptsState.round = (ptsState.round % ptsState.total) + 1;
+      ptsState.answered = false;
+      const term = termsWithScenarios[Math.floor(Math.random() * termsWithScenarios.length)];
+      const scenario = term.whenToUse[Math.floor(Math.random() * term.whenToUse.length)];
+      const distractors = sample(allTerms.filter((t) => t.id !== term.id), 3);
+      const choices = shuffle([term, ...distractors]);
+      ptsState.current = { term, scenario, choices };
+      if (ptsPrompt) ptsPrompt.textContent = `Which term fits this scenario: "${scenario}"?`;
+      if (ptsCounter) ptsCounter.textContent = `${ptsState.round} / ${ptsState.total}`;
+      if (ptsFeedback) ptsFeedback.textContent = "";
+      if (ptsOptions) {
+        ptsOptions.innerHTML = "";
+        choices.forEach((choice) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "focus-ring rounded-lg border border-ink/15 bg-paper px-4 py-3 text-left text-sm font-bold text-ink hover:bg-ink hover:text-bone";
+          button.textContent = choice.name;
+          button.addEventListener("click", () => {
+            if (ptsState.answered || !ptsState.current) return;
+            ptsState.answered = true;
+            const correct = choice.id === ptsState.current.term.id;
+            recordAnswer("pickTheShot", ptsState.current.term.priorityGroup, correct);
+            ptsOptions.querySelectorAll("button").forEach((b) => {
+              b.disabled = true;
+              const label = (b.textContent || "").trim();
+              if (label === ptsState.current!.term.name) {
+                b.classList.add("bg-ink", "text-bone");
+              } else if (b === button) {
+                b.classList.add("bg-clay/30", "text-ink");
+              }
+            });
+            if (ptsFeedback) ptsFeedback.textContent = correct ? "Correct." : `Answer: ${ptsState.current.term.name}.`;
+          });
+          ptsOptions.appendChild(button);
+        });
+      }
+    };
+
+    ptsNext?.addEventListener("click", () => nextPTS());
+    nextPTS();
+
+    // ---------- Order the sequence ----------
+    const ordType = document.querySelector<HTMLSelectElement>("[data-ord-type]");
+    const ordList = document.querySelector<HTMLUListElement>("[data-ord-list]");
+    const ordCheck = document.querySelector<HTMLButtonElement>("[data-ord-check]");
+    const ordShuffle = document.querySelector<HTMLButtonElement>("[data-ord-shuffle]");
+    const ordFeedback = document.querySelector<HTMLElement>("[data-ord-feedback]");
+
+    let ordCurrentTarget: string[] = [];
+
+    const renderOrd = () => {
+      if (!ordType || !ordList) return;
+      const type = ordType.value;
+      const target = (sequenceRules[type] || []).slice(0, 5);
+      // If fewer than 5 in rule, take what is available.
+      ordCurrentTarget = target;
+      const shuffled = shuffle(target);
+      ordList.innerHTML = "";
+      shuffled.forEach((name) => {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between gap-3 rounded-lg border border-ink/15 bg-paper px-4 py-3 text-sm font-bold text-ink";
+        li.draggable = true;
+        li.dataset.ordItem = name;
+
+        const label = document.createElement("span");
+        label.textContent = name;
+
+        const controls = document.createElement("span");
+        controls.className = "flex items-center gap-1";
+        const upBtn = document.createElement("button");
+        upBtn.type = "button";
+        upBtn.className = "focus-ring rounded border border-ink/15 px-2 py-1 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone";
+        upBtn.textContent = "Up";
+        upBtn.addEventListener("click", () => {
+          const prev = li.previousElementSibling;
+          if (prev) ordList.insertBefore(li, prev);
+        });
+        const downBtn = document.createElement("button");
+        downBtn.type = "button";
+        downBtn.className = "focus-ring rounded border border-ink/15 px-2 py-1 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone";
+        downBtn.textContent = "Down";
+        downBtn.addEventListener("click", () => {
+          const next = li.nextElementSibling;
+          if (next) ordList.insertBefore(next, li);
+        });
+        controls.append(upBtn, downBtn);
+
+        li.append(label, controls);
+
+        li.addEventListener("dragstart", (event) => {
+          li.classList.add("opacity-50");
+          event.dataTransfer?.setData("text/plain", name);
+        });
+        li.addEventListener("dragend", () => li.classList.remove("opacity-50"));
+        li.addEventListener("dragover", (event) => event.preventDefault());
+        li.addEventListener("drop", (event) => {
+          event.preventDefault();
+          const dragged = event.dataTransfer?.getData("text/plain");
+          if (!dragged || dragged === name) return;
+          const draggedEl = ordList.querySelector<HTMLLIElement>(`[data-ord-item="${dragged}"]`);
+          if (!draggedEl) return;
+          const rect = li.getBoundingClientRect();
+          const before = (event.clientY - rect.top) < rect.height / 2;
+          ordList.insertBefore(draggedEl, before ? li : li.nextSibling);
+        });
+
+        ordList.appendChild(li);
+      });
+      if (ordFeedback) ordFeedback.textContent = "";
+    };
+
+    ordType?.addEventListener("change", renderOrd);
+    ordShuffle?.addEventListener("click", renderOrd);
+    ordCheck?.addEventListener("click", () => {
+      if (!ordList) return;
+      const target = ordCurrentTarget;
+      let allMatch = true;
+      let groupSample: string | null = null;
+      Array.from(ordList.querySelectorAll<HTMLLIElement>("[data-ord-item]")).forEach((li, index) => {
+        const name = li.dataset.ordItem || "";
+        const match = name === target[index];
+        li.classList.toggle("border-ink", match);
+        li.classList.toggle("bg-bone", match);
+        li.classList.toggle("border-clay/40", !match);
+        if (!match) allMatch = false;
+        const term = termByName.get(name);
+        if (!groupSample && term) groupSample = term.priorityGroup;
+      });
+      recordAnswer("orderSequence", groupSample, allMatch);
+      if (ordFeedback) {
+        ordFeedback.textContent = allMatch
+          ? "Sequence locked in."
+          : `Target order: ${target.join(" -> ")}`;
+      }
+    });
+
+    renderOrd();
+    renderScores();
+  </script>
+</BaseLayout>

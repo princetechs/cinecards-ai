@@ -1,0 +1,4864 @@
+[
+  {
+    "id": "frame",
+    "name": "Frame",
+    "category": "Composition",
+    "priorityGroup": "Foundation",
+    "priorityScore": 100,
+    "shortDefinition": "The visible image boundary and everything placed inside it.",
+    "whyItMatters": "The frame decides what the viewer notices and what stays hidden.",
+    "whenToUse": [
+      "Every shot",
+      "Composition checks",
+      "Story focus"
+    ],
+    "humanShootHint": "Check the edges before recording and remove anything that weakens the idea.",
+    "aiPromptTemplate": "cinematic frame of [subject], intentional composition, clean edges, natural light, [duration]",
+    "previewPrompt3s": "clean cinematic frame of [subject], one clear subject, stable composition, 3 seconds",
+    "previewPrompt5s": "clean cinematic frame of [subject], subject enters balanced composition, stable camera, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shot",
+      "Rule of Thirds",
+      "Negative Space"
+    ],
+    "commonMistakes": [
+      "Leaving distracting edges",
+      "Cutting off key action"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "basics",
+      "framing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "shot",
+    "name": "Shot",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 99,
+    "shortDefinition": "One continuous camera view used as a building block of a video.",
+    "whyItMatters": "Shots are the smallest practical units you plan, shoot, generate, and edit.",
+    "whenToUse": [
+      "Shot lists",
+      "Prompt planning",
+      "Editing"
+    ],
+    "humanShootHint": "Give each shot one clear subject and one main action.",
+    "aiPromptTemplate": "cinematic shot of [subject], one clear action, natural light, [duration]",
+    "previewPrompt3s": "single cinematic shot of [subject], one action, stable camera, 3 seconds",
+    "previewPrompt5s": "single cinematic shot of [subject], simple action with a clean hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Scene",
+      "Sequence",
+      "Cut"
+    ],
+    "commonMistakes": [
+      "Trying to show too many ideas",
+      "Changing angle mid-prompt without purpose"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "planning",
+      "basics",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "scene",
+    "name": "Scene",
+    "category": "Editing",
+    "priorityGroup": "Foundation",
+    "priorityScore": 98,
+    "shortDefinition": "A story moment that usually happens in one place and time.",
+    "whyItMatters": "Scenes help you group shots around a clear dramatic or informational purpose.",
+    "whenToUse": [
+      "Narrative scenes",
+      "Tutorial chapters",
+      "Prompt packs"
+    ],
+    "humanShootHint": "Decide the scene goal before choosing close-ups or details.",
+    "aiPromptTemplate": "cinematic scene of [subject], clear location, one story beat, [duration]",
+    "previewPrompt3s": "short cinematic scene of [subject], one clear beat, 3 seconds",
+    "previewPrompt5s": "short cinematic scene of [subject], location then action then hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shot",
+      "Sequence",
+      "Master Shot"
+    ],
+    "commonMistakes": [
+      "Mixing unrelated story beats",
+      "Skipping the scene anchor"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "story",
+      "structure",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "sequence",
+    "name": "Sequence",
+    "category": "Editing",
+    "priorityGroup": "Foundation",
+    "priorityScore": 97,
+    "shortDefinition": "A planned order of shots that creates a complete mini-story.",
+    "whyItMatters": "A sequence turns separate clips into something viewers can follow.",
+    "whenToUse": [
+      "Reels",
+      "Montages",
+      "Tutorials",
+      "Story scenes"
+    ],
+    "humanShootHint": "Plan context, action, detail, emotion, and support before filming.",
+    "aiPromptTemplate": "cinematic sequence for [subject], ordered shots, clear visual progression, [duration]",
+    "previewPrompt3s": "three-beat micro sequence of [subject], context detail payoff, 3 seconds",
+    "previewPrompt5s": "five-second micro sequence of [subject], context action detail emotional hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shot",
+      "Cut",
+      "B-Roll"
+    ],
+    "commonMistakes": [
+      "Collecting random clips",
+      "No clear beginning or payoff"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "planning",
+      "story",
+      "shot list"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "aspect-ratio",
+    "name": "Aspect Ratio",
+    "category": "Composition",
+    "priorityGroup": "Foundation",
+    "priorityScore": 96,
+    "shortDefinition": "The shape of the frame, such as vertical 9:16 or widescreen 16:9.",
+    "whyItMatters": "The frame shape changes composition, platform fit, and where attention sits.",
+    "whenToUse": [
+      "Social video",
+      "YouTube",
+      "Cinema look",
+      "Storyboards"
+    ],
+    "humanShootHint": "Choose the delivery format first, then compose for that shape.",
+    "aiPromptTemplate": "cinematic [subject], composed for chosen aspect ratio, clean negative space, [duration]",
+    "previewPrompt3s": "cinematic [subject] composed for vertical and widescreen-safe framing, 3 seconds",
+    "previewPrompt5s": "cinematic [subject], subject moves through a balanced frame shape, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Frame",
+      "Negative Space",
+      "Rule of Thirds"
+    ],
+    "commonMistakes": [
+      "Cropping important action",
+      "Using one composition for every platform"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "format",
+      "composition",
+      "platform"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "establishing-shot",
+    "name": "Establishing Shot",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 95,
+    "shortDefinition": "A wider shot that shows where the story happens.",
+    "whyItMatters": "It gives the viewer location, mood, scale, and context before details arrive.",
+    "whenToUse": [
+      "Opening a scene",
+      "Travel",
+      "Lifestyle",
+      "Narrative context"
+    ],
+    "humanShootHint": "Step back, keep the horizon clean, and let the place read before action begins.",
+    "aiPromptTemplate": "wide establishing shot of [subject], clear location, cinematic natural light, [duration]",
+    "previewPrompt3s": "wide establishing shot of [subject], static camera, soft natural light, 3 seconds",
+    "previewPrompt5s": "wide establishing shot of [subject], gentle hold as one small action begins, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Wide Shot",
+      "Master Shot",
+      "Scene"
+    ],
+    "commonMistakes": [
+      "Starting too tight",
+      "Showing a location with no story relevance"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "location",
+      "opening",
+      "context",
+      "AI prompt"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "localisation": {
+      "es": {
+        "name": "Plano de situación",
+        "shortDefinition": "Un plano amplio que muestra dónde ocurre la historia.",
+        "whyItMatters": "Da al espectador ubicación, ambiente, escala y contexto antes de que lleguen los detalles."
+      },
+      "hi": {
+        "name": "स्थापना शॉट",
+        "shortDefinition": "एक चौड़ा शॉट जो दिखाता है कि कहानी कहाँ हो रही है।",
+        "whyItMatters": "विवरण आने से पहले दर्शक को स्थान, माहौल, पैमाना और संदर्भ देता है।"
+      }
+    },
+    "assets": []
+  },
+  {
+    "id": "wide-shot",
+    "name": "Wide Shot",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 94,
+    "shortDefinition": "Frames the subject with plenty of surrounding environment.",
+    "whyItMatters": "It shows body language, space, and how the subject relates to the world.",
+    "whenToUse": [
+      "Location",
+      "Action",
+      "Scale",
+      "Opening moments"
+    ],
+    "humanShootHint": "Back up enough to show the whole subject and meaningful surroundings.",
+    "aiPromptTemplate": "cinematic wide shot of [subject], full environment visible, balanced composition, [duration]",
+    "previewPrompt3s": "wide shot of [subject], subject clearly placed in the environment, 3 seconds",
+    "previewPrompt5s": "wide shot of [subject], subtle subject movement through the environment, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Establishing Shot",
+      "Full Shot",
+      "Negative Space"
+    ],
+    "commonMistakes": [
+      "Subject becomes too small",
+      "Background is cluttered"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "scale",
+      "environment",
+      "coverage"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "localisation": {
+      "es": {
+        "name": "Plano general",
+        "shortDefinition": "Encuadra al sujeto con abundante entorno alrededor.",
+        "whyItMatters": "Muestra el lenguaje corporal, el espacio y cómo el sujeto se relaciona con el mundo."
+      },
+      "hi": {
+        "name": "वाइड शॉट",
+        "shortDefinition": "विषय को उसके आसपास के वातावरण के साथ फ्रेम करता है।",
+        "whyItMatters": "शरीर की भाषा, स्थान और विषय के परिवेश से संबंध को दिखाता है।"
+      }
+    },
+    "assets": []
+  },
+  {
+    "id": "medium-shot",
+    "name": "Medium Shot",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 93,
+    "shortDefinition": "Frames a person or subject around the waist or torso.",
+    "whyItMatters": "It balances expression, gesture, and action in one readable view.",
+    "whenToUse": [
+      "Talking head",
+      "Demo",
+      "Tutorial",
+      "Main action"
+    ],
+    "humanShootHint": "Keep the subject at a comfortable distance and leave a little headroom.",
+    "aiPromptTemplate": "cinematic medium shot of [subject], clear action, natural expression, [duration]",
+    "previewPrompt3s": "medium shot of [subject], one simple action, stable camera, 3 seconds",
+    "previewPrompt5s": "medium shot of [subject], action starts and settles naturally, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Medium Close-Up",
+      "Full Shot",
+      "Two Shot"
+    ],
+    "commonMistakes": [
+      "Awkward crop at joints",
+      "Too much empty headroom"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "subject",
+      "demo",
+      "talking head"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "close-up",
+    "name": "Close-Up",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 92,
+    "shortDefinition": "Frames the face or an important detail to show emotion.",
+    "whyItMatters": "It directs attention to emotion, texture, or story importance.",
+    "whenToUse": [
+      "Emotion",
+      "Reaction",
+      "Product detail",
+      "Important story moment"
+    ],
+    "humanShootHint": "Move closer, simplify the background, and focus on the eyes or key detail.",
+    "aiPromptTemplate": "cinematic close-up of [subject], shallow depth of field, soft light, emotional focus, [duration]",
+    "previewPrompt3s": "cinematic close-up of [subject], soft light, subtle expression change, 3 seconds",
+    "previewPrompt5s": "cinematic close-up of [subject], slow dolly in, shallow depth of field, emotional expression, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Extreme Close-Up",
+      "Reaction Shot",
+      "Shallow Depth of Field"
+    ],
+    "commonMistakes": [
+      "Too much background distraction",
+      "Prompt includes too many actions"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "emotion",
+      "detail",
+      "portrait",
+      "AI prompt"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "localisation": {
+      "es": {
+        "name": "Primer plano",
+        "shortDefinition": "Encuadra el rostro o un detalle importante para mostrar emoción.",
+        "whyItMatters": "Dirige la atención hacia la emoción, la textura o un momento clave de la historia."
+      },
+      "hi": {
+        "name": "क्लोज़-अप",
+        "shortDefinition": "भावना दिखाने के लिए चेहरे या किसी ज़रूरी विवरण को फ्रेम करता है।",
+        "whyItMatters": "ध्यान को भावना, बनावट या कहानी के ज़रूरी पल पर केंद्रित करता है।"
+      }
+    },
+    "assets": []
+  },
+  {
+    "id": "extreme-close-up",
+    "name": "Extreme Close-Up",
+    "category": "Shots",
+    "priorityGroup": "Foundation",
+    "priorityScore": 91,
+    "shortDefinition": "Frames a tiny detail such as an eye, hand, texture, or button.",
+    "whyItMatters": "It makes small details feel important and creates strong visual emphasis.",
+    "whenToUse": [
+      "Texture",
+      "Clues",
+      "Product features",
+      "Sensory moments"
+    ],
+    "humanShootHint": "Use steady support, lock focus carefully, and avoid unnecessary movement.",
+    "aiPromptTemplate": "extreme close-up of [subject], precise detail, shallow depth of field, cinematic texture, [duration]",
+    "previewPrompt3s": "extreme close-up of [subject], tiny detail in focus, subtle motion, 3 seconds",
+    "previewPrompt5s": "extreme close-up of [subject], slow reveal of texture, soft light, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Close-Up",
+      "Macro Shot",
+      "Insert Shot"
+    ],
+    "commonMistakes": [
+      "Focus misses the detail",
+      "Detail has no story purpose"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "detail",
+      "texture",
+      "macro"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "eye-level-angle",
+    "name": "Eye-Level Angle",
+    "category": "Angles",
+    "priorityGroup": "Foundation",
+    "priorityScore": 90,
+    "shortDefinition": "Places the camera around the subject's eye height.",
+    "whyItMatters": "It feels neutral, direct, and easy for beginners to understand.",
+    "whenToUse": [
+      "Interviews",
+      "Natural scenes",
+      "Tutorials",
+      "Human connection"
+    ],
+    "humanShootHint": "Raise or lower the camera until the subject feels naturally met.",
+    "aiPromptTemplate": "eye-level cinematic shot of [subject], natural perspective, soft light, [duration]",
+    "previewPrompt3s": "eye-level shot of [subject], neutral perspective, calm expression, 3 seconds",
+    "previewPrompt5s": "eye-level shot of [subject], natural action and stable framing, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "High Angle",
+      "Low Angle",
+      "Medium Shot"
+    ],
+    "commonMistakes": [
+      "Camera slightly too high or low",
+      "No intentional perspective choice"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "angle",
+      "neutral",
+      "portrait"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "high-angle",
+    "name": "High Angle",
+    "category": "Angles",
+    "priorityGroup": "Foundation",
+    "priorityScore": 89,
+    "shortDefinition": "Looks down at the subject from above eye level.",
+    "whyItMatters": "It can make a subject feel smaller, exposed, or easy to inspect.",
+    "whenToUse": [
+      "Vulnerability",
+      "Overview",
+      "Food",
+      "Desk scenes"
+    ],
+    "humanShootHint": "Raise the camera enough to make the perspective obvious without flattening everything.",
+    "aiPromptTemplate": "cinematic high-angle shot of [subject], camera looking down, clear composition, [duration]",
+    "previewPrompt3s": "high-angle shot of [subject], camera looking down, one simple action, 3 seconds",
+    "previewPrompt5s": "high-angle shot of [subject], subject moves through frame, gentle hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Eye-Level Angle",
+      "Low Angle",
+      "Bird's-Eye View"
+    ],
+    "commonMistakes": [
+      "Angle too subtle",
+      "Unflattering distortion without purpose"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "angle",
+      "power",
+      "overview"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "low-angle",
+    "name": "Low Angle",
+    "category": "Angles",
+    "priorityGroup": "Foundation",
+    "priorityScore": 88,
+    "shortDefinition": "Looks up at the subject from below eye level.",
+    "whyItMatters": "It can make the subject feel powerful, heroic, dramatic, or imposing.",
+    "whenToUse": [
+      "Hero moments",
+      "Architecture",
+      "Power",
+      "Product drama"
+    ],
+    "humanShootHint": "Lower the camera and watch for unwanted chin or ceiling distortion.",
+    "aiPromptTemplate": "cinematic low-angle shot of [subject], camera looking upward, dramatic presence, [duration]",
+    "previewPrompt3s": "low-angle shot of [subject], strong presence, stable camera, 3 seconds",
+    "previewPrompt5s": "low-angle shot of [subject], subtle push-in, dramatic natural light, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "High Angle",
+      "Worm's-Eye View",
+      "Wide-Angle Lens"
+    ],
+    "commonMistakes": [
+      "Too much ceiling",
+      "Power effect used accidentally"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "angle",
+      "power",
+      "cinematic"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "pan",
+    "name": "Pan",
+    "category": "Movement",
+    "priorityGroup": "Foundation",
+    "priorityScore": 87,
+    "shortDefinition": "Rotates the camera left or right from a fixed position.",
+    "whyItMatters": "A pan reveals space or follows action without moving the camera base.",
+    "whenToUse": [
+      "Reveals",
+      "Following movement",
+      "Landscape scans"
+    ],
+    "humanShootHint": "Move slowly, start and end with a short hold, and keep the horizon level.",
+    "aiPromptTemplate": "cinematic pan across [subject], smooth left-to-right camera rotation, [duration]",
+    "previewPrompt3s": "smooth pan across [subject], one reveal, stable horizon, 3 seconds",
+    "previewPrompt5s": "smooth pan across [subject], start hold then reveal then end hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Tilt",
+      "Whip Pan",
+      "Static Shot"
+    ],
+    "commonMistakes": [
+      "Moving too fast",
+      "No start or end composition"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "camera movement",
+      "reveal",
+      "basics"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "tilt",
+    "name": "Tilt",
+    "category": "Movement",
+    "priorityGroup": "Foundation",
+    "priorityScore": 86,
+    "shortDefinition": "Rotates the camera up or down from a fixed position.",
+    "whyItMatters": "A tilt reveals height, scale, or vertical relationships.",
+    "whenToUse": [
+      "Buildings",
+      "Fashion",
+      "Product reveals",
+      "Height"
+    ],
+    "humanShootHint": "Begin on a clean frame and tilt slowly enough for viewers to read the reveal.",
+    "aiPromptTemplate": "cinematic tilt shot of [subject], smooth vertical camera movement, [duration]",
+    "previewPrompt3s": "smooth upward tilt revealing [subject], clean start and end frame, 3 seconds",
+    "previewPrompt5s": "slow tilt revealing [subject], settle on the final composition, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Pan",
+      "Pedestal Move",
+      "Crane/Jib Shot"
+    ],
+    "commonMistakes": [
+      "Jerky vertical motion",
+      "Ending on an unplanned frame"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "camera movement",
+      "vertical",
+      "reveal"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "static-shot",
+    "name": "Static Shot",
+    "category": "Movement",
+    "priorityGroup": "Foundation",
+    "priorityScore": 85,
+    "shortDefinition": "A shot where the camera stays still.",
+    "whyItMatters": "Stillness gives clarity and lets performance, design, or action carry the frame.",
+    "whenToUse": [
+      "Tutorials",
+      "Interviews",
+      "Product detail",
+      "Calm mood"
+    ],
+    "humanShootHint": "Use a tripod, table, wall, or steady hands and let the subject move instead.",
+    "aiPromptTemplate": "static cinematic shot of [subject], locked camera, one subtle action, [duration]",
+    "previewPrompt3s": "static shot of [subject], locked camera, subtle subject motion, 3 seconds",
+    "previewPrompt5s": "static shot of [subject], action unfolds in a stable frame, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shot",
+      "Pan",
+      "Medium Shot"
+    ],
+    "commonMistakes": [
+      "Accidental shake",
+      "No movement or visual change at all"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "stable",
+      "clarity",
+      "basics"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "handheld-shot",
+    "name": "Handheld Shot",
+    "category": "Movement",
+    "priorityGroup": "Foundation",
+    "priorityScore": 84,
+    "shortDefinition": "A shot recorded with the camera held by hand.",
+    "whyItMatters": "It can feel intimate, immediate, documentary, or energetic.",
+    "whenToUse": [
+      "Lifestyle",
+      "Documentary",
+      "Urgency",
+      "Behind the scenes"
+    ],
+    "humanShootHint": "Brace your elbows, move with your body, and keep shake intentional.",
+    "aiPromptTemplate": "cinematic handheld shot of [subject], gentle natural camera sway, documentary realism, [duration]",
+    "previewPrompt3s": "handheld shot of [subject], gentle natural sway, one action, 3 seconds",
+    "previewPrompt5s": "handheld shot of [subject], subtle follow movement, realistic camera energy, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Tracking Shot",
+      "Static Shot",
+      "POV Shot"
+    ],
+    "commonMistakes": [
+      "Uncontrolled shake",
+      "Using handheld when the scene needs calm"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "documentary",
+      "energy"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "rack-focus",
+    "name": "Rack Focus",
+    "category": "Lens / Optics",
+    "priorityGroup": "Foundation",
+    "priorityScore": 83,
+    "shortDefinition": "Shifts focus from one subject plane to another during the shot.",
+    "whyItMatters": "It guides attention without cutting.",
+    "whenToUse": [
+      "Reveals",
+      "Dialogue focus",
+      "Product detail",
+      "Story clues"
+    ],
+    "humanShootHint": "Set two focus marks and rehearse the shift before recording.",
+    "aiPromptTemplate": "cinematic rack focus from foreground to [subject], shallow depth of field, [duration]",
+    "previewPrompt3s": "rack focus from blurred foreground to [subject], soft light, 3 seconds",
+    "previewPrompt5s": "rack focus from foreground detail to [subject], hold after focus lands, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shallow Depth of Field",
+      "Foreground",
+      "Background"
+    ],
+    "commonMistakes": [
+      "Focus lands on the wrong object",
+      "Too many focus changes"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "focus",
+      "attention",
+      "lens"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "shallow-depth-of-field",
+    "name": "Shallow Depth of Field",
+    "category": "Lens / Optics",
+    "priorityGroup": "Foundation",
+    "priorityScore": 82,
+    "shortDefinition": "Only a narrow slice of the image is sharp while the rest blurs.",
+    "whyItMatters": "It separates the subject and creates a polished cinematic look.",
+    "whenToUse": [
+      "Portraits",
+      "Product beauty",
+      "Emotion",
+      "Busy backgrounds"
+    ],
+    "humanShootHint": "Use portrait mode, a wider aperture, longer lens, or more distance from the background.",
+    "aiPromptTemplate": "cinematic [subject], shallow depth of field, blurred background, soft light, [duration]",
+    "previewPrompt3s": "[subject] in shallow depth of field, background softly blurred, 3 seconds",
+    "previewPrompt5s": "[subject] in shallow depth of field, slow push-in, soft background blur, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Close-Up",
+      "Aperture",
+      "Rack Focus"
+    ],
+    "commonMistakes": [
+      "Important subject is out of focus",
+      "Blur used without story purpose"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "focus",
+      "portrait",
+      "cinematic"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "deep-focus",
+    "name": "Deep Focus",
+    "category": "Lens / Optics",
+    "priorityGroup": "Foundation",
+    "priorityScore": 81,
+    "shortDefinition": "Foreground, middle ground, and background remain relatively sharp.",
+    "whyItMatters": "It lets viewers explore layered action and environment.",
+    "whenToUse": [
+      "Blocking",
+      "Ensembles",
+      "Architecture",
+      "Information-rich scenes"
+    ],
+    "humanShootHint": "Use more light, a smaller aperture, and clear layers in the frame.",
+    "aiPromptTemplate": "cinematic deep focus shot of [subject], foreground and background sharp, layered composition, [duration]",
+    "previewPrompt3s": "deep focus shot of [subject], clear foreground and background layers, 3 seconds",
+    "previewPrompt5s": "deep focus shot of [subject], action visible across multiple layers, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Foreground",
+      "Background",
+      "Aperture"
+    ],
+    "commonMistakes": [
+      "Frame becomes visually crowded",
+      "No clear priority in the layers"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "focus",
+      "layers",
+      "composition"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "rule-of-thirds",
+    "name": "Rule of Thirds",
+    "category": "Composition",
+    "priorityGroup": "Foundation",
+    "priorityScore": 80,
+    "shortDefinition": "Places key subjects near imaginary thirds lines in the frame.",
+    "whyItMatters": "It creates quick balance and avoids lifeless centering.",
+    "whenToUse": [
+      "Beginner framing",
+      "Portraits",
+      "Landscapes",
+      "Product shots"
+    ],
+    "humanShootHint": "Turn on grid lines and place eyes, horizon, or key detail near a thirds line.",
+    "aiPromptTemplate": "cinematic [subject], rule of thirds composition, balanced negative space, [duration]",
+    "previewPrompt3s": "[subject] composed on rule of thirds, balanced frame, 3 seconds",
+    "previewPrompt5s": "[subject] moves into a rule of thirds composition, gentle hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Frame",
+      "Leading Lines",
+      "Negative Space"
+    ],
+    "commonMistakes": [
+      "Treating the grid as a law",
+      "Ignoring the story focus"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "balance",
+      "beginner"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "leading-lines",
+    "name": "Leading Lines",
+    "category": "Composition",
+    "priorityGroup": "Foundation",
+    "priorityScore": 79,
+    "shortDefinition": "Uses lines in the scene to guide the eye toward the subject.",
+    "whyItMatters": "It makes the frame easier to read and adds depth.",
+    "whenToUse": [
+      "Architecture",
+      "Roads",
+      "Interiors",
+      "Product staging"
+    ],
+    "humanShootHint": "Position the camera so natural lines point toward the important subject.",
+    "aiPromptTemplate": "cinematic [subject], strong leading lines guiding attention, natural light, [duration]",
+    "previewPrompt3s": "[subject] framed with leading lines, stable camera, 3 seconds",
+    "previewPrompt5s": "[subject] revealed along leading lines, slow push-in, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Rule of Thirds",
+      "Foreground",
+      "Wide Shot"
+    ],
+    "commonMistakes": [
+      "Lines lead away from the subject",
+      "Frame feels too busy"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "depth",
+      "attention"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "key-light",
+    "name": "Key Light",
+    "category": "Lighting",
+    "priorityGroup": "Foundation",
+    "priorityScore": 78,
+    "shortDefinition": "The main light shaping the subject.",
+    "whyItMatters": "It defines mood, clarity, and the direction of the image.",
+    "whenToUse": [
+      "Every lit scene",
+      "Interviews",
+      "Portraits",
+      "Product shots"
+    ],
+    "humanShootHint": "Start with one main light or window and move it until the face or object has shape.",
+    "aiPromptTemplate": "cinematic [subject], soft key light from one side, gentle shadow shape, [duration]",
+    "previewPrompt3s": "[subject] lit by a clear soft key light, subtle shadow, 3 seconds",
+    "previewPrompt5s": "[subject] lit by a soft key light, slight subject movement through shadow, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Fill Light",
+      "Back Light",
+      "Soft Light"
+    ],
+    "commonMistakes": [
+      "Flat front lighting",
+      "Mixed light directions"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "lighting",
+      "portrait",
+      "foundation"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "cut",
+    "name": "Cut",
+    "category": "Editing",
+    "priorityGroup": "Foundation",
+    "priorityScore": 77,
+    "shortDefinition": "An instant transition from one shot to another.",
+    "whyItMatters": "Cuts control rhythm, meaning, and what information arrives next.",
+    "whenToUse": [
+      "Most edits",
+      "Action",
+      "Dialogue",
+      "Montage"
+    ],
+    "humanShootHint": "Shoot clean starts and endings so cuts have breathing room.",
+    "aiPromptTemplate": "clean hard cut sequence for [subject], clear before-and-after shot contrast, [duration]",
+    "previewPrompt3s": "two-shot micro sequence of [subject] with a clean cut between actions, 3 seconds",
+    "previewPrompt5s": "short sequence of [subject], clean hard cuts from context to detail to hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Match Cut",
+      "Jump Cut",
+      "Sequence"
+    ],
+    "commonMistakes": [
+      "Cutting before the action reads",
+      "Using transitions to hide weak shots"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "transition",
+      "rhythm"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "full-shot",
+    "name": "Full Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 88,
+    "shortDefinition": "Shows the full body or full subject from head to toe.",
+    "whyItMatters": "It makes body language and physical action readable.",
+    "whenToUse": [
+      "Movement",
+      "Fashion",
+      "Performance",
+      "Action blocking"
+    ],
+    "humanShootHint": "Leave space around the whole subject and avoid cutting at feet or head.",
+    "aiPromptTemplate": "cinematic full shot of [subject], entire body visible, clear action, [duration]",
+    "previewPrompt3s": "full shot of [subject], complete body movement visible, 3 seconds",
+    "previewPrompt5s": "full shot of [subject], one full-body action from start to finish, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Wide Shot",
+      "Medium Shot",
+      "Blocking"
+    ],
+    "commonMistakes": [
+      "Cropping feet",
+      "Leaving too much empty space"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "coverage",
+      "body",
+      "action"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "medium-close-up",
+    "name": "Medium Close-Up",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 87,
+    "shortDefinition": "Frames roughly chest to head for expression and presence.",
+    "whyItMatters": "It gives more intimacy than a medium shot without losing context.",
+    "whenToUse": [
+      "Interviews",
+      "Reactions",
+      "Creator videos",
+      "Dialogue"
+    ],
+    "humanShootHint": "Keep eyes sharp and leave comfortable headroom.",
+    "aiPromptTemplate": "cinematic medium close-up of [subject], expressive face, soft background, [duration]",
+    "previewPrompt3s": "medium close-up of [subject], subtle expression change, 3 seconds",
+    "previewPrompt5s": "medium close-up of [subject], gentle push-in and emotional hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Medium Shot",
+      "Close-Up",
+      "Eye-Level Angle"
+    ],
+    "commonMistakes": [
+      "Awkward shoulder crop",
+      "Background competes with face"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "portrait",
+      "dialogue",
+      "emotion"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "two-shot",
+    "name": "Two Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 86,
+    "shortDefinition": "Frames two subjects in the same shot.",
+    "whyItMatters": "It shows relationship, distance, and shared action.",
+    "whenToUse": [
+      "Dialogue",
+      "Friendship",
+      "Interviews",
+      "Shared tasks"
+    ],
+    "humanShootHint": "Balance both subjects and keep their eyelines and body language readable.",
+    "aiPromptTemplate": "cinematic two shot of [subject], two people sharing a clear action, natural light, [duration]",
+    "previewPrompt3s": "two shot of [subject], two people share one small action, 3 seconds",
+    "previewPrompt5s": "two shot of [subject], one person reacts as the other speaks, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Over-the-Shoulder",
+      "Shot-Reverse-Shot",
+      "Master Shot"
+    ],
+    "commonMistakes": [
+      "One subject dominates accidentally",
+      "Eyelines feel unclear"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "dialogue",
+      "relationship",
+      "coverage"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "over-the-shoulder",
+    "name": "Over-the-Shoulder",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 85,
+    "shortDefinition": "Frames one subject over another subject's shoulder.",
+    "whyItMatters": "It gives dialogue perspective while keeping relationship context.",
+    "whenToUse": [
+      "Dialogue",
+      "Interviews",
+      "Reaction coverage"
+    ],
+    "humanShootHint": "Keep the foreground shoulder soft and preserve consistent screen direction.",
+    "aiPromptTemplate": "cinematic over-the-shoulder shot of [subject], dialogue perspective, shallow depth of field, [duration]",
+    "previewPrompt3s": "over-the-shoulder shot of [subject], one speaker in focus, 3 seconds",
+    "previewPrompt5s": "over-the-shoulder dialogue shot of [subject], speaker reacts and holds eyeline, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Two Shot",
+      "Shot-Reverse-Shot",
+      "Eyeline Match"
+    ],
+    "commonMistakes": [
+      "Crossing the 180-degree line",
+      "Foreground shoulder blocks the subject"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "dialogue",
+      "coverage",
+      "eyeline"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "pov-shot",
+    "name": "POV Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 84,
+    "shortDefinition": "Shows what a character or user sees.",
+    "whyItMatters": "It makes the viewer feel inside the action.",
+    "whenToUse": [
+      "Travel",
+      "Tutorials",
+      "Immersion",
+      "User experience"
+    ],
+    "humanShootHint": "Place the camera where the eyes or hands would naturally be.",
+    "aiPromptTemplate": "cinematic POV shot of [subject], viewer perspective, natural hand or head movement, [duration]",
+    "previewPrompt3s": "POV shot of [subject], viewer sees one action directly, 3 seconds",
+    "previewPrompt5s": "POV shot of [subject], natural movement toward the action, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Handheld Shot",
+      "Insert Shot",
+      "Eye-Level Angle"
+    ],
+    "commonMistakes": [
+      "Perspective does not match a real viewpoint",
+      "Too much camera shake"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "immersive",
+      "perspective",
+      "creator"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "insert-shot",
+    "name": "Insert Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 83,
+    "shortDefinition": "A close shot of an important object, action, or detail.",
+    "whyItMatters": "It gives the editor useful detail and makes story information clear.",
+    "whenToUse": [
+      "Hands",
+      "Products",
+      "Clues",
+      "Process steps"
+    ],
+    "humanShootHint": "Shoot the detail cleanly with steady focus and a simple background.",
+    "aiPromptTemplate": "cinematic insert shot of [subject], important detail in focus, soft light, [duration]",
+    "previewPrompt3s": "insert shot of [subject], important detail action, shallow focus, 3 seconds",
+    "previewPrompt5s": "insert shot of [subject], detail action begins and settles, soft light, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Close-Up",
+      "Extreme Close-Up",
+      "B-Roll"
+    ],
+    "commonMistakes": [
+      "Detail is not important",
+      "Shot is too shaky to cut in"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "detail",
+      "coverage",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "cutaway",
+    "name": "Cutaway",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 82,
+    "shortDefinition": "A supporting shot that briefly cuts away from the main action.",
+    "whyItMatters": "It adds context and helps hide edits or time jumps.",
+    "whenToUse": [
+      "Interviews",
+      "Tutorials",
+      "Montage",
+      "Continuity fixes"
+    ],
+    "humanShootHint": "Capture objects, reactions, or environment details connected to the scene.",
+    "aiPromptTemplate": "cinematic cutaway shot for [subject], relevant environmental detail, clean composition, [duration]",
+    "previewPrompt3s": "cutaway detail for [subject], connected object or environment, 3 seconds",
+    "previewPrompt5s": "cutaway for [subject], detail holds long enough to bridge an edit, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "B-Roll",
+      "Insert Shot",
+      "Continuity"
+    ],
+    "commonMistakes": [
+      "Cutaway has no relationship to the scene",
+      "Cutaway is too short"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "support",
+      "coverage"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "reaction-shot",
+    "name": "Reaction Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 81,
+    "shortDefinition": "Shows a subject responding to something that just happened.",
+    "whyItMatters": "Reactions tell the viewer how to feel about an event.",
+    "whenToUse": [
+      "Dialogue",
+      "Surprises",
+      "Comedy",
+      "Emotional beats"
+    ],
+    "humanShootHint": "Hold long enough after the action so the reaction has time to land.",
+    "aiPromptTemplate": "cinematic reaction shot of [subject], subtle emotional response, soft light, [duration]",
+    "previewPrompt3s": "reaction shot of [subject], subtle expression change, 3 seconds",
+    "previewPrompt5s": "reaction shot of [subject], hears news then holds emotional response, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Close-Up",
+      "Shot-Reverse-Shot",
+      "Eyeline Match"
+    ],
+    "commonMistakes": [
+      "Cutting away before the emotion lands",
+      "Overacting in the prompt"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "emotion",
+      "dialogue",
+      "story"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "master-shot",
+    "name": "Master Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 80,
+    "shortDefinition": "A wide or medium-wide shot that covers the full scene action.",
+    "whyItMatters": "It gives the edit a reliable anchor for geography and continuity.",
+    "whenToUse": [
+      "Dialogue scenes",
+      "Narrative action",
+      "Tutorial steps"
+    ],
+    "humanShootHint": "Record the whole action once before shooting tighter coverage.",
+    "aiPromptTemplate": "cinematic master shot of [subject], full scene action visible, clear blocking, [duration]",
+    "previewPrompt3s": "master shot of [subject], full action readable, stable frame, 3 seconds",
+    "previewPrompt5s": "master shot of [subject], complete action plays in one clear frame, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Establishing Shot",
+      "Two Shot",
+      "Cutaway"
+    ],
+    "commonMistakes": [
+      "Skipping the anchor shot",
+      "Framing too tight to understand the scene"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "coverage",
+      "scene",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "reverse-shot",
+    "name": "Reverse Shot",
+    "category": "Shots",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 79,
+    "shortDefinition": "The opposite angle used to show the other side of a scene or conversation.",
+    "whyItMatters": "It completes coverage and helps viewers follow who is speaking or reacting.",
+    "whenToUse": [
+      "Dialogue",
+      "Interviews",
+      "Reactions"
+    ],
+    "humanShootHint": "Match height, lens feel, and eyeline with the first angle.",
+    "aiPromptTemplate": "cinematic reverse shot of [subject], matching eyeline and lighting, dialogue coverage, [duration]",
+    "previewPrompt3s": "reverse shot of [subject], matching perspective and eyeline, 3 seconds",
+    "previewPrompt5s": "reverse shot of [subject], matched dialogue coverage with subtle reaction, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shot-Reverse-Shot",
+      "Over-the-Shoulder",
+      "180-Degree Rule"
+    ],
+    "commonMistakes": [
+      "Lighting does not match",
+      "Screen direction flips accidentally"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "dialogue",
+      "coverage",
+      "continuity"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "birds-eye-view",
+    "name": "Bird's-Eye View",
+    "category": "Angles",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 78,
+    "shortDefinition": "Looks straight down from high above.",
+    "whyItMatters": "It turns a scene into a pattern, map, or striking overview.",
+    "whenToUse": [
+      "Tables",
+      "Travel",
+      "Crowds",
+      "Graphic compositions"
+    ],
+    "humanShootHint": "Shoot from directly above and keep lines squared if the graphic look matters.",
+    "aiPromptTemplate": "bird's-eye view of [subject], camera looking straight down, graphic composition, [duration]",
+    "previewPrompt3s": "bird's-eye view of [subject], top-down graphic frame, 3 seconds",
+    "previewPrompt5s": "bird's-eye view of [subject], small action unfolds in top-down composition, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "High Angle",
+      "Top Light",
+      "Frame"
+    ],
+    "commonMistakes": [
+      "Not high enough to read as overhead",
+      "Flat image with no subject priority"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "angle",
+      "top down",
+      "graphic"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "worms-eye-view",
+    "name": "Worm's-Eye View",
+    "category": "Angles",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 77,
+    "shortDefinition": "Looks up from extremely low near ground level.",
+    "whyItMatters": "It exaggerates height and makes ordinary subjects feel monumental.",
+    "whenToUse": [
+      "Architecture",
+      "Hero shots",
+      "Shoes",
+      "Dramatic reveals"
+    ],
+    "humanShootHint": "Get the camera very low and watch for distortion that distracts.",
+    "aiPromptTemplate": "worm's-eye view of [subject], camera near the ground looking up, dramatic scale, [duration]",
+    "previewPrompt3s": "worm's-eye view of [subject], dramatic upward perspective, 3 seconds",
+    "previewPrompt5s": "worm's-eye view of [subject], subject passes above the low camera, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Low Angle",
+      "Wide-Angle Lens",
+      "Full Shot"
+    ],
+    "commonMistakes": [
+      "Angle feels accidental",
+      "Foreground blocks the subject"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "angle",
+      "dramatic",
+      "scale"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "dutch-angle",
+    "name": "Dutch Angle",
+    "category": "Angles",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 76,
+    "shortDefinition": "Tilts the camera horizon intentionally.",
+    "whyItMatters": "It creates unease, imbalance, or stylized energy.",
+    "whenToUse": [
+      "Tension",
+      "Music videos",
+      "Disorientation",
+      "Stylized scenes"
+    ],
+    "humanShootHint": "Commit to the tilt and use it only when the mood benefits.",
+    "aiPromptTemplate": "cinematic dutch angle shot of [subject], tilted horizon, tense stylized mood, [duration]",
+    "previewPrompt3s": "dutch angle shot of [subject], tilted horizon and tense mood, 3 seconds",
+    "previewPrompt5s": "dutch angle shot of [subject], subtle movement with intentional imbalance, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Low Angle",
+      "Frame",
+      "Motivated Camera"
+    ],
+    "commonMistakes": [
+      "Accidental crooked horizon",
+      "Overusing the effect"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "angle",
+      "tension",
+      "style"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "dolly-in",
+    "name": "Dolly In",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 75,
+    "shortDefinition": "Moves the camera physically closer to the subject.",
+    "whyItMatters": "It adds intention, pressure, or emotional focus.",
+    "whenToUse": [
+      "Reveals",
+      "Emotion",
+      "Product hero",
+      "Important beats"
+    ],
+    "humanShootHint": "Move smoothly toward the subject and keep the final frame composed.",
+    "aiPromptTemplate": "cinematic dolly in toward [subject], slow smooth camera move, emotional focus, [duration]",
+    "previewPrompt3s": "slow dolly in toward [subject], subject remains centered in focus, 3 seconds",
+    "previewPrompt5s": "slow dolly in toward [subject], gentle approach and emotional hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Push-In",
+      "Close-Up",
+      "Tracking Shot"
+    ],
+    "commonMistakes": [
+      "Move feels like digital zoom",
+      "Ending frame is unplanned"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "emotion",
+      "promptable"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "dolly-out",
+    "name": "Dolly Out",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 74,
+    "shortDefinition": "Moves the camera physically away from the subject.",
+    "whyItMatters": "It can reveal context, isolation, or a wider story world.",
+    "whenToUse": [
+      "Reveals",
+      "Endings",
+      "Isolation",
+      "Location context"
+    ],
+    "humanShootHint": "Begin close, move backward smoothly, and protect focus.",
+    "aiPromptTemplate": "cinematic dolly out from [subject], smooth camera retreat revealing environment, [duration]",
+    "previewPrompt3s": "dolly out from [subject], environment begins to reveal, 3 seconds",
+    "previewPrompt5s": "dolly out from [subject], wider context revealed with a clean hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Pull-Back",
+      "Establishing Shot",
+      "Wide Shot"
+    ],
+    "commonMistakes": [
+      "Backward move is shaky",
+      "Reveal adds no new information"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "reveal",
+      "context"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "tracking-shot",
+    "name": "Tracking Shot",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 73,
+    "shortDefinition": "Moves with the subject through space.",
+    "whyItMatters": "It keeps action continuous and immersive.",
+    "whenToUse": [
+      "Walking",
+      "Travel",
+      "Lifestyle",
+      "Action"
+    ],
+    "humanShootHint": "Match the subject's speed and leave room in the direction of travel.",
+    "aiPromptTemplate": "cinematic tracking shot following [subject], smooth movement through environment, [duration]",
+    "previewPrompt3s": "tracking shot following [subject], smooth camera movement, 3 seconds",
+    "previewPrompt5s": "tracking shot following [subject] through the environment, stable motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Handheld Shot",
+      "Truck Move",
+      "POV Shot"
+    ],
+    "commonMistakes": [
+      "Subject drifts out of frame",
+      "Background motion distracts"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "follow",
+      "travel"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "truck-move",
+    "name": "Truck Move",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 72,
+    "shortDefinition": "Moves the camera sideways left or right.",
+    "whyItMatters": "It reveals layers and follows lateral action.",
+    "whenToUse": [
+      "Sideways reveals",
+      "Walking subjects",
+      "Product parallax"
+    ],
+    "humanShootHint": "Move parallel to the subject and keep the distance consistent.",
+    "aiPromptTemplate": "cinematic truck move past [subject], sideways camera motion, layered parallax, [duration]",
+    "previewPrompt3s": "sideways truck move past [subject], smooth lateral reveal, 3 seconds",
+    "previewPrompt5s": "sideways truck move with [subject], foreground parallax and clean hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Tracking Shot",
+      "Parallax",
+      "Dolly In"
+    ],
+    "commonMistakes": [
+      "Uneven speed",
+      "Subject distance changes accidentally"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "sideways",
+      "parallax"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "pedestal-move",
+    "name": "Pedestal Move",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 71,
+    "shortDefinition": "Moves the camera vertically up or down without tilting.",
+    "whyItMatters": "It changes height while keeping perspective controlled.",
+    "whenToUse": [
+      "Product reveals",
+      "Architecture",
+      "Fashion",
+      "Scale"
+    ],
+    "humanShootHint": "Lift or lower the camera smoothly while keeping the lens angle level.",
+    "aiPromptTemplate": "cinematic pedestal move on [subject], camera rises vertically, level lens, [duration]",
+    "previewPrompt3s": "vertical pedestal move revealing [subject], level camera, 3 seconds",
+    "previewPrompt5s": "slow pedestal move on [subject], vertical reveal with steady framing, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Tilt",
+      "Crane/Jib Shot",
+      "High Angle"
+    ],
+    "commonMistakes": [
+      "Tilting instead of moving vertically",
+      "Uneven lift"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "vertical",
+      "reveal"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "crane-jib-shot",
+    "name": "Crane/Jib Shot",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 70,
+    "shortDefinition": "Moves the camera through a large rising or sweeping arc.",
+    "whyItMatters": "It adds scale, elegance, and production value.",
+    "whenToUse": [
+      "Openings",
+      "Endings",
+      "Crowds",
+      "Large spaces"
+    ],
+    "humanShootHint": "Use the move to reveal meaningful space, not just to look expensive.",
+    "aiPromptTemplate": "cinematic crane shot over [subject], sweeping camera rise, epic scale, [duration]",
+    "previewPrompt3s": "short crane rise revealing [subject], smooth elegant motion, 3 seconds",
+    "previewPrompt5s": "crane shot rising over [subject], environment expands into view, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Pedestal Move",
+      "Establishing Shot",
+      "Wide Shot"
+    ],
+    "commonMistakes": [
+      "Move is too complex for the scene",
+      "Subject gets lost"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "scale",
+      "production"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "zoom",
+    "name": "Zoom",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 69,
+    "shortDefinition": "Changes focal length to make the subject appear closer or farther.",
+    "whyItMatters": "It changes framing without physically moving the camera.",
+    "whenToUse": [
+      "Documentary",
+      "Comedy",
+      "Stylized emphasis",
+      "Live capture"
+    ],
+    "humanShootHint": "Zoom deliberately and avoid treating it as a replacement for composition.",
+    "aiPromptTemplate": "cinematic zoom on [subject], smooth focal length change, intentional emphasis, [duration]",
+    "previewPrompt3s": "smooth zoom toward [subject], clear emphasis, 3 seconds",
+    "previewPrompt5s": "slow zoom on [subject], controlled framing and final hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Dolly In",
+      "Zoom Lens",
+      "Focal Length"
+    ],
+    "commonMistakes": [
+      "Digital zoom looks cheap",
+      "Zoom has no emotional reason"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "lens",
+      "emphasis"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "push-in",
+    "name": "Push-In",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 68,
+    "shortDefinition": "A general move toward the subject, often used like a dolly in.",
+    "whyItMatters": "It increases attention and emotional pressure.",
+    "whenToUse": [
+      "Important moments",
+      "Product hero",
+      "Reveals",
+      "Emotion"
+    ],
+    "humanShootHint": "Move forward slowly and let the subject grow in importance.",
+    "aiPromptTemplate": "cinematic push-in toward [subject], slow smooth approach, emotional focus, [duration]",
+    "previewPrompt3s": "slow push-in toward [subject], clean focus and soft light, 3 seconds",
+    "previewPrompt5s": "slow push-in toward [subject], gentle movement and final hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Dolly In",
+      "Close-Up",
+      "Shallow Depth of Field"
+    ],
+    "commonMistakes": [
+      "Move is too fast",
+      "Focus drifts during the push"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "emotion",
+      "AI prompt"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "pull-back",
+    "name": "Pull-Back",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 67,
+    "shortDefinition": "A general move away from the subject.",
+    "whyItMatters": "It reveals surrounding context or creates emotional distance.",
+    "whenToUse": [
+      "Endings",
+      "Reveals",
+      "Isolation",
+      "Location shifts"
+    ],
+    "humanShootHint": "Start with a meaningful close frame and reveal something new as you retreat.",
+    "aiPromptTemplate": "cinematic pull-back from [subject], environment revealed, smooth camera movement, [duration]",
+    "previewPrompt3s": "pull-back from [subject], new context revealed, 3 seconds",
+    "previewPrompt5s": "slow pull-back from [subject], wider story space appears, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Dolly Out",
+      "Wide Shot",
+      "Establishing Shot"
+    ],
+    "commonMistakes": [
+      "Reveal lacks purpose",
+      "Move becomes shaky or too slow"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "movement",
+      "reveal",
+      "context"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "whip-pan",
+    "name": "Whip Pan",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 66,
+    "shortDefinition": "A very fast pan that creates motion blur.",
+    "whyItMatters": "It adds energy and can hide a transition between shots.",
+    "whenToUse": [
+      "Fast transitions",
+      "Comedy",
+      "Action",
+      "Music videos"
+    ],
+    "humanShootHint": "Start and end on clear frames so the blur feels intentional.",
+    "aiPromptTemplate": "cinematic whip pan transition around [subject], fast motion blur, energetic cut, [duration]",
+    "previewPrompt3s": "whip pan from one detail of [subject] to another, fast blur, 3 seconds",
+    "previewPrompt5s": "whip pan transition for [subject], clear start and end frames, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Pan",
+      "Cut",
+      "Match Cut"
+    ],
+    "commonMistakes": [
+      "No readable start or end",
+      "Motion blur becomes visual noise"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "transition",
+      "energy"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "orbit-shot",
+    "name": "Orbit Shot",
+    "category": "Movement",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 65,
+    "shortDefinition": "Moves the camera around the subject in a circular path.",
+    "whyItMatters": "It shows form, space, and a premium sense of reveal.",
+    "whenToUse": [
+      "Product beauty",
+      "Character moments",
+      "Locations",
+      "Fashion"
+    ],
+    "humanShootHint": "Keep the subject centered and move in a smooth arc.",
+    "aiPromptTemplate": "cinematic orbit shot around [subject], smooth circular camera move, shallow depth of field, [duration]",
+    "previewPrompt3s": "orbit shot around [subject], smooth partial circle, 3 seconds",
+    "previewPrompt5s": "slow orbit around [subject], foreground parallax and soft light, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Parallax",
+      "Tracking Shot",
+      "Insert Shot"
+    ],
+    "commonMistakes": [
+      "Subject drifts off center",
+      "Orbit is too complex for AI model"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "product",
+      "AI prompt"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "foreground",
+    "name": "Foreground",
+    "category": "Composition",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 64,
+    "shortDefinition": "The part of the frame closest to the camera.",
+    "whyItMatters": "Foreground adds depth, context, and visual layers.",
+    "whenToUse": [
+      "Depth",
+      "Over-the-shoulder",
+      "Reveals",
+      "Product framing"
+    ],
+    "humanShootHint": "Place a soft object or edge near the lens only if it supports the subject.",
+    "aiPromptTemplate": "cinematic [subject] with soft foreground layer, depth and natural framing, [duration]",
+    "previewPrompt3s": "[subject] framed by soft foreground, clear depth, 3 seconds",
+    "previewPrompt5s": "[subject] with foreground parallax during a slow push-in, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Background",
+      "Deep Focus",
+      "Rack Focus"
+    ],
+    "commonMistakes": [
+      "Foreground blocks the subject",
+      "Layer feels random"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "depth",
+      "layers"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "background",
+    "name": "Background",
+    "category": "Composition",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 63,
+    "shortDefinition": "The part of the frame behind the subject.",
+    "whyItMatters": "Background shapes mood, context, and subject separation.",
+    "whenToUse": [
+      "Portraits",
+      "Product shots",
+      "Interviews",
+      "Location storytelling"
+    ],
+    "humanShootHint": "Simplify the background or use distance and blur to reduce distraction.",
+    "aiPromptTemplate": "cinematic [subject] with clean background, subject separation, soft light, [duration]",
+    "previewPrompt3s": "[subject] against clean background, clear separation, 3 seconds",
+    "previewPrompt5s": "[subject] with background detail softly revealed, stable camera, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Foreground",
+      "Shallow Depth of Field",
+      "Back Light"
+    ],
+    "commonMistakes": [
+      "Background competes with subject",
+      "Unwanted objects draw attention"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "depth",
+      "location"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "negative-space",
+    "name": "Negative Space",
+    "category": "Composition",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 62,
+    "shortDefinition": "Empty or quiet space around the subject.",
+    "whyItMatters": "It creates focus, calm, tension, or room for text.",
+    "whenToUse": [
+      "Minimal frames",
+      "Titles",
+      "Loneliness",
+      "Product ads"
+    ],
+    "humanShootHint": "Give the subject breathing room and keep the empty area visually clean.",
+    "aiPromptTemplate": "cinematic [subject] with strong negative space, minimal background, soft light, [duration]",
+    "previewPrompt3s": "[subject] framed with generous negative space, 3 seconds",
+    "previewPrompt5s": "[subject] moves into negative space, calm cinematic hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Rule of Thirds",
+      "Frame",
+      "Wide Shot"
+    ],
+    "commonMistakes": [
+      "Empty space feels accidental",
+      "Subject becomes too small"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "composition",
+      "minimal",
+      "editorial"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "continuity",
+    "name": "Continuity",
+    "category": "Editing",
+    "priorityGroup": "Core Visual Grammar",
+    "priorityScore": 61,
+    "shortDefinition": "Keeping action, screen direction, light, and details consistent across shots.",
+    "whyItMatters": "Continuity helps cuts feel invisible and story flow feel natural.",
+    "whenToUse": [
+      "Dialogue",
+      "Tutorials",
+      "Narrative scenes",
+      "Multi-shot AI clips"
+    ],
+    "humanShootHint": "Track props, direction, and action positions before changing angle.",
+    "aiPromptTemplate": "continuity-safe cinematic shot of [subject], matching lighting, direction, and action, [duration]",
+    "previewPrompt3s": "continuity-safe shot of [subject], matching action across cut, 3 seconds",
+    "previewPrompt5s": "two-angle continuity example for [subject], same action and eyeline, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Screen Direction",
+      "Match on Action",
+      "180-Degree Rule"
+    ],
+    "commonMistakes": [
+      "Props jump between shots",
+      "Lighting or direction changes without reason"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "coverage",
+      "consistency"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "blocking",
+    "name": "Blocking",
+    "category": "Composition",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 79,
+    "shortDefinition": "The planned movement and position of people, camera, and objects.",
+    "whyItMatters": "Blocking makes action understandable before the edit adds polish.",
+    "whenToUse": [
+      "Dialogue",
+      "Narrative scenes",
+      "Tutorial steps",
+      "Group action"
+    ],
+    "humanShootHint": "Walk through the action once and choose positions that read clearly on camera.",
+    "aiPromptTemplate": "cinematic [subject] with clear blocking, simple subject movement, readable space, [duration]",
+    "previewPrompt3s": "[subject] with clear blocking, one subject crosses the frame, 3 seconds",
+    "previewPrompt5s": "[subject] with simple blocking, subject moves from mark to mark, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Master Shot",
+      "Screen Direction",
+      "Mise-en-scene"
+    ],
+    "commonMistakes": [
+      "Actors block each other",
+      "Camera cannot see the important action"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "staging",
+      "composition",
+      "coverage"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "180-degree-rule",
+    "name": "180-Degree Rule",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 78,
+    "shortDefinition": "Keeps the camera on one side of an imaginary action line.",
+    "whyItMatters": "It preserves screen direction so viewers know where everyone is.",
+    "whenToUse": [
+      "Dialogue",
+      "Action",
+      "Sports",
+      "Continuity"
+    ],
+    "humanShootHint": "Pick the line between subjects or action and stay on one side unless motivated.",
+    "aiPromptTemplate": "continuity-safe dialogue shot of [subject], respects 180-degree rule and matching eyelines, [duration]",
+    "previewPrompt3s": "two-person [subject] setup respecting 180-degree screen direction, 3 seconds",
+    "previewPrompt5s": "dialogue coverage for [subject], consistent 180-degree eyelines, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Screen Direction",
+      "Over-the-Shoulder",
+      "Shot-Reverse-Shot"
+    ],
+    "commonMistakes": [
+      "Crossing the line accidentally",
+      "Eyelines reverse between cuts"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "continuity",
+      "dialogue",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "screen-direction",
+    "name": "Screen Direction",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 77,
+    "shortDefinition": "The perceived left-right direction of movement or looking in the frame.",
+    "whyItMatters": "Consistent direction makes action easy to follow across cuts.",
+    "whenToUse": [
+      "Movement",
+      "Dialogue",
+      "Sports",
+      "Travel sequences"
+    ],
+    "humanShootHint": "Keep subjects moving or looking the same way unless the story intentionally changes it.",
+    "aiPromptTemplate": "cinematic [subject], consistent screen direction, clear left-to-right movement, [duration]",
+    "previewPrompt3s": "[subject] moves left to right with clear screen direction, 3 seconds",
+    "previewPrompt5s": "[subject] continues left-to-right movement across matching shots, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "180-Degree Rule",
+      "Continuity",
+      "Match on Action"
+    ],
+    "commonMistakes": [
+      "Direction flips between shots",
+      "Viewer loses geography"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "continuity",
+      "movement",
+      "editing"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "eyeline-match",
+    "name": "Eyeline Match",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 76,
+    "shortDefinition": "Cuts from someone looking to what they appear to be looking at.",
+    "whyItMatters": "It links attention, emotion, and story information.",
+    "whenToUse": [
+      "Dialogue",
+      "Discovery",
+      "Reactions",
+      "POV moments"
+    ],
+    "humanShootHint": "Match the direction and height of the look with the object or person seen next.",
+    "aiPromptTemplate": "cinematic eyeline match for [subject], subject looks then cut to matching object, [duration]",
+    "previewPrompt3s": "eyeline match of [subject] looking to a related detail, 3 seconds",
+    "previewPrompt5s": "eyeline match sequence for [subject], look then object then reaction, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Reaction Shot",
+      "POV Shot",
+      "Shot-Reverse-Shot"
+    ],
+    "commonMistakes": [
+      "Look direction does not match",
+      "Cutaway is unrelated"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "attention",
+      "dialogue"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "match-on-action",
+    "name": "Match on Action",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 75,
+    "shortDefinition": "Cuts during the same movement so action feels continuous.",
+    "whyItMatters": "It hides the cut and makes coverage feel fluid.",
+    "whenToUse": [
+      "Opening doors",
+      "Hands",
+      "Movement",
+      "Tutorial steps"
+    ],
+    "humanShootHint": "Repeat the same action from multiple angles and cut at the strongest motion point.",
+    "aiPromptTemplate": "match on action sequence for [subject], same movement continues across two shots, [duration]",
+    "previewPrompt3s": "match on action of [subject], action continues through a clean cut, 3 seconds",
+    "previewPrompt5s": "match on action for [subject], wide to close detail with continuous motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Continuity",
+      "Cut",
+      "Insert Shot"
+    ],
+    "commonMistakes": [
+      "Action timing does not match",
+      "Cut happens too late"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "continuity",
+      "action"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "shot-reverse-shot",
+    "name": "Shot-Reverse-Shot",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 74,
+    "shortDefinition": "Alternates between two opposing angles, usually in dialogue.",
+    "whyItMatters": "It creates clean conversational rhythm and readable reactions.",
+    "whenToUse": [
+      "Dialogue",
+      "Interviews",
+      "Conflict",
+      "Reaction beats"
+    ],
+    "humanShootHint": "Shoot matching angles for both sides and keep eyelines consistent.",
+    "aiPromptTemplate": "shot-reverse-shot dialogue sequence for [subject], matching eyelines, clean coverage, [duration]",
+    "previewPrompt3s": "shot-reverse-shot of [subject], two matching dialogue angles, 3 seconds",
+    "previewPrompt5s": "shot-reverse-shot of [subject], speaker then listener reaction with continuity, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Over-the-Shoulder",
+      "Reverse Shot",
+      "180-Degree Rule"
+    ],
+    "commonMistakes": [
+      "Angles do not match",
+      "No reaction beat"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "dialogue",
+      "editing",
+      "coverage"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "j-cut",
+    "name": "J-Cut",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 73,
+    "shortDefinition": "Audio from the next shot begins before the picture changes.",
+    "whyItMatters": "It smooths transitions and pulls viewers into the next moment.",
+    "whenToUse": [
+      "Dialogue",
+      "Documentary",
+      "Scene transitions",
+      "Montage"
+    ],
+    "humanShootHint": "Record clean audio handles so sound can lead the picture.",
+    "aiPromptTemplate": "cinematic J-cut sequence for [subject], next audio begins before picture change, [duration]",
+    "previewPrompt3s": "J-cut concept for [subject], sound leads into next image, 3 seconds",
+    "previewPrompt5s": "J-cut sequence for [subject], audio bridge before visual cut, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "L-Cut",
+      "Cut",
+      "Ambient/Wild Track"
+    ],
+    "commonMistakes": [
+      "Audio lead feels confusing",
+      "No clean ambient sound"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "audio",
+      "transition"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "l-cut",
+    "name": "L-Cut",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 72,
+    "shortDefinition": "Audio from the previous shot continues after the picture changes.",
+    "whyItMatters": "It lets emotion or narration carry across a cut.",
+    "whenToUse": [
+      "Interviews",
+      "Dialogue",
+      "Memory",
+      "Documentary"
+    ],
+    "humanShootHint": "Keep room tone and dialogue tails clean for smoother overlaps.",
+    "aiPromptTemplate": "cinematic L-cut sequence for [subject], previous audio continues over next image, [duration]",
+    "previewPrompt3s": "L-cut concept for [subject], previous sound carries over new image, 3 seconds",
+    "previewPrompt5s": "L-cut sequence for [subject], emotional audio continues across cut, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "J-Cut",
+      "Cut",
+      "Ambient/Wild Track"
+    ],
+    "commonMistakes": [
+      "Audio overlap is too long",
+      "Sound does not match the new image"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "audio",
+      "transition"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "jump-cut",
+    "name": "Jump Cut",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 71,
+    "shortDefinition": "A visible cut that jumps forward in time or position.",
+    "whyItMatters": "It can create speed, comedy, or a direct creator-video rhythm.",
+    "whenToUse": [
+      "Talking head",
+      "Montage",
+      "Comedy",
+      "Time compression"
+    ],
+    "humanShootHint": "Use jump cuts intentionally and keep the subject position stable if clarity matters.",
+    "aiPromptTemplate": "stylized jump cut sequence for [subject], quick time compression, clean rhythm, [duration]",
+    "previewPrompt3s": "jump cut sequence of [subject], repeated action compressed quickly, 3 seconds",
+    "previewPrompt5s": "jump cut sequence of [subject], fast progress through simple action, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Cut",
+      "Montage",
+      "Continuity"
+    ],
+    "commonMistakes": [
+      "Accidental continuity error",
+      "Too many cuts make it tiring"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "rhythm",
+      "creator"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "match-cut",
+    "name": "Match Cut",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 70,
+    "shortDefinition": "Cuts between two visually or conceptually similar images.",
+    "whyItMatters": "It creates elegant transitions and meaning through comparison.",
+    "whenToUse": [
+      "Montage",
+      "Transitions",
+      "Visual metaphors",
+      "Before/after"
+    ],
+    "humanShootHint": "Match shape, motion, or screen position between the two shots.",
+    "aiPromptTemplate": "cinematic match cut for [subject], similar shape and motion across two shots, [duration]",
+    "previewPrompt3s": "match cut from one [subject] detail to a similar shape, 3 seconds",
+    "previewPrompt5s": "match cut sequence for [subject], shape aligns across two shots, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Cut",
+      "Match on Action",
+      "Montage"
+    ],
+    "commonMistakes": [
+      "Images do not match strongly enough",
+      "Transition calls attention to itself"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "editing",
+      "transition",
+      "visual idea"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "montage",
+    "name": "Montage",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 69,
+    "shortDefinition": "A compressed sequence of shots that builds an idea, mood, or progress.",
+    "whyItMatters": "It turns many small moments into a fast, memorable story.",
+    "whenToUse": [
+      "Travel reels",
+      "Training",
+      "Progress",
+      "Mood pieces"
+    ],
+    "humanShootHint": "Shoot varied scales: wide, medium, detail, movement, and reaction.",
+    "aiPromptTemplate": "cinematic montage of [subject], varied shot sizes, rhythmic visual progression, [duration]",
+    "previewPrompt3s": "micro montage of [subject], wide detail close-up rhythm, 3 seconds",
+    "previewPrompt5s": "cinematic montage of [subject], five quick readable beats, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Sequence",
+      "B-Roll",
+      "Jump Cut"
+    ],
+    "commonMistakes": [
+      "Random pretty clips",
+      "No visual progression"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "reel",
+      "story"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "dissolve",
+    "name": "Dissolve",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 68,
+    "shortDefinition": "One shot gradually fades into another.",
+    "whyItMatters": "It suggests time passing, memory, softness, or comparison.",
+    "whenToUse": [
+      "Time passage",
+      "Dreams",
+      "Mood transitions",
+      "Before/after"
+    ],
+    "humanShootHint": "Use dissolves when the two images have a meaningful relationship.",
+    "aiPromptTemplate": "soft dissolve transition for [subject], one shot blends into another, cinematic mood, [duration]",
+    "previewPrompt3s": "soft dissolve from one [subject] detail to another, 3 seconds",
+    "previewPrompt5s": "dissolve transition for [subject], gentle blend and final hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Fade In",
+      "Fade Out",
+      "Match Cut"
+    ],
+    "commonMistakes": [
+      "Using dissolve as decoration",
+      "Transition feels slow"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "transition",
+      "mood"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "fade-in",
+    "name": "Fade In",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 67,
+    "shortDefinition": "The image gradually appears from black or another solid color.",
+    "whyItMatters": "It creates a gentle beginning or sense of arrival.",
+    "whenToUse": [
+      "Openings",
+      "Dreamy starts",
+      "Scene starts"
+    ],
+    "humanShootHint": "Leave a clean first moment so the fade has something calm to reveal.",
+    "aiPromptTemplate": "cinematic fade in to [subject], image slowly appears from black, [duration]",
+    "previewPrompt3s": "fade in to [subject], soft reveal from black, 3 seconds",
+    "previewPrompt5s": "slow fade in to [subject], image settles into a clear frame, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Fade Out",
+      "Dissolve",
+      "Cut"
+    ],
+    "commonMistakes": [
+      "Fade is too long",
+      "Opening frame is weak"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "transition",
+      "opening"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "fade-out",
+    "name": "Fade Out",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 66,
+    "shortDefinition": "The image gradually disappears into black or another solid color.",
+    "whyItMatters": "It gives closure, pause, or a gentle ending.",
+    "whenToUse": [
+      "Endings",
+      "Scene breaks",
+      "Emotional pauses"
+    ],
+    "humanShootHint": "Hold the final image long enough for the fade to feel earned.",
+    "aiPromptTemplate": "cinematic fade out from [subject], image gently disappears to black, [duration]",
+    "previewPrompt3s": "[subject] holds then fades out to black, 3 seconds",
+    "previewPrompt5s": "[subject] completes one action then slowly fades out, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Fade In",
+      "Dissolve",
+      "Cut"
+    ],
+    "commonMistakes": [
+      "Fade hides an awkward ending",
+      "Too many fades in one sequence"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "editing",
+      "transition",
+      "ending"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "b-roll",
+    "name": "B-Roll",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 65,
+    "shortDefinition": "Supplementary footage that supports the main story.",
+    "whyItMatters": "It adds texture, context, and flexibility in the edit.",
+    "whenToUse": [
+      "Interviews",
+      "Reels",
+      "Tutorials",
+      "Product stories"
+    ],
+    "humanShootHint": "Capture details, hands, environment, movement, and reactions around the main action.",
+    "aiPromptTemplate": "cinematic B-roll of [subject], supporting detail shots, natural light, [duration]",
+    "previewPrompt3s": "B-roll detail of [subject], one supporting action, 3 seconds",
+    "previewPrompt5s": "B-roll sequence for [subject], detail movement and context, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Cutaway",
+      "Insert Shot",
+      "Montage"
+    ],
+    "commonMistakes": [
+      "B-roll is unrelated",
+      "Only shooting one type of detail"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "coverage",
+      "editing",
+      "support"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "fill-light",
+    "name": "Fill Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 64,
+    "shortDefinition": "Light that softens shadows created by the key light.",
+    "whyItMatters": "It controls contrast while preserving shape.",
+    "whenToUse": [
+      "Portraits",
+      "Interviews",
+      "Product shots",
+      "Shadow control"
+    ],
+    "humanShootHint": "Use a dim light, bounce card, or nearby wall to lift shadows gently.",
+    "aiPromptTemplate": "cinematic [subject] with soft key light and gentle fill light, balanced shadows, [duration]",
+    "previewPrompt3s": "[subject] with key and fill light, soft controlled shadows, 3 seconds",
+    "previewPrompt5s": "[subject] turns slightly through key and fill light, balanced contrast, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Key Light",
+      "Soft Light",
+      "Bounce Light"
+    ],
+    "commonMistakes": [
+      "Fill removes all shadow",
+      "Fill comes from an unnatural direction"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "contrast",
+      "portrait"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "back-light",
+    "name": "Back Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 63,
+    "shortDefinition": "Light placed behind the subject toward the camera.",
+    "whyItMatters": "It separates the subject from the background and adds depth.",
+    "whenToUse": [
+      "Portraits",
+      "Product beauty",
+      "Night scenes",
+      "Silhouettes"
+    ],
+    "humanShootHint": "Place the light behind or to the rear side and avoid flare unless desired.",
+    "aiPromptTemplate": "cinematic [subject] with soft back light, glowing edge separation, moody background, [duration]",
+    "previewPrompt3s": "[subject] with visible back light edge, moody separation, 3 seconds",
+    "previewPrompt5s": "[subject] turns slightly into a soft back light glow, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Rim Light",
+      "Silhouette",
+      "Key Light"
+    ],
+    "commonMistakes": [
+      "Back light flares too much",
+      "Subject face becomes unreadable"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "lighting",
+      "depth",
+      "cinematic"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "rim-light",
+    "name": "Rim Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 62,
+    "shortDefinition": "A back or side light that creates a bright edge around the subject.",
+    "whyItMatters": "It makes the subject pop from a dark or busy background.",
+    "whenToUse": [
+      "Portraits",
+      "Dark scenes",
+      "Product outlines",
+      "Mood"
+    ],
+    "humanShootHint": "Aim a small light at the subject's edge and keep it off the lens.",
+    "aiPromptTemplate": "cinematic [subject] with subtle rim light, bright edge separation, dark background, [duration]",
+    "previewPrompt3s": "[subject] with subtle rim light edge, dark background, 3 seconds",
+    "previewPrompt5s": "[subject] slowly turns, rim light catches the edge, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Back Light",
+      "Silhouette",
+      "Side Light"
+    ],
+    "commonMistakes": [
+      "Rim is too bright",
+      "Light spills onto the background"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "edge",
+      "separation"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "hard-light",
+    "name": "Hard Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 61,
+    "shortDefinition": "Light with sharp, defined shadows.",
+    "whyItMatters": "It creates drama, texture, contrast, and graphic shape.",
+    "whenToUse": [
+      "Noir mood",
+      "Texture",
+      "Sunlight",
+      "Stylized scenes"
+    ],
+    "humanShootHint": "Use a small or distant light source and control where the shadows land.",
+    "aiPromptTemplate": "cinematic [subject] in hard light, sharp shadows, high contrast, [duration]",
+    "previewPrompt3s": "[subject] in hard light, sharp shadow pattern, 3 seconds",
+    "previewPrompt5s": "[subject] moves through hard light and sharp shadow, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Soft Light",
+      "Key Light",
+      "Silhouette"
+    ],
+    "commonMistakes": [
+      "Unflattering face shadows",
+      "Highlights clip without intention"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "contrast",
+      "shadow"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "soft-light",
+    "name": "Soft Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 60,
+    "shortDefinition": "Light with gentle, gradual shadows.",
+    "whyItMatters": "It flatters faces and gives a calm premium feel.",
+    "whenToUse": [
+      "Portraits",
+      "Beauty",
+      "Food",
+      "Warm lifestyle"
+    ],
+    "humanShootHint": "Use window light, diffusion, bounce, or a large light source.",
+    "aiPromptTemplate": "cinematic [subject] in soft light, gentle shadows, warm natural mood, [duration]",
+    "previewPrompt3s": "[subject] in soft light, gentle shadow falloff, 3 seconds",
+    "previewPrompt5s": "[subject] in soft light, subtle expression and warm hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Hard Light",
+      "Diffusion",
+      "Bounce Light"
+    ],
+    "commonMistakes": [
+      "Light becomes flat",
+      "No direction or shape"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "lighting",
+      "soft",
+      "portrait"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "silhouette",
+    "name": "Silhouette",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 59,
+    "shortDefinition": "A dark subject shape against a brighter background.",
+    "whyItMatters": "It creates mystery, graphic clarity, and emotional distance.",
+    "whenToUse": [
+      "Sunsets",
+      "Mystery",
+      "Profiles",
+      "Openings"
+    ],
+    "humanShootHint": "Expose for the bright background and keep the subject shape readable.",
+    "aiPromptTemplate": "cinematic silhouette of [subject], bright background, clear dark shape, [duration]",
+    "previewPrompt3s": "silhouette of [subject] against bright background, clean outline, 3 seconds",
+    "previewPrompt5s": "silhouette of [subject], subtle movement against glowing background, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Back Light",
+      "Rim Light",
+      "Exposure"
+    ],
+    "commonMistakes": [
+      "Shape is unreadable",
+      "Face detail expected but hidden"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "shape",
+      "mood"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "practical-light",
+    "name": "Practical Light",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 58,
+    "shortDefinition": "A visible light source inside the scene, such as a lamp or sign.",
+    "whyItMatters": "It motivates the lighting and makes the scene feel believable.",
+    "whenToUse": [
+      "Interiors",
+      "Night scenes",
+      "Cafes",
+      "Mood"
+    ],
+    "humanShootHint": "Place visible lamps where they justify the direction and color of light.",
+    "aiPromptTemplate": "cinematic [subject] lit by practical lights, visible lamps, warm believable mood, [duration]",
+    "previewPrompt3s": "[subject] beside warm practical light, cozy realistic mood, 3 seconds",
+    "previewPrompt5s": "[subject] moves through warm practical light, soft shadows, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Key Light",
+      "Color Temperature",
+      "Motivated Camera"
+    ],
+    "commonMistakes": [
+      "Practical is too bright",
+      "Light source does not match the scene"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "interior",
+      "mood"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "color-temperature",
+    "name": "Color Temperature",
+    "category": "Lighting",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 57,
+    "shortDefinition": "The warm or cool color quality of light.",
+    "whyItMatters": "It affects mood and whether mixed light feels natural or messy.",
+    "whenToUse": [
+      "White balance",
+      "Mood",
+      "Mixed light",
+      "Interiors"
+    ],
+    "humanShootHint": "Match your camera white balance to the main light or choose a deliberate contrast.",
+    "aiPromptTemplate": "cinematic [subject], warm color temperature, consistent natural lighting, [duration]",
+    "previewPrompt3s": "[subject] under warm color temperature, consistent light color, 3 seconds",
+    "previewPrompt5s": "[subject] moves from cool shadow to warm practical light, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "White Balance",
+      "Practical Light",
+      "Color Grading"
+    ],
+    "commonMistakes": [
+      "Mixed color casts look accidental",
+      "Skin tones shift between shots"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "color",
+      "white balance"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "motivated-camera",
+    "name": "Motivated Camera",
+    "category": "Movement",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 56,
+    "shortDefinition": "Camera movement that has a clear story or subject reason.",
+    "whyItMatters": "It keeps motion from feeling decorative or confusing.",
+    "whenToUse": [
+      "Reveals",
+      "Character movement",
+      "Emotion",
+      "Transitions"
+    ],
+    "humanShootHint": "Move because the subject moves, attention changes, or the story reveals something.",
+    "aiPromptTemplate": "motivated cinematic camera move for [subject], motion follows story attention, [duration]",
+    "previewPrompt3s": "motivated camera move toward [subject] as attention shifts, 3 seconds",
+    "previewPrompt5s": "motivated camera move for [subject], follows action then holds, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Dolly In",
+      "Tracking Shot",
+      "Blocking"
+    ],
+    "commonMistakes": [
+      "Camera moves for no reason",
+      "Motion competes with action"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "story",
+      "intent"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "mise-en-scene",
+    "name": "Mise-en-scene",
+    "category": "Composition",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 55,
+    "shortDefinition": "Everything arranged in front of the camera: set, props, costume, light, and blocking.",
+    "whyItMatters": "It lets the environment tell story before anyone speaks.",
+    "whenToUse": [
+      "Narrative scenes",
+      "Brand worlds",
+      "Interiors",
+      "Character detail"
+    ],
+    "humanShootHint": "Choose only props, colors, and background details that support the story.",
+    "aiPromptTemplate": "cinematic [subject] with intentional mise-en-scene, meaningful props, cohesive lighting, [duration]",
+    "previewPrompt3s": "[subject] in intentional mise-en-scene, meaningful props visible, 3 seconds",
+    "previewPrompt5s": "[subject] moves through a cohesive mise-en-scene, story details visible, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Blocking",
+      "Background",
+      "Practical Light"
+    ],
+    "commonMistakes": [
+      "Set dressing is random",
+      "Too many props compete"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "composition",
+      "production design",
+      "story"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "ambient-wild-track",
+    "name": "Ambient/Wild Track",
+    "category": "Editing",
+    "priorityGroup": "Coverage and Edit Logic",
+    "priorityScore": 54,
+    "shortDefinition": "Clean background sound recorded separately from the main action.",
+    "whyItMatters": "It smooths edits and makes scenes feel continuous.",
+    "whenToUse": [
+      "Dialogue",
+      "Documentary",
+      "Location edits",
+      "J-cuts and L-cuts"
+    ],
+    "humanShootHint": "Record 30 seconds of room tone or location sound after the take.",
+    "aiPromptTemplate": "cinematic [subject] with consistent ambient sound bed, clean natural atmosphere, [duration]",
+    "previewPrompt3s": "ambient sound bed concept for [subject], natural room tone, 3 seconds",
+    "previewPrompt5s": "ambient wild track supports [subject] across a smooth visual cut, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "J-Cut",
+      "L-Cut",
+      "Continuity"
+    ],
+    "commonMistakes": [
+      "No room tone recorded",
+      "Background sound jumps between cuts"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "audio",
+      "editing",
+      "continuity"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "focal-length",
+    "name": "Focal Length",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 66,
+    "shortDefinition": "A lens measurement that affects angle of view and perspective feel.",
+    "whyItMatters": "It changes how close, compressed, wide, or intimate the image feels.",
+    "whenToUse": [
+      "Lens choice",
+      "Portraits",
+      "Locations",
+      "Product shots"
+    ],
+    "humanShootHint": "Use wider focal lengths for space and longer focal lengths for compression.",
+    "aiPromptTemplate": "cinematic [subject], intentional focal length, natural perspective and subject separation, [duration]",
+    "previewPrompt3s": "[subject] shown with clear focal length choice, perspective visible, 3 seconds",
+    "previewPrompt5s": "[subject] with focal length look, stable camera and clean background, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Wide-Angle Lens",
+      "Telephoto Lens",
+      "Standard Lens"
+    ],
+    "commonMistakes": [
+      "Choosing lens by habit",
+      "Ignoring distortion or compression"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "perspective",
+      "look"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "wide-angle-lens",
+    "name": "Wide-Angle Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 65,
+    "shortDefinition": "A lens that sees a wider field of view.",
+    "whyItMatters": "It exaggerates space, movement, and foreground-background distance.",
+    "whenToUse": [
+      "Interiors",
+      "Travel",
+      "Action",
+      "POV shots"
+    ],
+    "humanShootHint": "Keep faces away from the frame edges to avoid unwanted distortion.",
+    "aiPromptTemplate": "cinematic wide-angle lens shot of [subject], spacious perspective, dynamic foreground, [duration]",
+    "previewPrompt3s": "wide-angle lens shot of [subject], spacious perspective, 3 seconds",
+    "previewPrompt5s": "wide-angle lens shot of [subject], foreground movement creates depth, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Focal Length",
+      "Wide Shot",
+      "Worm's-Eye View"
+    ],
+    "commonMistakes": [
+      "Faces distort at edges",
+      "Too much empty space"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "wide",
+      "space"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "standard-lens",
+    "name": "Standard Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 64,
+    "shortDefinition": "A lens with a natural-looking perspective close to how we see.",
+    "whyItMatters": "It creates familiar, balanced images without obvious distortion.",
+    "whenToUse": [
+      "Everyday scenes",
+      "Interviews",
+      "Documentary",
+      "Natural look"
+    ],
+    "humanShootHint": "Use a normal focal length when you want the lens choice to disappear.",
+    "aiPromptTemplate": "cinematic standard lens shot of [subject], natural perspective, balanced framing, [duration]",
+    "previewPrompt3s": "standard lens shot of [subject], natural perspective, 3 seconds",
+    "previewPrompt5s": "standard lens shot of [subject], simple action and balanced composition, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Focal Length",
+      "Prime Lens",
+      "Medium Shot"
+    ],
+    "commonMistakes": [
+      "Frame feels ordinary without composition",
+      "No subject separation"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "natural",
+      "balanced"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "telephoto-lens",
+    "name": "Telephoto Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 63,
+    "shortDefinition": "A longer lens that narrows view and compresses distance.",
+    "whyItMatters": "It isolates subjects and makes backgrounds feel closer.",
+    "whenToUse": [
+      "Portraits",
+      "Sports",
+      "Product beauty",
+      "Compressed backgrounds"
+    ],
+    "humanShootHint": "Step back and use the longer view to simplify the background.",
+    "aiPromptTemplate": "cinematic telephoto lens shot of [subject], compressed background, soft separation, [duration]",
+    "previewPrompt3s": "telephoto lens shot of [subject], compressed background, 3 seconds",
+    "previewPrompt5s": "telephoto lens shot of [subject], soft background compression and gentle motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Focal Length",
+      "Shallow Depth of Field",
+      "Close-Up"
+    ],
+    "commonMistakes": [
+      "Camera shake increases",
+      "Background compression feels accidental"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "compression",
+      "portrait"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "prime-lens",
+    "name": "Prime Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 62,
+    "shortDefinition": "A lens with one fixed focal length.",
+    "whyItMatters": "It encourages intentional camera placement and often offers strong image quality.",
+    "whenToUse": [
+      "Portraits",
+      "Low light",
+      "Consistent style",
+      "Learning composition"
+    ],
+    "humanShootHint": "Move your body instead of zooming and choose the frame deliberately.",
+    "aiPromptTemplate": "cinematic prime lens shot of [subject], intentional framing, shallow depth of field, [duration]",
+    "previewPrompt3s": "prime lens look on [subject], intentional framing and soft background, 3 seconds",
+    "previewPrompt5s": "prime lens shot of [subject], subject movement within fixed focal length, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Focal Length",
+      "Standard Lens",
+      "Aperture"
+    ],
+    "commonMistakes": [
+      "Standing in the wrong place",
+      "Expecting lens choice to fix composition"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "composition",
+      "look"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "zoom-lens",
+    "name": "Zoom Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 61,
+    "shortDefinition": "A lens with a variable focal length range.",
+    "whyItMatters": "It gives framing flexibility without changing lenses.",
+    "whenToUse": [
+      "Events",
+      "Run-and-gun",
+      "Travel",
+      "Fast coverage"
+    ],
+    "humanShootHint": "Set framing intentionally rather than zooming constantly during a shot.",
+    "aiPromptTemplate": "cinematic zoom lens shot of [subject], flexible framing, controlled focal length, [duration]",
+    "previewPrompt3s": "zoom lens shot of [subject], controlled framing shift, 3 seconds",
+    "previewPrompt5s": "zoom lens shot of [subject], smooth focal length change and hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Zoom",
+      "Focal Length",
+      "Telephoto Lens"
+    ],
+    "commonMistakes": [
+      "Overusing zoom movement",
+      "Inconsistent look between shots"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lens",
+      "coverage",
+      "flexibility"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "anamorphic-lens",
+    "name": "Anamorphic Lens",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 60,
+    "shortDefinition": "A lens type associated with widescreen images, oval bokeh, and horizontal flare.",
+    "whyItMatters": "It creates a stylized cinematic texture and wide frame feel.",
+    "whenToUse": [
+      "Music videos",
+      "Drama",
+      "Premium product",
+      "Cinematic mood"
+    ],
+    "humanShootHint": "Use the look for mood and protect faces from edge distortion.",
+    "aiPromptTemplate": "cinematic anamorphic lens shot of [subject], widescreen frame, subtle horizontal flare, [duration]",
+    "previewPrompt3s": "anamorphic lens look on [subject], widescreen composition, 3 seconds",
+    "previewPrompt5s": "anamorphic lens shot of [subject], subtle flare and shallow depth, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Aspect Ratio",
+      "Focal Length",
+      "Highlight Roll-Off"
+    ],
+    "commonMistakes": [
+      "Adding flares everywhere",
+      "Look overwhelms the subject"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "lens",
+      "cinematic",
+      "look"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "macro-shot",
+    "name": "Macro Shot",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 59,
+    "shortDefinition": "An extremely close shot that reveals tiny texture or detail.",
+    "whyItMatters": "It makes product, food, and tactile details feel rich.",
+    "whenToUse": [
+      "Product detail",
+      "Food",
+      "Nature",
+      "Texture"
+    ],
+    "humanShootHint": "Stabilize the camera and use enough light for sharp detail.",
+    "aiPromptTemplate": "cinematic macro shot of [subject], tiny texture detail, shallow depth of field, soft light, [duration]",
+    "previewPrompt3s": "macro shot of [subject], tiny texture detail in focus, 3 seconds",
+    "previewPrompt5s": "macro shot of [subject], slow detail reveal with soft highlights, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Extreme Close-Up",
+      "Aperture",
+      "Insert Shot"
+    ],
+    "commonMistakes": [
+      "Focus is too shallow",
+      "Detail is visually confusing"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "macro",
+      "detail",
+      "product"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "parallax",
+    "name": "Parallax",
+    "category": "Movement",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 58,
+    "shortDefinition": "The depth effect created when foreground and background move at different speeds.",
+    "whyItMatters": "It makes camera movement feel dimensional and premium.",
+    "whenToUse": [
+      "Product beauty",
+      "Travel",
+      "Reveals",
+      "Orbit shots"
+    ],
+    "humanShootHint": "Place something close to the lens and move sideways or forward smoothly.",
+    "aiPromptTemplate": "cinematic [subject] with foreground parallax, smooth camera movement, layered depth, [duration]",
+    "previewPrompt3s": "[subject] with foreground parallax during a slow move, 3 seconds",
+    "previewPrompt5s": "[subject] with layered parallax, smooth sideways camera movement, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Foreground",
+      "Truck Move",
+      "Orbit Shot"
+    ],
+    "commonMistakes": [
+      "No foreground layer",
+      "Movement too fast for depth to read"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "movement",
+      "depth",
+      "premium"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "aperture",
+    "name": "Aperture",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 57,
+    "shortDefinition": "The lens opening that affects exposure and depth of field.",
+    "whyItMatters": "It controls how much is sharp and how much light enters.",
+    "whenToUse": [
+      "Low light",
+      "Portraits",
+      "Deep focus",
+      "Exposure control"
+    ],
+    "humanShootHint": "Open aperture for blur and light; close it for sharper depth.",
+    "aiPromptTemplate": "cinematic [subject], wide aperture, shallow depth of field, soft natural light, [duration]",
+    "previewPrompt3s": "[subject] with wide aperture look, soft background blur, 3 seconds",
+    "previewPrompt5s": "[subject] with aperture-driven depth of field, gentle focus hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shallow Depth of Field",
+      "Deep Focus",
+      "Exposure"
+    ],
+    "commonMistakes": [
+      "Too shallow to keep subject sharp",
+      "Using aperture only for brightness"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "exposure",
+      "lens",
+      "focus"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "shutter-speed",
+    "name": "Shutter Speed",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 56,
+    "shortDefinition": "How long each frame is exposed to light.",
+    "whyItMatters": "It affects brightness and motion blur.",
+    "whenToUse": [
+      "Motion blur",
+      "Sports",
+      "Low light",
+      "Natural movement"
+    ],
+    "humanShootHint": "Use faster shutter for crisp motion and slower shutter for blur.",
+    "aiPromptTemplate": "cinematic [subject], natural motion blur, controlled shutter speed look, [duration]",
+    "previewPrompt3s": "[subject] with visible natural motion blur, 3 seconds",
+    "previewPrompt5s": "[subject] moves with controlled shutter-speed motion blur, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shutter Angle",
+      "Frame Rate",
+      "Exposure"
+    ],
+    "commonMistakes": [
+      "Motion looks jittery",
+      "Blur hides important action"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "exposure",
+      "motion",
+      "blur"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "shutter-angle",
+    "name": "Shutter Angle",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 55,
+    "shortDefinition": "A cinema-style way to describe shutter exposure relative to frame rate.",
+    "whyItMatters": "It helps create natural cinematic motion blur.",
+    "whenToUse": [
+      "Cinematic motion",
+      "Frame rate choices",
+      "Motion blur control"
+    ],
+    "humanShootHint": "Use a 180-degree shutter angle as a natural starting point.",
+    "aiPromptTemplate": "cinematic [subject], natural 180-degree shutter angle motion blur, [duration]",
+    "previewPrompt3s": "[subject] with natural cinematic motion blur, 3 seconds",
+    "previewPrompt5s": "[subject] moving with 180-degree shutter angle feel, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Shutter Speed",
+      "Frame Rate",
+      "Slow Motion"
+    ],
+    "commonMistakes": [
+      "Motion blur feels unnatural",
+      "Confusing shutter angle with camera angle"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "cinema",
+      "motion",
+      "exposure"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "iso",
+    "name": "ISO",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 54,
+    "shortDefinition": "Camera sensitivity setting that affects brightness and noise.",
+    "whyItMatters": "It helps expose low light scenes but can add grain or noise.",
+    "whenToUse": [
+      "Low light",
+      "Exposure triangle",
+      "Night scenes"
+    ],
+    "humanShootHint": "Keep ISO as low as practical and add light when image quality matters.",
+    "aiPromptTemplate": "cinematic [subject], clean low-noise exposure, natural low light, [duration]",
+    "previewPrompt3s": "[subject] in clean low-light exposure, minimal noise, 3 seconds",
+    "previewPrompt5s": "[subject] in natural low light, clean exposure and soft shadows, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Exposure",
+      "Dynamic Range",
+      "Practical Light"
+    ],
+    "commonMistakes": [
+      "Noise becomes distracting",
+      "Underexposure fixed too late"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "exposure",
+      "low light",
+      "camera"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "frame-rate",
+    "name": "Frame Rate",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 53,
+    "shortDefinition": "The number of frames captured or played each second.",
+    "whyItMatters": "It changes motion feel and enables slow motion.",
+    "whenToUse": [
+      "Slow motion",
+      "Normal playback",
+      "Sports",
+      "Export planning"
+    ],
+    "humanShootHint": "Shoot higher frame rates only when you plan to slow the footage down.",
+    "aiPromptTemplate": "cinematic [subject], natural frame rate motion, smooth playback, [duration]",
+    "previewPrompt3s": "[subject] with natural frame rate motion, 3 seconds",
+    "previewPrompt5s": "[subject] with smooth frame-rate-aware movement, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Slow Motion",
+      "Shutter Angle",
+      "Shutter Speed"
+    ],
+    "commonMistakes": [
+      "Slow-motion footage lacks light",
+      "Motion cadence feels wrong"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "motion",
+      "camera",
+      "export"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "slow-motion",
+    "name": "Slow Motion",
+    "category": "Editing",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 52,
+    "shortDefinition": "Plays action back slower than real time.",
+    "whyItMatters": "It emphasizes beauty, impact, emotion, or detail.",
+    "whenToUse": [
+      "Product splashes",
+      "Sports",
+      "Emotion",
+      "Texture"
+    ],
+    "humanShootHint": "Shoot at a higher frame rate and choose action that benefits from detail.",
+    "aiPromptTemplate": "cinematic slow motion shot of [subject], graceful movement, soft light, [duration]",
+    "previewPrompt3s": "slow motion [subject], graceful single action, 3 seconds",
+    "previewPrompt5s": "slow motion [subject], detailed movement and soft cinematic hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Frame Rate",
+      "Shutter Speed",
+      "Macro Shot"
+    ],
+    "commonMistakes": [
+      "Using slow motion on boring action",
+      "Footage becomes too dark"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "motion",
+      "editing",
+      "style"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "time-lapse",
+    "name": "Time-Lapse",
+    "category": "Editing",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 51,
+    "shortDefinition": "Compresses a long change into a short clip.",
+    "whyItMatters": "It shows progress, movement, or time passing quickly.",
+    "whenToUse": [
+      "Sunsets",
+      "Crowds",
+      "Builds",
+      "Weather"
+    ],
+    "humanShootHint": "Lock the camera and keep exposure stable during the whole capture.",
+    "aiPromptTemplate": "cinematic time-lapse of [subject], long change compressed into a short clip, [duration]",
+    "previewPrompt3s": "time-lapse of [subject], visible change compressed, 3 seconds",
+    "previewPrompt5s": "time-lapse of [subject], day movement compressed with stable camera, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Frame Rate",
+      "Static Shot",
+      "Montage"
+    ],
+    "commonMistakes": [
+      "Camera moves accidentally",
+      "Change is too subtle"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "time",
+      "editing",
+      "motion"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "exposure",
+    "name": "Exposure",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 50,
+    "shortDefinition": "The overall brightness of the image.",
+    "whyItMatters": "Good exposure preserves important detail and mood.",
+    "whenToUse": [
+      "Every shoot",
+      "Low light",
+      "High contrast",
+      "Product detail"
+    ],
+    "humanShootHint": "Protect important highlights and make sure the subject is readable.",
+    "aiPromptTemplate": "cinematic [subject], balanced exposure, readable highlights and shadows, [duration]",
+    "previewPrompt3s": "[subject] with balanced exposure and clean highlights, 3 seconds",
+    "previewPrompt5s": "[subject] moves through balanced light, exposure remains consistent, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "ISO",
+      "Aperture",
+      "Dynamic Range"
+    ],
+    "commonMistakes": [
+      "Highlights clip",
+      "Subject is underexposed"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "camera",
+      "brightness",
+      "basics"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "dynamic-range",
+    "name": "Dynamic Range",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 49,
+    "shortDefinition": "The range of detail a camera holds from shadows to highlights.",
+    "whyItMatters": "It affects whether bright skies and dark faces can both retain detail.",
+    "whenToUse": [
+      "High contrast scenes",
+      "Window light",
+      "Outdoor video",
+      "Color grading"
+    ],
+    "humanShootHint": "Expose carefully and avoid forcing one camera to hold impossible contrast.",
+    "aiPromptTemplate": "cinematic [subject], high dynamic range look, detailed highlights and shadows, [duration]",
+    "previewPrompt3s": "[subject] with detailed highlights and shadows, 3 seconds",
+    "previewPrompt5s": "[subject] in high contrast light with preserved dynamic range, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Exposure",
+      "Highlight Roll-Off",
+      "Color Grading"
+    ],
+    "commonMistakes": [
+      "Sky blows out",
+      "Shadows become noisy"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "camera",
+      "exposure",
+      "grade"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "white-balance",
+    "name": "White Balance",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 48,
+    "shortDefinition": "The camera setting that makes colors look neutral under different light.",
+    "whyItMatters": "It keeps skin, whites, and product colors from drifting.",
+    "whenToUse": [
+      "Mixed light",
+      "Interviews",
+      "Product color",
+      "Matching shots"
+    ],
+    "humanShootHint": "Set white balance for the main light instead of leaving every shot to auto.",
+    "aiPromptTemplate": "cinematic [subject], accurate white balance, natural skin tones and clean color, [duration]",
+    "previewPrompt3s": "[subject] with accurate white balance and natural color, 3 seconds",
+    "previewPrompt5s": "[subject] with consistent white balance across a small movement, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Color Temperature",
+      "Color Grading",
+      "Practical Light"
+    ],
+    "commonMistakes": [
+      "Auto white balance shifts mid-shot",
+      "Skin turns too orange or blue"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "color",
+      "camera",
+      "consistency"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "diffusion",
+    "name": "Diffusion",
+    "category": "Lighting",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 47,
+    "shortDefinition": "Material or technique that softens light or lens contrast.",
+    "whyItMatters": "It creates gentler skin, softer highlights, and a more polished mood.",
+    "whenToUse": [
+      "Portraits",
+      "Beauty",
+      "Harsh sunlight",
+      "Dreamy looks"
+    ],
+    "humanShootHint": "Place diffusion between the light and subject, or use a lens diffusion filter carefully.",
+    "aiPromptTemplate": "cinematic [subject] with soft diffusion, gentle highlights, warm editorial look, [duration]",
+    "previewPrompt3s": "[subject] with soft diffusion and gentle highlights, 3 seconds",
+    "previewPrompt5s": "[subject] in diffused light, soft glow and subtle motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Soft Light",
+      "Highlight Roll-Off",
+      "Key Light"
+    ],
+    "commonMistakes": [
+      "Image becomes hazy",
+      "Diffusion hides important texture"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "soft",
+      "look"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "bounce-light",
+    "name": "Bounce Light",
+    "category": "Lighting",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 46,
+    "shortDefinition": "Light reflected off a surface before reaching the subject.",
+    "whyItMatters": "It creates soft, inexpensive, natural-looking fill.",
+    "whenToUse": [
+      "Portraits",
+      "Food",
+      "Product",
+      "Window light"
+    ],
+    "humanShootHint": "Use a white wall, foam board, or reflector to lift shadows.",
+    "aiPromptTemplate": "cinematic [subject] with soft bounce light, natural fill, warm shadows, [duration]",
+    "previewPrompt3s": "[subject] lit with soft bounce light, gentle fill, 3 seconds",
+    "previewPrompt5s": "[subject] near window with soft bounce light and natural movement, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Fill Light",
+      "Soft Light",
+      "Key Light"
+    ],
+    "commonMistakes": [
+      "Bounce surface adds color cast",
+      "Fill becomes too bright"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "lighting",
+      "budget",
+      "soft"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "top-light",
+    "name": "Top Light",
+    "category": "Lighting",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 45,
+    "shortDefinition": "Light coming mainly from above the subject.",
+    "whyItMatters": "It can create graphic surfaces, desk clarity, or dramatic overhead mood.",
+    "whenToUse": [
+      "Tutorials",
+      "Food",
+      "Tables",
+      "Moody scenes"
+    ],
+    "humanShootHint": "Use top light for surfaces and hands, but watch for harsh eye shadows on faces.",
+    "aiPromptTemplate": "cinematic top light on [subject], overhead illumination, clear surface detail, [duration]",
+    "previewPrompt3s": "top-lit [subject], hands or surface clearly visible, 3 seconds",
+    "previewPrompt5s": "top-lit [subject], simple action on a surface, clear detail, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Bird's-Eye View",
+      "Hard Light",
+      "Soft Light"
+    ],
+    "commonMistakes": [
+      "Unflattering eye shadows",
+      "Light feels like an office ceiling"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "overhead",
+      "tutorial"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "side-light",
+    "name": "Side Light",
+    "category": "Lighting",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 44,
+    "shortDefinition": "Light coming from the side of the subject.",
+    "whyItMatters": "It reveals shape, texture, and dramatic contrast.",
+    "whenToUse": [
+      "Portraits",
+      "Texture",
+      "Noir",
+      "Product shape"
+    ],
+    "humanShootHint": "Place the light around 90 degrees to the subject and adjust fill for contrast.",
+    "aiPromptTemplate": "cinematic side light on [subject], textured shadows, strong shape, [duration]",
+    "previewPrompt3s": "[subject] in side light, shape and texture visible, 3 seconds",
+    "previewPrompt5s": "[subject] turns through side light, shadow shape changes, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Rim Light",
+      "Hard Light",
+      "Fill Light"
+    ],
+    "commonMistakes": [
+      "One side becomes unreadable",
+      "Side light looks accidental"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "lighting",
+      "shape",
+      "texture"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "lut",
+    "name": "LUT",
+    "category": "Editing",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 43,
+    "shortDefinition": "A lookup table that transforms color and tone in post-production.",
+    "whyItMatters": "It can speed up a look, but it does not replace good exposure or grading.",
+    "whenToUse": [
+      "Color workflows",
+      "Show LUTs",
+      "Preview looks",
+      "Camera matching"
+    ],
+    "humanShootHint": "Use LUTs as a starting point and adjust exposure and white balance first.",
+    "aiPromptTemplate": "cinematic [subject], subtle film LUT look, balanced skin tones, [duration]",
+    "previewPrompt3s": "[subject] with subtle film LUT color look, 3 seconds",
+    "previewPrompt5s": "[subject] with gentle LUT-inspired color grade and natural motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Color Grading",
+      "White Balance",
+      "Exposure"
+    ],
+    "commonMistakes": [
+      "LUT crushes shadows",
+      "Same LUT used on mismatched footage"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "color",
+      "editing",
+      "post"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "color-grading",
+    "name": "Color Grading",
+    "category": "Editing",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 42,
+    "shortDefinition": "Creative color and contrast shaping after capture.",
+    "whyItMatters": "It unifies shots and supports mood.",
+    "whenToUse": [
+      "Final polish",
+      "Mood",
+      "Matching shots",
+      "Brand style"
+    ],
+    "humanShootHint": "Correct exposure and white balance before adding a creative look.",
+    "aiPromptTemplate": "cinematic [subject], warm natural color grade, balanced contrast, soft highlight roll-off, [duration]",
+    "previewPrompt3s": "[subject] with warm cinematic color grade, 3 seconds",
+    "previewPrompt5s": "[subject] with consistent warm color grade and soft highlights, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "LUT",
+      "White Balance",
+      "Highlight Roll-Off"
+    ],
+    "commonMistakes": [
+      "Over-saturating colors",
+      "Ignoring shot matching"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "color",
+      "grade",
+      "look"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "highlight-roll-off",
+    "name": "Highlight Roll-Off",
+    "category": "Lens / Optics",
+    "priorityGroup": "Advanced Look",
+    "priorityScore": 41,
+    "shortDefinition": "How smoothly bright areas transition into clipped white.",
+    "whyItMatters": "Soft roll-off makes bright light feel more natural and cinematic.",
+    "whenToUse": [
+      "Windows",
+      "Sunlight",
+      "Skin",
+      "Product shine"
+    ],
+    "humanShootHint": "Protect highlights in-camera and soften bright sources when possible.",
+    "aiPromptTemplate": "cinematic [subject], soft highlight roll-off, detailed bright areas, warm grade, [duration]",
+    "previewPrompt3s": "[subject] with soft highlight roll-off and gentle bright edges, 3 seconds",
+    "previewPrompt5s": "[subject] near bright window, soft highlight roll-off, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Dynamic Range",
+      "Exposure",
+      "Diffusion"
+    ],
+    "commonMistakes": [
+      "Highlights clip harshly",
+      "Glow hides subject detail"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "exposure",
+      "grade",
+      "cinematic"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "text-to-video",
+    "name": "Text-to-Video",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 82,
+    "shortDefinition": "Generates video from a written prompt.",
+    "whyItMatters": "It is fast for ideation but needs clear shot language to stay controlled.",
+    "whenToUse": [
+      "Concepts",
+      "B-roll ideas",
+      "Mood exploration",
+      "No source image"
+    ],
+    "humanShootHint": "Write prompts like shot direction: one subject, one action, one camera idea.",
+    "aiPromptTemplate": "text-to-video prompt: cinematic shot of [subject], one action, clear camera direction, [duration]",
+    "previewPrompt3s": "text-to-video concept of [subject], one subject and one action, 3 seconds",
+    "previewPrompt5s": "text-to-video concept of [subject], clear shot structure and gentle hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Prompt Template",
+      "Motion Strength",
+      "Negative Prompt"
+    ],
+    "commonMistakes": [
+      "Keyword stuffing",
+      "Too many actions in one clip"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "prompt",
+      "generation"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "image-to-video",
+    "name": "Image-to-Video",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 81,
+    "shortDefinition": "Animates a still image into a short video.",
+    "whyItMatters": "A reference image can lock composition, subject, lighting, and style.",
+    "whenToUse": [
+      "Consistency",
+      "Product shots",
+      "Character control",
+      "Previsualization"
+    ],
+    "humanShootHint": "Use a strong still frame and describe only the motion that should happen.",
+    "aiPromptTemplate": "image-to-video prompt for [subject], preserve composition and lighting, animate one subtle motion, [duration]",
+    "previewPrompt3s": "image-to-video of [subject], preserve frame, subtle motion only, 3 seconds",
+    "previewPrompt5s": "image-to-video of [subject], preserved composition with gentle camera motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Reference Image",
+      "Start Frame",
+      "Temporal Consistency"
+    ],
+    "commonMistakes": [
+      "Re-describing the whole image",
+      "Adding objects not in the reference"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "reference",
+      "motion"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "video-to-video",
+    "name": "Video-to-Video",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 80,
+    "shortDefinition": "Transforms or stylizes an existing video clip.",
+    "whyItMatters": "It can preserve motion while changing style or polish.",
+    "whenToUse": [
+      "Style transfer",
+      "Previs polish",
+      "Footage enhancement",
+      "Experiments"
+    ],
+    "humanShootHint": "Start with a clean clip because weak motion or composition usually carries through.",
+    "aiPromptTemplate": "video-to-video prompt for [subject], preserve motion and composition, refine style, [duration]",
+    "previewPrompt3s": "video-to-video concept for [subject], same motion with refined style, 3 seconds",
+    "previewPrompt5s": "video-to-video concept for [subject], preserve action and upgrade look, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Reference Image",
+      "Temporal Consistency",
+      "Prompt Template"
+    ],
+    "commonMistakes": [
+      "Expecting AI to fix bad coverage",
+      "Changing too many style variables"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "style",
+      "workflow"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "reference-image",
+    "name": "Reference Image",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 79,
+    "shortDefinition": "A still image used to guide generated composition, subject, or style.",
+    "whyItMatters": "It improves consistency and reduces prompt drift.",
+    "whenToUse": [
+      "Characters",
+      "Products",
+      "Locations",
+      "Look matching"
+    ],
+    "humanShootHint": "Choose a clean, rights-safe image with the subject clearly visible.",
+    "aiPromptTemplate": "use the reference image for [subject], preserve composition, lighting, and style, animate one action, [duration]",
+    "previewPrompt3s": "reference image animation of [subject], preserved style, one motion, 3 seconds",
+    "previewPrompt5s": "reference image animation of [subject], preserved composition with subtle camera move, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Image-to-Video",
+      "Character Consistency",
+      "Start Frame"
+    ],
+    "commonMistakes": [
+      "Reference image is cluttered",
+      "No rights to use the image"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "reference",
+      "consistency"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "start-frame",
+    "name": "Start Frame",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 78,
+    "shortDefinition": "The first frame a generated clip should begin from.",
+    "whyItMatters": "It anchors composition and makes clip starts predictable.",
+    "whenToUse": [
+      "Image-to-video",
+      "Storyboards",
+      "Clip matching",
+      "Transitions"
+    ],
+    "humanShootHint": "Design the first frame like a real shot, with the subject and light already clear.",
+    "aiPromptTemplate": "start frame locked for [subject], preserve opening composition, animate one motion, [duration]",
+    "previewPrompt3s": "locked start frame for [subject], subtle movement begins, 3 seconds",
+    "previewPrompt5s": "locked start frame for [subject], gentle motion from first composition, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "End Frame",
+      "Keyframe",
+      "Storyboard"
+    ],
+    "commonMistakes": [
+      "Start frame lacks clear subject",
+      "Prompt asks for a different composition"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "frame",
+      "control"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "end-frame",
+    "name": "End Frame",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 77,
+    "shortDefinition": "The intended final image or composition of a generated clip.",
+    "whyItMatters": "It gives motion a destination and can improve transitions.",
+    "whenToUse": [
+      "Product reveals",
+      "Storyboards",
+      "Transitions",
+      "Loop planning"
+    ],
+    "humanShootHint": "Make the final frame readable and avoid too many changes from the start frame.",
+    "aiPromptTemplate": "end frame target for [subject], finish on a clean composed hold, [duration]",
+    "previewPrompt3s": "[subject] moves toward a clean end frame, 3 seconds",
+    "previewPrompt5s": "[subject] starts simple and settles into a planned end frame, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Start Frame",
+      "Keyframe",
+      "Storyboard"
+    ],
+    "commonMistakes": [
+      "End frame is too different",
+      "No final hold for editing"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "frame",
+      "transition"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "keyframe",
+    "name": "Keyframe",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 76,
+    "shortDefinition": "A defined moment in time that guides motion or visual change.",
+    "whyItMatters": "Keyframes help control timing instead of leaving motion vague.",
+    "whenToUse": [
+      "Animation",
+      "Camera moves",
+      "Storyboards",
+      "Timing control"
+    ],
+    "humanShootHint": "Think in start, middle, and end positions before asking for motion.",
+    "aiPromptTemplate": "keyframed motion for [subject], clear start and end positions, one smooth action, [duration]",
+    "previewPrompt3s": "keyframed [subject], clear start and end movement, 3 seconds",
+    "previewPrompt5s": "keyframed [subject], start middle end motion with gentle hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Start Frame",
+      "End Frame",
+      "Timestamp Prompting"
+    ],
+    "commonMistakes": [
+      "Too many keyframes",
+      "Motion path is unclear"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "AI",
+      "timing",
+      "control"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "storyboard",
+    "name": "Storyboard",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 75,
+    "shortDefinition": "A visual plan showing the main frames or shots in order.",
+    "whyItMatters": "It keeps a sequence coherent before shooting or generating.",
+    "whenToUse": [
+      "Narrative scenes",
+      "Prompt packs",
+      "Client review",
+      "AI consistency"
+    ],
+    "humanShootHint": "Sketch simple frames for shot size, angle, and action; polish is less important than clarity.",
+    "aiPromptTemplate": "storyboarded sequence for [subject], clear ordered shots, consistent style, [duration]",
+    "previewPrompt3s": "storyboard concept for [subject], three clear visual beats, 3 seconds",
+    "previewPrompt5s": "storyboard concept for [subject], five ordered beats with consistent style, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Sequence",
+      "Start Frame",
+      "Prompt Pack"
+    ],
+    "commonMistakes": [
+      "Skipping shot order",
+      "Frames do not share a visual language"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "planning",
+      "sequence"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "prompt-template",
+    "name": "Prompt Template",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 74,
+    "shortDefinition": "A reusable prompt pattern with slots for subject, action, and duration.",
+    "whyItMatters": "Templates make prompts faster, clearer, and easier to improve.",
+    "whenToUse": [
+      "Term cards",
+      "Teams",
+      "Prompt packs",
+      "Repeatable styles"
+    ],
+    "humanShootHint": "Use templates like shot lists: specific enough to guide, flexible enough to reuse.",
+    "aiPromptTemplate": "prompt template for [subject]: [shot type], one action, camera motion, lighting, [duration]",
+    "previewPrompt3s": "prompt template demo for [subject], one clear slot-filled shot, 3 seconds",
+    "previewPrompt5s": "prompt template demo for [subject], structured shot direction and hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Prompt Pack",
+      "Text-to-Video",
+      "Negative Prompt"
+    ],
+    "commonMistakes": [
+      "Template is too vague",
+      "Template has too many optional ideas"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "prompt",
+      "template"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "prompt-pack",
+    "name": "Prompt Pack",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 73,
+    "shortDefinition": "A saved group of prompts for a repeated use case or sequence.",
+    "whyItMatters": "Packs help creators reuse a visual language across projects.",
+    "whenToUse": [
+      "Brand videos",
+      "Reels",
+      "Tutorial series",
+      "Community sharing"
+    ],
+    "humanShootHint": "Group prompts by story purpose, not just by visual style.",
+    "aiPromptTemplate": "prompt pack for [subject], ordered shot prompts with consistent style and duration, [duration]",
+    "previewPrompt3s": "prompt pack preview for [subject], three connected prompts, 3 seconds",
+    "previewPrompt5s": "prompt pack preview for [subject], five connected shot prompts, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Prompt Template",
+      "Storyboard",
+      "Sequence"
+    ],
+    "commonMistakes": [
+      "Prompts are unrelated",
+      "Style changes clip to clip"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "pack",
+      "workflow"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "temporal-consistency",
+    "name": "Temporal Consistency",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 72,
+    "shortDefinition": "Visual stability across time within a generated clip.",
+    "whyItMatters": "It prevents flicker, morphing, and unstable motion.",
+    "whenToUse": [
+      "AI previews",
+      "Characters",
+      "Products",
+      "Longer clips"
+    ],
+    "humanShootHint": "Ask for one action and avoid changing the subject, camera, and style at once.",
+    "aiPromptTemplate": "cinematic [subject], temporal consistency, stable identity and lighting, one action, [duration]",
+    "previewPrompt3s": "[subject] with stable temporal consistency, one subtle action, 3 seconds",
+    "previewPrompt5s": "[subject] with stable lighting and identity across motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Character Consistency",
+      "Reference Image",
+      "Motion Strength"
+    ],
+    "commonMistakes": [
+      "Too many moving parts",
+      "Long prompt fights the reference image"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "consistency",
+      "quality"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "character-consistency",
+    "name": "Character Consistency",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 71,
+    "shortDefinition": "Keeping the same person or character recognizable across clips.",
+    "whyItMatters": "It is essential for scenes, series, and story continuity.",
+    "whenToUse": [
+      "Narratives",
+      "Brand mascots",
+      "Influencer concepts",
+      "Storyboards"
+    ],
+    "humanShootHint": "Use reference images, consistent wardrobe, and simple camera changes.",
+    "aiPromptTemplate": "cinematic [subject], consistent character identity, same wardrobe and features, one action, [duration]",
+    "previewPrompt3s": "[subject] with consistent character identity, subtle expression change, 3 seconds",
+    "previewPrompt5s": "[subject] with consistent identity across a slow camera move, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Reference Image",
+      "Temporal Consistency",
+      "Seed"
+    ],
+    "commonMistakes": [
+      "Changing wardrobe or lighting every clip",
+      "No reference anchor"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "character",
+      "consistency"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "seed",
+    "name": "Seed",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 70,
+    "shortDefinition": "A repeatability value that can influence generated variation.",
+    "whyItMatters": "Seeds can help reproduce or explore related outputs when supported.",
+    "whenToUse": [
+      "Testing",
+      "Variations",
+      "Repeatable renders",
+      "Prompt tuning"
+    ],
+    "humanShootHint": "Save seed, prompt, model, and reference data together for repeatability.",
+    "aiPromptTemplate": "cinematic [subject], controlled seed variation, same composition and style, [duration]",
+    "previewPrompt3s": "seed-controlled variation of [subject], same style, 3 seconds",
+    "previewPrompt5s": "seed-controlled variation of [subject], similar composition with small motion, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Prompt Template",
+      "Provenance Metadata",
+      "Temporal Consistency"
+    ],
+    "commonMistakes": [
+      "Assuming seed guarantees identical video",
+      "Not saving model version"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "AI",
+      "repeatability",
+      "metadata"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "motion-strength",
+    "name": "Motion Strength",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 69,
+    "shortDefinition": "A control for how much movement the model adds.",
+    "whyItMatters": "Too much motion can break consistency; too little can feel static.",
+    "whenToUse": [
+      "Image-to-video",
+      "Subtle previews",
+      "Camera moves",
+      "Product shots"
+    ],
+    "humanShootHint": "Start with low motion for faces and products, then increase only if needed.",
+    "aiPromptTemplate": "cinematic [subject], low motion strength, subtle natural movement, stable details, [duration]",
+    "previewPrompt3s": "[subject] with low motion strength, subtle stable movement, 3 seconds",
+    "previewPrompt5s": "[subject] with controlled motion strength and preserved details, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Image-to-Video",
+      "Temporal Consistency",
+      "Keyframe"
+    ],
+    "commonMistakes": [
+      "Motion strength too high",
+      "Expecting one setting to fit every subject"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "motion",
+      "control"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "negative-prompt",
+    "name": "Negative Prompt",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 68,
+    "shortDefinition": "Instructions describing what the model should avoid.",
+    "whyItMatters": "It can reduce unwanted artifacts in workflows that support it.",
+    "whenToUse": [
+      "Diffusion tools",
+      "Artifact control",
+      "Style cleanup",
+      "Open models"
+    ],
+    "humanShootHint": "Prefer positive shot direction first; use negatives only for recurring problems.",
+    "aiPromptTemplate": "cinematic [subject], clear positive prompt, avoid extra limbs, text, logos, flicker, [duration]",
+    "previewPrompt3s": "[subject] generated with concise negative constraints, 3 seconds",
+    "previewPrompt5s": "[subject] with stable details and avoided artifacts, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Prompt Template",
+      "Text-to-Video",
+      "Temporal Consistency"
+    ],
+    "commonMistakes": [
+      "Negative list is longer than the prompt",
+      "Using provider-unsupported controls"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "prompt",
+      "quality"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "timestamp-prompting",
+    "name": "Timestamp Prompting",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 67,
+    "shortDefinition": "Prompting events or changes at specific times in a clip.",
+    "whyItMatters": "It makes short clips easier to direct and review.",
+    "whenToUse": [
+      "5-second previews",
+      "Storyboards",
+      "Motion beats",
+      "Transitions"
+    ],
+    "humanShootHint": "Keep timing simple: settle, action, hold.",
+    "aiPromptTemplate": "timestamped prompt for [subject], 0s settle, 1s action begins, final second hold, [duration]",
+    "previewPrompt3s": "timestamped [subject], settle then one action then hold, 3 seconds",
+    "previewPrompt5s": "timestamped [subject], 0.7s establish, 2.6s action, 1.7s hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Keyframe",
+      "Start Frame",
+      "End Frame"
+    ],
+    "commonMistakes": [
+      "Too many timed events",
+      "Timing conflicts with model behavior"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "AI",
+      "timing",
+      "control"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "upscaling-export",
+    "name": "Upscaling/Export",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 66,
+    "shortDefinition": "Preparing generated clips at the right resolution, format, and quality.",
+    "whyItMatters": "Good export choices protect final quality and platform fit.",
+    "whenToUse": [
+      "Final delivery",
+      "Social platforms",
+      "Client review",
+      "Archiving"
+    ],
+    "humanShootHint": "Track source resolution, aspect ratio, frame rate, and compression settings.",
+    "aiPromptTemplate": "export-ready cinematic [subject], clean detail, platform-safe aspect ratio, [duration]",
+    "previewPrompt3s": "export-ready [subject], clean detail and stable frame, 3 seconds",
+    "previewPrompt5s": "export-ready [subject], clean motion and platform-safe composition, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Aspect Ratio",
+      "Frame Rate",
+      "Provenance Metadata"
+    ],
+    "commonMistakes": [
+      "Wrong aspect ratio",
+      "Over-compressed final clip"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "export",
+      "delivery"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "provenance-metadata",
+    "name": "Provenance Metadata",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 65,
+    "shortDefinition": "Records describing where an asset came from and how it was made.",
+    "whyItMatters": "It supports trust, rights review, and repeatable generation.",
+    "whenToUse": [
+      "Public assets",
+      "Open-source contributions",
+      "AI previews",
+      "Client delivery"
+    ],
+    "humanShootHint": "Save prompt, model, provider, date, source assets, and rights notes.",
+    "aiPromptTemplate": "provenance-ready [subject], metadata captured for prompt, model, provider, source assets, [duration]",
+    "previewPrompt3s": "provenance-ready [subject], metadata concept, 3 seconds",
+    "previewPrompt5s": "provenance-ready [subject], prompt and source tracking visible in workflow, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "C2PA",
+      "Watermark",
+      "Seed"
+    ],
+    "commonMistakes": [
+      "No prompt history",
+      "Rights information missing"
+    ],
+    "difficulty": "Intermediate",
+    "tags": [
+      "AI",
+      "metadata",
+      "rights"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "watermark",
+    "name": "Watermark",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 64,
+    "shortDefinition": "A visible or invisible marker identifying content source or ownership.",
+    "whyItMatters": "It can support attribution, disclosure, or platform policy.",
+    "whenToUse": [
+      "Generated media",
+      "Public previews",
+      "Brand assets",
+      "Rights tracking"
+    ],
+    "humanShootHint": "Keep visible marks tasteful and do not remove marks you are required to keep.",
+    "aiPromptTemplate": "watermark-aware [subject], clean composition with provenance and attribution preserved, [duration]",
+    "previewPrompt3s": "watermark-aware preview of [subject], attribution-safe frame, 3 seconds",
+    "previewPrompt5s": "watermark-aware preview of [subject], clean frame and rights-safe metadata, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Provenance Metadata",
+      "C2PA",
+      "Upscaling/Export"
+    ],
+    "commonMistakes": [
+      "Cropping required disclosure",
+      "Adding distracting visible marks"
+    ],
+    "difficulty": "Beginner",
+    "tags": [
+      "AI",
+      "rights",
+      "disclosure"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  },
+  {
+    "id": "c2pa",
+    "name": "C2PA",
+    "category": "AI Workflow",
+    "priorityGroup": "AI-Native Workflow",
+    "priorityScore": 63,
+    "shortDefinition": "An open standard for content provenance and authenticity metadata.",
+    "whyItMatters": "It helps viewers and platforms understand how media was created.",
+    "whenToUse": [
+      "Generated previews",
+      "Public libraries",
+      "Trust workflows",
+      "Asset review"
+    ],
+    "humanShootHint": "Store C2PA data when providers return it and preserve it during export when possible.",
+    "aiPromptTemplate": "C2PA-ready cinematic [subject], provenance metadata preserved, rights-safe generation, [duration]",
+    "previewPrompt3s": "C2PA-ready preview of [subject], provenance concept, 3 seconds",
+    "previewPrompt5s": "C2PA-ready preview of [subject], provenance-safe workflow and final hold, 5 seconds",
+    "previewVideoUrl": null,
+    "relatedTerms": [
+      "Provenance Metadata",
+      "Watermark",
+      "Upscaling/Export"
+    ],
+    "commonMistakes": [
+      "Metadata stripped during export",
+      "Confusing provenance with copyright ownership"
+    ],
+    "difficulty": "Advanced",
+    "tags": [
+      "AI",
+      "provenance",
+      "trust"
+    ],
+    "review": {
+      "status": "approved"
+    },
+    "assets": []
+  }
+]

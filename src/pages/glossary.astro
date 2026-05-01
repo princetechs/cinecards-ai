@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlossaryGrid from "../../components/GlossaryGrid.astro";
+import { getAllTerms } from "../../lib/termSearch";
+
+const terms = getAllTerms();
+---
+
+<BaseLayout
+  title="CineCards AI Glossary - Film terms for shooting and AI video prompts"
+  description="Search cinematography, videography, editing, lighting, composition, lens, and AI workflow terms as copyable visual cards."
+>
+  <section class="bg-paper py-14">
+    <div class="container-pad">
+      <p class="eyebrow text-clay">Glossary</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-black tracking-tight text-ink sm:text-5xl">Film language as searchable, copyable cards.</h1>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-ink/68">
+        Each card teaches the meaning, the visual purpose, a real-world shooting hint, AI prompt structure, related terms, and common beginner mistakes.
+      </p>
+    </div>
+  </section>
+  <section class="pb-16">
+    <div class="container-pad">
+      <GlossaryGrid terms={terms} />
+    </div>
+  </section>
+</BaseLayout>
