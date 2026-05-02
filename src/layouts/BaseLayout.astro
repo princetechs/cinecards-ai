@@ -1,6 +1,7 @@
 ---
 import "../../src/styles/global.css";
 import Header from "../../components/Header.astro";
+import { seo } from "../site.config";
 
 import type { Locale } from "../i18n";
 
@@ -11,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "CineCards AI - Visual film terms and AI video shot planning",
-  description = "A lightweight open-source learning tool for cinematography, videography, and AI video prompts.",
+  title = seo.defaultTitle,
+  description = seo.defaultDescription,
   lang = "en"
 } = Astro.props;
 ---
@@ -31,7 +32,7 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/images/cinecards-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0F0F13" />
+    <meta name="theme-color" content={seo.themeColor} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <slot name="head" />

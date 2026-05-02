@@ -1,14 +1,14 @@
 ---
-// No props — fully self-contained
+import { hero, tokens } from "../src/site.config";
 ---
 
 <section
-  style="
-    background: #0F0F13;
+  style={`
+    background: ${tokens.bgHero};
     min-height: calc(100vh - 64px);
     display: flex;
     align-items: center;
-  "
+  `}
 >
   <div
     style="
@@ -42,7 +42,7 @@
               letter-spacing: 0.02em;
             "
           >
-            Open Source · 124 Film Terms · AI-Ready
+            {hero.eyebrow}
           </span>
         </div>
 
@@ -58,8 +58,8 @@
             letter-spacing: -0.03em;
           "
         >
-          Learn film<br />language.<br />
-          <span style="color: rgba(255,255,255,0.45);">Build better AI<br />video prompts.</span>
+          {hero.headline1} {hero.headline2}<br />
+          <span style={`color: ${tokens.textFaint};`}>{hero.headline3}<br />{hero.headline4}</span>
         </h1>
 
         <!-- Subtitle -->
@@ -73,7 +73,7 @@
             margin: 0 0 40px 0;
           "
         >
-          CineCards AI teaches shots, angles, lighting, movement, and editing — then turns them into prompts you can use in Runway, Pika, and any AI video tool.
+          {hero.subtitle}
         </p>
 
         <!-- CTAs -->
@@ -98,9 +98,9 @@
             "
             onmouseover="this.style.background='#B83A1F'"
             onmouseout="this.style.background='#E4572E'"
-          >Start Learning</a>
+          >{hero.cta1Label}</a>
           <a
-            href="/planner"
+            href={hero.cta2Href}
             class="font-ui focus-ring"
             style="
               display: inline-flex;
@@ -120,7 +120,7 @@
             "
             onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'; this.style.background='rgba(255,255,255,0.06)'"
             onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.background='transparent'"
-          >Plan a Sequence</a>
+          >{hero.cta2Label}</a>
         </div>
 
         <!-- Social proof -->
@@ -132,7 +132,7 @@
             margin: 0;
             letter-spacing: 0.01em;
           "
-        >Used by creators learning with Runway · Pika · Stable Video</p>
+        >{hero.socialProof}</p>
       </div>
 
       <!-- ── RIGHT: Demo card ── -->
