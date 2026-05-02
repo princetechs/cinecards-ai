@@ -43,22 +43,115 @@ const {
     <main id="main-content">
       <slot />
     </main>
-    <footer style="background: var(--bg-dark, #101014); border-top: 1px solid rgba(255,255,255,0.08); padding-block: 40px; color: #F8F5EF;">
-      <div class="container-pad" style="display: flex; flex-direction: column; gap: 16px;">
-        <div style="display: flex; flex-direction: column; gap: 16px; justify-content: space-between; align-items: flex-start;">
-          <p class="font-ui" style="font-size: 14px; color: rgba(248,245,239,0.65); margin: 0;">
-            <strong style="color: #F8F5EF; font-weight: 700;">CineCards AI</strong> — open-source visual grammar for human and AI video creation.
-          </p>
-          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/glossary"
-              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Glossary</a>
-            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/planner"
-              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Planner</a>
-            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/#contribute"
-              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Contribute</a>
+    <footer style="background: #0F0F13; border-top: 1px solid rgba(255,255,255,0.07);">
+      <!-- Main footer body -->
+      <div class="container-pad" style="padding-top: 56px; padding-bottom: 48px;">
+        <div class="footer-grid">
+
+          <!-- Brand col -->
+          <div class="footer-brand">
+            <!-- Logo -->
+            <a href="/" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 16px;">
+              <span class="font-ui" style="width: 34px; height: 34px; background: #FFFFFF; color: #0F0F13; border-radius: 9px; display: grid; place-items: center; font-size: 15px; font-weight: 900; flex-shrink: 0;">C</span>
+              <span class="font-ui" style="font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.01em;">CineCards AI</span>
+            </a>
+            <p class="font-ui" style="font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.38); margin: 0 0 24px; max-width: 240px;">
+              Open-source visual grammar for human and AI video creation.
+            </p>
+            <!-- GitHub -->
+            <a
+              href="https://github.com/princetechs/cinecards-ai"
+              target="_blank"
+              rel="noreferrer noopener"
+              class="font-ui focus-ring"
+              style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; text-decoration: none; transition: background 0.15s, color 0.15s;"
+              onmouseover="this.style.background='rgba(255,255,255,0.13)'; this.style.color='#fff'"
+              onmouseout="this.style.background='rgba(255,255,255,0.07)'; this.style.color='rgba(255,255,255,0.7)'"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.944.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2Z"/></svg>
+              Star on GitHub
+            </a>
           </div>
+
+          <!-- Learn col -->
+          <div class="footer-col">
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Learn</p>
+            <nav style="display: flex; flex-direction: column; gap: 10px;">
+              {[
+                { label: "Glossary",     href: "/glossary" },
+                { label: "Practice",     href: "/learn" },
+                { label: "Shot Recipes", href: "/recipes" },
+                { label: "Planner",      href: "/planner" },
+              ].map(l => (
+                <a class="font-ui focus-ring" href={l.href} style="font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">{l.label}</a>
+              ))}
+            </nav>
+          </div>
+
+          <!-- Project col -->
+          <div class="footer-col">
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Project</p>
+            <nav style="display: flex; flex-direction: column; gap: 10px;">
+              {[
+                { label: "Contribute",       href: "/contribute" },
+                { label: "GitHub",           href: "https://github.com/princetechs/cinecards-ai", ext: true },
+                { label: "CONTRIBUTING.md",  href: "/CONTRIBUTING.md" },
+                { label: "Code of Conduct",  href: "/CODE_OF_CONDUCT.md" },
+              ].map(l => (
+                <a class="font-ui focus-ring" href={l.href} target={l.ext ? "_blank" : undefined} rel={l.ext ? "noreferrer noopener" : undefined} style="font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">{l.label}</a>
+              ))}
+            </nav>
+          </div>
+
+          <!-- CTA col -->
+          <div class="footer-col">
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Get Started</p>
+            <p class="font-ui" style="font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.6; margin: 0 0 20px;">Free, open source, no sign-up needed.</p>
+            <a
+              href="/glossary"
+              class="font-ui focus-ring"
+              style="display: inline-flex; align-items: center; justify-content: center; background: #E4572E; color: #fff; font-size: 14px; font-weight: 700; padding: 0 22px; height: 42px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: background 0.15s;"
+              onmouseover="this.style.background='#B83A1F'"
+              onmouseout="this.style.background='#E4572E'"
+            >Start Learning →</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.07);">
+        <div class="container-pad" style="padding-top: 20px; padding-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;">
+          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.25); margin: 0;">
+            © 2025 CineCards AI · MIT License · Open Source
+          </p>
+          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.2); margin: 0;">
+            Built for creators learning Runway, Pika, and Stable Video
+          </p>
         </div>
       </div>
     </footer>
+
+    <style>
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+        gap: 48px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 36px;
+        }
+        .footer-brand { grid-column: 1 / -1; }
+      }
+      @media (max-width: 480px) {
+        .footer-grid {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+      }
+    </style>
   </body>
 </html>
