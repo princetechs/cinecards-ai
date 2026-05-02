@@ -62,8 +62,8 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
     <div class="container-pad">
       <div class="flex items-end justify-between gap-4">
         <div>
-          <p class="eyebrow text-clay">Your saved packs</p>
-          <h2 class="mt-2 text-2xl font-black tracking-tight text-ink">From this device</h2>
+          <span class="page-eyebrow">Your saved packs</span>
+          <h2 class="section-h2">From this device</h2>
         </div>
         <span class="text-xs font-bold uppercase tracking-wide text-ink/48" data-saved-count>0 saved</span>
       </div>
@@ -85,8 +85,8 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
     <div class="container-pad">
       <div class="flex items-end justify-between gap-4">
         <div>
-          <p class="eyebrow text-clay">Curated</p>
-          <h2 class="mt-2 text-2xl font-black tracking-tight text-ink">Ready-to-use packs</h2>
+          <span class="page-eyebrow">Curated</span>
+          <h2 class="section-h2">Ready-to-use packs</h2>
         </div>
         <span class="text-xs font-bold uppercase tracking-wide text-ink/48">{resolved.length} packs</span>
       </div>
@@ -99,7 +99,7 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
           >
             <header class="flex items-start justify-between gap-3">
               <div>
-                <p class="eyebrow text-clay">Pack</p>
+                <span class="page-eyebrow" style="font-size:10px; margin-bottom:4px;">Pack</span>
                 <h3 class="mt-1 text-2xl font-black tracking-tight text-ink">{pack.name}</h3>
                 <p class="mt-2 text-sm leading-6 text-ink/72">{pack.useCase}</p>
               </div>
