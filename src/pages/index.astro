@@ -158,292 +158,121 @@ import { stats, tokens } from "../../src/site.config";
     </div>
   </section>
 
-  <!-- 4. Real Example (Before/After) -->
-  <section style="background: #FFFFFF; padding-block: clamp(32px, 4vw, 56px);">
+  <!-- 4+5. Example + How it works (side-by-side) -->
+  <section style="background: #FFFFFF; padding-block: clamp(48px, 6vw, 80px);">
     <div class="container-pad">
-      <div style="max-width: 600px; margin-bottom: 28px;">
-        <h2
-          style="
-            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            font-size: clamp(24px, 3.5vw, 32px);
-            font-weight: 700;
-            color: #171717;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.02em;
-          "
-        >Here is what CineCards actually does</h2>
-        <p
-          class="font-ui"
-          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
-        >You give us a video idea. We give you a simple shot plan and prompts.</p>
-      </div>
+      <div class="example-split">
 
-      <!-- Before/After idea box -->
-      <div
-        style="
-          background: #F8F5EF;
-          border: 1.5px solid #E6DDD1;
-          border-radius: 16px;
-          padding: 24px 28px;
-          margin-bottom: 32px;
-          max-width: 680px;
-        "
-      >
-        <span
-          class="font-ui"
-          style="font-size: 12px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;"
-        >Your idea</span>
-        <p
-          style="
-            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: #171717;
-            margin: 0 0 12px 0;
-          "
-        >"A cozy coffee shop video"</p>
-        <span
-          class="font-ui"
-          style="font-size: 14px; color: #4F4A45; display: flex; align-items: center; gap: 6px;"
-        >
-          <span style="color: #E4572E; font-weight: 700; font-size: 18px;">↓</span>
-          CineCards turns it into:
-        </span>
-      </div>
+        <!-- LEFT: Real example -->
+        <div class="example-left">
+          <span class="font-ui" style="font-size: 11px; font-weight: 700; color: #E4572E; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 14px;">Live Example</span>
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; color: #171717; margin: 0 0 8px; letter-spacing: -0.02em;">
+            Here is what CineCards actually does
+          </h2>
+          <p class="font-ui" style="font-size: 15px; color: #7A7268; margin: 0 0 24px; line-height: 1.6;">
+            You give an idea. We give a shot plan with prompts.
+          </p>
 
-      <!-- Timeline -->
-      <div class="example-timeline" style="margin-bottom: 20px; max-width: 680px;">
-        {[
-          { n: "1", type: "Wide Shot", desc: "Show the full café setting", dur: "3s" },
-          { n: "2", type: "Medium Shot", desc: "Introduce the barista", dur: "3s" },
-          { n: "3", type: "Close-Up", desc: "Show coffee being poured", dur: "5s", active: true },
-          { n: "4", type: "Detail Shot", desc: "Steam and latte art", dur: "3s" },
-          { n: "5", type: "Final Shot", desc: "Customer enjoying coffee", dur: "5s" },
-        ].map((shot) => (
-          <div
-            class="timeline-item"
-            style={`
-              display: flex;
-              align-items: flex-start;
-              gap: 16px;
-              padding: 14px 0;
-              border-bottom: 1px solid #E6DDD1;
-            `}
-          >
-            <div
-              class="font-ui"
-              style={`
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                background: ${shot.active ? '#E4572E' : '#F8F5EF'};
-                color: ${shot.active ? '#ffffff' : '#7A7268'};
-                font-size: 13px;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-                border: ${shot.active ? 'none' : '1.5px solid #E6DDD1'};
-                margin-top: 2px;
-              `}
-            >{shot.n}</div>
-            <div style="flex: 1;">
-              <span
-                style="
-                  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-                  font-size: 15px;
-                  font-weight: 700;
-                  color: #171717;
-                  display: block;
-                  margin-bottom: 2px;
-                "
-              >{shot.type}</span>
-              <span
-                class="font-ui"
-                style="font-size: 14px; color: #4F4A45;"
-              >{shot.desc}</span>
-            </div>
-            <span
-              class="font-ui"
-              style="
-                font-size: 13px;
-                font-weight: 600;
-                color: #7A7268;
-                background: #F8F5EF;
-                border: 1px solid #E6DDD1;
-                border-radius: 6px;
-                padding: 3px 10px;
-                flex-shrink: 0;
-                margin-top: 4px;
-              "
-            >{shot.dur}</span>
+          <!-- Idea box -->
+          <div style="background: #F8F5EF; border: 1.5px solid #E6DDD1; border-radius: 14px; padding: 18px 22px; margin-bottom: 20px;">
+            <span class="font-ui" style="font-size: 11px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 6px;">Your idea</span>
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #171717; margin: 0 0 10px;">"A cozy coffee shop video"</p>
+            <span class="font-ui" style="font-size: 13px; color: #4F4A45; display: flex; align-items: center; gap: 6px;">
+              <span style="color: #E4572E; font-weight: 700; font-size: 16px;">↓</span>
+              CineCards turns it into:
+            </span>
           </div>
-        ))}
-      </div>
 
-      <!-- Prompt block -->
-      <div
-        style="
-          background: #101014;
-          border-radius: 14px;
-          padding: 22px 24px;
-          max-width: 680px;
-          margin-bottom: 16px;
-          position: relative;
-        "
-      >
-        <span
-          class="font-ui"
-          style="font-size: 10px; font-weight: 600; color: rgba(248,245,239,0.45); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 10px;"
-        >AI PROMPT — Shot 3</span>
-        <p
-          class="font-mono"
-          style="
-            font-size: 13px;
-            line-height: 1.7;
-            color: rgba(248,245,239,0.85);
-            margin: 0 0 16px 0;
-          "
-        >cinematic close-up of hot coffee being poured into a ceramic cup,<br />soft morning light, cozy café background, shallow depth of field, 5 seconds</p>
-        <button
-          class="font-ui"
-          onclick="navigator.clipboard.writeText('cinematic close-up of hot coffee being poured into a ceramic cup, soft morning light, cozy café background, shallow depth of field, 5 seconds').then(() => { this.textContent = 'Copied!'; setTimeout(() => { this.textContent = 'Copy Prompt'; }, 2000); })"
-          style="
-            background: rgba(255,255,255,0.1);
-            color: rgba(248,245,239,0.85);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px;
-            padding: 7px 16px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.15s;
-          "
-          onmouseover="this.style.background='rgba(255,255,255,0.18)'"
-          onmouseout="this.style.background='rgba(255,255,255,0.1)'"
-        >Copy Prompt</button>
-      </div>
+          <!-- Timeline -->
+          <div style="margin-bottom: 20px;">
+            {[
+              { n: "1", type: "Wide Shot",   desc: "Full café setting",       dur: "3s" },
+              { n: "2", type: "Medium Shot", desc: "Introduce the barista",   dur: "3s" },
+              { n: "3", type: "Close-Up",    desc: "Coffee being poured",     dur: "5s", active: true },
+              { n: "4", type: "Detail Shot", desc: "Steam and latte art",     dur: "3s" },
+              { n: "5", type: "Final Shot",  desc: "Customer enjoying coffee",dur: "5s" },
+            ].map((shot) => (
+              <div style={`display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid #F0EAE2;`}>
+                <div class="font-ui" style={`width: 32px; height: 32px; border-radius: 50%; background: ${shot.active ? '#E4572E' : '#F8F5EF'}; color: ${shot.active ? '#fff' : '#7A7268'}; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: ${shot.active ? 'none' : '1.5px solid #E6DDD1'};`}>{shot.n}</div>
+                <div style="flex: 1; min-width: 0;">
+                  <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #171717;">{shot.type}</span>
+                  <span class="font-ui" style="font-size: 13px; color: #7A7268; margin-left: 8px;">{shot.desc}</span>
+                </div>
+                <span class="font-ui" style="font-size: 12px; font-weight: 600; color: #7A7268; background: #F8F5EF; border: 1px solid #E6DDD1; border-radius: 6px; padding: 2px 9px; flex-shrink: 0;">{shot.dur}</span>
+              </div>
+            ))}
+          </div>
 
-      <!-- CTA row -->
-      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-        <a
-          href="/planner?topic=coffee+shop+reel"
-          class="font-ui focus-ring"
-          style="
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #E4572E;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 0 24px;
-            height: 48px;
-            border-radius: 999px;
-            text-decoration: none;
-            transition: background 0.15s;
-            white-space: nowrap;
-          "
-          onmouseover="this.style.background='#B83A1F'"
-          onmouseout="this.style.background='#E4572E'"
-        >Try This With My Idea →</a>
-        <a
-          href="/recipes"
-          class="font-ui focus-ring"
-          style="
-            display: inline-flex;
-            align-items: center;
-            color: #7A7268;
-            font-size: 15px;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 0 4px;
-          "
-          onmouseover="this.style.color='#171717'"
-          onmouseout="this.style.color='#7A7268'"
-        >Browse all recipes →</a>
-      </div>
-    </div>
-  </section>
+          <!-- Dark prompt block -->
+          <div style="background: #0F0F13; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;">
+            <span class="font-ui" style="font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 8px;">AI Prompt — Shot 3</span>
+            <p class="font-mono" style="font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,0.82); margin: 0 0 14px;">
+              cinematic close-up of hot coffee being poured into a ceramic cup,<br />
+              soft morning light, cozy café background, shallow DOF, 5 seconds
+            </p>
+            <button class="font-ui" onclick="navigator.clipboard.writeText('cinematic close-up of hot coffee being poured into a ceramic cup, soft morning light, cozy café background, shallow DOF, 5 seconds').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},2000)})" style="background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.78); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.16)'" onmouseout="this.style.background='rgba(255,255,255,0.09)'">Copy Prompt</button>
+          </div>
 
-  <!-- 5. How it works -->
-  <section
-    style="
-      background: #F8F5EF;
-      padding-block: clamp(32px, 4vw, 56px);
-    "
-  >
-    <div class="container-pad">
-      <div style="max-width: 520px; margin-bottom: 32px;">
-        <h2
-          style="
-            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            font-size: clamp(22px, 3vw, 28px);
-            font-weight: 700;
-            color: #171717;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.02em;
-          "
-        >How it works</h2>
-        <p
-          class="font-ui"
-          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
-        >Three steps from zero to AI-ready shot descriptions.</p>
-      </div>
+          <!-- CTAs -->
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+            <a href="/planner?topic=coffee+shop+reel" class="font-ui focus-ring" style="display:inline-flex;align-items:center;justify-content:center;background:#E4572E;color:#fff;font-size:14px;font-weight:700;padding:0 22px;height:44px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:background 0.15s;" onmouseover="this.style.background='#B83A1F'" onmouseout="this.style.background='#E4572E'">Try With My Idea →</a>
+            <a href="/recipes" class="font-ui focus-ring" style="display:inline-flex;align-items:center;color:#7A7268;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.color='#171717'" onmouseout="this.style.color='#7A7268'">Browse recipes →</a>
+          </div>
+        </div>
 
-      <div class="steps-grid">
-        {[
-          {
-            n: "1",
-            title: "Search film words",
-            desc: "Explore 124 film terms across shots, angles, lighting, movement, and editing — each with examples and AI prompt templates.",
-          },
-          {
-            n: "2",
-            title: "Type your video idea",
-            desc: "Type a topic or creative concept into the Sequence Planner and choose your video style.",
-          },
-          {
-            n: "3",
-            title: "Copy your AI prompts",
-            desc: "Receive a prioritized shot sequence with copy-ready prompts for Runway, Pika, and Stable Video.",
-          },
-        ].map((step) => (
-          <div style="display: flex; flex-direction: column; gap: 16px;">
-            <div
-              class="font-ui"
-              style="
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                background: #E4572E;
-                color: #ffffff;
-                font-size: 16px;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-              "
-            >{step.n}</div>
-            <div>
-              <h3
-                class="font-ui"
-                style="
-                  font-size: 18px;
-                  font-weight: 700;
-                  color: #171717;
-                  margin: 0 0 8px 0;
-                "
-              >{step.title}</h3>
-              <p
-                class="font-ui"
-                style="font-size: 14px; color: #4F4A45; line-height: 1.6; margin: 0;"
-              >{step.desc}</p>
+        <!-- RIGHT: How it works -->
+        <div class="example-right">
+          <div style="position: sticky; top: 88px;">
+            <span class="font-ui" style="font-size: 11px; font-weight: 700; color: #E4572E; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 14px;">How It Works</span>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; color: #171717; margin: 0 0 8px; letter-spacing: -0.02em;">
+              Three steps to AI-ready shots
+            </h2>
+            <p class="font-ui" style="font-size: 15px; color: #7A7268; margin: 0 0 36px; line-height: 1.6;">
+              From zero to copy-ready prompts in minutes.
+            </p>
+
+            <!-- Steps -->
+            <div style="display: flex; flex-direction: column; gap: 0;">
+              {[
+                {
+                  n: "1",
+                  title: "Learn a film word",
+                  desc: "Pick any of 124 terms — shots, angles, lighting, movement. Each card shows what it is, why it matters, and its AI prompt.",
+                  href: "/glossary",
+                  link: "Browse Glossary →",
+                },
+                {
+                  n: "2",
+                  title: "Type your video idea",
+                  desc: "Enter a topic — 'coffee shop reel', 'product launch', 'travel montage'. We build a prioritised shot plan instantly.",
+                  href: "/planner",
+                  link: "Open Planner →",
+                },
+                {
+                  n: "3",
+                  title: "Copy your AI prompts",
+                  desc: "Each shot comes with a ready-to-paste prompt for Runway, Pika, or Stable Video. Copy one or all.",
+                  href: "/recipes",
+                  link: "See a Recipe →",
+                },
+              ].map((step, i) => (
+                <div style={`display: flex; gap: 20px; padding-bottom: 32px; ${i < 2 ? 'border-bottom: 1px solid #F0EAE2; margin-bottom: 32px;' : ''}`}>
+                  <!-- Number + vertical line -->
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0;">
+                    <div class="font-ui" style="width: 40px; height: 40px; border-radius: 50%; background: #E4572E; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">{step.n}</div>
+                    {i < 2 && <div style="width: 2px; flex: 1; background: #F0EAE2; margin-top: 8px; min-height: 24px;"></div>}
+                  </div>
+                  <div style="padding-top: 8px;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #171717; margin: 0 0 8px;">{step.title}</h3>
+                    <p class="font-ui" style="font-size: 14px; color: #4F4A45; line-height: 1.65; margin: 0 0 12px;">{step.desc}</p>
+                    <a href={step.href} class="font-ui" style="font-size: 13px; font-weight: 600; color: #E4572E; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">{step.link}</a>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
+        </div>
+
       </div>
     </div>
   </section>
@@ -728,21 +557,29 @@ import { stats, tokens } from "../../src/site.config";
     }
   }
 
-  .steps-grid {
+  .example-split {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: start;
   }
 
-  @media (max-width: 768px) {
-    .steps-grid {
+  .example-right {
+    border-left: 1px solid #F0EAE2;
+    padding-left: 64px;
+  }
+
+  @media (max-width: 900px) {
+    .example-split {
       grid-template-columns: 1fr;
-      gap: 32px;
+      gap: 48px;
     }
-  }
-
-  .example-timeline .timeline-item:last-child {
-    border-bottom: none;
+    .example-right {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid #F0EAE2;
+      padding-top: 40px;
+    }
   }
 
   .beginner-pills {
