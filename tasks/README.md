@@ -91,17 +91,17 @@ CineCards AI
 - [12 — Render worker + FFmpeg stitcher (scaffolded; awaits real adapters + ffmpeg)](done/12-render-worker.md)
 - [24 — Quality-confidence scoring + review queue](done/24-quality-review.md)
 - [13 — Provenance + C2PA storage](done/13-provenance.md)
+- [25 — Blog content schema & frontmatter spec](done/25-blog-content-schema.md)
+- [26 — Blog file system layout plan](done/26-blog-file-layout.md)
+- [27 — Astro Content Collections setup for blog](done/27-blog-content-collections.md)
+- [28 — Blog index page (/blog)](done/28-blog-index-page.md)
+- [29 — Dynamic blog post page (/blog/[slug])](done/29-blog-post-page.md)
+- [32 — Blog nav link & homepage preview section](done/32-blog-nav-homepage.md)
+- [33 — Write 5 seed blog posts for launch](done/33-blog-seed-posts.md)
 
 ### Pending
-- [25 — Blog content schema & frontmatter spec](pending/25-blog-content-schema.md)
-- [26 — Blog file system layout plan](pending/26-blog-file-layout.md)
-- [27 — Astro Content Collections setup for blog](pending/27-blog-content-collections.md)
-- [28 — Blog index page (/blog)](pending/28-blog-index-page.md)
-- [29 — Dynamic blog post page (/blog/[slug])](pending/29-blog-post-page.md)
 - [30 — Blog category & tag archive pages](pending/30-blog-archive-pages.md)
 - [31 — Blog sitemap & RSS feed](pending/31-blog-sitemap-rss.md)
-- [32 — Blog nav link & homepage preview section](pending/32-blog-nav-homepage.md)
-- [33 — Write 5 seed blog posts for launch](pending/33-blog-seed-posts.md)
 - [34 — Blog SEO & AI-readiness audit](pending/34-blog-seo-audit.md)
 
 ## How to use this folder

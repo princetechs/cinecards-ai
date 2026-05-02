@@ -1,6 +1,6 @@
 # 25 — Blog Content Schema & Frontmatter Spec
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Define the MDX frontmatter schema for all blog posts as the single source of truth before any code is written.

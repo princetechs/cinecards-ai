@@ -1,6 +1,6 @@
 # 32 — Blog Nav Link & Homepage Preview Section
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Surface the blog in the global nav and on the homepage to drive traffic from existing visitors.

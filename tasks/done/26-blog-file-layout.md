@@ -1,6 +1,6 @@
 # 26 — Blog File System Layout Plan
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Decide and document the repository directory structure for the git-based blog before implementation begins.

@@ -1,6 +1,6 @@
 # 33 — Write 5 Seed Blog Posts for Launch
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Populate the blog with real, high-quality content that matches the site audience (creators using Runway, Pika, Stable Video) and is optimized for search and AI crawlers.

@@ -1,6 +1,6 @@
 # 29 — Dynamic Blog Post Page (/blog/[slug])
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Build the individual post reading page with full typography, sidebar TOC, and rich SEO metadata.

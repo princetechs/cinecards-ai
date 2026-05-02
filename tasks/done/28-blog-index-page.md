@@ -1,6 +1,6 @@
 # 28 — Blog Index Page (/blog)
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Build the `/blog` listing page where visitors can browse and filter all posts.

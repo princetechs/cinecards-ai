@@ -1,6 +1,6 @@
 # 27 — Astro Content Collections Setup for Blog
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Wire up Astro Content Collections so blog posts in `src/content/blog/` are type-safe and queryable.
