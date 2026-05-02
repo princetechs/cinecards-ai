@@ -11,7 +11,8 @@
     "validate:content": "tsx scripts/validate-content.ts",
     "worker:start": "npm start --prefix apps/worker --",
     "worker:enqueue": "npm run enqueue --prefix apps/worker --",
-    "test:quality": "node --experimental-strip-types --import 'data:text/javascript,import{register}from\"node:module\";import{pathToFileURL}from\"node:url\";register(\"./scripts/ts-resolver.mjs\",pathToFileURL(\"./\"));' scripts/test-quality-score.mjs"
+    "test:quality": "node --experimental-strip-types --import 'data:text/javascript,import{register}from\"node:module\";import{pathToFileURL}from\"node:url\";register(\"./scripts/ts-resolver.mjs\",pathToFileURL(\"./\"));' scripts/test-quality-score.mjs",
+    "audit:seo": "node scripts/seo-audit.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
@@ -23,6 +24,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.3.14"
+    "@astrojs/mdx": "^4.3.14",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2"
   }
 }

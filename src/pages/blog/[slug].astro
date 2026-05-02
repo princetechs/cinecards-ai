@@ -36,9 +36,9 @@ const h2s = headings.filter(h => h.depth === 2);
 <BaseLayout
   title={`${post.data.title} | CineCards AI Blog`}
   description={post.data.description}
+  ogType="article"
 >
   <Fragment slot="head">
-    <meta property="og:type" content="article" />
     <meta property="og:image" content={post.data.ogImage} />
     <meta property="article:published_time" content={post.data.publishedAt.toISOString()} />
     {post.data.updatedAt && <meta property="article:modified_time" content={post.data.updatedAt.toISOString()} />}

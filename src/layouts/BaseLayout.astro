@@ -9,12 +9,14 @@ interface Props {
   title?: string;
   description?: string;
   lang?: Locale;
+  ogType?: "website" | "article";
 }
 
 const {
   title = seo.defaultTitle,
   description = seo.defaultDescription,
-  lang = "en"
+  lang = "en",
+  ogType = "website",
 } = Astro.props;
 ---
 
@@ -29,12 +31,13 @@ const {
     <link rel="canonical" href={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:image" content="/images/cinecards-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content={seo.themeColor} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="alternate" type="application/rss+xml" title="CineCards AI Blog" href="/blog/rss.xml" />
     <slot name="head" />
   </head>
   <body class="font-ui antialiased">
