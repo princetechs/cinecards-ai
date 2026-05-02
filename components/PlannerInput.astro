@@ -5,14 +5,14 @@ import ShotSequence from "./ShotSequence.astro";
 <section class="section-pad bg-night text-bone" id="planner">
   <div class="container-pad grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
     <div>
-      <p class="eyebrow text-bone/55">Topic-to-shot planner</p>
-      <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Turn a vague idea into shots that cut together.</h2>
+      <p class="eyebrow text-bone/55">Video planner</p>
+      <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Create Your Video Plan</h2>
       <p class="mt-4 max-w-xl text-base leading-7 text-bone/68">
-        The planner classifies the topic, picks a sequence rule, then fills each shot with a beginner-friendly reason and AI-ready prompt.
+        Type your video idea and we'll build a simple shot plan with AI prompts you can copy.
       </p>
       <form class="mt-8 rounded-lg border border-bone/12 bg-bone/6 p-4 shadow-soft" data-planner-form>
         <label class="block">
-          <span class="text-sm font-bold text-bone/78">Topic or story</span>
+          <span class="text-sm font-bold text-bone/78">What are you making?</span>
           <textarea
             class="focus-ring mt-2 min-h-28 w-full resize-y rounded-lg border border-bone/15 bg-bone px-4 py-3 text-base text-ink placeholder:text-ink/42"
             data-planner-topic
@@ -20,7 +20,7 @@ import ShotSequence from "./ShotSequence.astro";
           ></textarea>
         </label>
         <button class="focus-ring mt-4 w-full rounded-lg bg-clay px-5 py-3 text-sm font-black text-bone shadow-soft transition hover:bg-[#9f583d]" type="button" data-planner-submit>
-          Build Shot Sequence
+          Create My Shot Plan
         </button>
       </form>
     </div>
@@ -110,5 +110,14 @@ import ShotSequence from "./ShotSequence.astro";
     }, 1200);
   });
 
-  renderPlan("coffee shop morning reel");
+  // Read URL params for prefill (e.g. from glossary card "Try With My Idea")
+  const params = new URLSearchParams(window.location.search);
+  const topicParam = params.get("topic")?.trim();
+  const topicTextarea = document.querySelector<HTMLTextAreaElement>("[data-planner-topic]");
+  if (topicParam && topicTextarea) {
+    topicTextarea.value = topicParam;
+    renderPlan(topicParam);
+  } else {
+    renderPlan("coffee shop morning reel");
+  }
 </script>

@@ -1,0 +1,495 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import promptPacks from "../../data/promptPacks.json";
+import { getAllTerms } from "../../lib/termSearch";
+import { buildPrompt } from "../../lib/promptBuilder";
+import type { PromptPack } from "../../types/pack";
+import type { Term } from "../../types/term";
+
+const packs = promptPacks as PromptPack[];
+const terms = getAllTerms();
+const termsById = new Map<string, Term>(terms.map((term) => [term.id, term]));
+
+type ResolvedItem = {
+  order: number;
+  termId: string;
+  termName: string;
+  category: string;
+  durationSec: number;
+  duration: "3s" | "5s";
+  prompt: string;
+};
+
+type ResolvedPack = PromptPack & { resolvedItems: ResolvedItem[] };
+
+const resolved: ResolvedPack[] = packs.map((pack) => ({
+  ...pack,
+  resolvedItems: pack.items
+    .map((item, index): ResolvedItem | null => {
+      const term = termsById.get(item.termId);
+      if (!term) return null;
+      const duration: "3s" | "5s" = item.durationSec >= 5 ? "5s" : "3s";
+      const prompt =
+        item.promptOverride && item.promptOverride.trim().length > 0
+          ? item.promptOverride
+          : buildPrompt(term, pack.useCase, duration);
+      return {
+        order: index + 1,
+        termId: term.id,
+        termName: term.name,
+        category: term.category,
+        durationSec: item.durationSec,
+        duration,
+        prompt,
+      };
+    })
+    .filter((item): item is ResolvedItem => Boolean(item)),
+}));
+
+function shotReason(index: number, total: number): string {
+  if (index === 0) return "Start by showing where your video happens.";
+  if (index === total - 1) return "Finish with a strong detail or emotion.";
+  return "Show your main subject in action.";
+}
+
+const quickLinks = [
+  { emoji: "☕", label: "Coffee Shop", id: "coffee-shop-reel" },
+  { emoji: "📦", label: "Product",     id: "product-macro-hero" },
+  { emoji: "🌍", label: "Travel",      id: "travel-sunrise-montage" },
+  { emoji: "🎬", label: "Interview",   id: "interview-broll" },
+  { emoji: "📚", label: "Tutorial",    id: "tutorial-talking-head" },
+];
+---
+
+<BaseLayout
+  title="Shot Recipes for AI Videos — CineCards AI"
+  description="Beginner-friendly shot plans with copyable AI prompts. Pick the kind of video you want to make and get a simple shot recipe."
+>
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="container-pad">
+      <span class="page-eyebrow">Beginner Friendly · AI-Ready · {resolved.length} Recipes</span>
+      <h1 class="page-h1">Shot Recipes for AI Videos</h1>
+      <p class="page-subtitle">Pick the kind of video you want to make. We'll give you a simple shot plan with copyable AI prompts.</p>
+    </div>
+  </section>
+
+  <!-- Quick links strip -->
+  <section style="background: #fff; border-bottom: 1px solid #E6DDD1; padding-block: 20px;">
+    <div class="container-pad">
+      <p style="font-family: var(--font-body, 'Inter', sans-serif); font-size: 13px; color: rgba(23,23,23,0.56); margin: 0 0 12px;">
+        Not sure which recipe fits your idea? These are the most popular starting points:
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        {quickLinks.map((ql) => (
+          <a
+            href={`#recipe-${ql.id}`}
+            style="
+              display: inline-flex; align-items: center; gap: 6px;
+              padding: 6px 14px;
+              border-radius: 999px;
+              border: 1px solid #E6DDD1;
+              background: #F8F5EF;
+              font-family: var(--font-ui, sans-serif);
+              font-size: 13px;
+              font-weight: 600;
+              color: #171717;
+              text-decoration: none;
+              transition: background 0.12s, border-color 0.12s;
+            "
+            onmouseover="this.style.background='rgba(228,87,46,0.07)'; this.style.borderColor='#E4572E';"
+            onmouseout="this.style.background='#F8F5EF'; this.style.borderColor='#E6DDD1';"
+          >{ql.emoji} {ql.label}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recipe cards grid -->
+  <section style="background: var(--bg-bone, #F2ECE4); padding-block: 48px;">
+    <div class="container-pad">
+      <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));">
+        {resolved.map((pack) => (
+          <article
+            id={`recipe-${pack.id}`}
+            style="
+              background: #fff;
+              border: 1px solid #E6DDD1;
+              border-radius: 12px;
+              box-shadow: 0 1px 4px rgba(23,23,23,0.06);
+              padding: 24px;
+              display: flex;
+              flex-direction: column;
+              gap: 12px;
+              transition: transform 0.15s, box-shadow 0.15s;
+            "
+            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(23,23,23,0.10)';"
+            onmouseout="this.style.transform=''; this.style.boxShadow='0 1px 4px rgba(23,23,23,0.06)';"
+          >
+            <!-- Use-case tag -->
+            <div>
+              <span style="
+                display: inline-block;
+                background: rgba(228,87,46,0.1);
+                color: #B83A1F;
+                font-family: var(--font-ui, sans-serif);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                padding: 3px 10px;
+                border-radius: 999px;
+              ">{pack.useCase.split(" ").slice(0, 4).join(" ")}</span>
+            </div>
+
+            <!-- Pack name -->
+            <h2 style="
+              font-family: var(--font-display, 'Space Grotesk', sans-serif);
+              font-size: 20px;
+              font-weight: 700;
+              color: var(--color-ink, #171717);
+              margin: 0;
+              line-height: 1.2;
+            ">{pack.name}</h2>
+
+            <!-- Description -->
+            <p style="
+              font-family: var(--font-body, 'Inter', sans-serif);
+              font-size: 14px;
+              line-height: 1.5;
+              color: rgba(23,23,23,0.64);
+              margin: 0;
+            ">{pack.useCase}</p>
+
+            <!-- Stats row -->
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <span style="
+                background: #F2ECE4;
+                color: rgba(23,23,23,0.62);
+                font-family: var(--font-ui, sans-serif);
+                font-size: 12px;
+                font-weight: 600;
+                padding: 3px 10px;
+                border-radius: 999px;
+              ">{pack.items.length} shots</span>
+              <span style="
+                background: #F2ECE4;
+                color: rgba(23,23,23,0.62);
+                font-family: var(--font-ui, sans-serif);
+                font-size: 12px;
+                font-weight: 600;
+                padding: 3px 10px;
+                border-radius: 999px;
+              ">Beginner friendly</span>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;">
+              <button
+                type="button"
+                class="recipe-open-btn"
+                data-pack-id={pack.id}
+                style="
+                  background: #E4572E;
+                  color: #fff;
+                  border: none;
+                  border-radius: 999px;
+                  height: 36px;
+                  padding: 0 16px;
+                  font-family: var(--font-ui, sans-serif);
+                  font-size: 13px;
+                  font-weight: 700;
+                  cursor: pointer;
+                  transition: background 0.12s;
+                "
+                onmouseover="this.style.background='#B83A1F'"
+                onmouseout="this.style.background='#E4572E'"
+              >Open Recipe</button>
+              <button
+                type="button"
+                class="recipe-copy-all-btn"
+                data-pack-id={pack.id}
+                style="
+                  background: transparent;
+                  color: #171717;
+                  border: 1px solid #D8CFC3;
+                  border-radius: 999px;
+                  height: 36px;
+                  padding: 0 16px;
+                  font-family: var(--font-ui, sans-serif);
+                  font-size: 13px;
+                  font-weight: 700;
+                  cursor: pointer;
+                  transition: background 0.12s;
+                "
+                onmouseover="this.style.background='rgba(23,23,23,0.05)'"
+                onmouseout="this.style.background='transparent'"
+              >Copy All Prompts</button>
+              <a
+                href={`/planner?topic=${encodeURIComponent(pack.name)}`}
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  height: 36px;
+                  padding: 0 12px;
+                  font-family: var(--font-ui, sans-serif);
+                  font-size: 13px;
+                  font-weight: 700;
+                  color: rgba(23,23,23,0.55);
+                  text-decoration: none;
+                  transition: color 0.12s;
+                "
+                onmouseover="this.style.color='#E4572E'"
+                onmouseout="this.style.color='rgba(23,23,23,0.55)'"
+              >→ Planner</a>
+            </div>
+
+            <!-- Expandable detail section -->
+            <div
+              id={`detail-${pack.id}`}
+              data-detail
+              style="
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+              "
+            >
+              <div style="padding-top: 16px; border-top: 1px solid #E6DDD1; margin-top: 8px;">
+                <!-- Shot timeline -->
+                <ol style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px;">
+                  {pack.resolvedItems.map((item, idx) => (
+                    <li style="display: flex; gap: 12px; align-items: flex-start;">
+                      <!-- Number badge -->
+                      <span style="
+                        flex-shrink: 0;
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 50%;
+                        background: #E4572E;
+                        color: #fff;
+                        display: grid;
+                        place-items: center;
+                        font-family: var(--font-ui, sans-serif);
+                        font-size: 12px;
+                        font-weight: 700;
+                        margin-top: 2px;
+                      ">{item.order}</span>
+                      <div style="flex: 1; min-width: 0;">
+                        <!-- Shot name + duration -->
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
+                          <span style="
+                            font-family: var(--font-ui, sans-serif);
+                            font-size: 14px;
+                            font-weight: 700;
+                            color: #171717;
+                          ">{item.termName}</span>
+                          <span style="
+                            background: #F2ECE4;
+                            color: rgba(23,23,23,0.55);
+                            font-family: var(--font-ui, sans-serif);
+                            font-size: 11px;
+                            font-weight: 600;
+                            padding: 2px 8px;
+                            border-radius: 999px;
+                          ">{item.durationSec}s</span>
+                        </div>
+                        <!-- Reason -->
+                        <p style="
+                          font-family: var(--font-body, 'Inter', sans-serif);
+                          font-size: 12px;
+                          color: rgba(23,23,23,0.56);
+                          margin: 0 0 8px;
+                          line-height: 1.4;
+                        ">{shotReason(idx, pack.resolvedItems.length)}</p>
+                        <!-- Dark prompt block -->
+                        <div style="position: relative;">
+                          <pre style="
+                            background: #101014;
+                            color: rgba(248,245,239,0.88);
+                            font-family: var(--font-mono, 'JetBrains Mono', monospace);
+                            font-size: 12px;
+                            line-height: 1.5;
+                            padding: 10px 12px;
+                            padding-right: 64px;
+                            border-radius: 8px;
+                            margin: 0;
+                            white-space: pre-wrap;
+                            word-break: break-word;
+                          ">{item.prompt}</pre>
+                          <button
+                            type="button"
+                            class="recipe-copy-single-btn"
+                            data-prompt={item.prompt}
+                            style="
+                              position: absolute;
+                              top: 8px;
+                              right: 8px;
+                              background: rgba(255,255,255,0.1);
+                              color: rgba(248,245,239,0.7);
+                              border: none;
+                              border-radius: 6px;
+                              padding: 4px 8px;
+                              font-family: var(--font-ui, sans-serif);
+                              font-size: 11px;
+                              font-weight: 600;
+                              cursor: pointer;
+                              transition: background 0.12s;
+                            "
+                            onmouseover="this.style.background='rgba(255,255,255,0.2)'"
+                            onmouseout="this.style.background='rgba(255,255,255,0.1)'"
+                          >Copy</button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+
+                <!-- Copy all (full width) -->
+                <button
+                  type="button"
+                  class="recipe-copy-all-btn"
+                  data-pack-id={pack.id}
+                  style="
+                    display: block;
+                    width: 100%;
+                    margin-top: 20px;
+                    background: #E4572E;
+                    color: #fff;
+                    border: none;
+                    border-radius: 999px;
+                    height: 44px;
+                    font-family: var(--font-ui, sans-serif);
+                    font-size: 14px;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: background 0.12s;
+                  "
+                  onmouseover="this.style.background='#B83A1F'"
+                  onmouseout="this.style.background='#E4572E'"
+                >Copy All Prompts</button>
+
+                <!-- Try in planner -->
+                <a
+                  href={`/planner?topic=${encodeURIComponent(pack.name)}`}
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 10px;
+                    height: 40px;
+                    font-family: var(--font-ui, sans-serif);
+                    font-size: 13px;
+                    font-weight: 700;
+                    color: #E4572E;
+                    text-decoration: none;
+                    gap: 4px;
+                  "
+                  onmouseover="this.style.textDecoration='underline'"
+                  onmouseout="this.style.textDecoration='none'"
+                >Try in Planner →</a>
+
+                <!-- Director tip -->
+                {pack.notes && (
+                  <p style="
+                    margin-top: 14px;
+                    background: #F8F5EF;
+                    border-left: 3px solid #E4572E;
+                    padding: 10px 14px;
+                    border-radius: 0 8px 8px 0;
+                    font-family: var(--font-body, 'Inter', sans-serif);
+                    font-size: 13px;
+                    line-height: 1.5;
+                    color: rgba(23,23,23,0.7);
+                    margin-bottom: 0;
+                  ">
+                    <strong style="color: #E4572E; font-weight: 700;">Tip from a director:</strong> {pack.notes}
+                  </p>
+                )}
+
+                <!-- Close button -->
+                <button
+                  type="button"
+                  class="recipe-close-btn"
+                  data-pack-id={pack.id}
+                  style="
+                    display: block;
+                    width: 100%;
+                    margin-top: 16px;
+                    background: transparent;
+                    color: rgba(23,23,23,0.45);
+                    border: 1px solid #D8CFC3;
+                    border-radius: 999px;
+                    height: 36px;
+                    font-family: var(--font-ui, sans-serif);
+                    font-size: 13px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.12s;
+                  "
+                  onmouseover="this.style.background='rgba(23,23,23,0.04)'"
+                  onmouseout="this.style.background='transparent'"
+                >Close ✕</button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All prompts data for copy-all (hidden) -->
+  <script is:inline define:vars={{ packPrompts: resolved.map(p => ({ id: p.id, prompts: p.resolvedItems.map(i => i.prompt) })) }}>
+    // Open / Close recipe details
+    document.querySelectorAll(".recipe-open-btn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var packId = btn.getAttribute("data-pack-id");
+        var detail = document.getElementById("detail-" + packId);
+        if (!detail) return;
+        // expand
+        detail.style.maxHeight = detail.scrollHeight + 500 + "px";
+        btn.style.display = "none";
+      });
+    });
+
+    document.querySelectorAll(".recipe-close-btn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        var packId = btn.getAttribute("data-pack-id");
+        var detail = document.getElementById("detail-" + packId);
+        if (!detail) return;
+        detail.style.maxHeight = "0";
+        // show open button again
+        var openBtn = document.querySelector(".recipe-open-btn[data-pack-id='" + packId + "']");
+        if (openBtn) openBtn.style.display = "";
+      });
+    });
+
+    // Copy single prompt
+    document.querySelectorAll(".recipe-copy-single-btn").forEach(function(btn) {
+      btn.addEventListener("click", async function() {
+        var prompt = btn.getAttribute("data-prompt") || "";
+        try {
+          await navigator.clipboard.writeText(prompt);
+          var orig = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = orig; }, 1200);
+        } catch(e) {}
+      });
+    });
+
+    // Copy all prompts
+    document.querySelectorAll(".recipe-copy-all-btn").forEach(function(btn) {
+      btn.addEventListener("click", async function() {
+        var packId = btn.getAttribute("data-pack-id");
+        var pack = packPrompts.find(function(p) { return p.id === packId; });
+        if (!pack) return;
+        var text = pack.prompts.join("\n\n");
+        try {
+          await navigator.clipboard.writeText(text);
+          var orig = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(function() { btn.textContent = orig; }, 1200);
+        } catch(e) {}
+      });
+    });
+  </script>
+</BaseLayout>

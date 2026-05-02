@@ -1,21 +1,26 @@
 <div class="rounded-lg border border-ink/10 bg-bone p-4 shadow-soft">
   <div class="flex items-center justify-between gap-3 border-b border-ink/10 pb-4">
     <div>
-      <p class="eyebrow text-clay">Shot sequence</p>
-      <h3 class="mt-1 text-xl font-black text-ink">Prioritized plan</h3>
+      <p class="eyebrow text-clay">Shot plan</p>
+      <h3 class="mt-1 text-xl font-black text-ink">Your Shot Plan</h3>
     </div>
     <div class="flex items-center gap-2">
       <button
         class="focus-ring hidden rounded-lg border border-ink/12 bg-paper px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
         type="button"
+        data-copy-all-prompts
+      >Copy All</button>
+      <button
+        class="focus-ring hidden rounded-lg border border-ink/12 bg-paper px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone"
+        type="button"
         data-save-pack
-      >Save as pack</button>
+      >Save as Recipe</button>
       <span class="rounded-full bg-paper px-3 py-1 text-xs font-bold text-ink/60" data-plan-type>Waiting</span>
     </div>
   </div>
   <div class="mt-4 space-y-3" data-plan-output>
     <div class="rounded-lg bg-paper p-5 text-sm leading-6 text-ink/62">
-      Enter a topic to generate a compact coverage plan.
+      Enter your idea above and tap Create My Shot Plan.
     </div>
   </div>
   <p class="mt-3 hidden text-xs font-bold text-clay" data-save-pack-status></p>
@@ -77,15 +82,23 @@
   };
 
   const updateButtonVisibility = () => {
-    const button = document.querySelector<HTMLButtonElement>("[data-save-pack]");
-    if (!button) return;
     const plan = collectCurrentPlan();
-    if (plan && plan.items.length > 0) {
-      button.classList.remove("hidden");
-    } else {
-      button.classList.add("hidden");
-    }
+    const hasItems = plan && plan.items.length > 0;
+    document.querySelector<HTMLButtonElement>("[data-save-pack]")?.classList.toggle("hidden", !hasItems);
+    document.querySelector<HTMLButtonElement>("[data-copy-all-prompts]")?.classList.toggle("hidden", !hasItems);
   };
+
+  document.addEventListener("click", async (event) => {
+    const btn = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-all-prompts]");
+    if (!btn) return;
+    const plan = collectCurrentPlan();
+    if (!plan) return;
+    const text = plan.items.map((item, i) => `Shot ${i + 1} — ${item.termName}\n${item.prompt}`).join("\n\n");
+    await navigator.clipboard.writeText(text);
+    const orig = btn.textContent;
+    btn.textContent = "Copied ✓";
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
 
   document.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-save-pack]");

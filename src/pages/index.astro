@@ -1,17 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../../components/Hero.astro";
-import LearningPath from "../../components/LearningPath.astro";
 import OpenSource from "../../components/OpenSource.astro";
-import { getAllTerms } from "../../lib/termSearch";
-
-const terms = getAllTerms();
-
-// Featured terms for the "Featured Terms" section
-const featuredTermNames = ["Close-Up", "Establishing Shot", "Rule of Thirds"];
-const featuredTerms = featuredTermNames
-  .map((name) => terms.find((t) => t.name === name))
-  .filter((t): t is (typeof terms)[number] => Boolean(t));
 ---
 
 <BaseLayout>
@@ -21,17 +11,16 @@ const featuredTerms = featuredTermNames
   <!-- 2. Stats strip -->
   <div
     style="
-      background: #EFE8DC;
-      border-top: 1px solid #E6DDD1;
-      border-bottom: 1px solid #E6DDD1;
-      padding-block: clamp(28px, 4vw, 40px);
+      background: #171720;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-block: clamp(20px, 3vw, 32px);
     "
   >
     <div class="container-pad">
       <div class="stats-row">
         {[
           { value: "124", label: "Film Terms" },
-          { value: "15", label: "Prompt Packs" },
+          { value: "15+", label: "Prompt Packs" },
           { value: "7", label: "Shot Sequence Types" },
         ].map((stat) => (
           <div
@@ -39,7 +28,7 @@ const featuredTerms = featuredTermNames
               display: flex;
               flex-direction: column;
               align-items: center;
-              gap: 6px;
+              gap: 5px;
               text-align: center;
             "
           >
@@ -48,14 +37,14 @@ const featuredTerms = featuredTermNames
                 font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
                 font-size: 32px;
                 font-weight: 700;
-                color: #171717;
+                color: #FFFFFF;
                 line-height: 1;
                 letter-spacing: -0.02em;
               "
             >{stat.value}</span>
             <span
               class="font-ui"
-              style="font-size: 14px; color: #7A7268; font-weight: 500;"
+              style="font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500;"
             >{stat.label}</span>
           </div>
         ))}
@@ -63,18 +52,119 @@ const featuredTerms = featuredTermNames
     </div>
   </div>
 
-  <!-- 3. Learning Path -->
-  <LearningPath terms={terms} />
-
-  <!-- 4. How it works -->
-  <section
-    style="
-      background: #FFFFFF;
-      padding-block: clamp(56px, 8vw, 104px);
-    "
-  >
+  <!-- 3. Beginner rescue + recipe grid -->
+  <section style="background: #F8F5EF; padding-block: clamp(32px, 4vw, 56px);">
     <div class="container-pad">
-      <div style="max-width: 520px; margin-bottom: 48px;">
+
+      <!-- Part A: Not sure strip -->
+      <div
+        style="
+          background: #EFE8DC;
+          padding: 32px;
+          border-radius: 20px;
+          text-align: center;
+          margin-bottom: 40px;
+        "
+      >
+        <h2
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #171717;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.01em;
+          "
+        >Not sure where to start?</h2>
+        <p
+          class="font-ui"
+          style="font-size: 15px; color: #4F4A45; margin: 0 0 16px 0; line-height: 1.6;"
+        >Pick the kind of video you want to make and we'll give you a shot plan with prompts.</p>
+        <a
+          href="/recipes"
+          class="font-ui"
+          style="
+            color: #E4572E;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+          "
+          onmouseover="this.style.textDecoration='underline'"
+          onmouseout="this.style.textDecoration='none'"
+        >Browse all Shot Recipes →</a>
+      </div>
+
+      <!-- Part B: Recipe grid -->
+      <div style="margin-bottom: 24px;">
+        <h2
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #171717;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+          "
+        >What do you want to make?</h2>
+        <p
+          class="font-ui"
+          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
+        >Choose a video type and get a beginner-friendly shot plan with copyable AI prompts.</p>
+      </div>
+
+      <div class="recipe-grid">
+        {[
+          { emoji: "☕", title: "Coffee Shop Reel", shots: "7 shots", level: "Beginner" },
+          { emoji: "📦", title: "Product Video", shots: "6 shots", level: "Beginner" },
+          { emoji: "🌍", title: "Travel Montage", shots: "7 shots", level: "Beginner" },
+          { emoji: "🍽", title: "Food Video", shots: "6 shots", level: "Beginner" },
+          { emoji: "🎤", title: "Interview", shots: "7 shots", level: "Intermediate" },
+          { emoji: "📚", title: "Tutorial", shots: "6 shots", level: "Beginner" },
+          { emoji: "🏠", title: "Real Estate Tour", shots: "7 shots", level: "Beginner" },
+          { emoji: "💪", title: "Fitness Demo", shots: "6 shots", level: "Beginner" },
+        ].map((card) => (
+          <a
+            href="/recipes"
+            class="recipe-card"
+            style="
+              background: #ffffff;
+              border: 1.5px solid #E6DDD1;
+              border-radius: 16px;
+              padding: 20px;
+              text-decoration: none;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+              cursor: pointer;
+            "
+            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'; this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'; this.style.transform='translateY(0)'"
+          >
+            <span style="font-size: 48px; line-height: 1;">{card.emoji}</span>
+            <h3
+              style="
+                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+                font-size: 16px;
+                font-weight: 700;
+                color: #171717;
+                margin: 0;
+              "
+            >{card.title}</h3>
+            <span
+              class="font-ui"
+              style="font-size: 12px; color: #7A7268;"
+            >{card.shots} · {card.level}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Real Example (Before/After) -->
+  <section style="background: #FFFFFF; padding-block: clamp(32px, 4vw, 56px);">
+    <div class="container-pad">
+      <div style="max-width: 600px; margin-bottom: 28px;">
         <h2
           style="
             font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
@@ -82,6 +172,220 @@ const featuredTerms = featuredTermNames
             font-weight: 700;
             color: #171717;
             margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+          "
+        >Here is what CineCards actually does</h2>
+        <p
+          class="font-ui"
+          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
+        >You give us a video idea. We give you a simple shot plan and prompts.</p>
+      </div>
+
+      <!-- Before/After idea box -->
+      <div
+        style="
+          background: #F8F5EF;
+          border: 1.5px solid #E6DDD1;
+          border-radius: 16px;
+          padding: 24px 28px;
+          margin-bottom: 32px;
+          max-width: 680px;
+        "
+      >
+        <span
+          class="font-ui"
+          style="font-size: 12px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px;"
+        >Your idea</span>
+        <p
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #171717;
+            margin: 0 0 12px 0;
+          "
+        >"A cozy coffee shop video"</p>
+        <span
+          class="font-ui"
+          style="font-size: 14px; color: #4F4A45; display: flex; align-items: center; gap: 6px;"
+        >
+          <span style="color: #E4572E; font-weight: 700; font-size: 18px;">↓</span>
+          CineCards turns it into:
+        </span>
+      </div>
+
+      <!-- Timeline -->
+      <div class="example-timeline" style="margin-bottom: 20px; max-width: 680px;">
+        {[
+          { n: "1", type: "Wide Shot", desc: "Show the full café setting", dur: "3s" },
+          { n: "2", type: "Medium Shot", desc: "Introduce the barista", dur: "3s" },
+          { n: "3", type: "Close-Up", desc: "Show coffee being poured", dur: "5s", active: true },
+          { n: "4", type: "Detail Shot", desc: "Steam and latte art", dur: "3s" },
+          { n: "5", type: "Final Shot", desc: "Customer enjoying coffee", dur: "5s" },
+        ].map((shot) => (
+          <div
+            class="timeline-item"
+            style={`
+              display: flex;
+              align-items: flex-start;
+              gap: 16px;
+              padding: 14px 0;
+              border-bottom: 1px solid #E6DDD1;
+            `}
+          >
+            <div
+              class="font-ui"
+              style={`
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: ${shot.active ? '#E4572E' : '#F8F5EF'};
+                color: ${shot.active ? '#ffffff' : '#7A7268'};
+                font-size: 13px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                border: ${shot.active ? 'none' : '1.5px solid #E6DDD1'};
+                margin-top: 2px;
+              `}
+            >{shot.n}</div>
+            <div style="flex: 1;">
+              <span
+                style="
+                  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+                  font-size: 15px;
+                  font-weight: 700;
+                  color: #171717;
+                  display: block;
+                  margin-bottom: 2px;
+                "
+              >{shot.type}</span>
+              <span
+                class="font-ui"
+                style="font-size: 14px; color: #4F4A45;"
+              >{shot.desc}</span>
+            </div>
+            <span
+              class="font-ui"
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                color: #7A7268;
+                background: #F8F5EF;
+                border: 1px solid #E6DDD1;
+                border-radius: 6px;
+                padding: 3px 10px;
+                flex-shrink: 0;
+                margin-top: 4px;
+              "
+            >{shot.dur}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Prompt block -->
+      <div
+        style="
+          background: #101014;
+          border-radius: 14px;
+          padding: 22px 24px;
+          max-width: 680px;
+          margin-bottom: 16px;
+          position: relative;
+        "
+      >
+        <span
+          class="font-ui"
+          style="font-size: 10px; font-weight: 600; color: rgba(248,245,239,0.45); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 10px;"
+        >AI PROMPT — Shot 3</span>
+        <p
+          class="font-mono"
+          style="
+            font-size: 13px;
+            line-height: 1.7;
+            color: rgba(248,245,239,0.85);
+            margin: 0 0 16px 0;
+          "
+        >cinematic close-up of hot coffee being poured into a ceramic cup,<br />soft morning light, cozy café background, shallow depth of field, 5 seconds</p>
+        <button
+          class="font-ui"
+          onclick="navigator.clipboard.writeText('cinematic close-up of hot coffee being poured into a ceramic cup, soft morning light, cozy café background, shallow depth of field, 5 seconds').then(() => { this.textContent = 'Copied!'; setTimeout(() => { this.textContent = 'Copy Prompt'; }, 2000); })"
+          style="
+            background: rgba(255,255,255,0.1);
+            color: rgba(248,245,239,0.85);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 7px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+          "
+          onmouseover="this.style.background='rgba(255,255,255,0.18)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.1)'"
+        >Copy Prompt</button>
+      </div>
+
+      <!-- CTA row -->
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+        <a
+          href="/planner?topic=coffee+shop+reel"
+          class="font-ui focus-ring"
+          style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #E4572E;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 0 24px;
+            height: 48px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background 0.15s;
+            white-space: nowrap;
+          "
+          onmouseover="this.style.background='#B83A1F'"
+          onmouseout="this.style.background='#E4572E'"
+        >Try This With My Idea →</a>
+        <a
+          href="/recipes"
+          class="font-ui focus-ring"
+          style="
+            display: inline-flex;
+            align-items: center;
+            color: #7A7268;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0 4px;
+          "
+          onmouseover="this.style.color='#171717'"
+          onmouseout="this.style.color='#7A7268'"
+        >Browse all recipes →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. How it works -->
+  <section
+    style="
+      background: #F8F5EF;
+      padding-block: clamp(32px, 4vw, 56px);
+    "
+  >
+    <div class="container-pad">
+      <div style="max-width: 520px; margin-bottom: 32px;">
+        <h2
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 700;
+            color: #171717;
+            margin: 0 0 8px 0;
             letter-spacing: -0.02em;
           "
         >How it works</h2>
@@ -95,17 +399,17 @@ const featuredTerms = featuredTermNames
         {[
           {
             n: "1",
-            title: "Browse the glossary",
+            title: "Search film words",
             desc: "Explore 124 film terms across shots, angles, lighting, movement, and editing — each with examples and AI prompt templates.",
           },
           {
             n: "2",
-            title: "Enter your idea",
+            title: "Type your video idea",
             desc: "Type a topic or creative concept into the Sequence Planner and choose your video style.",
           },
           {
             n: "3",
-            title: "Get AI prompts",
+            title: "Copy your AI prompts",
             desc: "Receive a prioritized shot sequence with copy-ready prompts for Runway, Pika, and Stable Video.",
           },
         ].map((step) => (
@@ -147,104 +451,199 @@ const featuredTerms = featuredTermNames
     </div>
   </section>
 
-  <!-- 5. Featured Terms -->
-  <section
-    style="
-      background: #F8F5EF;
-      padding-block: clamp(56px, 8vw, 104px);
-    "
-  >
+  <!-- 6. Beginner Path -->
+  <section style="background: #EFE8DC; padding-block: 32px;">
     <div class="container-pad">
-      <div
+      <!-- Eyebrow -->
+      <span
+        class="font-ui"
         style="
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          margin-bottom: 40px;
+          display: block;
+          font-size: 11px;
+          font-weight: 700;
+          color: #E4572E;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          margin-bottom: 12px;
         "
-      >
-        <h2
-          style="
-            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            font-size: clamp(24px, 3.5vw, 32px);
-            font-weight: 700;
-            color: #171717;
-            margin: 0;
-            letter-spacing: -0.02em;
-          "
-        >Featured Terms</h2>
-        <p
-          class="font-ui"
-          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
-        >A few essential concepts to get you started.</p>
+      >NEW TO VIDEO CREATION?</span>
+
+      <h2
+        style="
+          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+          font-size: 28px;
+          font-weight: 700;
+          color: #171717;
+          margin: 0 0 10px 0;
+          letter-spacing: -0.01em;
+        "
+      >Start here. Learn the basics in order.</h2>
+      <p
+        class="font-ui"
+        style="font-size: 15px; color: #4F4A45; margin: 0 0 20px 0; line-height: 1.6; max-width: 560px;"
+      >You do not need to know film words. Start from zero and build up.</p>
+
+      <!-- Step pills -->
+      <div class="beginner-pills">
+        {[
+          { n: "1", label: "What is a shot?" },
+          { n: "2", label: "Wide, Medium, Close-Up" },
+          { n: "3", label: "Camera angles" },
+          { n: "4", label: "Camera movement" },
+          { n: "5", label: "Basic lighting" },
+          { n: "6", label: "Your first AI prompt" },
+        ].map((pill) => (
+          <div
+            class="font-ui"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              border: 1.5px solid #D8CFC3;
+              border-radius: 16px;
+              padding: 10px 16px;
+              background: #ffffff;
+            "
+          >
+            <span
+              style="
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                background: #E4572E;
+                color: #ffffff;
+                font-size: 11px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >{pill.n}</span>
+            <span style="font-size: 13px; font-weight: 600; color: #171717;">{pill.label}</span>
+          </div>
+        ))}
       </div>
 
-      <div class="featured-grid">
-        {featuredTerms.map((term) => (
+      <!-- CTA -->
+      <div style="margin-top: 20px;">
+        <a
+          href="/learn"
+          class="font-ui focus-ring"
+          style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #E4572E;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 0 28px;
+            height: 48px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background 0.15s;
+          "
+          onmouseover="this.style.background='#B83A1F'"
+          onmouseout="this.style.background='#E4572E'"
+        >Start Beginner Path</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Main tools grid -->
+  <section style="background: #ffffff; padding-block: clamp(32px, 4vw, 56px);">
+    <div class="container-pad">
+      <h2
+        style="
+          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+          font-size: clamp(22px, 3vw, 28px);
+          font-weight: 700;
+          color: #171717;
+          margin: 0 0 24px 0;
+          letter-spacing: -0.02em;
+        "
+      >Everything in one place</h2>
+
+      <div class="tools-grid">
+        {[
+          {
+            icon: "📚",
+            title: "Learn Film Words",
+            desc: "Search and browse 124 film and video terms.",
+            href: "/glossary",
+          },
+          {
+            icon: "🎬",
+            title: "Create a Video Plan",
+            desc: "Type your idea, get a shot plan and prompts.",
+            href: "/planner",
+          },
+          {
+            icon: "🧠",
+            title: "Practice",
+            desc: "Quiz yourself. Track what you know.",
+            href: "/learn",
+          },
+          {
+            icon: "🍳",
+            title: "Shot Recipes",
+            desc: "Ready-made shot plans for real video types.",
+            href: "/recipes",
+          },
+        ].map((tool) => (
           <a
-            href={`/glossary/${term.id}`}
+            href={tool.href}
             style="
-              background: #FFFFFF;
+              background: #ffffff;
               border: 1.5px solid #E6DDD1;
-              border-radius: 12px;
+              border-radius: 16px;
               padding: 24px;
               text-decoration: none;
               display: flex;
               flex-direction: column;
               gap: 10px;
-              transition: box-shadow 0.15s, border-color 0.15s;
+              transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
             "
-            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'"
-            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'"
+            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'; this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'; this.style.transform='translateY(0)'"
           >
-            <!-- Category chip -->
-            <span
-              class="font-ui"
-              style="
-                font-size: 11px;
-                font-weight: 600;
-                color: #7A7268;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-              "
-            >{term.category}</span>
-
-            <!-- Term name -->
+            <span style="font-size: 32px; line-height: 1;">{tool.icon}</span>
             <h3
               style="
                 font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 700;
                 color: #171717;
                 margin: 0;
-                letter-spacing: -0.01em;
               "
-            >{term.name}</h3>
-
-            <!-- Short definition -->
+            >{tool.title}</h3>
             <p
               class="font-ui"
+              style="font-size: 14px; color: #4F4A45; line-height: 1.6; margin: 0; flex: 1;"
+            >{tool.desc}</p>
+            <span
               style="
-                font-size: 14px;
-                color: #4F4A45;
-                line-height: 1.55;
-                margin: 0;
+                color: #E4572E;
+                font-size: 18px;
+                font-weight: 700;
+                display: block;
               "
-            >{term.shortDefinition}</p>
+            >→</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 6. Open Source -->
+  <!-- 8. Open Source -->
   <OpenSource />
 
-  <!-- 7. Final CTA strip -->
+  <!-- 9. Final CTA strip -->
   <section
     style="
       background: #EFE8DC;
-      padding-block: clamp(56px, 8vw, 80px);
+      padding-block: clamp(32px, 4vw, 56px);
       text-align: center;
     "
   >
@@ -255,31 +654,53 @@ const featuredTerms = featuredTermNames
           font-size: clamp(26px, 4vw, 34px);
           font-weight: 700;
           color: #171717;
-          margin: 0 0 24px 0;
+          margin: 0 0 28px 0;
           letter-spacing: -0.02em;
         "
-      >Ready to learn film language?</h2>
-      <a
-        href="/glossary"
-        class="font-ui focus-ring"
-        style="
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          background: #E4572E;
-          color: #ffffff;
-          font-size: 16px;
-          font-weight: 700;
-          padding: 14px 32px;
-          border-radius: 10px;
-          text-decoration: none;
-          transition: background 0.15s;
-        "
-        onmouseover="this.style.background='#B83A1F'"
-        onmouseout="this.style.background='#E4572E'"
-      >
-        Start Learning
-      </a>
+      >Ready to make your first AI video?</h2>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+        <a
+          href="/glossary"
+          class="font-ui focus-ring"
+          style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #E4572E;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 0 28px;
+            height: 52px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: background 0.15s;
+          "
+          onmouseover="this.style.background='#B83A1F'"
+          onmouseout="this.style.background='#E4572E'"
+        >Start Learning</a>
+        <a
+          href="/recipes"
+          class="font-ui focus-ring"
+          style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #171717;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 0 28px;
+            height: 52px;
+            border-radius: 999px;
+            border: 1.5px solid #D8CFC3;
+            text-decoration: none;
+            transition: border-color 0.15s, background 0.15s;
+          "
+          onmouseover="this.style.background='#EFE8DC'; this.style.borderColor='#B8AFA3'"
+          onmouseout="this.style.background='#ffffff'; this.style.borderColor='#D8CFC3'"
+        >Try a Shot Recipe</a>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -298,6 +719,18 @@ const featuredTerms = featuredTermNames
     }
   }
 
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 900px) {
+    .recipe-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
   .steps-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -311,14 +744,34 @@ const featuredTerms = featuredTermNames
     }
   }
 
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  .example-timeline .timeline-item:last-child {
+    border-bottom: none;
   }
 
-  @media (max-width: 768px) {
-    .featured-grid {
+  .beginner-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 900px) {
+    .tools-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .recipe-grid {
       grid-template-columns: 1fr;
     }
   }

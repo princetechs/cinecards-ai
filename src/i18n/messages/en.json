@@ -2,12 +2,12 @@
   "nav": {
     "glossary": "Glossary",
     "planner": "Planner",
-    "learn": "Learn",
-    "packs": "Packs",
+    "learn": "Practice",
+    "packs": "Recipes",
     "contribute": "Contribute"
   },
   "cta": {
-    "planSequence": "Plan a Sequence",
+    "planSequence": "Plan My Shots",
     "planShotSequence": "Plan a Shot Sequence",
     "exploreGlossary": "Explore Glossary",
     "viewAllTerms": "View all terms",

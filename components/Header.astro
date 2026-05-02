@@ -10,6 +10,14 @@ const { lang = "en" } = Astro.props as Props;
 const t = getUiStrings(lang);
 const home = localisedPath("/", lang);
 const localeLabels = t.locale as unknown as Record<string, string>;
+
+const navLinks = [
+  { label: t.nav.glossary, href: localisedPath("/glossary", lang) },
+  { label: t.nav.planner, href: localisedPath("/planner", lang) },
+  { label: t.nav.learn,   href: "/learn" },
+  { label: t.nav.packs,   href: "/recipes" },
+  { label: t.nav.contribute, href: "/contribute" },
+];
 ---
 
 <header
@@ -17,6 +25,7 @@ const localeLabels = t.locale as unknown as Record<string, string>;
   style="background: rgba(248,245,239,0.88); border-bottom: 1px solid var(--border-sand, #E6DDD1);"
 >
   <div class="container-pad flex h-16 items-center justify-between gap-4">
+    <!-- Logo -->
     <a class="focus-ring flex items-center gap-2 rounded-lg" href={home}>
       <span
         class="font-ui grid size-8 place-items-center rounded-lg text-sm font-black"
@@ -27,37 +36,19 @@ const localeLabels = t.locale as unknown as Record<string, string>;
         style="color: var(--color-ink, #171717);"
       >CineCards AI</span>
     </a>
-    <nav class="hidden items-center gap-1 sm:flex">
-      <a
-        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
-        style="color: var(--color-quiet, #7A7268);"
-        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
-        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
-        href={localisedPath("/glossary", lang)}>{t.nav.glossary}</a>
-      <a
-        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
-        style="color: var(--color-quiet, #7A7268);"
-        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
-        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
-        href={localisedPath("/planner", lang)}>{t.nav.planner}</a>
-      <a
-        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
-        style="color: var(--color-quiet, #7A7268);"
-        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
-        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
-        href="/learn">{t.nav.learn}</a>
-      <a
-        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
-        style="color: var(--color-quiet, #7A7268);"
-        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
-        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
-        href="/packs">{t.nav.packs}</a>
-      <a
-        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
-        style="color: var(--color-quiet, #7A7268);"
-        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
-        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
-        href="/#contribute">{t.nav.contribute}</a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-1 sm:flex" id="desktop-nav">
+      {navLinks.map((link) => (
+        <a
+          class="focus-ring nav-link rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+          style="color: var(--color-quiet, #7A7268); white-space: nowrap;"
+          onmouseover="if(!this.dataset.active){this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'}"
+          onmouseout="if(!this.dataset.active){this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'}"
+          href={link.href}
+          data-nav-href={link.href}
+        >{link.label}</a>
+      ))}
       <a
         class="focus-ring hidden rounded-lg px-3 py-2 font-ui text-xs uppercase tracking-wide transition"
         style="color: rgba(23,23,23,0.45);"
@@ -67,7 +58,10 @@ const localeLabels = t.locale as unknown as Record<string, string>;
         data-maintainer-link
       >review</a>
     </nav>
+
+    <!-- Right side: locale switcher + CTA + hamburger -->
     <div class="flex items-center gap-2">
+      <!-- Locale switcher -->
       <div
         class="flex items-center gap-1 rounded-full p-0.5 font-ui text-xs font-bold"
         style="border: 1px solid var(--border-sand-dark, #D8CFC3); background: #F8F5EF; color: var(--color-quiet, #7A7268);"
@@ -90,19 +84,142 @@ const localeLabels = t.locale as unknown as Record<string, string>;
           </button>
         ))}
       </div>
+
+      <!-- Desktop CTA -->
       <a
         class="focus-ring hidden rounded-full px-4 py-2 font-ui text-sm font-bold shadow-sm transition sm:inline-flex"
-        style="background: var(--color-accent, #E4572E); color: #ffffff;"
+        style="background: var(--color-accent, #E4572E); color: #ffffff; white-space: nowrap;"
         onmouseover="this.style.background='var(--color-accent-dark, #B83A1F)'"
         onmouseout="this.style.background='var(--color-accent, #E4572E)'"
         href={localisedPath("/planner", lang)}>{t.cta.planSequence}</a>
+
       <CreatorLogin />
+
+      <!-- Hamburger button (mobile only) -->
+      <button
+        type="button"
+        class="focus-ring flex h-10 w-10 items-center justify-center rounded-lg sm:hidden"
+        style="color: var(--color-ink, #171717); background: transparent;"
+        aria-label="Open menu"
+        id="hamburger-btn"
+      >
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <rect y="4" width="22" height="2" rx="1" fill="currentColor"/>
+          <rect y="10" width="22" height="2" rx="1" fill="currentColor"/>
+          <rect y="16" width="22" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
 
+<!-- Mobile drawer overlay -->
+<div
+  id="mobile-drawer"
+  aria-hidden="true"
+  style="
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    overflow-y: auto;
+  "
+>
+  <!-- Drawer header row -->
+  <div style="display:flex; align-items:center; justify-content:space-between; padding: 16px 20px; border-bottom: 1px solid #E6DDD1;">
+    <a href={home} style="display:flex; align-items:center; gap:8px; text-decoration:none;" id="drawer-logo-link">
+      <span style="background:#171717; color:#F8F5EF; width:32px; height:32px; border-radius:8px; display:grid; place-items:center; font-size:14px; font-weight:900; font-family:var(--font-ui, sans-serif);">C</span>
+      <span style="font-family:var(--font-ui, sans-serif); font-size:14px; font-weight:900; letter-spacing:0.04em; color:#171717;">CineCards AI</span>
+    </a>
+    <button
+      type="button"
+      id="drawer-close-btn"
+      aria-label="Close menu"
+      style="width:40px; height:40px; display:flex; align-items:center; justify-content:center; border:none; background:transparent; cursor:pointer; color:#171717; border-radius:8px;"
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Nav links -->
+  <nav style="flex:1; display:flex; flex-direction:column;">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        data-nav-href={link.href}
+        class="drawer-nav-link"
+        style="
+          display: flex;
+          align-items: center;
+          min-height: 48px;
+          padding: 14px 20px;
+          font-family: var(--font-ui, sans-serif);
+          font-size: 16px;
+          font-weight: 600;
+          color: #171717;
+          text-decoration: none;
+          border-bottom: 1px solid #F0EAE2;
+          transition: background 0.12s;
+        "
+        onmouseover="if(!this.dataset.active)this.style.background='rgba(23,23,23,0.04)'"
+        onmouseout="if(!this.dataset.active)this.style.background=''"
+      >{link.label}</a>
+    ))}
+  </nav>
+
+  <!-- Bottom section -->
+  <div style="padding: 20px; display:flex; flex-direction:column; gap:16px; border-top: 1px solid #E6DDD1;">
+    <!-- Locale switcher -->
+    <div
+      style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;"
+      aria-label={t.locale.label}
+    >
+      <span style="font-family:var(--font-ui, sans-serif); font-size:12px; font-weight:600; color:#7A7268; margin-right:4px;">Language:</span>
+      {LOCALES.map((loc) => (
+        <button
+          type="button"
+          class="focus-ring"
+          style={loc === lang
+            ? "background:#171717; color:#F8F5EF; border-radius:999px; padding:4px 14px; font-family:var(--font-ui,sans-serif); font-size:12px; font-weight:700; border:none; cursor:pointer;"
+            : "background:transparent; color:#7A7268; border-radius:999px; padding:4px 14px; font-family:var(--font-ui,sans-serif); font-size:12px; font-weight:700; border:1px solid #D8CFC3; cursor:pointer;"}
+          data-locale-option={loc}
+          aria-pressed={loc === lang ? "true" : "false"}
+        >
+          {localeLabels[loc] ?? loc.toUpperCase()}
+        </button>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <a
+      href={localisedPath("/planner", lang)}
+      style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        min-height:48px;
+        border-radius:999px;
+        background: var(--color-accent, #E4572E);
+        color: #fff;
+        font-family: var(--font-ui, sans-serif);
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 24px;
+      "
+      id="drawer-cta-link"
+    >{t.cta.planSequence}</a>
+  </div>
+</div>
+
 <script is:inline>
-  // Reveal the maintainer "review" link only when the local toggle is on.
+  // ── Maintainer link ──────────────────────────────────────────────────────
   try {
     if (window.localStorage.getItem("cinecards.maintainerMode") === "true") {
       document.querySelectorAll("[data-maintainer-link]").forEach((el) => {
@@ -110,6 +227,65 @@ const localeLabels = t.locale as unknown as Record<string, string>;
       });
     }
   } catch { /* ignore */ }
+
+  // ── Active page detection ─────────────────────────────────────────────────
+  (function applyActiveStates() {
+    const path = window.location.pathname.replace(/\/$/, "") || "/";
+    document.querySelectorAll("[data-nav-href]").forEach(function(el) {
+      var href = el.getAttribute("data-nav-href") || "";
+      var normalized = href.replace(/\/$/, "") || "/";
+      var isActive = path === normalized || (normalized !== "/" && path.startsWith(normalized));
+      if (isActive) {
+        el.dataset.active = "1";
+        if (el.classList.contains("drawer-nav-link")) {
+          // Mobile drawer active style
+          el.style.color = "#E4572E";
+          el.style.background = "rgba(228,87,46,0.06)";
+        } else {
+          // Desktop active underline style
+          el.style.color = "#E4572E";
+          el.style.borderBottom = "3px solid #E4572E";
+          el.style.paddingBottom = "calc(0.5rem - 3px)";
+        }
+      }
+    });
+  })();
+
+  // ── Hamburger / drawer ───────────────────────────────────────────────────
+  var hamburger = document.getElementById("hamburger-btn");
+  var drawer = document.getElementById("mobile-drawer");
+  var closeBtn = document.getElementById("drawer-close-btn");
+
+  function openDrawer() {
+    if (!drawer) return;
+    drawer.style.transform = "translateX(0)";
+    drawer.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeDrawer() {
+    if (!drawer) return;
+    drawer.style.transform = "translateX(100%)";
+    drawer.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (hamburger) hamburger.focus();
+  }
+
+  if (hamburger) hamburger.addEventListener("click", openDrawer);
+  if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+
+  // Close on nav link click
+  document.querySelectorAll(".drawer-nav-link, #drawer-logo-link, #drawer-cta-link").forEach(function(link) {
+    link.addEventListener("click", closeDrawer);
+  });
+
+  // Close on ESC
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && drawer && drawer.getAttribute("aria-hidden") === "false") {
+      closeDrawer();
+    }
+  });
 </script>
 
 <script is:inline define:vars={{ LOCALES, DEFAULT_LOCALE: "en" }}>

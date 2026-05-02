@@ -100,8 +100,26 @@ const searchText = [
   <!-- Spacer pushes actions to bottom -->
   <div class="mt-auto"></div>
 
+  <!-- Try With My Idea -->
+  <div class="try-idea-row" data-try-idea-row>
+    <div class="try-idea-wrap">
+      <input
+        class="try-idea-input"
+        type="text"
+        placeholder="Your subject (e.g. coffee shop, sunset hike…)"
+        data-try-idea-input
+        aria-label="Enter your subject"
+      />
+      <a
+        class="try-idea-btn"
+        href={`/planner?term=${encodeURIComponent(term.id)}&topic=`}
+        data-try-idea-link
+      >Try →</a>
+    </div>
+  </div>
+
   <!-- Toggle + action row -->
-  <div class="card-footer mt-5 flex items-center justify-between gap-2">
+  <div class="card-footer mt-4 flex items-center justify-between gap-2">
     <button class="show-more-btn" type="button" data-toggle-details aria-expanded="false">
       <span data-toggle-label>Show more</span>
       <svg data-toggle-chevron class="chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -237,6 +255,49 @@ const searchText = [
   .related-chip-plain { cursor: default; }
   .related-chip-plain:hover { background: #EFE8DC; color: #4F4A45; }
 
+  /* Try With My Idea */
+  .try-idea-row {
+    margin-top: 16px;
+  }
+  .try-idea-wrap {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .try-idea-input {
+    flex: 1;
+    height: 36px;
+    padding: 0 12px;
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 12.5px;
+    color: #171717;
+    background: #F8F5EF;
+    border: 1.5px solid #E6DDD1;
+    border-radius: 999px;
+    outline: none;
+    transition: border-color 150ms;
+    min-width: 0;
+  }
+  .try-idea-input::placeholder { color: #7A7268; }
+  .try-idea-input:focus { border-color: #E4572E; }
+  .try-idea-btn {
+    flex-shrink: 0;
+    height: 36px;
+    padding: 0 14px;
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 12.5px;
+    font-weight: 700;
+    background: #E4572E;
+    color: #fff;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background 150ms;
+    white-space: nowrap;
+  }
+  .try-idea-btn:hover { background: #B83A1F; }
+
   /* Footer */
   .show-more-btn {
     font-family: var(--font-ui, Inter, sans-serif);
@@ -305,6 +366,17 @@ const searchText = [
       btn.style.color = '#2F855A';
       btn.style.borderColor = '#2F855A';
     } catch {}
+  });
+
+  // "Try With My Idea" — update planner link as user types
+  document.querySelectorAll<HTMLElement>('[data-try-idea-row]').forEach((row) => {
+    const input = row.querySelector<HTMLInputElement>('[data-try-idea-input]');
+    const link = row.querySelector<HTMLAnchorElement>('[data-try-idea-link]');
+    if (!input || !link) return;
+    const base = link.href.split('&topic=')[0] + '&topic=';
+    input.addEventListener('input', () => {
+      link.href = base + encodeURIComponent(input.value);
+    });
   });
 
   // Copy prompt with feedback

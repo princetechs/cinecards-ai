@@ -31,12 +31,15 @@ const {
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/images/cinecards-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#f5f0e8" />
+    <meta name="theme-color" content="#0F0F13" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <slot name="head" />
   </head>
   <body class="font-body antialiased">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Header lang={lang} />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <footer style="background: var(--bg-dark, #101014); border-top: 1px solid rgba(255,255,255,0.08); padding-block: 40px; color: #F8F5EF;">

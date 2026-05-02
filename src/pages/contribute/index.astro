@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Contribute — CineCards AI"
+  description="CineCards is open source and community-built. Help add film terms, images, code, or translations."
+>
+  <!-- Hero -->
+  <section class="page-hero">
+    <div class="container-pad">
+      <span class="page-eyebrow">Open Source</span>
+      <h1 class="page-h1">Help build CineCards AI</h1>
+      <p class="page-subtitle" style="margin-bottom: 24px;">CineCards is open source and community-built. You do not need to be a developer to contribute.</p>
+      <a
+        href="https://github.com/princetechs/cinecards-ai"
+        target="_blank"
+        rel="noreferrer noopener"
+        class="focus-ring inline-flex items-center gap-2 rounded-lg border border-ink/20 bg-paper px-5 py-2.5 text-sm font-bold text-ink/80 shadow-soft transition hover:bg-bone hover:text-ink"
+        style="font-family: var(--font-ui); text-decoration: none;"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.185 6.839 9.504.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.944.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.203 22 16.447 22 12.021 22 6.484 17.523 2 12 2Z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- 4 Lane cards -->
+  <section class="page-section page-section-white">
+    <div class="container-pad">
+      <div class="grid gap-5 sm:grid-cols-2">
+
+        <!-- Content Lane -->
+        <article class="rounded-xl border border-ink/10 bg-white p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
+          <div class="flex items-start justify-between gap-3">
+            <span style="font-size: 28px;" aria-hidden="true">📝</span>
+            <span class="rounded-full px-2.5 py-0.5 text-xs font-bold" style="background: #dcfce7; color: #15803d; font-family: var(--font-ui);">Easy</span>
+          </div>
+          <h2 class="mt-4 text-xl font-black text-ink" style="font-family: var(--font-display);">Add or improve film terms</h2>
+          <p class="mt-2 text-sm leading-6 text-ink/68" style="font-family: var(--font-ui);">
+            Write definitions, improve existing cards, fix mistakes, or add common mistakes and related terms.
+          </p>
+          <a
+            href="https://github.com/princetechs/cinecards-ai/issues/new?template=new-term.yml"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="focus-ring mt-6 inline-block rounded-lg bg-clay px-4 py-2 text-sm font-bold text-bone transition hover:bg-[#9f583d]"
+            style="font-family: var(--font-ui); text-decoration: none;"
+          >Open Issue on GitHub</a>
+        </article>
+
+        <!-- Media Lane -->
+        <article class="rounded-xl border border-ink/10 bg-white p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
+          <div class="flex items-start justify-between gap-3">
+            <span style="font-size: 28px;" aria-hidden="true">🎬</span>
+            <span class="rounded-full px-2.5 py-0.5 text-xs font-bold" style="background: #dcfce7; color: #15803d; font-family: var(--font-ui);">Easy</span>
+          </div>
+          <h2 class="mt-4 text-xl font-black text-ink" style="font-family: var(--font-display);">Submit images and diagrams</h2>
+          <p class="mt-2 text-sm leading-6 text-ink/68" style="font-family: var(--font-ui);">
+            Add visual examples — diagrams, reference images, or short teaching illustrations.
+          </p>
+          <a
+            href="/contribute/asset"
+            class="focus-ring mt-6 inline-block rounded-lg bg-clay px-4 py-2 text-sm font-bold text-bone transition hover:bg-[#9f583d]"
+            style="font-family: var(--font-ui); text-decoration: none;"
+          >Submit an Asset</a>
+        </article>
+
+        <!-- Code Lane -->
+        <article class="rounded-xl border border-ink/10 bg-white p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
+          <div class="flex items-start justify-between gap-3">
+            <span style="font-size: 28px;" aria-hidden="true">💻</span>
+            <span class="rounded-full px-2.5 py-0.5 text-xs font-bold" style="background: #fef3c7; color: #b45309; font-family: var(--font-ui);">Medium</span>
+          </div>
+          <h2 class="mt-4 text-xl font-black text-ink" style="font-family: var(--font-display);">Improve the website</h2>
+          <p class="mt-2 text-sm leading-6 text-ink/68" style="font-family: var(--font-ui);">
+            Fix bugs, add features, improve the planner, quiz modes, or mobile layout.
+          </p>
+          <a
+            href="https://github.com/princetechs/cinecards-ai/issues"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="focus-ring mt-6 inline-block rounded-lg bg-clay px-4 py-2 text-sm font-bold text-bone transition hover:bg-[#9f583d]"
+            style="font-family: var(--font-ui); text-decoration: none;"
+          >Browse Open Issues</a>
+        </article>
+
+        <!-- Translate Lane -->
+        <article class="rounded-xl border border-ink/10 bg-white p-7 shadow-soft transition hover:-translate-y-0.5 hover:shadow-md">
+          <div class="flex items-start justify-between gap-3">
+            <span style="font-size: 28px;" aria-hidden="true">🌍</span>
+            <span class="rounded-full px-2.5 py-0.5 text-xs font-bold" style="background: #dcfce7; color: #15803d; font-family: var(--font-ui);">Easy</span>
+          </div>
+          <h2 class="mt-4 text-xl font-black text-ink" style="font-family: var(--font-display);">Translate film terms</h2>
+          <p class="mt-2 text-sm leading-6 text-ink/68" style="font-family: var(--font-ui);">
+            Add term definitions in Spanish, Hindi, or other languages using the localisation field.
+          </p>
+          <a
+            href="https://github.com/princetechs/cinecards-ai/blob/main/CONTRIBUTING.md"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="focus-ring mt-6 inline-block rounded-lg border border-ink/20 bg-paper px-4 py-2 text-sm font-bold text-ink/80 transition hover:bg-bone hover:text-ink"
+            style="font-family: var(--font-ui); text-decoration: none;"
+          >See Translation Guide</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How to contribute -->
+  <section class="page-section page-section-dune">
+    <div class="container-pad max-w-2xl">
+      <h2 class="text-2xl font-black text-ink" style="font-family: var(--font-display);">How to contribute</h2>
+      <ol class="mt-8 space-y-6">
+        <li class="flex items-start gap-4">
+          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-clay text-sm font-black text-bone" style="font-family: var(--font-ui);">1</span>
+          <p class="pt-1.5 text-base leading-7 text-ink/80" style="font-family: var(--font-ui);">Pick a lane above that fits your skills.</p>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-clay text-sm font-black text-bone" style="font-family: var(--font-ui);">2</span>
+          <p class="pt-1.5 text-base leading-7 text-ink/80" style="font-family: var(--font-ui);">Read the contribution guide or open an issue.</p>
+        </li>
+        <li class="flex items-start gap-4">
+          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-clay text-sm font-black text-bone" style="font-family: var(--font-ui);">3</span>
+          <p class="pt-1.5 text-base leading-7 text-ink/80" style="font-family: var(--font-ui);">Submit your change. We review within a few days.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Bottom link bar -->
+  <section class="border-t border-ink/10 py-8">
+    <div class="container-pad flex flex-wrap items-center gap-6">
+      <a
+        href="/CONTRIBUTING.md"
+        class="focus-ring text-sm font-semibold transition hover:underline"
+        style="font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: var(--color-accent); text-decoration: none;"
+      >Read CONTRIBUTING.md</a>
+      <a
+        href="/CODE_OF_CONDUCT.md"
+        class="focus-ring text-sm font-semibold transition hover:underline"
+        style="font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: var(--color-accent); text-decoration: none;"
+      >Code of Conduct</a>
+      <a
+        href="https://github.com/princetechs/cinecards-ai"
+        target="_blank"
+        rel="noreferrer noopener"
+        class="focus-ring text-sm font-semibold transition hover:underline"
+        style="font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: var(--color-accent); text-decoration: none;"
+      >GitHub Repository</a>
+    </div>
+  </section>
+</BaseLayout>
