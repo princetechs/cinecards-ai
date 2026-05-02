@@ -93,7 +93,16 @@ CineCards AI
 - [13 — Provenance + C2PA storage](done/13-provenance.md)
 
 ### Pending
-_All tracked tasks are complete._
+- [25 — Blog content schema & frontmatter spec](pending/25-blog-content-schema.md)
+- [26 — Blog file system layout plan](pending/26-blog-file-layout.md)
+- [27 — Astro Content Collections setup for blog](pending/27-blog-content-collections.md)
+- [28 — Blog index page (/blog)](pending/28-blog-index-page.md)
+- [29 — Dynamic blog post page (/blog/[slug])](pending/29-blog-post-page.md)
+- [30 — Blog category & tag archive pages](pending/30-blog-archive-pages.md)
+- [31 — Blog sitemap & RSS feed](pending/31-blog-sitemap-rss.md)
+- [32 — Blog nav link & homepage preview section](pending/32-blog-nav-homepage.md)
+- [33 — Write 5 seed blog posts for launch](pending/33-blog-seed-posts.md)
+- [34 — Blog SEO & AI-readiness audit](pending/34-blog-seo-audit.md)
 
 ## How to use this folder
 

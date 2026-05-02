@@ -16,6 +16,7 @@ const navLinks = [
   { label: t.nav.planner, href: localisedPath("/planner", lang) },
   { label: t.nav.learn,   href: "/learn" },
   { label: t.nav.packs,   href: "/recipes" },
+  { label: (t.nav as Record<string, string>).blog ?? "Blog", href: "/blog" },
   { label: t.nav.contribute, href: "/contribute" },
 ];
 ---

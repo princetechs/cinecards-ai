@@ -1,0 +1,386 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const related = allPosts
+  .filter(p => p.slug !== post.slug && p.data.category === post.data.category)
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+
+const categoryColors: Record<string, string> = {
+  shots:          "#E4572E",
+  lighting:       "#F59E0B",
+  movement:       "#8B5CF6",
+  editing:        "#10B981",
+  "ai-prompting": "#3B82F6",
+};
+
+const catColor = categoryColors[post.data.category] ?? "#E4572E";
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+const h2s = headings.filter(h => h.depth === 2);
+---
+
+<BaseLayout
+  title={`${post.data.title} | CineCards AI Blog`}
+  description={post.data.description}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content={post.data.ogImage} />
+    <meta property="article:published_time" content={post.data.publishedAt.toISOString()} />
+    {post.data.updatedAt && <meta property="article:modified_time" content={post.data.updatedAt.toISOString()} />}
+    {post.data.tags.map(tag => <meta property="article:tag" content={tag} />)}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": post.data.title,
+      "description": post.data.description,
+      "datePublished": post.data.publishedAt.toISOString(),
+      "dateModified": (post.data.updatedAt ?? post.data.publishedAt).toISOString(),
+      "author": { "@type": "Person", "name": post.data.author },
+      "publisher": { "@type": "Organization", "name": "CineCards AI", "url": "https://cinecards.ai" },
+      "image": `https://cinecards.ai${post.data.ogImage}`,
+      "url": `https://cinecards.ai/blog/${post.slug}`,
+    })} />
+  </Fragment>
+
+  <!-- Reading progress bar -->
+  <div id="reading-progress" style="position: fixed; top: 64px; left: 0; height: 3px; background: #E4572E; width: 0%; z-index: 50; transition: width 0.1s linear;"></div>
+
+  <!-- Post hero -->
+  <div style={`background: linear-gradient(180deg, #0F0F13 0%, #14141A 100%); padding-block: clamp(40px, 6vw, 72px); border-bottom: 1px solid rgba(255,255,255,0.07);`}>
+    <div class="container-pad">
+      <!-- Breadcrumb -->
+      <nav style="display: flex; align-items: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;" aria-label="Breadcrumb">
+        <a href="/" class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">Home</a>
+        <span style="color: rgba(255,255,255,0.2); font-size: 12px;">›</span>
+        <a href="/blog" class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">Blog</a>
+        <span style="color: rgba(255,255,255,0.2); font-size: 12px;">›</span>
+        <span class="font-ui" style={`font-size: 12px; color: ${catColor}; text-transform: capitalize;`}>{post.data.category.replace("-", " ")}</span>
+      </nav>
+
+      <!-- Category badge + difficulty -->
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+        <span class="font-ui" style={`font-size: 11px; font-weight: 700; color: #fff; background: ${catColor}; border-radius: 6px; padding: 4px 12px; letter-spacing: 0.06em; text-transform: uppercase;`}>
+          {post.data.category.replace("-", " ")}
+        </span>
+        <span class="font-ui" style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em;">{post.data.difficulty}</span>
+        {post.data.readingTime && (
+          <span class="font-ui" style="font-size: 11px; color: rgba(255,255,255,0.3);">· {post.data.readingTime} min read</span>
+        )}
+      </div>
+
+      <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4vw, 48px); font-weight: 700; color: #fff; line-height: 1.1; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 780px;">
+        {post.data.title}
+      </h1>
+      <p class="font-ui" style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 620px; margin: 0 0 28px;">
+        {post.data.description}
+      </p>
+
+      <!-- Meta row -->
+      <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(228,87,46,0.2); display: grid; place-items: center; font-size: 14px; font-weight: 700; color: #E4572E; font-family: 'Inter', sans-serif;">
+            {post.data.author.charAt(0)}
+          </div>
+          <span class="font-ui" style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6);">{post.data.author}</span>
+        </div>
+        <span class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.3);">{formatDate(post.data.publishedAt)}</span>
+        <!-- Share -->
+        <button id="share-btn" class="font-ui" type="button" style="margin-left: auto; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.13)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.color='rgba(255,255,255,0.6)'">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+          Share
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content + Sidebar layout -->
+  <div style="background: #F8F5EF;">
+    <div class="container-pad" style="padding-block: clamp(40px, 5vw, 72px);">
+      <div class="post-layout">
+
+        <!-- Main article -->
+        <article class="prose-area" id="post-article">
+          <div class="prose">
+            <Content />
+          </div>
+
+          <!-- Tags -->
+          {post.data.tags.length > 0 && (
+            <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #E6DDD1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+              <span class="font-ui" style="font-size: 12px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.08em;">Tags</span>
+              {post.data.tags.map(tag => (
+                <span class="font-ui" style="font-size: 12px; color: #4F4A45; background: #EFE8DC; border-radius: 6px; padding: 3px 10px;">{tag}</span>
+              ))}
+            </div>
+          )}
+
+          <!-- Related glossary terms -->
+          {post.data.relatedTerms.length > 0 && (
+            <div style="margin-top: 40px; background: #1A1A22; border-radius: 16px; padding: 28px;">
+              <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Glossary Terms in This Post</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                {post.data.relatedTerms.map(term => (
+                  <a
+                    href={`/glossary/${term}`}
+                    class="font-ui"
+                    style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 6px 14px; text-decoration: none; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; text-transform: capitalize;"
+                    onmouseover="this.style.background='rgba(228,87,46,0.15)';this.style.borderColor='rgba(228,87,46,0.3)';this.style.color='#E4572E'"
+                    onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.7)'"
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                    {term.replace(/-/g, " ")}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- CTA -->
+          <div style="margin-top: 40px; background: linear-gradient(135deg, rgba(228,87,46,0.1) 0%, rgba(228,87,46,0.04) 100%); border: 1px solid rgba(228,87,46,0.2); border-radius: 16px; padding: 32px; text-align: center;">
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #171717; margin: 0 0 10px; letter-spacing: -0.01em;">Ready to build your first sequence?</p>
+            <p class="font-ui" style="font-size: 14px; color: #7A7268; margin: 0 0 20px; line-height: 1.6;">The Shot Planner turns your video idea into a full sequence with AI-ready prompts in seconds.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+              <a href="/planner" class="font-ui" style="display: inline-flex; align-items: center; gap: 8px; background: #E4572E; color: #fff; font-size: 14px; font-weight: 700; padding: 0 24px; height: 44px; border-radius: 999px; text-decoration: none; transition: background 0.15s;" onmouseover="this.style.background='#B83A1F'" onmouseout="this.style.background='#E4572E'">
+                Open Shot Planner →
+              </a>
+              <a href="/glossary" class="font-ui" style="display: inline-flex; align-items: center; background: transparent; color: #4F4A45; font-size: 14px; font-weight: 600; padding: 0 20px; height: 44px; border-radius: 999px; text-decoration: none; border: 1.5px solid #E6DDD1; transition: all 0.15s;" onmouseover="this.style.borderColor='#C4B8AC'" onmouseout="this.style.borderColor='#E6DDD1'">
+                Browse Glossary
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="post-sidebar">
+          <!-- TOC -->
+          {h2s.length > 0 && (
+            <div style="background: #fff; border: 1px solid #E6DDD1; border-radius: 14px; padding: 22px; margin-bottom: 20px;">
+              <p class="font-ui" style="font-size: 11px; font-weight: 700; color: #7A7268; letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 14px;">In this article</p>
+              <nav>
+                {h2s.map(h => (
+                  <a
+                    href={`#${h.slug}`}
+                    class="font-ui toc-link"
+                    style="display: block; font-size: 13px; color: #4F4A45; text-decoration: none; padding: 5px 0; line-height: 1.4; border-left: 2px solid transparent; padding-left: 12px; transition: all 0.15s; margin-left: -12px;"
+                    onmouseover="this.style.color='#E4572E'; this.style.borderColor='#E4572E'"
+                    onmouseout="this.style.color='#4F4A45'; this.style.borderColor='transparent'"
+                  >{h.text}</a>
+                ))}
+              </nav>
+            </div>
+          )}
+
+          <!-- Sticky CTA -->
+          <div style="background: #0F0F13; border-radius: 14px; padding: 22px; position: sticky; top: 96px;">
+            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; margin: 0 0 8px;">Try it yourself</p>
+            <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.45); margin: 0 0 16px; line-height: 1.5;">Generate a full shot sequence with AI prompts for any idea.</p>
+            <a href="/planner" class="font-ui" style="display: flex; align-items: center; justify-content: center; background: #E4572E; color: #fff; font-size: 13px; font-weight: 700; height: 40px; border-radius: 999px; text-decoration: none; transition: background 0.15s;" onmouseover="this.style.background='#B83A1F'" onmouseout="this.style.background='#E4572E'">
+              Open Planner →
+            </a>
+            <a href="/glossary" class="font-ui" style="display: flex; align-items: center; justify-content: center; margin-top: 8px; background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; height: 40px; border-radius: 999px; text-decoration: none; transition: all 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#fff'" onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.color='rgba(255,255,255,0.6)'">
+              Browse Glossary
+            </a>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- Related posts -->
+      {related.length > 0 && (
+        <div style="margin-top: 72px; padding-top: 48px; border-top: 1px solid #E6DDD1;">
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #171717; letter-spacing: -0.01em; margin: 0 0 28px;">More on {post.data.category.replace("-", " ")}</h2>
+          <div class="related-grid">
+            {related.map(p => (
+              <a href={`/blog/${p.slug}`} style="display: flex; flex-direction: column; text-decoration: none; border-radius: 14px; overflow: hidden; background: #fff; border: 1px solid #E6DDD1; transition: transform 0.18s, box-shadow 0.18s;"
+                onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 12px 36px rgba(0,0,0,0.08)'"
+                onmouseout="this.style.transform=''; this.style.boxShadow=''">
+                <div style={`height: 5px; background: ${categoryColors[p.data.category] ?? '#E4572E'};`}></div>
+                <div style="padding: 20px;">
+                  <span class="font-ui" style={`font-size: 10px; font-weight: 700; color: ${categoryColors[p.data.category] ?? '#E4572E'}; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 8px;`}>{p.data.category.replace("-", " ")}</span>
+                  <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #171717; line-height: 1.35; margin: 0 0 8px;">{p.data.title}</h3>
+                  <p class="font-ui" style="font-size: 12px; color: #7A7268; line-height: 1.5; margin: 0;">{p.data.description.slice(0, 80)}…</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 48px;
+    align-items: start;
+  }
+  .post-sidebar {
+    position: sticky;
+    top: 80px;
+  }
+  @media (max-width: 960px) {
+    .post-layout {
+      grid-template-columns: 1fr;
+    }
+    .post-sidebar {
+      display: none;
+    }
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .related-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .related-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Prose styles */
+  .prose {
+    color: #4F4A45;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    max-width: 100%;
+  }
+  .prose :global(h2) {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 700;
+    color: #171717;
+    letter-spacing: -0.02em;
+    margin: 48px 0 16px;
+    padding-top: 8px;
+    scroll-margin-top: 96px;
+  }
+  .prose :global(h3) {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #171717;
+    letter-spacing: -0.01em;
+    margin: 32px 0 12px;
+    scroll-margin-top: 96px;
+  }
+  .prose :global(p) {
+    margin: 0 0 20px;
+  }
+  .prose :global(strong) {
+    color: #171717;
+    font-weight: 700;
+  }
+  .prose :global(ul), .prose :global(ol) {
+    margin: 0 0 20px;
+    padding-left: 24px;
+  }
+  .prose :global(li) {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+  .prose :global(a) {
+    color: #E4572E;
+    text-decoration: underline;
+    text-decoration-color: rgba(228,87,46,0.3);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s;
+  }
+  .prose :global(a:hover) {
+    text-decoration-color: #E4572E;
+  }
+  .prose :global(blockquote) {
+    border-left: 3px solid #E4572E;
+    padding: 4px 0 4px 20px;
+    margin: 24px 0;
+    color: #7A7268;
+    font-style: italic;
+  }
+  .prose :global(code:not(pre code)) {
+    background: #EFE8DC;
+    color: #E4572E;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+  }
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .prose :global(th) {
+    background: #EFE8DC;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #171717;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 2px solid #E6DDD1;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .prose :global(td) {
+    padding: 10px 14px;
+    border-bottom: 1px solid #E6DDD1;
+    color: #4F4A45;
+    vertical-align: top;
+  }
+  .prose :global(tr:hover td) {
+    background: #FAF7F3;
+  }
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid #E6DDD1;
+    margin: 40px 0;
+  }
+</style>
+
+<script>
+  // Reading progress bar
+  const bar = document.getElementById("reading-progress");
+  const article = document.getElementById("post-article");
+  if (bar && article) {
+    window.addEventListener("scroll", () => {
+      const rect = article.getBoundingClientRect();
+      const total = article.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, (scrolled / total) * 100);
+      bar.style.width = `${pct}%`;
+    }, { passive: true });
+  }
+
+  // Share button
+  document.getElementById("share-btn")?.addEventListener("click", async () => {
+    const btn = document.getElementById("share-btn") as HTMLButtonElement;
+    if (navigator.share) {
+      await navigator.share({ title: document.title, url: location.href }).catch(() => {});
+    } else {
+      await navigator.clipboard.writeText(location.href);
+      if (btn) {
+        btn.textContent = "Link copied!";
+        setTimeout(() => { btn.textContent = "Share"; }, 2000);
+      }
+    }
+  });
+</script>

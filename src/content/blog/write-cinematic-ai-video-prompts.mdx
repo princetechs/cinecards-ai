@@ -1,0 +1,139 @@
+---
+title: "How to Write Cinematic AI Video Prompts That Actually Work"
+description: "A practical framework for writing AI video prompts that produce cinematic, professional-looking footage — not generic stock video. Covers structure, vocabulary, and common mistakes."
+publishedAt: 2025-05-05
+author: "CineCards AI"
+category: ai-prompting
+tags: ["ai prompts", "runway", "pika", "stable video", "prompt engineering", "cinematography"]
+difficulty: intermediate
+readingTime: 9
+ogImage: "/images/blog/write-cinematic-ai-video-prompts.png"
+relatedTerms: ["cinematic", "depth-of-field", "color-grading", "aspect-ratio", "frame-rate"]
+featured: true
+---
+
+import PromptBlock from "../../../components/blog/PromptBlock.astro";
+import CalloutBox from "../../../components/blog/CalloutBox.astro";
+
+Most AI video prompts produce results that look like generic stock footage. This is not a problem with the AI — it is a problem with the prompt. The model is doing exactly what you asked. The question is whether you asked for the right thing.
+
+This guide is a practical framework for writing prompts that produce footage that feels intentional, cinematic, and specific to your vision.
+
+## The Anatomy of a Strong Prompt
+
+A cinematic AI video prompt answers six questions:
+
+1. **Shot type** — how far away is the camera from the subject?
+2. **Subject** — what is in the frame?
+3. **Action** — what is happening?
+4. **Lighting** — what does the light look like and where does it come from?
+5. **Camera** — is the camera moving? How?
+6. **Mood/Style** — what should this feel like?
+7. **Technical** — aspect ratio, frame rate, duration
+
+You don't need all seven every time. But the more you include, the more control you have.
+
+<PromptBlock>
+medium close-up of a chef plating a dish, steam rising from the food, warm professional kitchen light overhead, slight dolly push in, natural and focused mood, 24fps cinematic, 5 seconds
+</PromptBlock>
+
+Compare this to: `chef plating food` — both describe the same scene, but only one gives the model enough information to make decisions that match your vision.
+
+## Shot Type Is the Most Important Element
+
+The shot type tells the model not just the framing but the **emotional intent**. These are not just descriptive terms — they are emotional instructions.
+
+| Shot Type | Use For |
+|-----------|---------|
+| `extreme wide shot` / `establishing shot` | Context, scale, loneliness |
+| `wide shot` | Environment + character relationship |
+| `medium shot` | Interaction, dialogue |
+| `medium close-up` | Character focus with environment hints |
+| `close-up` | Emotion, reaction |
+| `extreme close-up` | Detail, tension, intimacy |
+
+Always lead with the shot type. It is the first thing a DP decides, and it should be the first thing in your prompt.
+
+## The Vocabulary That Signals Cinematic Quality
+
+Certain words reliably push AI models toward more cinematic output. These appear in millions of high-quality film stills and production images in training data:
+
+**Framing signals:** `shallow depth of field`, `bokeh`, `rack focus`, `film grain`
+
+**Lighting signals:** `golden hour`, `cinematic lighting`, `practical lights`, `motivated lighting`, `rembrandt lighting`
+
+**Movement signals:** `slow dolly`, `gentle camera drift`, `gimbal-stabilised`, `slight handheld`
+
+**Grade signals:** `muted color grade`, `cinematic color grading`, `desaturated`, `warm color palette`, `teal and orange grade`
+
+**Quality signals:** `cinematic 4K`, `35mm film look`, `anamorphic lens`, `24fps`
+
+<CalloutBox type="tip">
+`Cinematic` is the single most reliable quality signal across all major AI video models. Include it somewhere in every prompt.
+</CalloutBox>
+
+## Describing What You Feel, Not Just What You See
+
+Beginners describe objects. Experienced prompt writers describe atmosphere.
+
+**Weak:** `a woman sitting in a coffee shop`
+
+**Strong:** `medium shot of a woman sitting alone in a coffee shop, warm light through a rain-streaked window, she is watching something outside with a quiet expression, muted warm color grade, slight camera drift, 5 seconds`
+
+The second version gives the AI information about emotional tone, light quality, character psychology, camera movement, and post-production style — all in one sentence. The model has enough to make consistent, intentional decisions.
+
+## Provider-Specific Notes
+
+Different AI video models respond to prompts differently:
+
+**Runway Gen-3 Alpha / Gen-4**
+- Handles long, descriptive prompts well
+- Responds strongly to camera movement descriptions
+- Use `cinematic 4K`, `film grain`, `anamorphic lens flare` for quality signals
+- Weak on extreme close-ups of faces — may drift or distort
+
+**Pika 2.0**
+- Cleaner face stability than Runway
+- Shorter prompts often work better (under 100 words)
+- Great for slow-motion: add `120fps slow motion` for reliable results
+- Responds well to `loop` for seamless background clips
+
+**Stable Video Diffusion**
+- Works best from a still image as seed
+- Describe the movement you want added to that image
+- Less cinematic by default — always include `cinematic`, `film grain`
+
+<CalloutBox type="info">
+The [Shot Planner](/planner) automatically formats prompts for different providers. Generate once, copy to any tool.
+</CalloutBox>
+
+## Prompts That Consistently Fail
+
+**Action that requires physics:** `a glass falling and shattering in slow motion` — AI video models struggle with physics interactions. Simplify or use a seed image.
+
+**Large crowds:** `a stadium full of 80,000 cheering fans` — crowd generation is computationally expensive and usually looks wrong. Use `a crowd seen from a distance, out of focus` instead.
+
+**Text in video:** AI video models cannot reliably generate readable text. Never include text-in-video requirements in your prompt.
+
+**Faces in motion at extreme close-up:** Ultra-tight face shots with head movement tend to drift. Use minimal movement: `slight camera settle` instead of `dolly in`.
+
+## A Complete Workflow
+
+1. Decide the **shot sequence** using the [5-Shot Structure](/blog/5-shot-sequence-every-creator)
+2. Write a prompt for each shot using the 7-element framework above
+3. Add lighting description to every shot
+4. Add a camera movement to at least 3 of the 5 shots
+5. Add a mood/grade descriptor to maintain visual consistency across the sequence
+6. Generate each shot, select the best take, edit in sequence
+
+The [Shot Planner](/planner) handles steps 1–5 automatically for any video idea you type.
+
+## The Single Biggest Upgrade
+
+If you take one thing from this guide: **add a lighting description to every single prompt you write.** Nothing transforms AI video quality faster. The difference between `a person walking through a forest` and `a person walking through a forest, dappled sunlight through the canopy, warm morning light, long shadows` is the difference between generic stock and something that feels made.
+
+---
+
+Explore the vocabulary: [Depth of Field](/glossary/depth-of-field), [Color Grading](/glossary/color-grading), [Frame Rate](/glossary/frame-rate), [Cinematic](/glossary/cinematic).
+
+Start building your first AI video sequence in the [Planner](/planner).

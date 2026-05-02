@@ -1,0 +1,93 @@
+---
+---
+<div class="prompt-block">
+  <div class="prompt-block-label">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+    AI Prompt
+  </div>
+  <pre class="prompt-block-code"><code><slot /></code></pre>
+  <button class="prompt-block-copy" type="button" aria-label="Copy prompt">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+    Copy
+  </button>
+</div>
+
+<style>
+  .prompt-block {
+    position: relative;
+    background: #0F0F13;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px 20px 16px 20px;
+    margin: 24px 0;
+  }
+  .prompt-block-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #E4572E;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .prompt-block-code {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding-right: 80px;
+  }
+  .prompt-block-code code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+  .prompt-block-copy {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6);
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .prompt-block-copy:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+  }
+  .prompt-block-copy.copied {
+    color: #4ade80;
+    border-color: rgba(74,222,128,0.3);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".prompt-block-copy").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const code = btn.closest(".prompt-block")?.querySelector("code")?.textContent?.trim() ?? "";
+      await navigator.clipboard.writeText(code);
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+        btn.classList.remove("copied");
+      }, 1800);
+    });
+  });
+</script>

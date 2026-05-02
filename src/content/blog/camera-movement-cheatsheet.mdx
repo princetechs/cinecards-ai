@@ -1,0 +1,134 @@
+---
+title: "Camera Movement Cheatsheet: Dolly, Zoom, Pan, Handheld Explained"
+description: "Camera movement is the invisible grammar of video. Learn what each movement means emotionally and how to describe it precisely in AI video prompts."
+publishedAt: 2025-05-04
+author: "CineCards AI"
+category: movement
+tags: ["dolly", "zoom", "pan", "tilt", "handheld", "tracking shot", "camera movement", "runway"]
+difficulty: beginner
+readingTime: 7
+ogImage: "/images/blog/camera-movement-cheatsheet.png"
+relatedTerms: ["dolly-shot", "zoom", "pan", "tilt", "tracking-shot", "handheld", "crane-shot", "steadicam"]
+featured: false
+---
+
+import PromptBlock from "../../../components/blog/PromptBlock.astro";
+import CalloutBox from "../../../components/blog/CalloutBox.astro";
+
+A static camera is a neutral observer. A moving camera has a point of view. The moment you add movement, you add intention — and your viewer starts asking why it is moving.
+
+Every camera movement in cinema carries an emotional signature. Learn these signatures and you can use them like punctuation — controlling pace, tension, intimacy, and scale.
+
+## The Core Movements
+
+### Dolly (Push In / Pull Out)
+
+A dolly moves the **entire camera** toward or away from the subject on a track or wheeled mount.
+
+- **Dolly in (push in)** — increasing intimacy, revealing importance, building tension
+- **Dolly out (pull out)** — isolation, revelation of scale, emotional withdrawal
+
+The dolly-in is one of the most reliable movements in AI video. Models understand it deeply.
+
+<PromptBlock>
+medium shot of a woman sitting at a kitchen table, slow dolly push in toward her face, soft morning window light, shallow DOF, quiet and contemplative mood, 5 seconds
+</PromptBlock>
+
+### Zoom
+
+A zoom changes the **focal length** without moving the camera. This is not the same as a dolly — it compresses or stretches perspective rather than moving through space.
+
+- **Zoom in** — clinical, sudden focus, can feel anxious or surveillance-like
+- **Zoom out (zoom out reveal)** — surprise, context, the world expanding
+
+The **Dolly Zoom** (Vertigo effect) combines a dolly out with a zoom in simultaneously — the subject stays the same size but the background warps. An AI signature move.
+
+<PromptBlock>
+medium shot of a man standing in a long corridor, dolly zoom effect, background stretching away, unnerving and vertiginous, shallow DOF, muted color grade, 5 seconds
+</PromptBlock>
+
+### Pan
+
+A pan rotates the camera **horizontally** on a fixed axis — left to right or right to left.
+
+- Used to follow a subject moving horizontally
+- Used to reveal a scene (slow reveal pan)
+- A **whip pan** is ultra-fast and is used as a transition
+
+<PromptBlock>
+wide shot landscape pan from left to right across mountain peaks at golden hour, slow and majestic movement, warm amber light, cinematic aspect ratio, 5 seconds
+</PromptBlock>
+
+### Tilt
+
+A tilt rotates the camera **vertically** — up or down.
+
+- **Tilt up** — scale, power, reverence (a building, a person of authority)
+- **Tilt down** — vulnerability, looking down at something small or defeated
+
+<PromptBlock>
+low angle tilt up from ground level to the top of a skyscraper, overcast city sky, slight lens distortion, sense of scale and power, 5 seconds
+</PromptBlock>
+
+### Tracking Shot
+
+The camera moves **sideways** alongside a subject, keeping pace with them.
+
+<PromptBlock>
+tracking shot alongside a cyclist moving through a city at dusk, neon lights blurring in the background, smooth and fluid movement, cinematic 24fps, 5 seconds
+</PromptBlock>
+
+### Handheld
+
+No stabilisation — the camera breathes with the operator. This is intentional instability.
+
+- Small handheld shake: **documentary, intimate, immediate**
+- Heavy handheld: **chaotic, tense, disorienting**
+
+<PromptBlock>
+medium shot handheld of two people talking on a busy street, slight camera shake, background crowd blur, documentary feel, natural light, 5 seconds
+</PromptBlock>
+
+<CalloutBox type="tip">
+Use `slight camera shake` for documentary intimacy. Use `heavy handheld` for chaos. Use `smooth` or `gimbal-stabilised` when you want clean professional movement.
+</CalloutBox>
+
+### Crane / Drone / Bird's Eye
+
+Moving the camera **vertically upward** to reveal scale or transition out of a scene.
+
+<PromptBlock>
+crane shot rising from street level up above a city at sunset, golden hour light, traffic below, sky expanding, sweeping cinematic score implied in the visuals, 5 seconds
+</PromptBlock>
+
+## Emotional Reference Table
+
+| Movement | Emotion | Use When |
+|----------|---------|----------|
+| Dolly in | Intimacy, tension | Revealing something important |
+| Dolly out | Isolation, scale | Character is alone / world is vast |
+| Zoom in | Surveillance, anxiety | Something wrong is happening |
+| Pan | Orientation, following | Subject moves horizontally |
+| Tilt up | Power, reverence | Showing height or authority |
+| Tilt down | Vulnerability | Subject is small or defeated |
+| Tracking | Energy, rhythm | Subject is moving through space |
+| Handheld | Intimacy, chaos | Documentary feel or tension |
+| Crane up | Scale, freedom | Scene-ending or transition |
+
+## Combining Movement With Other Elements
+
+Movement is most powerful when it works with lighting and framing. A slow dolly-in to a backlit face at golden hour is completely different from the same dolly-in under harsh fluorescent light.
+
+<PromptBlock>
+slow dolly push in toward a person standing at the edge of a cliff at sunset, backlit golden hour, silhouette gradually revealing as the shot tightens, emotional and cinematic, 7 seconds
+</PromptBlock>
+
+<CalloutBox type="info">
+AI models handle **slow, smooth movements** best. Fast or complex compound movements (simultaneous pan + tilt + dolly) often produce inconsistent results. If you need complex movement, use two cuts instead.
+</CalloutBox>
+
+---
+
+Explore movement terms in the Glossary: [Dolly Shot](/glossary/dolly-shot), [Tracking Shot](/glossary/tracking-shot), [Handheld](/glossary/handheld), [Crane Shot](/glossary/crane-shot).
+
+Use the [Shot Planner](/planner) to build a full sequence with movement-aware prompts automatically.

@@ -1,0 +1,212 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const featured = posts.find(p => p.data.featured) ?? posts[0];
+const rest = posts.filter(p => p.id !== featured.id);
+
+const categories = [
+  { value: "all",          label: "All Posts" },
+  { value: "shots",        label: "Shots" },
+  { value: "lighting",     label: "Lighting" },
+  { value: "movement",     label: "Movement" },
+  { value: "editing",      label: "Editing" },
+  { value: "ai-prompting", label: "AI Prompting" },
+];
+
+const categoryColors: Record<string, string> = {
+  shots:          "#E4572E",
+  lighting:       "#F59E0B",
+  movement:       "#8B5CF6",
+  editing:        "#10B981",
+  "ai-prompting": "#3B82F6",
+};
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+---
+
+<BaseLayout
+  title="Blog — Cinematography & AI Video | CineCards AI"
+  description="Learn film language, lighting, camera movement, and how to write cinematic AI video prompts for Runway, Pika, and Stable Video."
+>
+  <!-- Hero -->
+  <section style="background: #0F0F13; padding-block: clamp(56px, 7vw, 96px);">
+    <div class="container-pad">
+      <div style="max-width: 640px;">
+        <span class="font-ui" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(228,87,46,0.1); border: 1px solid rgba(228,87,46,0.22); color: #E4572E; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 999px; letter-spacing: 0.04em; margin-bottom: 24px;">
+          Cinematography · AI Video · Prompting
+        </span>
+        <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 5vw, 56px); font-weight: 700; color: #fff; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 20px;">
+          Learn film language.<br />
+          <span style="color: rgba(255,255,255,0.4);">Build better AI video.</span>
+        </h1>
+        <p class="font-ui" style="font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.65; margin: 0;">
+          Practical guides on shots, lighting, movement, and writing prompts that produce cinematic results in Runway, Pika, and Stable Video.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category filter tabs -->
+  <div style="background: #0F0F13; border-bottom: 1px solid rgba(255,255,255,0.07); position: sticky; top: 64px; z-index: 30;">
+    <div class="container-pad">
+      <div style="display: flex; gap: 4px; overflow-x: auto; padding-block: 12px; scrollbar-width: none;" id="cat-tabs">
+        {categories.map(cat => (
+          <button
+            class="font-ui cat-tab"
+            data-cat={cat.value}
+            type="button"
+            style={`flex-shrink: 0; font-size: 13px; font-weight: 600; padding: 7px 16px; border-radius: 999px; border: 1px solid transparent; cursor: pointer; transition: all 0.15s; background: ${cat.value === 'all' ? 'rgba(255,255,255,0.1)' : 'transparent'}; color: ${cat.value === 'all' ? '#fff' : 'rgba(255,255,255,0.45)'}; border-color: ${cat.value === 'all' ? 'rgba(255,255,255,0.15)' : 'transparent'};`}
+          >{cat.label}</button>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Content area -->
+  <div style="background: #F8F5EF; min-height: 60vh;">
+    <div class="container-pad" style="padding-block: clamp(40px, 5vw, 72px);">
+
+      <!-- Featured post -->
+      {featured && (
+        <div id="featured-section" data-cat-item={featured.data.category} style="margin-bottom: 56px;">
+          <a href={`/blog/${featured.slug}`} style="display: block; text-decoration: none; border-radius: 20px; overflow: hidden; background: #1A1A22; border: 1px solid rgba(255,255,255,0.07); transition: transform 0.2s, box-shadow 0.2s;"
+            onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 20px 60px rgba(0,0,0,0.25)'"
+            onmouseout="this.style.transform=''; this.style.boxShadow=''">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 300px;" class="featured-grid">
+              <!-- Left: text -->
+              <div style="padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; justify-content: center;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                  <span class="font-ui" style={`font-size: 10px; font-weight: 700; color: #fff; background: ${categoryColors[featured.data.category] ?? '#E4572E'}; border-radius: 6px; padding: 3px 10px; letter-spacing: 0.06em; text-transform: uppercase;`}>
+                    {featured.data.category.replace("-", " ")}
+                  </span>
+                  <span class="font-ui" style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 0.06em;">Featured</span>
+                </div>
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700; color: #fff; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 16px;">
+                  {featured.data.title}
+                </h2>
+                <p class="font-ui" style="font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.65; margin: 0 0 24px;">
+                  {featured.data.description}
+                </p>
+                <div style="display: flex; align-items: center; gap: 16px;">
+                  <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.3);">{formatDate(featured.data.publishedAt)}</span>
+                  {featured.data.readingTime && <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.3);">{featured.data.readingTime} min read</span>}
+                </div>
+              </div>
+              <!-- Right: visual placeholder -->
+              <div style={`background: linear-gradient(135deg, ${categoryColors[featured.data.category] ?? '#E4572E'}22 0%, #0F0F13 100%); display: flex; align-items: center; justify-content: center;`}>
+                <div style="text-align: center; padding: 32px;">
+                  <div style={`font-size: 64px; line-height: 1; margin-bottom: 16px; opacity: 0.6;`}>
+                    {featured.data.category === 'shots' ? '🎬' : featured.data.category === 'lighting' ? '💡' : featured.data.category === 'movement' ? '🎥' : featured.data.category === 'editing' ? '✂️' : '🤖'}
+                  </div>
+                  <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; text-transform: uppercase;">{featured.data.difficulty}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      )}
+
+      <!-- Post grid -->
+      <div id="posts-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;" class="blog-grid">
+        {rest.map(post => (
+          <article data-cat-item={post.data.category} style="display: flex; flex-direction: column;">
+            <a
+              href={`/blog/${post.slug}`}
+              style="flex: 1; display: flex; flex-direction: column; text-decoration: none; border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid #E6DDD1; transition: transform 0.18s, box-shadow 0.18s;"
+              onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 48px rgba(0,0,0,0.1)'"
+              onmouseout="this.style.transform=''; this.style.boxShadow=''"
+            >
+              <!-- Card top strip -->
+              <div style={`height: 6px; background: ${categoryColors[post.data.category] ?? '#E4572E'};`}></div>
+
+              <div style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+                <!-- Category + difficulty -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                  <span class="font-ui" style={`font-size: 10px; font-weight: 700; color: ${categoryColors[post.data.category] ?? '#E4572E'}; background: ${categoryColors[post.data.category] ?? '#E4572E'}18; border-radius: 4px; padding: 2px 8px; letter-spacing: 0.06em; text-transform: uppercase;`}>
+                    {post.data.category.replace("-", " ")}
+                  </span>
+                  <span class="font-ui" style="font-size: 10px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.06em;">{post.data.difficulty}</span>
+                </div>
+
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #171717; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 10px;">
+                  {post.data.title}
+                </h3>
+                <p class="font-ui" style="font-size: 13px; color: #7A7268; line-height: 1.6; margin: 0 0 20px; flex: 1;">
+                  {post.data.description}
+                </p>
+
+                <!-- Footer row -->
+                <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid #F0EBE3;">
+                  <span class="font-ui" style="font-size: 11px; color: #7A7268;">{formatDate(post.data.publishedAt)}</span>
+                  <div style="display: flex; align-items: center; gap: 4px;">
+                    {post.data.readingTime && <span class="font-ui" style="font-size: 11px; color: #7A7268;">{post.data.readingTime} min</span>}
+                    <span style="font-size: 13px; color: #E4572E; font-weight: 700; margin-left: 4px;">→</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- Empty state -->
+      <div id="empty-state" style="display: none; text-align: center; padding: 80px 0;">
+        <p class="font-ui" style="font-size: 16px; color: #7A7268;">No posts in this category yet. Check back soon!</p>
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: 1fr 1fr !important; }
+    .featured-grid { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 600px) {
+    .blog-grid { grid-template-columns: 1fr !important; }
+  }
+  #cat-tabs::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>(".cat-tab");
+  const items = document.querySelectorAll<HTMLElement>("[data-cat-item]");
+  const featuredSection = document.getElementById("featured-section");
+  const emptyState = document.getElementById("empty-state");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const cat = tab.dataset.cat ?? "all";
+
+      tabs.forEach(t => {
+        t.style.background = "transparent";
+        t.style.color = "rgba(255,255,255,0.45)";
+        t.style.borderColor = "transparent";
+      });
+      tab.style.background = "rgba(255,255,255,0.1)";
+      tab.style.color = "#fff";
+      tab.style.borderColor = "rgba(255,255,255,0.15)";
+
+      let visible = 0;
+      items.forEach(item => {
+        const match = cat === "all" || item.dataset.catItem === cat;
+        item.style.display = match ? "" : "none";
+        if (match) visible++;
+      });
+
+      if (featuredSection) {
+        const fCat = featuredSection.dataset.catItem ?? "";
+        featuredSection.style.display = (cat === "all" || fCat === cat) ? "" : "none";
+      }
+
+      if (emptyState) emptyState.style.display = visible === 0 ? "block" : "none";
+    });
+  });
+</script>

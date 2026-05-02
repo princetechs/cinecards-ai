@@ -1,0 +1,114 @@
+---
+title: "Lighting for AI Video: How to Describe Light in Your Prompts"
+description: "Light is the most powerful tool in cinematography — and the most underused in AI video prompts. Learn the vocabulary of light and how to use it to transform your generations."
+publishedAt: 2025-05-03
+author: "CineCards AI"
+category: lighting
+tags: ["lighting", "golden hour", "rembrandt", "hard light", "soft light", "ai prompts", "runway"]
+difficulty: intermediate
+readingTime: 8
+ogImage: "/images/blog/lighting-for-ai-video-prompts.png"
+relatedTerms: ["golden-hour", "rembrandt-lighting", "side-light", "bounce-light", "diffusion", "practical-light"]
+featured: false
+---
+
+import PromptBlock from "../../../components/blog/PromptBlock.astro";
+import CalloutBox from "../../../components/blog/CalloutBox.astro";
+
+Most AI video prompts describe *what* is in the frame. The best ones describe *how it is lit*. Light is not set dressing — it is the emotional atmosphere of the shot. The same subject, in two different lights, tells two completely different stories.
+
+This is the single highest-leverage improvement you can make to your AI prompts today.
+
+## The Basic Vocabulary
+
+Before you can describe light, you need the words. Here are the six terms that do the most work:
+
+### Hard Light vs Soft Light
+
+**Hard light** comes from a small, direct source — the midday sun, a bare bulb, a spotlight. It creates sharp, high-contrast shadows. Mood: harsh, dramatic, confrontational.
+
+**Soft light** comes from a large, diffused source — overcast sky, a window with a diffuser, a bounced flash. Shadows are gradual and gentle. Mood: intimate, flattering, melancholic.
+
+<PromptBlock>
+close-up portrait, hard directional light from the right, deep shadows across half the face, high contrast, cinematic noir style, 5 seconds
+</PromptBlock>
+
+<PromptBlock>
+close-up portrait, soft diffused window light from the left, gentle shadow gradients, warm skin tones, intimate and quiet mood, 5 seconds
+</PromptBlock>
+
+### Direction of Light
+
+Where light comes from completely changes the reading of a face:
+
+- **Front light** — flat, shadowless, often feels commercial or cheerful
+- **Side light (Rembrandt)** — triangle of light on the shadowed cheek, classic portraiture, depth and gravitas
+- **Back light** — rim of light separating subject from background, otherworldly or angelic
+- **Under light** — light below the face, horror and menace, almost never natural
+- **Top light** — overhead, dramatic and exhausting-feeling, often used in interrogation scenes
+
+<CalloutBox type="tip">
+When in doubt, use side light. It adds depth to any subject, reads as cinematic immediately, and works in every mood.
+</CalloutBox>
+
+### Golden Hour and Blue Hour
+
+These are not just aesthetics — they are emotional shorthand that every AI model understands deeply because they appear in millions of training images.
+
+**Golden hour** (the 30–60 minutes after sunrise or before sunset): warm orange-amber tones, long horizontal shadows, glowing skin. Mood: nostalgic, beautiful, aspirational.
+
+**Blue hour** (the 15–20 minutes after sunset): soft blue-purple ambient light, almost no shadows, magical flatness. Mood: melancholic, cinematic, liminal.
+
+<PromptBlock>
+wide shot of a person walking along a beach, golden hour backlight, long shadow stretching ahead, warm amber sky, lens flare catching the sun, slow motion, 5 seconds
+</PromptBlock>
+
+<PromptBlock>
+medium shot of a person sitting at a cafe window, blue hour light, city lights beginning to appear outside, soft and quiet mood, shallow DOF, 5 seconds
+</PromptBlock>
+
+## Practical Lights
+
+Practical lights are visible light sources in the frame — lamps, candles, neon signs, screens. They are incredibly effective in AI video prompts because they give the model a clear source to work from.
+
+<PromptBlock>
+medium close-up of a man reading by a single desk lamp at night, warm pool of lamplight, deep shadows surrounding, warm tungsten tones, slight camera drift, 5 seconds
+</PromptBlock>
+
+<PromptBlock>
+medium shot of a woman walking through a neon-lit alley at night, pink and blue neon reflections on rain-wet pavement, cinematic city atmosphere, 5 seconds
+</PromptBlock>
+
+<CalloutBox type="info">
+**Neon and practicals are reliable.** AI models have seen millions of images with neon lighting. If you want a moody, cinematic, no-fail result — put neon in the frame.
+</CalloutBox>
+
+## Combining Light Descriptors
+
+The real power comes from combining terms. Here is a framework:
+
+**Quantity + quality + direction + colour temperature + motivation**
+
+- Quantity: `single`, `soft`, `harsh`, `diffused`, `dappled`
+- Quality: `hard light`, `soft light`, `flat light`, `rim light`
+- Direction: `from the left`, `overhead`, `backlit`, `side-lit`
+- Colour temp: `warm tungsten`, `cool daylight`, `golden hour`, `blue hour`, `neon`
+- Motivation: `through window blinds`, `from a candle`, `street lamp`, `screen glow`
+
+<PromptBlock>
+extreme close-up of hands writing in a notebook, single soft light from a window on the left, warm late afternoon tones, shadows pooling in the page creases, slow camera settle, 5 seconds
+</PromptBlock>
+
+## What Breaks AI Lighting Prompts
+
+**Contradicting yourself.** `bright golden hour sunlight with dark moody shadows` confuses the model. Pick one emotional register.
+
+**Being too technical.** Prompts like `ISO 800, f/2.8, 1/60s shutter` mean nothing to image and video generators. Describe the *look*, not the camera settings.
+
+**Leaving it to chance.** Never write a prompt without a lighting description. Even `natural light` is better than nothing — it tells the model to avoid artificial studio setups.
+
+---
+
+Explore the lighting terms in the Glossary: [Golden Hour](/glossary/golden-hour), [Rembrandt Lighting](/glossary/rembrandt-lighting), [Bounce Light](/glossary/bounce-light), [Diffusion](/glossary/diffusion).
+
+Ready to put these into a sequence? Try the [Shot Planner](/planner) — it generates lighting-aware prompts automatically.
