@@ -2,39 +2,324 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../../components/Hero.astro";
 import LearningPath from "../../components/LearningPath.astro";
-import GlossaryGrid from "../../components/GlossaryGrid.astro";
-import PlannerInput from "../../components/PlannerInput.astro";
-import AIPromptOutput from "../../components/AIPromptOutput.astro";
-import PreviewConcept from "../../components/PreviewConcept.astro";
 import OpenSource from "../../components/OpenSource.astro";
 import { getAllTerms } from "../../lib/termSearch";
 
 const terms = getAllTerms();
-const foundationTerms = terms.filter((term) => term.priorityGroup === "Foundation").slice(0, 6);
-const previewTerms = ["Close-Up", "Dolly In", "Back Light"]
-  .map((name) => terms.find((term) => term.name === name))
-  .filter((term): term is (typeof terms)[number] => Boolean(term));
+
+// Featured terms for the "Featured Terms" section
+const featuredTermNames = ["Close-Up", "Establishing Shot", "Rule of Thirds"];
+const featuredTerms = featuredTermNames
+  .map((name) => terms.find((t) => t.name === name))
+  .filter((t): t is (typeof terms)[number] => Boolean(t));
 ---
 
 <BaseLayout>
+  <!-- 1. Hero -->
   <Hero />
-  <LearningPath terms={terms} />
-  <section class="section-pad bg-bone" id="glossary-preview">
+
+  <!-- 2. Stats strip -->
+  <div
+    style="
+      background: #EFE8DC;
+      border-top: 1px solid #E6DDD1;
+      border-bottom: 1px solid #E6DDD1;
+      padding-block: clamp(28px, 4vw, 40px);
+    "
+  >
     <div class="container-pad">
-      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div class="max-w-2xl">
-          <p class="eyebrow text-clay">Visual glossary</p>
-          <h2 class="mt-3 text-3xl font-black tracking-tight text-ink sm:text-4xl">Start with the terms that unlock the rest.</h2>
-        </div>
-        <a class="focus-ring rounded-lg border border-ink/12 px-4 py-2 text-sm font-black text-ink hover:bg-ink hover:text-bone" href="/glossary">View all terms</a>
+      <div class="stats-row">
+        {[
+          { value: "124", label: "Film Terms" },
+          { value: "15", label: "Prompt Packs" },
+          { value: "7", label: "Shot Sequence Types" },
+        ].map((stat) => (
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 6px;
+              text-align: center;
+            "
+          >
+            <span
+              style="
+                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+                font-size: 32px;
+                font-weight: 700;
+                color: #171717;
+                line-height: 1;
+                letter-spacing: -0.02em;
+              "
+            >{stat.value}</span>
+            <span
+              class="font-ui"
+              style="font-size: 14px; color: #7A7268; font-weight: 500;"
+            >{stat.label}</span>
+          </div>
+        ))}
       </div>
-      <div class="mt-8">
-        <GlossaryGrid terms={foundationTerms} showFilters={false} />
+    </div>
+  </div>
+
+  <!-- 3. Learning Path -->
+  <LearningPath terms={terms} />
+
+  <!-- 4. How it works -->
+  <section
+    style="
+      background: #FFFFFF;
+      padding-block: clamp(56px, 8vw, 104px);
+    "
+  >
+    <div class="container-pad">
+      <div style="max-width: 520px; margin-bottom: 48px;">
+        <h2
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: clamp(24px, 3.5vw, 32px);
+            font-weight: 700;
+            color: #171717;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.02em;
+          "
+        >How it works</h2>
+        <p
+          class="font-ui"
+          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
+        >Three steps from zero to AI-ready shot descriptions.</p>
+      </div>
+
+      <div class="steps-grid">
+        {[
+          {
+            n: "1",
+            title: "Browse the glossary",
+            desc: "Explore 124 film terms across shots, angles, lighting, movement, and editing — each with examples and AI prompt templates.",
+          },
+          {
+            n: "2",
+            title: "Enter your idea",
+            desc: "Type a topic or creative concept into the Sequence Planner and choose your video style.",
+          },
+          {
+            n: "3",
+            title: "Get AI prompts",
+            desc: "Receive a prioritized shot sequence with copy-ready prompts for Runway, Pika, and Stable Video.",
+          },
+        ].map((step) => (
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div
+              class="font-ui"
+              style="
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: #E4572E;
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+              "
+            >{step.n}</div>
+            <div>
+              <h3
+                class="font-ui"
+                style="
+                  font-size: 18px;
+                  font-weight: 700;
+                  color: #171717;
+                  margin: 0 0 8px 0;
+                "
+              >{step.title}</h3>
+              <p
+                class="font-ui"
+                style="font-size: 14px; color: #4F4A45; line-height: 1.6; margin: 0;"
+              >{step.desc}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
-  <PlannerInput />
-  <AIPromptOutput terms={terms} />
-  <PreviewConcept terms={previewTerms} />
+
+  <!-- 5. Featured Terms -->
+  <section
+    style="
+      background: #F8F5EF;
+      padding-block: clamp(56px, 8vw, 104px);
+    "
+  >
+    <div class="container-pad">
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          margin-bottom: 40px;
+        "
+      >
+        <h2
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: clamp(24px, 3.5vw, 32px);
+            font-weight: 700;
+            color: #171717;
+            margin: 0;
+            letter-spacing: -0.02em;
+          "
+        >Featured Terms</h2>
+        <p
+          class="font-ui"
+          style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
+        >A few essential concepts to get you started.</p>
+      </div>
+
+      <div class="featured-grid">
+        {featuredTerms.map((term) => (
+          <a
+            href={`/glossary/${term.id}`}
+            style="
+              background: #FFFFFF;
+              border: 1.5px solid #E6DDD1;
+              border-radius: 12px;
+              padding: 24px;
+              text-decoration: none;
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              transition: box-shadow 0.15s, border-color 0.15s;
+            "
+            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'"
+            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'"
+          >
+            <!-- Category chip -->
+            <span
+              class="font-ui"
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: #7A7268;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+              "
+            >{term.category}</span>
+
+            <!-- Term name -->
+            <h3
+              style="
+                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                color: #171717;
+                margin: 0;
+                letter-spacing: -0.01em;
+              "
+            >{term.name}</h3>
+
+            <!-- Short definition -->
+            <p
+              class="font-ui"
+              style="
+                font-size: 14px;
+                color: #4F4A45;
+                line-height: 1.55;
+                margin: 0;
+              "
+            >{term.shortDefinition}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Open Source -->
   <OpenSource />
+
+  <!-- 7. Final CTA strip -->
+  <section
+    style="
+      background: #EFE8DC;
+      padding-block: clamp(56px, 8vw, 80px);
+      text-align: center;
+    "
+  >
+    <div class="container-pad">
+      <h2
+        style="
+          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+          font-size: clamp(26px, 4vw, 34px);
+          font-weight: 700;
+          color: #171717;
+          margin: 0 0 24px 0;
+          letter-spacing: -0.02em;
+        "
+      >Ready to learn film language?</h2>
+      <a
+        href="/glossary"
+        class="font-ui focus-ring"
+        style="
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #E4572E;
+          color: #ffffff;
+          font-size: 16px;
+          font-weight: 700;
+          padding: 14px 32px;
+          border-radius: 10px;
+          text-decoration: none;
+          transition: background 0.15s;
+        "
+        onmouseover="this.style.background='#B83A1F'"
+        onmouseout="this.style.background='#E4572E'"
+      >
+        Start Learning
+      </a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 480px) {
+    .stats-row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

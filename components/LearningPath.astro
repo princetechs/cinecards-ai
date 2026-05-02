@@ -7,81 +7,212 @@ interface Props {
 
 const { terms } = Astro.props;
 
-const groups = [
+const stages = [
   {
     id: "Foundation",
-    title: "Foundation",
-    text: "Shot sizes, basic angles, camera movement, focus, composition, and one main light."
+    name: "Foundation",
+    desc: "Basic shots, angles, and framing",
+    specCount: 24,
+    color: "#F4B942",
   },
   {
     id: "Core Visual Grammar",
-    title: "Core Visual Grammar",
-    text: "Coverage that makes action and dialogue clear: two shots, OTS, inserts, reactions, and motion."
+    name: "Core Visual Grammar",
+    desc: "Coverage, movement, and two-shots",
+    specCount: 28,
+    color: "#3A6EA5",
   },
   {
     id: "Coverage and Edit Logic",
-    title: "Coverage and Edit Logic",
-    text: "Continuity, edit rhythm, B-roll, audio bridges, and lighting that keeps a sequence cuttable."
+    name: "Coverage & Edit Logic",
+    desc: "Cuts, J-cuts, L-cuts, lighting",
+    specCount: 26,
+    color: "#2F855A",
   },
   {
     id: "Advanced Look",
-    title: "Advanced Look",
-    text: "Lens language, exposure, color, motion effects, and lighting choices that create polish."
+    name: "Advanced Look",
+    desc: "Lens, optics, color, motion",
+    specCount: 24,
+    color: "#7C3AED",
   },
   {
     id: "AI-Native Workflow",
-    title: "AI-Native Workflow",
-    text: "Reference images, prompt templates, consistency controls, provenance, and export thinking."
-  }
+    name: "AI-Native Workflow",
+    desc: "Prompting, consistency, packs",
+    specCount: 20,
+    color: "#E4572E",
+  },
 ];
 
 const countByGroup = new Map<string, number>();
-for (const term of terms) countByGroup.set(term.priorityGroup, (countByGroup.get(term.priorityGroup) ?? 0) + 1);
+for (const term of terms) {
+  countByGroup.set(term.priorityGroup, (countByGroup.get(term.priorityGroup) ?? 0) + 1);
+}
 ---
 
-<section class="section-pad bg-paper" id="learn">
+<section
+  style="background: #F8F5EF; padding-block: clamp(56px, 8vw, 104px);"
+  id="learn"
+>
   <div class="container-pad">
-    <div class="max-w-2xl">
-      <p class="eyebrow text-clay">Learning path</p>
-      <h2 class="mt-3 text-3xl font-black tracking-tight text-ink sm:text-4xl">Progress from framing to prompt control.</h2>
+    <!-- Section heading -->
+    <div style="max-width: 600px; margin-bottom: 40px;">
+      <h2
+        style="
+          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+          font-size: clamp(26px, 4vw, 34px);
+          font-weight: 700;
+          color: #171717;
+          margin: 0 0 10px 0;
+          letter-spacing: -0.02em;
+        "
+      >Your Learning Path</h2>
+      <p
+        class="font-ui"
+        style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
+      >Progress from beginner frames to AI-native cinematography.</p>
     </div>
-    <div class="mt-10 grid gap-3 md:grid-cols-5">
-      {groups.map((group, index) => (
-        <article class="rounded-lg border border-ink/10 bg-bone p-5 shadow-soft" data-group-card={group.id}>
-          <span class="text-xs font-black uppercase tracking-wide text-clay">0{index + 1}</span>
-          <h3 class="mt-3 text-lg font-black text-ink">{group.title}</h3>
-          <p class="mt-3 text-sm leading-6 text-ink/68">{group.text}</p>
-          <div class="mt-5 space-y-2">
-            <div class="flex items-center justify-between gap-2 text-[0.7rem] font-bold uppercase tracking-wide text-ink/55">
-              <span>Quiz progress</span>
-              <span data-group-progress-label={group.id}>0 / 0</span>
+
+    <!-- Stage cards: horizontal scroll on mobile, 5-col grid on desktop -->
+    <div class="stages-grid">
+      {stages.map((stage, index) => {
+        const liveCount = countByGroup.get(stage.id) ?? stage.specCount;
+        const badge = String(index + 1).padStart(2, "0");
+        return (
+          <article
+            style="
+              background: #FFFFFF;
+              border: 1.5px solid #E6DDD1;
+              border-radius: 14px;
+              padding: 24px;
+              display: flex;
+              flex-direction: column;
+              gap: 0;
+            "
+            data-group-card={stage.id}
+          >
+            <!-- Colored number badge -->
+            <span
+              class="font-ui"
+              style={`
+                font-size: 22px;
+                font-weight: 800;
+                color: ${stage.color};
+                display: block;
+                margin-bottom: 10px;
+                line-height: 1;
+              `}
+            >{badge}</span>
+
+            <!-- Stage name -->
+            <h3
+              style="
+                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+                font-size: 18px;
+                font-weight: 700;
+                color: #171717;
+                margin: 0 0 8px 0;
+                letter-spacing: -0.01em;
+              "
+            >{stage.name}</h3>
+
+            <!-- Description -->
+            <p
+              class="font-ui"
+              style="font-size: 14px; color: #4F4A45; line-height: 1.5; margin: 0 0 14px 0; flex: 1;"
+            >{stage.desc}</p>
+
+            <!-- Terms chip -->
+            <span
+              class="font-ui"
+              style="
+                display: inline-flex;
+                align-items: center;
+                background: #EFE8DC;
+                color: #7A7268;
+                font-size: 12px;
+                font-weight: 600;
+                padding: 4px 10px;
+                border-radius: 999px;
+                width: fit-content;
+                margin-bottom: 16px;
+              "
+            >{liveCount} terms</span>
+
+            <!-- Progress bar (hydrated client-side) -->
+            <div style="margin-bottom: 16px;">
+              <div
+                class="font-ui"
+                style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #7A7268; margin-bottom: 6px;"
+              >
+                <span>Quiz progress</span>
+                <span data-group-progress-label={stage.id}>0 / 0</span>
+              </div>
+              <div
+                style="
+                  height: 4px;
+                  background: #EFE8DC;
+                  border-radius: 4px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  data-group-progress-bar={stage.id}
+                  data-stage-color={stage.color}
+                  style={`height: 100%; width: 0%; background: ${stage.color}; border-radius: 4px; transition: width 0.4s ease;`}
+                ></div>
+              </div>
             </div>
-            <div class="h-1.5 w-full overflow-hidden rounded-full bg-paper">
-              <div class="h-full bg-ink transition-all" data-group-progress-bar={group.id} style="width:0%"></div>
-            </div>
-          </div>
-          <div class="mt-5 flex items-center justify-between gap-3">
-            <span class="rounded-full bg-paper px-3 py-1 text-xs font-bold text-ink/62">{countByGroup.get(group.id) ?? 0} cards</span>
-            <button class="focus-ring rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" type="button" data-complete-group={group.id}>
-              Mark
-            </button>
-          </div>
-        </article>
-      ))}
+
+            <!-- Start link -->
+            <a
+              href="/learn"
+              class="font-ui"
+              style={`
+                font-size: 13px;
+                font-weight: 600;
+                color: ${stage.color};
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+              `}
+            >Start →</a>
+          </article>
+        );
+      })}
     </div>
   </div>
 </section>
 
-<script>
-  document.querySelectorAll<HTMLButtonElement>("[data-complete-group]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const group = button.dataset.completeGroup ?? "";
-      window.dispatchEvent(new CustomEvent("cinecards:group-complete", { detail: group }));
-      button.textContent = "Saved";
-      button.classList.add("bg-ink", "text-bone");
-    });
-  });
+<style>
+  .stages-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
 
+  @media (max-width: 1024px) {
+    .stages-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stages-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .stages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
   const QUIZ_SCORES_KEY = "cinecards.quizScores";
 
   type QuizGroupEntry = { correct: number; total: number };
@@ -96,16 +227,18 @@ for (const term of terms) countByGroup.set(term.priorityGroup, (countByGroup.get
     let scores: QuizScoresShape = {};
     try {
       const raw = localStorage.getItem(QUIZ_SCORES_KEY);
-      if (raw) scores = JSON.parse(raw);
+      if (raw) scores = JSON.parse(raw) as QuizScoresShape;
     } catch {
       scores = {};
     }
     const byGroup = scores.byPriorityGroup ?? {};
+
     document.querySelectorAll<HTMLElement>("[data-group-progress-label]").forEach((el) => {
       const group = el.dataset.groupProgressLabel ?? "";
       const entry = byGroup[group] ?? { correct: 0, total: 0 };
       el.textContent = `${entry.correct} / ${entry.total}`;
     });
+
     document.querySelectorAll<HTMLElement>("[data-group-progress-bar]").forEach((el) => {
       const group = el.dataset.groupProgressBar ?? "";
       const entry = byGroup[group] ?? { correct: 0, total: 0 };

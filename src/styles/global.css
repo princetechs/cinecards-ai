@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -13,6 +13,29 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+
+  /* New design-system CSS variables */
+  --bg-page: #F8F5EF;
+  --bg-canvas: #FFFFFF;
+  --bg-sand-light: #EFE8DC;
+  --bg-dark: #101014;
+  --bg-dark-card: #1A1A22;
+
+  --color-ink: #171717;
+  --color-body: #4F4A45;
+  --color-quiet: #7A7268;
+
+  --color-accent: #E4572E;
+  --color-accent-dark: #B83A1F;
+  --color-accent-pale: #FFE0D2;
+
+  --border-sand: #E6DDD1;
+  --border-sand-dark: #D8CFC3;
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Fraunces", ui-serif, Georgia, serif;
+  --font-ui: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 html {

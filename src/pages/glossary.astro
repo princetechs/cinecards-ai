@@ -7,21 +7,66 @@ const terms = getAllTerms();
 ---
 
 <BaseLayout
-  title="CineCards AI Glossary - Film terms for shooting and AI video prompts"
-  description="Search cinematography, videography, editing, lighting, composition, lens, and AI workflow terms as copyable visual cards."
+  title="Glossary — CineCards AI"
+  description="124 film and AI video terms — shots, angles, lighting, movement, editing, and prompting — as searchable, copyable cards."
 >
-  <section class="bg-paper py-14">
-    <div class="container-pad">
-      <p class="eyebrow text-clay">Glossary</p>
-      <h1 class="mt-3 max-w-3xl text-4xl font-black tracking-tight text-ink sm:text-5xl">Film language as searchable, copyable cards.</h1>
-      <p class="mt-4 max-w-2xl text-base leading-7 text-ink/68">
-        Each card teaches the meaning, the visual purpose, a real-world shooting hint, AI prompt structure, related terms, and common beginner mistakes.
+  <!-- Hero -->
+  <section class="glossary-hero">
+    <div class="container">
+      <p class="hero-eyebrow">124 Terms · 8 Categories · AI-Ready</p>
+      <h1 class="hero-h1">Film Language, Explained.</h1>
+      <p class="hero-sub">
+        Every term teaches you what it is, why it matters, how to shoot it, and how to prompt it in AI video tools.
       </p>
     </div>
   </section>
-  <section class="pb-16">
-    <div class="container-pad">
+
+  <!-- Grid -->
+  <section class="glossary-body">
+    <div class="container">
       <GlossaryGrid terms={terms} />
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .container {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+  .glossary-hero {
+    background: #F8F5EF;
+    padding: 56px 0 40px;
+    border-bottom: 1px solid #E6DDD1;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #E4572E;
+    margin: 0 0 16px;
+  }
+  .hero-h1 {
+    font-family: "Space Grotesk", var(--font-display, sans-serif);
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #171717;
+    margin: 0 0 16px;
+  }
+  .hero-sub {
+    font-family: var(--font-body, Inter, sans-serif);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: #4F4A45;
+    max-width: 52ch;
+    margin: 0;
+  }
+  .glossary-body {
+    padding: 40px 0 80px;
+  }
+</style>

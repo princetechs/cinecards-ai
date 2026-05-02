@@ -2,7 +2,6 @@
 import type { Term } from "../types/term";
 import TermCard from "./TermCard.astro";
 import SearchFilters from "./SearchFilters.astro";
-// Analytics is wired in the inline <script> below via dynamic import.
 
 interface Props {
   terms: Term[];
@@ -10,20 +9,91 @@ interface Props {
 }
 
 const { terms, showFilters = true } = Astro.props;
-const categories = Array.from(new Set(terms.map((term) => term.category))).sort();
-const priorityGroups = Array.from(new Set(terms.map((term) => term.priorityGroup)));
-const difficulties = Array.from(new Set(terms.map((term) => term.difficulty))).sort();
+const categories = Array.from(new Set(terms.map((t) => t.category))).sort();
+const priorityGroups = Array.from(new Set(terms.map((t) => t.priorityGroup)));
+const difficulties = Array.from(new Set(terms.map((t) => t.difficulty))).sort();
 ---
 
 <div data-glossary-root>
-  {showFilters && <SearchFilters categories={categories} priorityGroups={priorityGroups} difficulties={difficulties} />}
-  <div class:list={["grid gap-4 md:grid-cols-2 xl:grid-cols-3", showFilters ? "mt-6" : ""]} data-glossary-grid>
+  {showFilters && (
+    <SearchFilters
+      categories={categories}
+      priorityGroups={priorityGroups}
+      difficulties={difficulties}
+    />
+  )}
+
+  <!-- Stats bar -->
+  <p class="stats-bar" data-filter-count>Showing {terms.length} of {terms.length} terms</p>
+
+  <!-- Grid -->
+  <div class="glossary-grid" data-glossary-grid>
     {terms.map((term) => <TermCard term={term} />)}
   </div>
-  <div class="mt-8 hidden rounded-lg border border-ink/10 bg-bone p-6 text-center text-ink/62" data-empty-state>
-    No cards match those filters.
+
+  <!-- Empty state -->
+  <div class="empty-state hidden" data-empty-state>
+    <div class="empty-inner">
+      <p class="empty-icon">🎬</p>
+      <p class="empty-heading">No matching terms</p>
+      <p class="empty-sub">Try searching "camera movement," "close-up," or "lighting."</p>
+      <button class="empty-reset" type="button" data-reset-filters>Reset filters</button>
+    </div>
   </div>
 </div>
+
+<style>
+  .stats-bar {
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 13px;
+    color: #7A7268;
+    margin: 16px 0 20px;
+  }
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 768px) {
+    .glossary-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1280px) {
+    .glossary-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Empty state */
+  .empty-state { margin-top: 48px; }
+  .empty-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 24px;
+    background: #fff;
+    border: 1px solid #E6DDD1;
+    border-radius: 20px;
+    text-align: center;
+  }
+  .empty-icon { font-size: 2.5rem; margin: 0; }
+  .empty-heading {
+    font-family: "Space Grotesk", var(--font-display, sans-serif);
+    font-size: 1.25rem; font-weight: 700; color: #171717; margin: 0;
+  }
+  .empty-sub {
+    font-family: var(--font-body, Inter, sans-serif);
+    font-size: 15px; color: #7A7268; margin: 0; max-width: 36ch;
+  }
+  .empty-reset {
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 13px; font-weight: 600;
+    background: #E4572E; color: #fff;
+    border: none; border-radius: 999px;
+    padding: 8px 20px; cursor: pointer;
+    transition: background 150ms;
+    margin-top: 4px;
+  }
+  .empty-reset:hover { background: #B83A1F; }
+</style>
 
 <script>
   import { track } from "../lib/analytics";
@@ -33,63 +103,66 @@ const difficulties = Array.from(new Set(terms.map((term) => term.difficulty))).s
     const category = root.querySelector<HTMLSelectElement>("[data-filter-category]")?.value ?? "";
     const priority = root.querySelector<HTMLSelectElement>("[data-filter-priority]")?.value ?? "";
     const difficulty = root.querySelector<HTMLSelectElement>("[data-filter-difficulty]")?.value ?? "";
+
     const cards = Array.from(root.querySelectorAll<HTMLElement>("[data-term-card]"));
     let visible = 0;
 
     cards.forEach((card) => {
-      const matchesSearch = !search || (card.dataset.search ?? "").includes(search);
-      const matchesCategory = !category || card.dataset.category === category;
-      const matchesPriority = !priority || card.dataset.priority === priority;
-      const matchesDifficulty = !difficulty || card.dataset.difficulty === difficulty;
-      const show = matchesSearch && matchesCategory && matchesPriority && matchesDifficulty;
+      // Respect beginner-path override
+      if (card.hasAttribute("data-beginner-hidden")) return;
+      const matchSearch = !search || (card.dataset.search ?? "").includes(search);
+      const matchCat = !category || card.dataset.category === category;
+      const matchPri = !priority || card.dataset.priority === priority;
+      const matchDiff = !difficulty || card.dataset.difficulty === difficulty;
+      const show = matchSearch && matchCat && matchPri && matchDiff;
       card.classList.toggle("hidden", !show);
       if (show) visible += 1;
     });
 
+    // Count also non-hidden beginner-path cards
+    visible = cards.filter((c) => !c.classList.contains("hidden") && !c.hasAttribute("data-beginner-hidden")).length;
+
     const count = root.querySelector<HTMLElement>("[data-filter-count]");
-    if (count) count.textContent = `${visible} cards visible`;
+    if (count) count.textContent = `Showing ${visible} of ${cards.length} terms`;
+
     root.querySelector<HTMLElement>("[data-empty-state]")?.classList.toggle("hidden", visible !== 0);
+
+    if (search) track("search_performed", { query: search, resultCount: visible });
   };
 
   document.querySelectorAll<HTMLElement>("[data-glossary-root]").forEach((root) => {
-    root.querySelectorAll("input, select").forEach((control) => {
-      control.addEventListener("input", () => applyGlossaryFilters(root));
-      control.addEventListener("change", () => applyGlossaryFilters(root));
+    root.querySelectorAll("input, select").forEach((ctrl) => {
+      ctrl.addEventListener("input", () => applyGlossaryFilters(root));
+      ctrl.addEventListener("change", () => applyGlossaryFilters(root));
     });
     applyGlossaryFilters(root);
   });
 
-  document.addEventListener("click", async (event) => {
-    const copyButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-prompt]");
-    if (copyButton) {
-      await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
-      const original = copyButton.textContent;
-      copyButton.textContent = "Copied";
-      const card = copyButton.closest<HTMLElement>("[data-term-card]");
-      const termId = card?.querySelector<HTMLAnchorElement>("a[href^='/glossary/']")?.getAttribute("href")?.split("/").pop();
-      track("term_prompt_copied", { termId, surface: "card" });
-      window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
-      setTimeout(() => {
-        copyButton.textContent = original;
-      }, 1200);
-    }
-
-    const previewButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-preview-option]");
-    if (previewButton) {
-      const scope = previewButton.closest<HTMLElement>("[data-preview-scope]");
-      if (!scope) return;
-      const duration = previewButton.dataset.previewOption === "5" ? "5" : "3";
-      const prompt = duration === "5" ? scope.dataset.preview5 : scope.dataset.preview3;
-      const promptTarget = scope.querySelector<HTMLElement>("[data-preview-prompt]");
-      if (promptTarget && prompt) promptTarget.textContent = prompt;
-      scope.querySelectorAll<HTMLButtonElement>("[data-preview-option]").forEach((button) => {
-        const active = button === previewButton;
-        button.classList.toggle("bg-ink", active);
-        button.classList.toggle("text-bone", active);
-        button.classList.toggle("border", !active);
-        button.classList.toggle("border-ink/12", !active);
-        button.classList.toggle("text-ink/64", !active);
+  // Reset filters button
+  document.querySelectorAll<HTMLButtonElement>("[data-reset-filters]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const root = document.querySelector<HTMLElement>("[data-glossary-root]");
+      if (!root) return;
+      root.querySelectorAll<HTMLInputElement>("[data-filter-search]").forEach((i) => { i.value = ""; });
+      root.querySelectorAll<HTMLSelectElement>("select").forEach((s) => { s.value = ""; s.dispatchEvent(new Event("change", { bubbles: true })); });
+      root.querySelectorAll<HTMLButtonElement>(".filter-pill").forEach((p) => {
+        const isAll = (p.dataset.filterValue ?? "") === "";
+        p.classList.toggle("filter-pill-active", isAll);
       });
-    }
+      root.querySelectorAll<HTMLElement>("[data-term-card]").forEach((c) => {
+        c.removeAttribute("data-beginner-hidden");
+        c.classList.remove("hidden");
+      });
+      const cb = root.querySelector<HTMLInputElement>("[data-beginner-path]");
+      if (cb) cb.checked = false;
+      applyGlossaryFilters(root);
+    });
+  });
+
+  // Copy prompt feedback (from GlossaryGrid context)
+  document.addEventListener("click", async (e) => {
+    const copyBtn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-prompt]");
+    if (!copyBtn || !copyBtn.closest("[data-glossary-grid]")) return;
+    // Handled in TermCard script; just track here too if needed
   });
 </script>

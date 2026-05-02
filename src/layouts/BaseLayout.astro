@@ -39,13 +39,20 @@ const {
     <main>
       <slot />
     </main>
-    <footer class="border-t border-ink/10 bg-night py-10 text-bone">
-      <div class="container-pad flex flex-col gap-4 text-sm text-bone/70 sm:flex-row sm:items-center sm:justify-between">
-        <p><strong class="text-bone">CineCards AI</strong> is open-source visual grammar for human and AI video creation.</p>
-        <div class="flex gap-4">
-          <a class="hover:text-bone" href="/glossary">Glossary</a>
-          <a class="hover:text-bone" href="/planner">Planner</a>
-          <a class="hover:text-bone" href="/#contribute">Contribute</a>
+    <footer style="background: var(--bg-dark, #101014); border-top: 1px solid rgba(255,255,255,0.08); padding-block: 40px; color: #F8F5EF;">
+      <div class="container-pad" style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 16px; justify-content: space-between; align-items: flex-start;">
+          <p class="font-ui" style="font-size: 14px; color: rgba(248,245,239,0.65); margin: 0;">
+            <strong style="color: #F8F5EF; font-weight: 700;">CineCards AI</strong> — open-source visual grammar for human and AI video creation.
+          </p>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/glossary"
+              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Glossary</a>
+            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/planner"
+              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Planner</a>
+            <a class="font-ui focus-ring" style="font-size: 14px; color: rgba(248,245,239,0.55); text-decoration: none; transition: color 0.15s;" href="/#contribute"
+              onmouseover="this.style.color='#F8F5EF'" onmouseout="this.style.color='rgba(248,245,239,0.55)'">Contribute</a>
+          </div>
         </div>
       </div>
     </footer>

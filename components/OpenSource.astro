@@ -1,24 +1,156 @@
-<section class="section-pad bg-night text-bone" id="contribute">
-  <div class="container-pad grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-    <div>
-      <p class="eyebrow text-bone/55">Open source</p>
-      <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Built as a content graph, not a blog.</h2>
-      <p class="mt-4 max-w-xl text-base leading-7 text-bone/68">
-        Filmmakers can improve definitions, AI creators can improve prompts, and developers can add provider adapters without rewriting the learning experience.
-      </p>
+---
+const lanes = [
+  {
+    emoji: "📝",
+    title: "Content",
+    desc: "Add or improve film terms and prompts",
+  },
+  {
+    emoji: "🎬",
+    title: "Media",
+    desc: "Submit diagrams and preview assets",
+  },
+  {
+    emoji: "💻",
+    title: "Code",
+    desc: "Build features and fix bugs",
+  },
+  {
+    emoji: "🌍",
+    title: "Translate",
+    desc: "Add terms in your language",
+  },
+];
+---
+
+<section
+  style="background: #101014; padding-block: clamp(56px, 8vw, 104px);"
+  id="contribute"
+>
+  <div class="container-pad">
+    <!-- Heading -->
+    <div style="max-width: 680px; margin-bottom: 40px;">
+      <h2
+        style="
+          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+          font-size: clamp(26px, 4vw, 34px);
+          font-weight: 700;
+          color: #F8F5EF;
+          margin: 0 0 14px 0;
+          letter-spacing: -0.02em;
+        "
+      >Built in the open, for everyone.</h2>
+      <p
+        class="font-ui"
+        style="
+          font-size: 16px;
+          line-height: 1.6;
+          color: rgba(248, 245, 239, 0.8);
+          margin: 0;
+          max-width: 600px;
+        "
+      >CineCards AI is fully open source. Contribute terms, improve prompts, fix previews, or add translations.</p>
     </div>
-    <div class="grid gap-3 sm:grid-cols-2">
-      {[
-        ["Content lane", "Add terms, examples, mistakes, related cards, and translations."],
-        ["Media lane", "Attach rights-cleared stills, diagrams, preview recipes, and provenance."],
-        ["Code lane", "Improve UI, search, planner scoring, auth, and future render workers."],
-        ["Governance lane", "Review taxonomy changes, moderation issues, and provider policies."]
-      ].map(([title, text]) => (
-        <article class="rounded-lg border border-bone/12 bg-bone/6 p-5">
-          <h3 class="font-black text-bone">{title}</h3>
-          <p class="mt-2 text-sm leading-6 text-bone/66">{text}</p>
+
+    <!-- 4 contribution lane cards -->
+    <div class="lanes-grid">
+      {lanes.map((lane) => (
+        <article
+          style="
+            background: #1A1A22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 22px;
+          "
+        >
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <span style="font-size: 22px; line-height: 1;">{lane.emoji}</span>
+            <h3
+              class="font-ui"
+              style="font-size: 15px; font-weight: 700; color: #F8F5EF; margin: 0;"
+            >{lane.title}</h3>
+          </div>
+          <p
+            class="font-ui"
+            style="font-size: 13px; color: rgba(248, 245, 239, 0.6); line-height: 1.55; margin: 0;"
+          >{lane.desc}</p>
         </article>
       ))}
     </div>
+
+    <!-- Stars/forks static badge -->
+    <p
+      class="font-ui"
+      style="
+        font-size: 13px;
+        color: rgba(248, 245, 239, 0.4);
+        margin: 24px 0 32px 0;
+      "
+    >⭐ Open Source</p>
+
+    <!-- CTAs -->
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+      <a
+        href="https://github.com/sandip-parida/cinecards-ai"
+        class="font-ui focus-ring"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          border: 1.5px solid rgba(255, 255, 255, 0.8);
+          color: #F8F5EF;
+          font-size: 14px;
+          font-weight: 600;
+          padding: 11px 22px;
+          border-radius: 10px;
+          text-decoration: none;
+          transition: background 0.15s, border-color 0.15s;
+        "
+        onmouseover="this.style.background='rgba(255,255,255,0.07)'"
+        onmouseout="this.style.background='transparent'"
+      >
+        View on GitHub
+      </a>
+      <a
+        href="/CONTRIBUTING.md"
+        class="font-ui focus-ring"
+        style="
+          display: inline-flex;
+          align-items: center;
+          color: rgba(248, 245, 239, 0.7);
+          font-size: 14px;
+          font-weight: 600;
+          padding: 11px 4px;
+          text-decoration: none;
+          transition: color 0.15s;
+        "
+        onmouseover="this.style.color='#F8F5EF'"
+        onmouseout="this.style.color='rgba(248,245,239,0.7)'"
+      >
+        Contribution Guide →
+      </a>
+    </div>
   </div>
 </section>
+
+<style>
+  .lanes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .lanes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lanes-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

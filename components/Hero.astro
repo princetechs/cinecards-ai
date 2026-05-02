@@ -1,40 +1,277 @@
 ---
-const stats = [
-  { label: "terms", value: "124" },
-  { label: "planner modes", value: "7" },
-  { label: "preview lengths", value: "3s / 5s" }
-];
+// No props needed — Hero is fully self-contained
 ---
 
-<section class="relative isolate min-h-[82svh] overflow-hidden bg-night text-bone">
-  <img
-    class="absolute inset-0 -z-20 h-full w-full object-cover"
-    src="/images/cinecards-hero.png"
-    alt=""
-    loading="eager"
-  />
-  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/78 to-night/20"></div>
-  <div class="container-pad flex min-h-[82svh] items-center py-20">
-    <div class="max-w-3xl">
-      <p class="eyebrow text-bone/68">Open-source visual learning for human and AI video</p>
-      <h1 class="mt-5 max-w-2xl text-5xl font-black leading-[0.95] text-bone sm:text-6xl lg:text-7xl">
-        CineCards AI
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-8 text-bone/78 sm:text-xl">
-        Learn film terms visually, turn any topic into a prioritized shot sequence, and copy cleaner AI video prompts without memorizing a film-school glossary first.
-      </p>
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-        <a class="focus-ring rounded-lg bg-bone px-5 py-3 text-center text-sm font-black text-ink shadow-soft transition hover:bg-white" href="/planner">Plan a Shot Sequence</a>
-        <a class="focus-ring rounded-lg border border-bone/30 px-5 py-3 text-center text-sm font-black text-bone transition hover:bg-bone/10" href="/glossary">Explore Glossary</a>
+<style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+</style>
+
+<section
+  style="
+    background: var(--bg-page, #F8F5EF);
+    padding-top: clamp(48px, 8vw, 80px);
+    padding-bottom: clamp(48px, 8vw, 80px);
+  "
+>
+  <div class="container-pad">
+    <div class="hero-grid">
+      <!-- LEFT: Text content -->
+      <div class="hero-text">
+        <!-- Eyebrow pill -->
+        <span
+          class="font-ui"
+          style="
+            display: inline-flex;
+            align-items: center;
+            background: #FFE0D2;
+            color: #B83A1F;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.01em;
+            margin-bottom: 24px;
+          "
+        >
+          Open Source · 124 Film Terms · AI-Ready
+        </span>
+
+        <!-- H1 -->
+        <h1
+          style="
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+            font-size: clamp(38px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            color: #171717;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.02em;
+          "
+        >
+          Learn film language.<br />Build better AI video prompts.
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+          class="font-ui"
+          style="
+            font-size: 18px;
+            line-height: 1.6;
+            color: #4F4A45;
+            max-width: 480px;
+            margin: 0 0 32px 0;
+          "
+        >
+          CineCards AI teaches shots, angles, lighting, movement, and editing — then turns them into prompts you can use in Runway, Pika, and any AI video tool.
+        </p>
+
+        <!-- CTAs -->
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+          <a
+            href="/glossary"
+            class="font-ui focus-ring"
+            style="
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              background: #E4572E;
+              color: #ffffff;
+              font-size: 15px;
+              font-weight: 700;
+              padding: 12px 24px;
+              border-radius: 10px;
+              text-decoration: none;
+              transition: background 0.15s;
+            "
+            onmouseover="this.style.background='#B83A1F'"
+            onmouseout="this.style.background='#E4572E'"
+          >
+            Start Learning
+          </a>
+          <a
+            href="/planner"
+            class="font-ui focus-ring"
+            style="
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              background: transparent;
+              color: #171717;
+              font-size: 15px;
+              font-weight: 600;
+              padding: 12px 24px;
+              border-radius: 10px;
+              border: 1.5px solid #D8CFC3;
+              text-decoration: none;
+              transition: border-color 0.15s, background 0.15s;
+            "
+            onmouseover="this.style.background='#EFE8DC'"
+            onmouseout="this.style.background='transparent'"
+          >
+            Plan a Sequence
+          </a>
+        </div>
+
+        <!-- Social proof -->
+        <p
+          class="font-ui"
+          style="
+            font-size: 13px;
+            color: #7A7268;
+            margin: 0;
+          "
+        >
+          Used by creators learning with Runway · Pika · Stable Video
+        </p>
       </div>
-      <dl class="mt-12 grid max-w-xl grid-cols-3 gap-3">
-        {stats.map((item) => (
-          <div class="border-l border-bone/24 pl-4">
-            <dt class="text-2xl font-black text-bone">{item.value}</dt>
-            <dd class="mt-1 text-xs font-semibold uppercase tracking-wide text-bone/56">{item.label}</dd>
+
+      <!-- RIGHT: Demo card stack -->
+      <div class="hero-visual" style="position: relative; display: flex; flex-direction: column; gap: 0; align-items: flex-start;">
+        <!-- Term card (slightly rotated back) -->
+        <div
+          style="
+            background: #101014;
+            border-radius: 14px;
+            padding: 24px;
+            width: 100%;
+            max-width: 380px;
+            transform: rotate(-2.5deg);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+          "
+        >
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+            <span
+              class="font-mono"
+              style="font-size: 10px; color: #7A7268; letter-spacing: 0.14em; text-transform: uppercase;"
+            >SHOTS / BEGINNER</span>
+            <span
+              style="
+                background: #FFE0D2;
+                color: #B83A1F;
+                font-size: 10px;
+                font-weight: 700;
+                font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+                padding: 3px 8px;
+                border-radius: 999px;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+              "
+            >Foundation</span>
           </div>
-        ))}
-      </dl>
+          <h3
+            style="
+              font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+              font-size: 26px;
+              font-weight: 700;
+              color: #F8F5EF;
+              margin: 0 0 8px 0;
+            "
+          >Close-Up</h3>
+          <p
+            class="font-ui"
+            style="font-size: 13px; color: rgba(248,245,239,0.65); line-height: 1.5; margin: 0 0 16px 0;"
+          >Frames the face or an important detail to show emotion.</p>
+          <!-- Prompt preview in mono -->
+          <div
+            style="
+              background: #1A1A22;
+              border-radius: 8px;
+              padding: 12px 14px;
+              border: 1px solid rgba(255,255,255,0.08);
+            "
+          >
+            <span
+              class="font-mono"
+              style="font-size: 10px; color: #F4B942; letter-spacing: 0.08em; display: block; margin-bottom: 6px;"
+            >AI PROMPT →</span>
+            <p
+              class="font-mono"
+              style="font-size: 11px; color: rgba(248,245,239,0.75); line-height: 1.6; margin: 0;"
+            >extreme close-up of [subject],<br />shallow DOF, cinematic lighting,<br />5 seconds</p>
+          </div>
+        </div>
+
+        <!-- Shot sequence timeline card (slightly rotated forward, overlapping) -->
+        <div
+          style="
+            background: #1A1A22;
+            border-radius: 14px;
+            padding: 20px 22px;
+            width: 100%;
+            max-width: 380px;
+            transform: rotate(1.5deg) translateY(-18px);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+            border: 1px solid rgba(255,255,255,0.07);
+          "
+        >
+          <span
+            class="font-ui"
+            style="font-size: 10px; font-weight: 600; color: rgba(248,245,239,0.45); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 14px;"
+          >Shot Sequence</span>
+          <!-- Timeline pills -->
+          <div style="display: flex; align-items: center; gap: 6px;">
+            {[
+              { n: "1", label: "Wide" },
+              { n: "2", label: "Medium" },
+              { n: "3", label: "Close" },
+              { n: "4", label: "Detail" },
+              { n: "5", label: "Wide" },
+            ].map((step, i) => (
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1;">
+                <div
+                  class="font-ui"
+                  style={`
+                    background: ${i === 2 ? '#E4572E' : 'rgba(228,87,46,0.22)'};
+                    color: ${i === 2 ? '#ffffff' : '#E4572E'};
+                    font-size: 12px;
+                    font-weight: 700;
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: ${i === 2 ? 'none' : '1.5px solid rgba(228,87,46,0.4)'};
+                    transition: all 0.15s;
+                  `}
+                >{step.n}</div>
+                <span
+                  class="font-ui"
+                  style="font-size: 9px; color: rgba(248,245,239,0.45); letter-spacing: 0.04em;"
+                >{step.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .hero-visual {
+      order: 2;
+    }
+
+    .hero-text {
+      order: 1;
+    }
+  }
+</style>

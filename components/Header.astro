@@ -12,27 +12,65 @@ const home = localisedPath("/", lang);
 const localeLabels = t.locale as unknown as Record<string, string>;
 ---
 
-<header class="sticky top-0 z-40 border-b border-ink/10 bg-paper/82 backdrop-blur-xl">
+<header
+  class="sticky top-0 z-40 backdrop-blur-xl"
+  style="background: rgba(248,245,239,0.88); border-bottom: 1px solid var(--border-sand, #E6DDD1);"
+>
   <div class="container-pad flex h-16 items-center justify-between gap-4">
     <a class="focus-ring flex items-center gap-2 rounded-lg" href={home}>
-      <span class="grid size-8 place-items-center rounded-lg bg-ink text-sm font-black text-bone">C</span>
-      <span class="text-sm font-black tracking-wide text-ink">CineCards AI</span>
+      <span
+        class="font-ui grid size-8 place-items-center rounded-lg text-sm font-black"
+        style="background: var(--color-ink, #171717); color: #F8F5EF;"
+      >C</span>
+      <span
+        class="font-ui text-sm font-black tracking-wide"
+        style="color: var(--color-ink, #171717);"
+      >CineCards AI</span>
     </a>
-    <nav class="hidden items-center gap-1 text-sm font-semibold text-ink/68 sm:flex">
-      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href={localisedPath("/glossary", lang)}>{t.nav.glossary}</a>
-      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href={localisedPath("/planner", lang)}>{t.nav.planner}</a>
-      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/learn">{t.nav.learn}</a>
-      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/packs">{t.nav.packs}</a>
-      <a class="focus-ring rounded-lg px-3 py-2 hover:bg-ink/5 hover:text-ink" href="/#contribute">{t.nav.contribute}</a>
+    <nav class="hidden items-center gap-1 sm:flex">
       <a
-        class="focus-ring hidden rounded-lg px-3 py-2 text-xs uppercase tracking-wide text-ink/55 hover:bg-ink/5 hover:text-ink"
+        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+        style="color: var(--color-quiet, #7A7268);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
+        href={localisedPath("/glossary", lang)}>{t.nav.glossary}</a>
+      <a
+        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+        style="color: var(--color-quiet, #7A7268);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
+        href={localisedPath("/planner", lang)}>{t.nav.planner}</a>
+      <a
+        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+        style="color: var(--color-quiet, #7A7268);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
+        href="/learn">{t.nav.learn}</a>
+      <a
+        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+        style="color: var(--color-quiet, #7A7268);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
+        href="/packs">{t.nav.packs}</a>
+      <a
+        class="focus-ring rounded-lg px-3 py-2 font-ui text-sm font-semibold transition"
+        style="color: var(--color-quiet, #7A7268);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='var(--color-quiet, #7A7268)'"
+        href="/#contribute">{t.nav.contribute}</a>
+      <a
+        class="focus-ring hidden rounded-lg px-3 py-2 font-ui text-xs uppercase tracking-wide transition"
+        style="color: rgba(23,23,23,0.45);"
+        onmouseover="this.style.background='rgba(23,23,23,0.05)'; this.style.color='#171717'"
+        onmouseout="this.style.background=''; this.style.color='rgba(23,23,23,0.45)'"
         href="/admin/review"
         data-maintainer-link
       >review</a>
     </nav>
     <div class="flex items-center gap-2">
       <div
-        class="flex items-center gap-1 rounded-full border border-ink/12 bg-bone p-0.5 text-xs font-bold text-ink/68"
+        class="flex items-center gap-1 rounded-full p-0.5 font-ui text-xs font-bold"
+        style="border: 1px solid var(--border-sand-dark, #D8CFC3); background: #F8F5EF; color: var(--color-quiet, #7A7268);"
         data-locale-toggle
         data-current-locale={lang}
         data-locales={LOCALES.join(",")}
@@ -41,7 +79,10 @@ const localeLabels = t.locale as unknown as Record<string, string>;
         {LOCALES.map((loc) => (
           <button
             type="button"
-            class={`focus-ring rounded-full px-2.5 py-1 transition ${loc === lang ? "bg-ink text-bone" : "hover:bg-ink/5"}`}
+            class={`focus-ring rounded-full px-2.5 py-1 transition font-ui font-bold text-xs ${loc === lang ? "" : ""}`}
+            style={loc === lang
+              ? "background: var(--color-ink, #171717); color: #F8F5EF;"
+              : "background: transparent; color: var(--color-quiet, #7A7268);"}
             data-locale-option={loc}
             aria-pressed={loc === lang ? "true" : "false"}
           >
@@ -49,7 +90,12 @@ const localeLabels = t.locale as unknown as Record<string, string>;
           </button>
         ))}
       </div>
-      <a class="focus-ring hidden rounded-full bg-ink px-4 py-2 text-sm font-bold text-bone shadow-sm transition hover:bg-clay sm:inline-flex" href={localisedPath("/planner", lang)}>{t.cta.planSequence}</a>
+      <a
+        class="focus-ring hidden rounded-full px-4 py-2 font-ui text-sm font-bold shadow-sm transition sm:inline-flex"
+        style="background: var(--color-accent, #E4572E); color: #ffffff;"
+        onmouseover="this.style.background='var(--color-accent-dark, #B83A1F)'"
+        onmouseout="this.style.background='var(--color-accent, #E4572E)'"
+        href={localisedPath("/planner", lang)}>{t.cta.planSequence}</a>
       <CreatorLogin />
     </div>
   </div>
