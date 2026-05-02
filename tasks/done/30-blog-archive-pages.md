@@ -1,6 +1,6 @@
 # 30 — Blog Category & Tag Archive Pages
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Generate filtered post-listing pages for each category and tag so search engines can index topic-specific URLs.

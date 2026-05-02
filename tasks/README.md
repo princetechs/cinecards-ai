@@ -98,11 +98,12 @@ CineCards AI
 - [29 — Dynamic blog post page (/blog/[slug])](done/29-blog-post-page.md)
 - [32 — Blog nav link & homepage preview section](done/32-blog-nav-homepage.md)
 - [33 — Write 5 seed blog posts for launch](done/33-blog-seed-posts.md)
+- [30 — Blog category & tag archive pages](done/30-blog-archive-pages.md)
+- [31 — Blog sitemap & RSS feed](done/31-blog-sitemap-rss.md)
+- [34 — Blog SEO & AI-readiness audit](done/34-blog-seo-audit.md)
 
 ### Pending
-- [30 — Blog category & tag archive pages](pending/30-blog-archive-pages.md)
-- [31 — Blog sitemap & RSS feed](pending/31-blog-sitemap-rss.md)
-- [34 — Blog SEO & AI-readiness audit](pending/34-blog-seo-audit.md)
+_All tracked tasks are complete._
 
 ## How to use this folder
 

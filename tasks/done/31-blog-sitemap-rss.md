@@ -1,6 +1,6 @@
 # 31 — Blog Sitemap & RSS Feed
 
-**Status:** 🕐 Pending
+**Status:** ✅ Done
 
 ## Goal
 Make every blog URL discoverable by search engines and RSS readers.
