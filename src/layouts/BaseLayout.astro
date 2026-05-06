@@ -2,6 +2,7 @@
 import "../../src/styles/global.css";
 import Header from "../../components/Header.astro";
 import { seo } from "../site.config";
+import Analytics from "@vercel/analytics/astro";
 
 import type { Locale } from "../i18n";
 
@@ -38,6 +39,7 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="alternate" type="application/rss+xml" title="CineCards AI Blog" href="/blog/rss.xml" />
+    <Analytics />
     <slot name="head" />
   </head>
   <body class="font-ui antialiased">
