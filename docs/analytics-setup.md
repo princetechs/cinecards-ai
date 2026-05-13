@@ -25,7 +25,7 @@ Before considering analytics done:
 - Production HTML includes `https://static.cloudflareinsights.com/beacon.min.js` when the Cloudflare token is set.
 - No analytics token or verification value is hardcoded in the repository.
 - Cloudflare Web Analytics shows page views after deployment.
-- Google Search Console verifies the `https://cinecards.ai` property after deployment.
+- Google Search Console verifies the `https://www.aiscreens.in` property after deployment.
 
 ## Notes
 

@@ -6,7 +6,7 @@
 // ── Brand & identity ─────────────────────────────────────────────────────────
 export const SITE_NAME    = "CineCards AI";
 export const SITE_TAGLINE = "Learn film language. Build better AI video prompts.";
-export const SITE_URL     = "https://cinecards.ai";
+export const SITE_URL     = "https://www.aiscreens.in";
 export const GITHUB_URL   = "https://github.com/princetechs/cinecards-ai";
 
 // ── Design tokens (single source of truth) ──────────────────────────────────
