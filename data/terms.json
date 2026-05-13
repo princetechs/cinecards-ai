@@ -38,7 +38,7 @@
     "assets": [
       {
         "type": "image",
-        "url": "/images/terms/frame.jpg",
+        "url": "/images/terms/frame-detail.jpg",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -89,7 +89,7 @@
     "assets": [
       {
         "type": "image",
-        "url": "/images/terms/shot.jpg",
+        "url": "/images/terms/shot-detail.jpg",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -140,7 +140,7 @@
     "assets": [
       {
         "type": "image",
-        "url": "/images/terms/scene.jpg",
+        "url": "/images/terms/scene-detail.jpg",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -192,7 +192,7 @@
     "assets": [
       {
         "type": "image",
-        "url": "/images/terms/sequence.jpg",
+        "url": "/images/terms/sequence-detail.jpg",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -244,7 +244,7 @@
     "assets": [
       {
         "type": "image",
-        "url": "/images/terms/aspect-ratio.jpg",
+        "url": "/images/terms/aspect-ratio-detail.jpg",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",

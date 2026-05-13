@@ -8,6 +8,7 @@ interface Props {
 
 const { term } = Astro.props;
 const cardImage = term.assets?.find((asset) => asset.type === "image" || asset.type === "thumbnail");
+const cardImageUrl = cardImage?.url.replace(/-detail(\.[a-z]+)$/i, "-card$1") ?? cardImage?.url;
 const searchText = [
   term.name,
   term.category,
@@ -32,9 +33,12 @@ const searchText = [
     <a class="term-media-link" href={`/glossary/${term.id}`} aria-label={`Open ${term.name}`}>
       <img
         class="term-media"
-        src={cardImage.url}
+        src={cardImageUrl}
         alt={`Visual example of ${term.name}`}
         loading="lazy"
+        decoding="async"
+        width="640"
+        height="360"
       />
     </a>
   )}

@@ -121,6 +121,9 @@ const glossaryHref = localisedPath("/glossary", lang);
           src={primaryImage.url}
           alt={`Visual example of ${term.name}`}
           loading="eager"
+          decoding="async"
+          width="1200"
+          height="675"
         />
       )}
     </div>
