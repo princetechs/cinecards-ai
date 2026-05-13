@@ -63,13 +63,13 @@
     {
       "id": "next-motion-candidates",
       "assetKind": "previewVideo",
-      "status": "planned",
+      "status": "local-ready",
       "terms": [
         "establishing-shot",
         "wide-shot",
         "medium-shot",
         "close-up",
-        "extreme-close-up"
+        "insert-shot"
       ]
     }
   ]

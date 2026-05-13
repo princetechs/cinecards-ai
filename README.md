@@ -60,7 +60,7 @@ All learning content lives in `data/terms.json`. Each card includes:
 - related terms
 - common mistakes
 - category, priority group, difficulty, and tags
-- `previewVideoUrl`, currently `null` for future generated previews
+- `previewVideoUrl` for terms that have generated teaching clips, otherwise `null`
 
 Schema v2 adds optional fields for `aliases`, `prerequisites`, `providerSupport`, `rights`, `provenance`, `qualityConfidence`, `review`, `community`, `localisation`, and `assets`. All v2 fields are optional, so existing cards keep working without modification — every term is backfilled with `review: { status: "approved" }` and `assets: []` by `scripts/migrate-terms-v2.mjs`. See `types/term.ts` for the full shape.
 
@@ -124,7 +124,7 @@ To change planner behavior, edit `data/sequenceRules.json` first. If a new conte
 
 ## Future AI Video Generation
 
-The current app only creates prompts and placeholder preview blocks. To add real generation:
+The current app already reads generated teaching clips from `previewVideoUrl`. To add real provider-generated footage later:
 
 - Add a provider adapter layer for Runway, Pika/Fal, Stability, or another provider.
 - Store render jobs with prompt, provider, model version, source asset IDs, and rights metadata.

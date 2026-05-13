@@ -51,7 +51,7 @@
       {
         "type": "clip",
         "url": "/videos/terms/frame-preview.mp4",
-        "hash": "4207c7d5d90f6dba33535bcd9ce28aed762fe4d36f01e65becfd2630a9081fd3",
+        "hash": "860aea15a610794d56a591dab1112141d5040d8959974b76800f8f069c0686e7",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -119,7 +119,7 @@
       {
         "type": "clip",
         "url": "/videos/terms/shot-preview.mp4",
-        "hash": "b52c6ca8b42c2d5c2922727a979ba71d9f41a478c8af0f9422922e3754159b45",
+        "hash": "e34a84360fd69c7e1de23802b7ed96f4419a75ccfb02d3095c47077ad2f3bba5",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -256,7 +256,7 @@
       {
         "type": "clip",
         "url": "/videos/terms/sequence-preview.mp4",
-        "hash": "1d26a0cfbae59aaf47b50c673d02792216926b60e286725d68fd0698efbaafbe",
+        "hash": "318dd4d888959f836384e703c8412dcebddbb31987b59ee9ff5bd8d9b0d9a75c",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -359,7 +359,7 @@
     "aiPromptTemplate": "wide establishing shot of [subject], clear location, cinematic natural light, [duration]",
     "previewPrompt3s": "wide establishing shot of [subject], static camera, soft natural light, 3 seconds",
     "previewPrompt5s": "wide establishing shot of [subject], gentle hold as one small action begins, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/establishing-shot-preview.mp4",
     "relatedTerms": [
       "Wide Shot",
       "Master Shot",
@@ -408,6 +408,23 @@
             "synthetic-educational-media"
           ]
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/establishing-shot-preview.mp4",
+        "hash": "2ed369166c1249a09f96db7f523fc8218e3fc42b16afef09fde5f62a856655e8",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -429,7 +446,7 @@
     "aiPromptTemplate": "cinematic wide shot of [subject], full environment visible, balanced composition, [duration]",
     "previewPrompt3s": "wide shot of [subject], subject clearly placed in the environment, 3 seconds",
     "previewPrompt5s": "wide shot of [subject], subtle subject movement through the environment, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/wide-shot-preview.mp4",
     "relatedTerms": [
       "Establishing Shot",
       "Full Shot",
@@ -477,6 +494,23 @@
             "synthetic-educational-media"
           ]
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/wide-shot-preview.mp4",
+        "hash": "f2df065a56a5e5c0b7248bebd82d941bb557ed820c354206fbdf22640d0bfbc9",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -498,7 +532,7 @@
     "aiPromptTemplate": "cinematic medium shot of [subject], clear action, natural expression, [duration]",
     "previewPrompt3s": "medium shot of [subject], one simple action, stable camera, 3 seconds",
     "previewPrompt5s": "medium shot of [subject], action starts and settles naturally, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/medium-shot-preview.mp4",
     "relatedTerms": [
       "Medium Close-Up",
       "Full Shot",
@@ -534,6 +568,23 @@
             "synthetic-educational-media"
           ]
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/medium-shot-preview.mp4",
+        "hash": "cfa352f0e611cfb97309fb0a7f54693a33bb955129ef69efed83048cb80f01fb",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -555,7 +606,7 @@
     "aiPromptTemplate": "cinematic close-up of [subject], shallow depth of field, soft light, emotional focus, [duration]",
     "previewPrompt3s": "cinematic close-up of [subject], soft light, subtle expression change, 3 seconds",
     "previewPrompt5s": "cinematic close-up of [subject], slow dolly in, shallow depth of field, emotional expression, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/close-up-preview.mp4",
     "relatedTerms": [
       "Extreme Close-Up",
       "Reaction Shot",
@@ -592,6 +643,23 @@
         "type": "image",
         "url": "/images/terms/close-up-detail.jpg",
         "hash": "54207d887672b0b4a28d9346f1dca944cfd3bdf41fade0992dd768cafbc9efec",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/close-up-preview.mp4",
+        "hash": "abd58b527bdf91b5101f49790868c3ab20c7561750e53bb5ee12d5b7435a7235",
         "rights": {
           "licence": "CC BY 4.0",
           "holder": "aiscreens",
@@ -1421,7 +1489,7 @@
     "aiPromptTemplate": "cinematic insert shot of [subject], important detail in focus, soft light, [duration]",
     "previewPrompt3s": "insert shot of [subject], important detail action, shallow focus, 3 seconds",
     "previewPrompt5s": "insert shot of [subject], detail action begins and settles, soft light, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/insert-shot-preview.mp4",
     "relatedTerms": [
       "Close-Up",
       "Extreme Close-Up",
@@ -1440,7 +1508,25 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "clip",
+        "url": "/videos/terms/insert-shot-preview.mp4",
+        "hash": "f1bfcf0838ab1687f86ffad7a30920d6d8a2aea259ec814044e73337e33d527e",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "cutaway",

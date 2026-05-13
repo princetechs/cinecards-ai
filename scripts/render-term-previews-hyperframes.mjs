@@ -7,6 +7,7 @@ const repoRoot = process.cwd();
 const projectDir = join(repoRoot, "media/hyperframes/term-previews");
 const outDir = join(repoRoot, "public/videos/terms");
 const renderDir = join(projectDir, "renders");
+const requestedTermIds = new Set(process.argv.slice(2).filter((arg) => !arg.startsWith("--")));
 
 const terms = [
   {
@@ -48,6 +49,46 @@ const terms = [
     lesson: "Pick the shape for the platform.",
     type: "aspect",
     steps: ["16:9", "1:1", "9:16"]
+  },
+  {
+    id: "establishing-shot",
+    name: "Establishing Shot",
+    hook: "Show where the story happens.",
+    lesson: "Let the place read before the detail.",
+    type: "establishing",
+    steps: ["Start wide", "Place the subject", "Hold for context"]
+  },
+  {
+    id: "wide-shot",
+    name: "Wide Shot",
+    hook: "Subject plus meaningful space.",
+    lesson: "Show the whole subject and their world.",
+    type: "wide",
+    steps: ["Full body", "Useful background", "Readable action"]
+  },
+  {
+    id: "medium-shot",
+    name: "Medium Shot",
+    hook: "Gesture and expression together.",
+    lesson: "Frame the action around the torso.",
+    type: "medium",
+    steps: ["Comfortable crop", "Hands visible", "Action clear"]
+  },
+  {
+    id: "close-up",
+    name: "Close-Up",
+    hook: "Emotion or detail fills the frame.",
+    lesson: "Remove distractions and focus attention.",
+    type: "close",
+    steps: ["Move closer", "Simplify background", "Focus on feeling"]
+  },
+  {
+    id: "insert-shot",
+    name: "Insert Shot",
+    hook: "A small action that matters.",
+    lesson: "Cut to the object that explains the moment.",
+    type: "insert",
+    steps: ["Pick the object", "Show the action", "Return to scene"]
   }
 ];
 
@@ -95,6 +136,66 @@ function diagramMarkup(term) {
         <div class="beat beat-c"><span>Payoff</span></div>
         <div class="connector connector-a"></div>
         <div class="connector connector-b"></div>
+      </div>`;
+  }
+  if (term.type === "establishing") {
+    return `
+      <div class="stage live-shot-stage establishing-stage" data-layout-allow-overflow>
+        <div class="sky"></div>
+        <div class="sun"></div>
+        <div class="building building-a"></div>
+        <div class="building building-b"></div>
+        <div class="ground" data-layout-allow-overflow></div>
+        <div class="subject-person far-person"></div>
+        <div class="camera-crop wide-crop"></div>
+        <div class="focus-target place-target" data-layout-ignore></div>
+      </div>`;
+  }
+  if (term.type === "wide") {
+    return `
+      <div class="stage live-shot-stage wide-stage" data-layout-allow-overflow>
+        <div class="set-wall"></div>
+        <div class="prop prop-left"></div>
+        <div class="prop prop-right"></div>
+        <div class="subject-person full-person"></div>
+        <div class="camera-crop wide-crop"></div>
+        <div class="focus-target subject-target" data-layout-ignore></div>
+      </div>`;
+  }
+  if (term.type === "medium") {
+    return `
+      <div class="stage live-shot-stage medium-stage" data-layout-allow-overflow>
+        <div class="set-wall"></div>
+        <div class="table"></div>
+        <div class="subject-person torso-person"></div>
+        <div class="held-item"></div>
+        <div class="camera-crop medium-crop"></div>
+        <div class="crop-line top-crop"></div>
+        <div class="crop-line bottom-crop"></div>
+      </div>`;
+  }
+  if (term.type === "close") {
+    return `
+      <div class="stage live-shot-stage close-stage" data-layout-allow-overflow>
+        <div class="soft-bg"></div>
+        <div class="face"></div>
+        <div class="eye eye-left"></div>
+        <div class="eye eye-right"></div>
+        <div class="emotion-mark"></div>
+        <div class="camera-crop close-crop"></div>
+        <div class="focus-target face-target" data-layout-ignore></div>
+      </div>`;
+  }
+  if (term.type === "insert") {
+    return `
+      <div class="stage live-shot-stage insert-stage" data-layout-allow-overflow>
+        <div class="desk"></div>
+        <div class="hand hand-a"></div>
+        <div class="hand hand-b"></div>
+        <div class="object-card"></div>
+        <div class="object-glow"></div>
+        <div class="camera-crop insert-crop"></div>
+        <div class="focus-target object-target" data-layout-ignore></div>
       </div>`;
   }
   return `
@@ -236,6 +337,75 @@ function html(term) {
       .ratio-wide { width: 320px; height: 180px; left: 62px; top: 70px; border-color: #E4572E; }
       .ratio-square { width: 210px; height: 210px; left: 420px; top: 126px; }
       .ratio-vertical { width: 150px; height: 268px; left: 248px; top: 166px; }
+      .live-shot-stage { background: linear-gradient(180deg, #FBF8F1 0%, #EDE4D8 100%); }
+      .live-shot-stage::after {
+        content: "";
+        position: absolute;
+        inset: 22px;
+        border-radius: 20px;
+        border: 2px solid rgba(23, 23, 23, 0.08);
+        pointer-events: none;
+      }
+      .sky { position: absolute; inset: 0 0 170px; background: linear-gradient(180deg, #E7D8C6, #F8F5EF); }
+      .sun { position: absolute; width: 62px; height: 62px; right: 104px; top: 72px; border-radius: 999px; background: #E4572E; opacity: 0.78; }
+      .ground { position: absolute; left: 0; right: 0; bottom: 0; height: 178px; background: #D9CDBE; }
+      .building { position: absolute; bottom: 154px; border-radius: 14px 14px 0 0; background: #7A7268; opacity: 0.78; }
+      .building-a { left: 112px; width: 132px; height: 172px; }
+      .building-b { right: 134px; width: 178px; height: 218px; opacity: 0.58; }
+      .set-wall { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(122, 114, 104, 0.16), rgba(255,255,255,0.48)); }
+      .prop { position: absolute; bottom: 74px; border-radius: 18px; background: rgba(122, 114, 104, 0.32); }
+      .prop-left { left: 78px; width: 96px; height: 118px; }
+      .prop-right { right: 86px; width: 132px; height: 84px; }
+      .subject-person { position: absolute; background: #171717; z-index: 2; }
+      .subject-person::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        border-radius: 999px;
+        background: #171717;
+        transform: translateX(-50%);
+      }
+      .far-person { left: 324px; bottom: 132px; width: 38px; height: 86px; border-radius: 18px 18px 9px 9px; }
+      .far-person::before { width: 31px; height: 31px; top: -32px; }
+      .full-person { left: 302px; bottom: 82px; width: 86px; height: 214px; border-radius: 42px 42px 18px 18px; }
+      .full-person::before { width: 68px; height: 68px; top: -70px; }
+      .torso-person { left: 286px; bottom: 66px; width: 126px; height: 230px; border-radius: 62px 62px 28px 28px; }
+      .torso-person::before { width: 92px; height: 92px; top: -86px; }
+      .table { position: absolute; left: 138px; right: 138px; bottom: 62px; height: 76px; border-radius: 20px; background: #7A7268; opacity: 0.44; }
+      .held-item { position: absolute; left: 414px; bottom: 168px; width: 74px; height: 48px; border-radius: 10px; background: #E4572E; z-index: 4; }
+      .face { position: absolute; left: 238px; top: 82px; width: 226px; height: 286px; border-radius: 104px 104px 74px 74px; background: #171717; z-index: 2; }
+      .soft-bg { position: absolute; inset: 0; background: radial-gradient(circle at 62% 48%, rgba(228,87,46,0.18), transparent 34%); }
+      .eye { position: absolute; top: 190px; width: 35px; height: 13px; border-radius: 999px; background: #F8F5EF; z-index: 3; }
+      .eye-left { left: 304px; }
+      .eye-right { left: 370px; }
+      .emotion-mark { position: absolute; left: 332px; top: 265px; width: 40px; height: 10px; border-radius: 999px; background: #E4572E; z-index: 3; }
+      .desk { position: absolute; inset: 178px 70px 70px; border-radius: 28px; background: #D6C7B6; }
+      .hand { position: absolute; width: 166px; height: 62px; border-radius: 999px; background: #171717; z-index: 3; }
+      .hand-a { left: 138px; top: 232px; transform: rotate(10deg); }
+      .hand-b { right: 138px; top: 278px; transform: rotate(-12deg); }
+      .object-card { position: absolute; left: 290px; top: 232px; width: 124px; height: 88px; border-radius: 16px; background: #F8F5EF; border: 8px solid #E4572E; z-index: 4; }
+      .object-glow { position: absolute; left: 268px; top: 210px; width: 168px; height: 132px; border-radius: 26px; border: 5px solid rgba(228,87,46,0.46); z-index: 2; }
+      .camera-crop { position: absolute; z-index: 5; border: 7px solid #E4572E; border-radius: 20px; box-shadow: 0 0 0 999px rgba(23, 23, 23, 0.10); }
+      .wide-crop { inset: 48px 58px; }
+      .medium-crop { left: 212px; top: 64px; width: 286px; height: 340px; }
+      .close-crop { left: 196px; top: 54px; width: 310px; height: 354px; }
+      .insert-crop { left: 226px; top: 176px; width: 248px; height: 202px; }
+      .crop-line { position: absolute; left: 212px; width: 286px; height: 5px; background: #E4572E; z-index: 6; }
+      .top-crop { top: 64px; }
+      .bottom-crop { top: 399px; }
+      .focus-target {
+        position: absolute;
+        z-index: 7;
+        width: 138px;
+        height: 56px;
+        border-radius: 18px;
+        border: 5px solid #171717;
+        background: rgba(248, 245, 239, 0.16);
+      }
+      .place-target { left: 82px; bottom: 72px; }
+      .subject-target { left: 276px; top: 58px; width: 142px; height: 318px; }
+      .face-target { left: 410px; top: 86px; width: 104px; height: 82px; }
+      .object-target { left: 392px; top: 166px; width: 178px; height: 74px; }
       .wipe { position: absolute; inset: 0; background: #E4572E; transform: translateX(-101%); z-index: 10; }
     </style>
   </head>
@@ -291,6 +461,43 @@ function html(term) {
           .from(".ratio-vertical", { y: 70, opacity: 0, duration: 0.55, ease: "circ.out" }, 2.8)
           .to(".ratio", { borderColor: "#E4572E", stagger: 0.16, duration: 0.36, ease: "power2.out" }, 4.2);
       }
+      if ("${term.type}" === "establishing") {
+        tl.from(".building", { y: 80, opacity: 0, stagger: 0.16, duration: 0.6, ease: "power3.out" }, 1.1)
+          .from(".ground", { y: 60, opacity: 0, duration: 0.5, ease: "power2.out" }, 1.25)
+          .from(".far-person", { scale: 0.5, opacity: 0, duration: 0.48, ease: "back.out(1.8)" }, 2.0)
+          .from(".camera-crop", { scale: 1.22, opacity: 0, duration: 0.8, ease: "power3.out" }, 2.55)
+          .from(".focus-target", { x: -28, opacity: 0, duration: 0.45, ease: "power2.out" }, 3.45);
+      }
+      if ("${term.type}" === "wide") {
+        tl.from(".prop", { y: 54, opacity: 0, stagger: 0.14, duration: 0.5, ease: "power2.out" }, 1.1)
+          .from(".full-person", { y: 44, opacity: 0, duration: 0.58, ease: "back.out(1.5)" }, 1.75)
+          .from(".camera-crop", { scale: 0.86, opacity: 0, duration: 0.65, ease: "power3.out" }, 2.45)
+          .from(".focus-target", { y: -20, opacity: 0, duration: 0.45, ease: "power2.out" }, 3.35)
+          .to(".full-person", { x: 34, duration: 1.4, ease: "sine.inOut" }, 3.9);
+      }
+      if ("${term.type}" === "medium") {
+        tl.from(".table", { y: 50, opacity: 0, duration: 0.5, ease: "power2.out" }, 1.1)
+          .from(".torso-person", { y: 42, opacity: 0, duration: 0.58, ease: "back.out(1.4)" }, 1.65)
+          .from(".held-item", { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(1.8)" }, 2.28)
+          .from(".camera-crop", { scaleY: 0.8, opacity: 0, duration: 0.62, ease: "power3.out" }, 2.9)
+          .from(".crop-line", { scaleX: 0, stagger: 0.12, duration: 0.36, ease: "power2.inOut" }, 3.35);
+      }
+      if ("${term.type}" === "close") {
+        tl.from(".face", { scale: 0.78, y: 28, opacity: 0, duration: 0.7, ease: "back.out(1.2)" }, 1.15)
+          .from(".eye", { scaleX: 0, stagger: 0.08, duration: 0.35, ease: "power2.out" }, 2.02)
+          .from(".camera-crop", { scale: 1.18, opacity: 0, duration: 0.64, ease: "power3.out" }, 2.55)
+          .from(".emotion-mark", { scaleX: 0, duration: 0.42, ease: "power2.out" }, 3.05)
+          .from(".focus-target", { x: 22, opacity: 0, duration: 0.45, ease: "power2.out" }, 3.42);
+      }
+      if ("${term.type}" === "insert") {
+        tl.from(".desk", { y: 48, opacity: 0, duration: 0.48, ease: "power2.out" }, 1.1)
+          .from(".object-card", { scale: 0.62, opacity: 0, duration: 0.46, ease: "back.out(1.8)" }, 1.75)
+          .from(".hand-a", { x: -80, opacity: 0, duration: 0.6, ease: "power3.out" }, 2.1)
+          .from(".hand-b", { x: 80, opacity: 0, duration: 0.6, ease: "power3.out" }, 2.28)
+          .from(".camera-crop", { scale: 1.2, opacity: 0, duration: 0.6, ease: "power3.out" }, 3.0)
+          .from(".object-glow", { scale: 0.75, opacity: 0, duration: 0.48, ease: "power2.out" }, 3.4)
+          .from(".focus-target", { y: -22, opacity: 0, duration: 0.42, ease: "power2.out" }, 3.78);
+      }
       window.__timelines["main"] = tl;
     </script>
   </body>
@@ -303,7 +510,15 @@ mkdirSync(renderDir, { recursive: true });
 rmSync(renderDir, { recursive: true, force: true });
 mkdirSync(renderDir, { recursive: true });
 
-for (const term of terms) {
+const selectedTerms = requestedTermIds.size > 0
+  ? terms.filter((term) => requestedTermIds.has(term.id))
+  : terms;
+
+if (selectedTerms.length === 0) {
+  throw new Error(`No matching terms for ${Array.from(requestedTermIds).join(", ")}`);
+}
+
+for (const term of selectedTerms) {
   await writeFile(join(projectDir, "index.html"), html(term), "utf8");
   run("npx", ["--yes", "hyperframes@0.6.4", "lint"], projectDir);
   run("npx", ["--yes", "hyperframes@0.6.4", "inspect", "--samples", "8"], projectDir);
