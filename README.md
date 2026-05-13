@@ -91,6 +91,10 @@ Keep explanations short, practical, and beginner-friendly. Use `[subject]` and `
 
 Blog posts live in `src/content/blog/` as MDX files using the schema in `src/content/config.ts`. Before adding or editing blog content, follow the checklist in `docs/blog-writing-rules.md` so each article is SEO-friendly, LLM-readable, beginner-friendly, internally linked, and valid for the Astro Content Collection.
 
+## Analytics Setup
+
+External analytics and SEO verification are optional and environment-driven. Use `docs/analytics-setup.md` to enable Cloudflare Web Analytics and Google Search Console without hardcoding public site tokens in the repo.
+
 ## How the Planner Works
 
 `lib/planner.ts` does three things:
