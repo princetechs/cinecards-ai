@@ -87,6 +87,10 @@ Add an object to `data/terms.json` using this format:
 
 Keep explanations short, practical, and beginner-friendly. Use `[subject]` and `[duration]` placeholders in prompt templates so `lib/promptBuilder.ts` can fill them automatically.
 
+## Blog Publishing Rules
+
+Blog posts live in `src/content/blog/` as MDX files using the schema in `src/content/config.ts`. Before adding or editing blog content, follow the checklist in `docs/blog-writing-rules.md` so each article is SEO-friendly, LLM-readable, beginner-friendly, internally linked, and valid for the Astro Content Collection.
+
 ## How the Planner Works
 
 `lib/planner.ts` does three things:
