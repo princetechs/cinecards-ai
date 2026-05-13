@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cinecards.ai/schema/term.schema.json",
+  "$id": "https://www.aiscreens.in/schema/term.schema.json",
   "title": "Term",
-  "description": "A single CineCards term card (v2). Required fields are the v1 baseline; v2 fields are optional and backwards compatible.",
+  "description": "A single aiscreens term card (v2). Required fields are the v1 baseline; v2 fields are optional and backwards compatible.",
   "type": "object",
   "additionalProperties": false,
   "required": [

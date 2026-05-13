@@ -1,10 +1,10 @@
-# CineCards AI Blog Writing Rules
+# aiscreens Blog Writing Rules
 
 Use this checklist before creating or publishing any blog post in `src/content/blog/`.
 
 ## Goal
 
-Every CineCards AI blog post should help beginners make better videos with clear film language, practical AI video prompts, and links back into the product.
+Every aiscreens blog post should help beginners make better videos with clear film language, practical AI video prompts, and links back into the product.
 
 ## Required Frontmatter
 
@@ -13,7 +13,7 @@ Each post must use the Astro Content Collection fields from `src/content/config.
 - `title`: clear, search-friendly, and specific.
 - `description`: 140-160 characters when possible; explain the reader outcome.
 - `publishedAt`: ISO-style date, for example `2026-05-13`.
-- `author`: usually `CineCards AI`.
+- `author`: usually `aiscreens`.
 - `category`: one of `shots`, `lighting`, `movement`, `editing`, `ai-prompting`.
 - `tags`: 4-8 plain-language tags people search for.
 - `difficulty`: `beginner`, `intermediate`, or `advanced`.
@@ -49,7 +49,7 @@ Large language models should be able to extract the answer without guessing:
 - Avoid vague claims like "best", "amazing", or "revolutionary" unless explained.
 - Prefer stable educational guidance over newsy model claims.
 
-## CineCards Content Voice
+## aiscreens Content Voice
 
 - Beginner-friendly, practical, and direct.
 - Explain film terms with plain language first, then the technical term.

@@ -1,8 +1,8 @@
 /**
- * CineCards AI — client-side analytics emitter.
+ * aiscreens — client-side analytics emitter.
  *
  * No backend, no third-party SDK. Events are appended to localStorage under
- * `cinecards.events` and capped at the last MAX_EVENTS entries (ring buffer
+ * `aiscreens.events` and capped at the last MAX_EVENTS entries (ring buffer
  * drops oldest). All functions are SSR-safe — they no-op when `window` is
  * undefined.
  *
@@ -15,7 +15,7 @@ export interface AnalyticsEvent {
   ts: number;
 }
 
-const STORAGE_KEY = "cinecards.events";
+const STORAGE_KEY = "aiscreens.events";
 const MAX_EVENTS = 500;
 
 const isBrowser = (): boolean => typeof window !== "undefined";

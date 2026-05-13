@@ -7,7 +7,7 @@ const blog = defineCollection({
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
-    author: z.string().default("CineCards AI"),
+    author: z.string().default("aiscreens"),
     category: z.enum(["shots", "lighting", "movement", "editing", "ai-prompting"]),
     tags: z.array(z.string()).default([]),
     difficulty: z.enum(["beginner", "intermediate", "advanced"]).default("beginner"),

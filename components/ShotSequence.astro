@@ -41,7 +41,7 @@
     items: SavedPackItem[];
   };
 
-  const STORAGE_KEY = "cinecards.savedPacks";
+  const STORAGE_KEY = "aiscreens.savedPacks";
 
   const slugify = (value: string) =>
     value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "pack";
@@ -60,7 +60,7 @@
 
   const writeSaved = (packs: SavedPack[]) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(packs));
-    window.dispatchEvent(new CustomEvent("cinecards:saved-packs-updated"));
+    window.dispatchEvent(new CustomEvent("aiscreens:saved-packs-updated"));
   };
 
   const collectCurrentPlan = (): { topic: string; items: SavedPackItem[] } | null => {
@@ -128,6 +128,6 @@
     }
   });
 
-  window.addEventListener("cinecards:plan-built", updateButtonVisibility);
+  window.addEventListener("aiscreens:plan-built", updateButtonVisibility);
   updateButtonVisibility();
 </script>

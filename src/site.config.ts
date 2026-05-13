@@ -4,8 +4,8 @@
  */
 
 // ── Brand & identity ─────────────────────────────────────────────────────────
-export const SITE_NAME    = "CineCards AI";
-export const SITE_TAGLINE = "Learn film language. Build better AI video prompts.";
+export const SITE_NAME    = "aiscreens";
+export const SITE_TAGLINE = "Learn AI cinematography. Build better visual stories.";
 export const SITE_URL     = "https://www.aiscreens.in";
 export const GITHUB_URL   = "https://github.com/princetechs/cinecards-ai";
 
@@ -57,11 +57,11 @@ export const type = {
 // ── Hero section copy ────────────────────────────────────────────────────────
 export const hero = {
   eyebrow:   "Open Source · 124 Film Terms · AI-Ready",
-  headline1: "Learn film",
-  headline2: "language.",
-  headline3: "Build better AI",
-  headline4: "video prompts.",
-  subtitle:  "CineCards AI teaches shots, angles, lighting, movement, and editing — then turns them into prompts you can use in Runway, Pika, and any AI video tool.",
+  headline1: "Learn AI",
+  headline2: "cinematography.",
+  headline3: "Build better",
+  headline4: "visual stories.",
+  subtitle:  "aiscreens teaches shots, lighting, movement, editing, and practical AI video workflows — then turns your ideas into prompts you can use in Runway, Pika, and any AI video tool.",
   cta1Label: "Start Learning",
   cta1Href:  "/glossary",
   cta2Label: "Plan a Sequence",
@@ -87,8 +87,8 @@ export const navLinks = [
 
 // ── SEO defaults ─────────────────────────────────────────────────────────────
 export const seo = {
-  defaultTitle:       `${SITE_NAME} - Visual film terms and AI video shot planning`,
-  defaultDescription: "A lightweight open-source learning tool for cinematography, videography, and AI video prompts.",
-  ogImage:            "/images/cinecards-hero.png",
+  defaultTitle:       `${SITE_NAME} - AI cinematography, video prompts, and visual storytelling`,
+  defaultDescription: "Simple practical guides for AI cinematography, shot planning, AI video prompts, and future interactive visual frontend resources.",
+  ogImage:            "/images/aiscreens-hero.png",
   themeColor:         "#0F0F13",
 } as const;

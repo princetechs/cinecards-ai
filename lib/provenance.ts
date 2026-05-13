@@ -1,4 +1,4 @@
-// Canonical provenance contract for CineCards AI.
+// Canonical provenance contract for aiscreens.
 //
 // One source of truth for the ProvenanceRecord shape. The render worker
 // (apps/worker/provenance.ts) imports this type so the on-disk JSON written

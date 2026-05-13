@@ -61,10 +61,10 @@ const provenanceRights = provenanceRecords[0]
   ? summariseRights(provenanceRecords[0].provider)
   : null;
 
-const pageTitle = `${term.name} - CineCards AI Glossary`;
+const pageTitle = `${term.name} - aiscreens Glossary`;
 const pageDescription = term.shortDefinition;
 const canonical = new URL(localisedPath(`/glossary/${rawTerm.id}`, lang), Astro.site ?? Astro.url).href;
-const ogImage = new URL("/images/cinecards-hero.png", Astro.site ?? Astro.url).href;
+const ogImage = new URL("/images/aiscreens-hero.png", Astro.site ?? Astro.url).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -73,7 +73,7 @@ const jsonLd = {
   description: term.shortDefinition,
   inDefinedTermSet: {
     "@type": "DefinedTermSet",
-    name: "CineCards AI Glossary",
+    name: "aiscreens Glossary",
     url: new URL(localisedPath("/glossary", lang), Astro.site ?? Astro.url).href
   },
   termCode: rawTerm.id,
@@ -290,7 +290,7 @@ const glossaryHref = localisedPath("/glossary", lang);
         await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
         const original = copyButton.textContent;
         copyButton.textContent = "Copied";
-        window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+        window.dispatchEvent(new CustomEvent("aiscreens:prompt-copied"));
         setTimeout(() => {
           copyButton.textContent = original;
         }, 1200);

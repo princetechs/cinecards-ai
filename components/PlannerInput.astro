@@ -63,23 +63,23 @@ import ShotSequence from "./ShotSequence.astro";
         <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone">${escapeHtml(item.prompt)}</p>
       </article>
     `).join("");
-    window.dispatchEvent(new CustomEvent("cinecards:plan-built"));
+    window.dispatchEvent(new CustomEvent("aiscreens:plan-built"));
   };
 
-  window.cinecardsBuildPlanFromForm = (form: HTMLFormElement) => {
+  window.aiscreensBuildPlanFromForm = (form: HTMLFormElement) => {
     const topic = form.querySelector<HTMLTextAreaElement>("[data-planner-topic]")?.value.trim() || "coffee shop morning reel";
     renderPlan(topic);
   };
 
-  window.cinecardsBuildPlanFromButton = (button: HTMLButtonElement) => {
+  window.aiscreensBuildPlanFromButton = (button: HTMLButtonElement) => {
     const form = button.closest<HTMLFormElement>("[data-planner-form]");
-    if (form) window.cinecardsBuildPlanFromForm?.(form);
+    if (form) window.aiscreensBuildPlanFromForm?.(form);
   };
 
   document.querySelectorAll<HTMLFormElement>("[data-planner-form]").forEach((form) => {
     const submitButton = form.querySelector<HTMLButtonElement>("[data-planner-submit]");
     submitButton?.addEventListener("click", () => {
-      window.cinecardsBuildPlanFromForm?.(form);
+      window.aiscreensBuildPlanFromForm?.(form);
     });
 
     form.addEventListener("submit", (event) => {
@@ -104,7 +104,7 @@ import ShotSequence from "./ShotSequence.astro";
     await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
     const original = copyButton.textContent;
     copyButton.textContent = "Copied";
-    window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+    window.dispatchEvent(new CustomEvent("aiscreens:prompt-copied"));
     setTimeout(() => {
       copyButton.textContent = original;
     }, 1200);

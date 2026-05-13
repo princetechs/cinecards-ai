@@ -1,6 +1,6 @@
 # Analytics Setup
 
-CineCards AI supports two optional production-only setup values:
+aiscreens supports two optional production-only setup values:
 
 - Cloudflare Web Analytics for privacy-friendly traffic analytics.
 - Google Search Console site verification for SEO indexing and search queries.

@@ -41,7 +41,7 @@
 </div>
 
 <script>
-  const profileKey = "cinecards.profile";
+  const profileKey = "aiscreens.profile";
 
   type Profile = {
     name: string;
@@ -67,7 +67,7 @@
 
   const writeProfile = (profile: Profile) => {
     localStorage.setItem(profileKey, JSON.stringify(profile));
-    window.dispatchEvent(new CustomEvent("cinecards:profile-updated"));
+    window.dispatchEvent(new CustomEvent("aiscreens:profile-updated"));
   };
 
   const updateStats = () => {
@@ -104,24 +104,24 @@
     });
   });
 
-  window.addEventListener("cinecards:prompt-copied", () => {
+  window.addEventListener("aiscreens:prompt-copied", () => {
     const profile = readProfile();
     profile.promptsCopied += 1;
     writeProfile(profile);
   });
 
-  window.addEventListener("cinecards:plan-built", () => {
+  window.addEventListener("aiscreens:plan-built", () => {
     const profile = readProfile();
     profile.plansBuilt += 1;
     writeProfile(profile);
   });
 
-  window.addEventListener("cinecards:group-complete", ((event: CustomEvent<string>) => {
+  window.addEventListener("aiscreens:group-complete", ((event: CustomEvent<string>) => {
     const profile = readProfile();
     if (!profile.groupsDone.includes(event.detail)) profile.groupsDone.push(event.detail);
     writeProfile(profile);
   }) as EventListener);
 
-  window.addEventListener("cinecards:profile-updated", updateStats);
+  window.addEventListener("aiscreens:profile-updated", updateStats);
   updateStats();
 </script>
