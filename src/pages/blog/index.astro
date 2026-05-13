@@ -1,5 +1,7 @@
 ---
 import { getCollection } from "astro:content";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
@@ -27,6 +29,10 @@ const categoryColors: Record<string, string> = {
 
 function formatDate(d: Date) {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+function hasLocalImage(path: string) {
+  return path.startsWith("/") && existsSync(join(process.cwd(), "public", path));
 }
 ---
 
@@ -98,14 +104,23 @@ function formatDate(d: Date) {
                   {featured.data.readingTime && <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.3);">{featured.data.readingTime} min read</span>}
                 </div>
               </div>
-              <!-- Right: visual placeholder -->
-              <div style={`background: linear-gradient(135deg, ${categoryColors[featured.data.category] ?? '#E4572E'}22 0%, #0F0F13 100%); display: flex; align-items: center; justify-content: center;`}>
-                <div style="text-align: center; padding: 32px;">
-                  <div style={`font-size: 64px; line-height: 1; margin-bottom: 16px; opacity: 0.6;`}>
-                    {featured.data.category === 'shots' ? '🎬' : featured.data.category === 'lighting' ? '💡' : featured.data.category === 'movement' ? '🎥' : featured.data.category === 'editing' ? '✂️' : '🤖'}
+              <!-- Right: visual -->
+              <div style={`background: linear-gradient(135deg, ${categoryColors[featured.data.category] ?? '#E4572E'}22 0%, #0F0F13 100%); display: flex; align-items: center; justify-content: center; overflow: hidden;`}>
+                {hasLocalImage(featured.data.ogImage) ? (
+                  <img
+                    src={featured.data.ogImage}
+                    alt=""
+                    loading="eager"
+                    style="width: 100%; height: 100%; min-height: 300px; object-fit: cover; display: block;"
+                  />
+                ) : (
+                  <div style="text-align: center; padding: 32px;">
+                    <div style={`font-size: 64px; line-height: 1; margin-bottom: 16px; opacity: 0.6;`}>
+                      {featured.data.category === 'shots' ? '🎬' : featured.data.category === 'lighting' ? '💡' : featured.data.category === 'movement' ? '🎥' : featured.data.category === 'editing' ? '✂️' : '🤖'}
+                    </div>
+                    <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; text-transform: uppercase;">{featured.data.difficulty}</span>
                   </div>
-                  <span class="font-ui" style="font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.08em; text-transform: uppercase;">{featured.data.difficulty}</span>
-                </div>
+                )}
               </div>
             </div>
           </a>
@@ -122,8 +137,16 @@ function formatDate(d: Date) {
               onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 48px rgba(0,0,0,0.1)'"
               onmouseout="this.style.transform=''; this.style.boxShadow=''"
             >
-              <!-- Card top strip -->
-              <div style={`height: 6px; background: ${categoryColors[post.data.category] ?? '#E4572E'};`}></div>
+              {hasLocalImage(post.data.ogImage) ? (
+                <img
+                  src={post.data.ogImage}
+                  alt=""
+                  loading="lazy"
+                  style="width: 100%; aspect-ratio: 1200 / 630; object-fit: cover; display: block;"
+                />
+              ) : (
+                <div style={`height: 6px; background: ${categoryColors[post.data.category] ?? '#E4572E'};`}></div>
+              )}
 
               <div style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
                 <!-- Category + difficulty -->
