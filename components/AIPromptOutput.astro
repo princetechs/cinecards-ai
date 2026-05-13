@@ -71,7 +71,7 @@ const starterTerms = terms.slice(0, 24);
 
   copyButton?.addEventListener("click", async () => {
     await navigator.clipboard.writeText(result?.textContent ?? "");
-    window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+    window.dispatchEvent(new CustomEvent("aiscreens:prompt-copied"));
     copyButton.textContent = "Copied";
     setTimeout(() => {
       copyButton.textContent = "Copy prompt";

@@ -1,4 +1,4 @@
-// Provider adapter shared types for the CineCards AI render layer.
+// Provider adapter shared types for the aiscreens render layer.
 // The render worker (task 12) consumes this surface; adapters here are stubs.
 
 export type ProviderId = 'runway' | 'pika' | 'stability' | 'soraLegacy';

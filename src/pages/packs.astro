@@ -47,7 +47,7 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
 ---
 
 <BaseLayout
-  title="CineCards AI Prompt Packs - Curated shot bundles for AI video"
+  title="aiscreens Prompt Packs - Curated shot bundles for AI video"
   description="Curated reusable bundles of cinematography terms and AI video prompts for common use cases."
 >
   <section class="page-hero">
@@ -169,7 +169,7 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
   const readSaved = (): SavedPack[] => {
     if (typeof localStorage === "undefined") return [];
     try {
-      const raw = localStorage.getItem("cinecards.savedPacks");
+      const raw = localStorage.getItem("aiscreens.savedPacks");
       if (!raw) return [];
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed as SavedPack[] : [];
@@ -179,7 +179,7 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
   };
 
   const writeSaved = (packs: SavedPack[]) => {
-    localStorage.setItem("cinecards.savedPacks", JSON.stringify(packs));
+    localStorage.setItem("aiscreens.savedPacks", JSON.stringify(packs));
   };
 
   const renderSaved = () => {
@@ -259,11 +259,11 @@ const resolved: ResolvedPack[] = packs.map((pack) => ({
     await navigator.clipboard.writeText(copyButton.dataset.copyPrompt ?? "");
     const original = copyButton.textContent;
     copyButton.textContent = "Copied";
-    window.dispatchEvent(new CustomEvent("cinecards:prompt-copied"));
+    window.dispatchEvent(new CustomEvent("aiscreens:prompt-copied"));
     setTimeout(() => { copyButton.textContent = original; }, 1200);
   });
 
-  window.addEventListener("cinecards:saved-packs-updated", renderSaved);
+  window.addEventListener("aiscreens:saved-packs-updated", renderSaved);
   renderSaved();
 </script>
 </BaseLayout>

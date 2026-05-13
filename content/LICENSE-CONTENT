@@ -1,4 +1,4 @@
-CineCards AI — Content License
+aiscreens — Content License
 
 This license applies to the educational content of this repository, including:
 - `data/` (terms.json, sequenceRules.json, prompt packs)
@@ -14,4 +14,4 @@ Content license: Creative Commons Attribution 4.0 International (CC BY 4.0)
 - Human-readable summary: https://creativecommons.org/licenses/by/4.0/
 
 Attribution example:
-"Term definitions adapted from CineCards AI (https://github.com/your-org/cinecards-ai), licensed under CC BY 4.0."
+"Term definitions adapted from aiscreens (https://github.com/princetechs/cinecards-ai), licensed under CC BY 4.0."

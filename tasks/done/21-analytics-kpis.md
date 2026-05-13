@@ -10,7 +10,7 @@ Privacy-safe event taxonomy aligned to the four KPI families in the report.
   (Learning, Product, Generation, Community), each with name / trigger /
   properties / KPI mapping.
 - Client emitter: `lib/analytics.ts` — `track`, `getEvents`, `clearEvents`.
-  No third-party SDK, no network. Appends to `localStorage["cinecards.events"]`,
+  No third-party SDK, no network. Appends to `localStorage["aiscreens.events"]`,
   ring-buffered to last 500 entries. SSR-safe (no-ops without `window`).
 - First wired call site: `term_prompt_copied` fires from
   `components/GlossaryGrid.astro` when a user copies a term's AI prompt

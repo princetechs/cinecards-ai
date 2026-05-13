@@ -1,4 +1,4 @@
-# CineCards AI — Analytics Event Taxonomy
+# aiscreens — Analytics Event Taxonomy
 
 Privacy-safe, no-backend product event taxonomy aligned to the four KPI
 families from the deep-research report: **Learning**, **Product**,
@@ -7,7 +7,7 @@ families from the deep-research report: **Learning**, **Product**,
 ## Stance
 
 - **No third-party SDK, no network for product events.** Events are appended to
-  `localStorage` under `cinecards.events` via `lib/analytics.ts`.
+  `localStorage` under `aiscreens.events` via `lib/analytics.ts`.
 - Aggregate site analytics and SEO verification are configured separately in
   `docs/analytics-setup.md`.
 - Ring-buffered to the last 500 entries (oldest dropped).
@@ -91,7 +91,7 @@ Discussions to Issues conversion.
 
 ## Notes for future work
 
-- A KPI dashboard page (read-only, computed from `cinecards.events` in the
+- A KPI dashboard page (read-only, computed from `aiscreens.events` in the
   browser) is intentionally out of scope here — see `tasks/pending/` once the
   product validates the need for one.
 - If we ever introduce a backend, the same `track()` API can be extended to

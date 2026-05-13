@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cinecards.ai/schema/sequence-rules.schema.json",
+  "$id": "https://www.aiscreens.in/schema/sequence-rules.schema.json",
   "title": "SequenceRules",
   "description": "Map of content type -> ordered list of term NAMES (not ids) for the planner. Allowed keys: product, travel, dialogue, tutorial, cinematic, lifestyle, narrative.",
   "type": "object",

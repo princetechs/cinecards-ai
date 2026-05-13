@@ -1,11 +1,11 @@
-# CineCards AI — Task Mind Map
+# aiscreens — Task Mind Map
 
 Single source of truth for "what is built" vs "what is left". Any AI agent or human contributor should read this file first, then drill into `done/` or `pending/`.
 
 ## Mind Map
 
 ```
-CineCards AI
+aiscreens
 ├── Foundation (DONE)
 │   ├── Stack: Astro + TypeScript + Tailwind + JSON
 │   ├── Pages: index, glossary, planner

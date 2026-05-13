@@ -1,4 +1,4 @@
-# Contributing to CineCards AI
+# Contributing to aiscreens
 
 Thanks for helping make film language easier to learn and easier to prompt.
 
@@ -57,4 +57,4 @@ Content should be practical, visual, and beginner-friendly. Avoid long textbook 
 
 ## Licensing your contributions
 
-CineCards AI uses a split license. Code contributions (under `components/`, `lib/`, `src/`, `types/`, build config) are licensed under Apache-2.0; content contributions (under `data/`, term text, diagrams, and prompt templates) are licensed under CC BY 4.0. By opening a pull request you agree your contribution is offered under the matching license for the files you touched. See `LICENSE` and `content/LICENSE-CONTENT` for the full terms.
+aiscreens uses a split license. Code contributions (under `components/`, `lib/`, `src/`, `types/`, build config) are licensed under Apache-2.0; content contributions (under `data/`, term text, diagrams, and prompt templates) are licensed under CC BY 4.0. By opening a pull request you agree your contribution is offered under the matching license for the files you touched. See `LICENSE` and `content/LICENSE-CONTENT` for the full terms.

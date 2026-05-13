@@ -55,7 +55,7 @@ for (const term of queue) {
   });
 }
 
-const pageTitle = "Maintainer review queue - CineCards AI";
+const pageTitle = "Maintainer review queue - aiscreens";
 const pageDescription = "Local-only review queue for AI-generated cards.";
 ---
 
@@ -145,8 +145,8 @@ const pageDescription = "Local-only review queue for AI-generated cards.";
 </BaseLayout>
 
 <script>
-  const STORAGE_KEY = "cinecards.reviewDecisions";
-  const MAINTAINER_KEY = "cinecards.maintainerMode";
+  const STORAGE_KEY = "aiscreens.reviewDecisions";
+  const MAINTAINER_KEY = "aiscreens.maintainerMode";
 
   type Decision = { decidedStatus: string; reviewer: string; decidedAt: string };
 

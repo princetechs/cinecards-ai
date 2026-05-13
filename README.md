@@ -1,6 +1,10 @@
-# CineCards AI
+# aiscreens
 
-CineCards AI is an open-source learning website for videography, cinematography, and AI video creators. It teaches film terminology as interactive cards, then turns a topic or story into a prioritized shot sequence with copyable AI video prompts.
+aiscreens is a practical learning website for AI cinematography, AI video creation, and visual storytelling. It teaches film language with simple cards, turns a topic or story into a prioritized shot sequence, and gives creators copyable prompts they can use in AI video tools.
+
+The project starts with AI cinematography: shots, lighting, camera movement, editing flow, prompt packs, and beginner-friendly video recipes. Over time it can grow into a broader resource for AI-powered frontend experiences, interactive 3D models, product demos, screen-based storytelling, visual UI systems, and practical client-facing examples.
+
+The business goal is to share useful knowledge for free while making aiscreens understandable to future clients. The site should help people learn, trust the work, and eventually contact the owner for services such as AI video direction, prompt design, cinematic content systems, frontend prototypes, interactive AI UI, and visual product work.
 
 The product direction is intentionally lightweight: Astro, TypeScript, Tailwind CSS, JSON content, static SEO-friendly pages, and local-device progress tracking. The current profile button is not server auth; it is a small localStorage layer for tracking copied prompts, built plans, and learning path progress.
 
@@ -9,6 +13,7 @@ The product direction is intentionally lightweight: Astro, TypeScript, Tailwind 
 - Beginner videographers learning shot sizes, angles, lighting, composition, and editing logic.
 - AI video creators who need cleaner shot-direction prompts.
 - Filmmakers who want a fast previs and shot-planning vocabulary.
+- Founders, creators, and businesses exploring AI video, product demos, and interactive visual frontend ideas.
 - Open-source contributors who want to improve content, prompts, UI, or future render adapters.
 
 ## Project Structure
@@ -117,7 +122,7 @@ The current app only creates prompts and placeholder preview blocks. To add real
 
 ## Localisation
 
-CineCards AI supports localised UI strings and per-term translations. The default locale is `en`; `es` and `hi` ship with translated nav, CTAs, and term-detail headings, plus a few sample term translations.
+aiscreens supports localised UI strings and per-term translations. The default locale is `en`; `es` and `hi` ship with translated nav, CTAs, and term-detail headings, plus a few sample term translations.
 
 - Add a new locale: drop a JSON file in `src/i18n/messages/<locale>.json` (any subset of keys; missing keys fall back to English) and add the locale to `LOCALES` in `src/i18n/index.ts`.
 - Translate a term card: add a `localisation: { "<locale>": { name, shortDefinition, whyItMatters } }` block to that term in `data/terms.json`. Untranslated fields automatically fall back to the English source.
@@ -129,7 +134,7 @@ See `CONTRIBUTING.md` for contribution lanes and review expectations. Please fol
 
 ## License
 
-CineCards AI uses a split license so code and educational content can be reused with the right expectations.
+aiscreens uses a split license so code and educational content can be reused with the right expectations.
 
 - Code is licensed under Apache-2.0. See `LICENSE` at the repo root.
 - Content (everything in `data/`, term text, diagrams, and prompt templates) is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0). See `content/LICENSE-CONTENT` and `content/README.md`.

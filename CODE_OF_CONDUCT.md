@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We pledge to make participation in CineCards AI respectful, welcoming, and harassment-free for everyone.
+We pledge to make participation in aiscreens respectful, welcoming, and harassment-free for everyone.
 
 ## Expected Behavior
 

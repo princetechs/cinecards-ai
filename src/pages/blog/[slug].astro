@@ -41,7 +41,7 @@ const showHeroImage = hasLocalImage(post.data.ogImage);
 ---
 
 <BaseLayout
-  title={`${post.data.title} | CineCards AI Blog`}
+  title={`${post.data.title} | aiscreens Blog`}
   description={post.data.description}
   ogType="article"
 >
@@ -58,9 +58,9 @@ const showHeroImage = hasLocalImage(post.data.ogImage);
       "datePublished": post.data.publishedAt.toISOString(),
       "dateModified": (post.data.updatedAt ?? post.data.publishedAt).toISOString(),
       "author": { "@type": "Person", "name": post.data.author },
-      "publisher": { "@type": "Organization", "name": "CineCards AI", "url": "https://cinecards.ai" },
-      "image": `https://cinecards.ai${post.data.ogImage}`,
-      "url": `https://cinecards.ai/blog/${post.slug}`,
+      "publisher": { "@type": "Organization", "name": "aiscreens", "url": "https://www.aiscreens.in" },
+      "image": `https://www.aiscreens.in${post.data.ogImage}`,
+      "url": `https://www.aiscreens.in/blog/${post.slug}`,
     })} />
   </Fragment>
 

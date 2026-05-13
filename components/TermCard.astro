@@ -360,8 +360,8 @@ const searchText = [
     const id = btn.dataset.knowTerm;
     if (!id) return;
     try {
-      const known: string[] = JSON.parse(localStorage.getItem('cinecards.knownTerms') ?? '[]');
-      if (!known.includes(id)) { known.push(id); localStorage.setItem('cinecards.knownTerms', JSON.stringify(known)); }
+      const known: string[] = JSON.parse(localStorage.getItem('aiscreens.knownTerms') ?? '[]');
+      if (!known.includes(id)) { known.push(id); localStorage.setItem('aiscreens.knownTerms', JSON.stringify(known)); }
       btn.textContent = '✓ Known';
       btn.style.color = '#2F855A';
       btn.style.borderColor = '#2F855A';
@@ -391,7 +391,7 @@ const searchText = [
       // Analytics
       const card = btn.closest<HTMLElement>('[data-term-card]');
       const termId = card?.querySelector<HTMLAnchorElement>('a[href^="/glossary/"]')?.getAttribute('href')?.split('/').pop();
-      window.dispatchEvent(new CustomEvent('cinecards:prompt-copied'));
+      window.dispatchEvent(new CustomEvent('aiscreens:prompt-copied'));
       try { const { track } = await import('../lib/analytics'); track('term_prompt_copied', { termId, surface: 'card' }); } catch {}
     } catch {}
   });

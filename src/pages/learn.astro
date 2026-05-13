@@ -18,8 +18,8 @@ const quizTerms = terms.map((term) => ({
 ---
 
 <BaseLayout
-  title="CineCards AI Learn - Quiz and recall mode for film terms"
-  description="Test your film grammar with three quiz modes drawn from the CineCards term library: name-the-term, pick-the-shot, and order-the-sequence."
+  title="aiscreens Learn - Quiz and recall mode for film terms"
+  description="Test your film grammar with three quiz modes drawn from the aiscreens term library: name-the-term, pick-the-shot, and order-the-sequence."
 >
   <section class="page-hero">
     <div class="container-pad">
@@ -160,7 +160,7 @@ const quizTerms = terms.map((term) => ({
       byPriorityGroup: Record<string, { correct: number; total: number }>;
     };
 
-    const SCORES_KEY = "cinecards.quizScores";
+    const SCORES_KEY = "aiscreens.quizScores";
     const PRIORITY_GROUPS = [
       "Foundation",
       "Core Visual Grammar",
@@ -199,7 +199,7 @@ const quizTerms = terms.map((term) => ({
 
     const writeScores = (scores: QuizScores) => {
       localStorage.setItem(SCORES_KEY, JSON.stringify(scores));
-      window.dispatchEvent(new CustomEvent("cinecards:quiz-scores-updated"));
+      window.dispatchEvent(new CustomEvent("aiscreens:quiz-scores-updated"));
       renderScores();
     };
 
@@ -248,7 +248,7 @@ const quizTerms = terms.map((term) => ({
     document.querySelector<HTMLButtonElement>("[data-quiz-reset]")?.addEventListener("click", () => {
       localStorage.removeItem(SCORES_KEY);
       renderScores();
-      window.dispatchEvent(new CustomEvent("cinecards:quiz-scores-updated"));
+      window.dispatchEvent(new CustomEvent("aiscreens:quiz-scores-updated"));
     });
 
     // Tabs

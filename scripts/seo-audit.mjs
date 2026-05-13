@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SEO audit agent for CineCards AI blog.
+ * SEO audit agent for aiscreens blog.
  * Checks every item on the task-34 checklist against the built dist/ output.
  *
  * Run: node scripts/seo-audit.mjs
@@ -66,7 +66,7 @@ function collectBlogPosts() {
 // ── run audit ────────────────────────────────────────────────────────────────
 
 console.log("\n╔══════════════════════════════════════════════════════════╗");
-console.log("║          CineCards AI — SEO Audit (Task 34)             ║");
+console.log("║          aiscreens — SEO Audit (Task 34)             ║");
 console.log("╚══════════════════════════════════════════════════════════╝\n");
 
 if (!existsSync(DIST)) {
@@ -133,7 +133,7 @@ if (posts.length === 0) {
     const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
     const title = titleMatch?.[1] ?? "";
     check("  <title> present", title.length > 0);
-    check("  <title> not default fallback", !title.startsWith("CineCards AI -"));
+    check("  <title> not default fallback", !title.startsWith("aiscreens -"));
 
     // Description
     const desc = getMeta(html, "description");

@@ -1,7 +1,7 @@
 ---
 // Dev-only inspector for the local analytics event log.
 // Lives at /_debug-events. Static page, list rendered client-side from
-// localStorage (`cinecards.events`). See docs/analytics-events.md.
+// localStorage (`aiscreens.events`). See docs/analytics-events.md.
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -9,7 +9,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section class="container-pad py-12">
     <h1 class="text-3xl font-black tracking-tight text-ink">Analytics events (debug)</h1>
     <p class="mt-2 text-sm text-ink/64">
-      Last 50 events from <code class="rounded bg-paper px-1">localStorage["cinecards.events"]</code>.
+      Last 50 events from <code class="rounded bg-paper px-1">localStorage["aiscreens.events"]</code>.
       Dev-only — not linked from navigation.
     </p>
     <div class="mt-6 flex flex-wrap gap-2">

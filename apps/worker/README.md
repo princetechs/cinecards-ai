@@ -1,4 +1,4 @@
-# CineCards AI — Render Worker (scaffolding)
+# aiscreens — Render Worker (scaffolding)
 
 This is the local file-backed render worker for task 12. It proves the
 architecture without committing to Redis/BullMQ or ffmpeg yet.

@@ -213,7 +213,7 @@ for (const term of terms) {
 </style>
 
 <script>
-  const QUIZ_SCORES_KEY = "cinecards.quizScores";
+  const QUIZ_SCORES_KEY = "aiscreens.quizScores";
 
   type QuizGroupEntry = { correct: number; total: number };
   type QuizScoresShape = {
@@ -247,6 +247,6 @@ for (const term of terms) {
     });
   };
 
-  window.addEventListener("cinecards:quiz-scores-updated", renderQuizProgress);
+  window.addEventListener("aiscreens:quiz-scores-updated", renderQuizProgress);
   renderQuizProgress();
 </script>

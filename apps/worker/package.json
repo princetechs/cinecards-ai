@@ -1,9 +1,9 @@
 {
-  "name": "@cinecards/worker",
+  "name": "@aiscreens/worker",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Local file-backed render worker for CineCards AI. Calls provider adapters from lib/providers and writes results back to data/terms.json.",
+  "description": "Local file-backed render worker for aiscreens. Calls provider adapters from lib/providers and writes results back to data/terms.json.",
   "scripts": {
     "start": "node --experimental-strip-types index.ts",
     "enqueue": "node --experimental-strip-types enqueue.ts"

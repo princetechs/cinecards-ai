@@ -7,7 +7,7 @@ export async function GET(context: APIContext) {
   const sorted = posts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
   return rss({
-    title: "CineCards AI Blog — Cinematography & AI Video",
+    title: "aiscreens Blog — Cinematography & AI Video",
     description: "Practical guides on shots, lighting, camera movement, and writing cinematic AI video prompts for Runway, Pika, and Stable Video.",
     site: context.site!,
     items: sorted.map(post => ({
