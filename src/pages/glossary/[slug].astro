@@ -48,7 +48,8 @@ const provenanceRights = provenanceRecords[0]
 const pageTitle = `${term.name} - aiscreens Glossary`;
 const pageDescription = term.shortDefinition;
 const canonical = new URL(`/glossary/${term.id}`, Astro.site ?? Astro.url).href;
-const ogImage = new URL("/images/aiscreens-hero.png", Astro.site ?? Astro.url).href;
+const primaryImage = term.assets?.find((asset) => asset.type === "image" || asset.type === "thumbnail");
+const ogImage = new URL(primaryImage?.url ?? "/images/aiscreens-hero.png", Astro.site ?? Astro.url).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -96,6 +97,14 @@ const jsonLd = {
       </div>
       <h1 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">{term.name}</h1>
       <p class="mt-4 max-w-3xl text-lg leading-7 text-ink/72">{term.shortDefinition}</p>
+      {primaryImage && (
+        <img
+          class="mt-7 aspect-video w-full max-w-3xl rounded-lg border border-ink/10 object-cover shadow-soft"
+          src={primaryImage.url}
+          alt={`Visual example of ${term.name}`}
+          loading="eager"
+        />
+      )}
     </div>
   </section>
 

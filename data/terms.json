@@ -35,7 +35,20 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/frame.jpg",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "source": "Generated for aiscreens terminology education",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true
+        }
+      }
+    ]
   },
   {
     "id": "shot",
@@ -73,7 +86,20 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/shot.jpg",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "source": "Generated for aiscreens terminology education",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true
+        }
+      }
+    ]
   },
   {
     "id": "scene",
@@ -111,7 +137,20 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/scene.jpg",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "source": "Generated for aiscreens terminology education",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true
+        }
+      }
+    ]
   },
   {
     "id": "sequence",
@@ -150,7 +189,20 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/sequence.jpg",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "source": "Generated for aiscreens terminology education",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true
+        }
+      }
+    ]
   },
   {
     "id": "aspect-ratio",
@@ -189,7 +241,20 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/aspect-ratio.jpg",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "source": "Generated for aiscreens terminology education",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true
+        }
+      }
+    ]
   },
   {
     "id": "establishing-shot",
