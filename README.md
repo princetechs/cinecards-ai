@@ -109,6 +109,7 @@ Useful commands:
 ```bash
 npm run media:check
 npm run media:prepare
+npm run media:render:term-previews
 ```
 
 ## How the Planner Works

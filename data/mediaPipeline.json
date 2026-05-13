@@ -30,7 +30,7 @@
     "previewVideo": {
       "width": 480,
       "height": 270,
-      "durationSeconds": 2.4,
+      "durationSeconds": 8,
       "maxKb": 600,
       "suffix": "-preview.mp4"
     }

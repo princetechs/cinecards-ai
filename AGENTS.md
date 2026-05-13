@@ -82,7 +82,8 @@ npm run audit:seo
 - For planner behavior, edit `data/sequenceRules.json` first; only change `lib/planner.ts` when classification or logic changes are needed.
 - For localisation, add messages in `src/i18n/messages/<locale>.json` and update `src/i18n/index.ts` when adding a new locale.
 - For term images or videos, update `data/mediaPipeline.json`, save optimized assets under `public/images/terms/` or `public/videos/terms/`, run `npm run media:prepare`, then validate content.
-- Keep cards fast: use `*-card.jpg` thumbnails for glossary cards, `*-detail.jpg` images for detail pages, and short `*-preview.mp4` clips only when they teach the term clearly.
+- Keep cards fast: use `*-card.jpg` thumbnails for glossary cards, `*-detail.jpg` images for detail pages, and 5-8 second `*-preview.mp4` clips only when they teach the term clearly.
+- Use `npm run media:render:term-previews` for the current HyperFrames term-preview batch; use Remotion later when previews need React props, 3D, or data-driven component reuse.
 
 ## Quality gates
 

@@ -7,10 +7,10 @@ aiscreens is a static site, so the media pipeline must work without a backend. T
 1. Generate or design a term visual from the term's teaching goal.
 2. Save a detail image as `public/images/terms/<term-id>-detail.jpg`.
 3. Run `npm run media:prepare` to create/check the matching card image, attach hashes, and update `data/terms.json`.
-4. For short motion previews, save `public/videos/terms/<term-id>-preview.mp4` and run `npm run media:prepare`.
+4. For short motion previews, use HyperFrames or Remotion source, render `public/videos/terms/<term-id>-preview.mp4`, and run `npm run media:prepare`.
 5. Run `npm run validate:content` and `npm run build`.
 
-Cards load `*-card.jpg` at `640x360`. Detail pages load `*-detail.jpg` at `1200x675`. Videos are hover/focus previews on cards and normal controls on detail pages.
+Cards load `*-card.jpg` at `640x360`. Detail pages load `*-detail.jpg` at `1200x675`. Videos are 5-8 second teaching previews on hover/focus for cards and normal controls on detail pages.
 
 ## Cloudflare R2 Plan
 
@@ -47,6 +47,7 @@ When R2 is enabled, replace local URLs with public R2 URLs in `data/terms.json`.
 ```bash
 npm run media:check
 npm run media:prepare
+npm run media:render:term-previews
 npm run validate:content
 npm run build
 ```

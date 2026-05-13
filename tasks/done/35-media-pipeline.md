@@ -19,7 +19,7 @@ Create a repeatable, backend-free pipeline for term card images and short previe
 
 ## Acceptance
 
-- First five foundation terms have short local preview clips.
+- First five foundation terms have 8-second HyperFrames teaching preview clips.
 - Next five shot terms have optimized card/detail images.
 - Term cards use lightweight card media and avoid loading heavy detail assets.
 - Detail pages show video controls when a term has `previewVideoUrl`.
