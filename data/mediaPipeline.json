@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "currentMode": "git-static",
+  "futureMode": "cloudflare-r2-static-links",
+  "storage": {
+    "localImageDir": "public/images/terms",
+    "localVideoDir": "public/videos/terms",
+    "r2BucketRecommendation": "aiscreens-media",
+    "r2PublicBaseUrlRecommendation": "https://media.aiscreens.in",
+    "r2KeyPattern": "terms/{termId}/{assetKind}.{ext}",
+    "notes": [
+      "Keep optimized card/detail images in Git while the media set is small.",
+      "Move generated video clips and larger future assets to Cloudflare R2 when the library grows.",
+      "Content stays backend-free because data/terms.json stores normal public URLs."
+    ]
+  },
+  "qualityTargets": {
+    "cardImage": {
+      "width": 640,
+      "height": 360,
+      "maxKb": 90,
+      "suffix": "-card.jpg"
+    },
+    "detailImage": {
+      "width": 1200,
+      "height": 675,
+      "maxKb": 260,
+      "suffix": "-detail.jpg"
+    },
+    "previewVideo": {
+      "width": 480,
+      "height": 270,
+      "durationSeconds": 2.4,
+      "maxKb": 600,
+      "suffix": "-preview.mp4"
+    }
+  },
+  "batches": [
+    {
+      "id": "foundation-motion-previews",
+      "assetKind": "previewVideo",
+      "status": "local-ready",
+      "terms": [
+        "frame",
+        "shot",
+        "scene",
+        "sequence",
+        "aspect-ratio"
+      ]
+    },
+    {
+      "id": "core-shot-stills",
+      "assetKind": "image",
+      "status": "local-ready",
+      "terms": [
+        "establishing-shot",
+        "wide-shot",
+        "medium-shot",
+        "close-up",
+        "extreme-close-up"
+      ]
+    },
+    {
+      "id": "next-motion-candidates",
+      "assetKind": "previewVideo",
+      "status": "planned",
+      "terms": [
+        "establishing-shot",
+        "wide-shot",
+        "medium-shot",
+        "close-up",
+        "extreme-close-up"
+      ]
+    }
+  ]
+}

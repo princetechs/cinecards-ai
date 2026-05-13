@@ -100,6 +100,17 @@ Blog posts live in `src/content/blog/` as MDX files using the schema in `src/con
 
 External analytics and SEO verification are optional and environment-driven. Use `docs/analytics-setup.md` to enable Cloudflare Web Analytics and Google Search Console without hardcoding public site tokens in the repo.
 
+## Media Pipeline
+
+Term media is static and backend-free. Small optimized card/detail images can live in Git under `public/images/terms/`; heavier previews can later move to Cloudflare R2 while `data/terms.json` keeps the public URLs. Follow `docs/media-pipeline.md` and `data/mediaPipeline.json`.
+
+Useful commands:
+
+```bash
+npm run media:check
+npm run media:prepare
+```
+
 ## How the Planner Works
 
 `lib/planner.ts` does three things:
@@ -119,6 +130,7 @@ The current app only creates prompts and placeholder preview blocks. To add real
 - Write generated preview URLs back to `previewVideoUrl`.
 - Preserve provenance metadata such as provider, render date, prompt hash, seed, and C2PA data when available.
 - Keep the UI unchanged by continuing to read previews from `data/terms.json`.
+- Use HyperFrames for HTML/GSAP explainers and Remotion for React/data-driven video templates when generated previews need reusable motion systems.
 
 ## Localisation
 

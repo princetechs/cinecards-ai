@@ -65,6 +65,7 @@ const pageTitle = `${term.name} - aiscreens Glossary`;
 const pageDescription = term.shortDefinition;
 const canonical = new URL(localisedPath(`/glossary/${rawTerm.id}`, lang), Astro.site ?? Astro.url).href;
 const primaryImage = rawTerm.assets?.find((asset) => asset.type === "image" || asset.type === "thumbnail");
+const previewVideoUrl = rawTerm.previewVideoUrl;
 const ogImage = new URL(primaryImage?.url ?? "/images/aiscreens-hero.png", Astro.site ?? Astro.url).href;
 
 const jsonLd = {
@@ -115,7 +116,20 @@ const glossaryHref = localisedPath("/glossary", lang);
       </div>
       <h1 class="mt-4 text-4xl font-black tracking-tight text-ink sm:text-5xl">{term.name}</h1>
       <p class="mt-4 max-w-3xl text-lg leading-7 text-ink/72">{term.shortDefinition}</p>
-      {primaryImage && (
+      {previewVideoUrl && primaryImage ? (
+        <video
+          class="mt-7 aspect-video w-full max-w-3xl rounded-lg border border-ink/10 object-cover shadow-soft"
+          src={previewVideoUrl}
+          poster={primaryImage.url}
+          controls
+          muted
+          playsinline
+          preload="metadata"
+          width="1200"
+          height="675"
+          aria-label={`Motion preview of ${term.name}`}
+        ></video>
+      ) : primaryImage && (
         <img
           class="mt-7 aspect-video w-full max-w-3xl rounded-lg border border-ink/10 object-cover shadow-soft"
           src={primaryImage.url}

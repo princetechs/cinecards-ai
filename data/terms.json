@@ -16,7 +16,7 @@
     "aiPromptTemplate": "cinematic frame of [subject], intentional composition, clean edges, natural light, [duration]",
     "previewPrompt3s": "clean cinematic frame of [subject], one clear subject, stable composition, 3 seconds",
     "previewPrompt5s": "clean cinematic frame of [subject], subject enters balanced composition, stable camera, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/frame-preview.mp4",
     "relatedTerms": [
       "Shot",
       "Rule of Thirds",
@@ -47,6 +47,23 @@
           "subjectsConsented": true,
           "noPII": true
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/frame-preview.mp4",
+        "hash": "2490ba76f380de417b067764abfac1878788e0eada81f837330fc7655369482b",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -67,7 +84,7 @@
     "aiPromptTemplate": "cinematic shot of [subject], one clear action, natural light, [duration]",
     "previewPrompt3s": "single cinematic shot of [subject], one action, stable camera, 3 seconds",
     "previewPrompt5s": "single cinematic shot of [subject], simple action with a clean hold, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/shot-preview.mp4",
     "relatedTerms": [
       "Scene",
       "Sequence",
@@ -98,6 +115,23 @@
           "subjectsConsented": true,
           "noPII": true
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/shot-preview.mp4",
+        "hash": "21282d48e94461336be1ea0b51279f9b1ab68ee3fa58afe065ad2938701981be",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -118,7 +152,7 @@
     "aiPromptTemplate": "cinematic scene of [subject], clear location, one story beat, [duration]",
     "previewPrompt3s": "short cinematic scene of [subject], one clear beat, 3 seconds",
     "previewPrompt5s": "short cinematic scene of [subject], location then action then hold, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/scene-preview.mp4",
     "relatedTerms": [
       "Shot",
       "Sequence",
@@ -149,6 +183,23 @@
           "subjectsConsented": true,
           "noPII": true
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/scene-preview.mp4",
+        "hash": "c44fecf2d038fb228c6db5e9d67ce5597123e9dd7400f103a9d300ab7ed5fd98",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -170,7 +221,7 @@
     "aiPromptTemplate": "cinematic sequence for [subject], ordered shots, clear visual progression, [duration]",
     "previewPrompt3s": "three-beat micro sequence of [subject], context detail payoff, 3 seconds",
     "previewPrompt5s": "five-second micro sequence of [subject], context action detail emotional hold, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/sequence-preview.mp4",
     "relatedTerms": [
       "Shot",
       "Cut",
@@ -201,6 +252,23 @@
           "subjectsConsented": true,
           "noPII": true
         }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/sequence-preview.mp4",
+        "hash": "115a0a0a89c18539b96c7b975edda08f632e23c2944856bf4ce1cd9748575d16",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
       }
     ]
   },
@@ -222,7 +290,7 @@
     "aiPromptTemplate": "cinematic [subject], composed for chosen aspect ratio, clean negative space, [duration]",
     "previewPrompt3s": "cinematic [subject] composed for vertical and widescreen-safe framing, 3 seconds",
     "previewPrompt5s": "cinematic [subject], subject moves through a balanced frame shape, 5 seconds",
-    "previewVideoUrl": null,
+    "previewVideoUrl": "/videos/terms/aspect-ratio-preview.mp4",
     "relatedTerms": [
       "Frame",
       "Negative Space",
@@ -252,6 +320,23 @@
           "iOwnOrLicensed": true,
           "subjectsConsented": true,
           "noPII": true
+        }
+      },
+      {
+        "type": "clip",
+        "url": "/videos/terms/aspect-ratio-preview.mp4",
+        "hash": "3b64bd1ea49d4bf09a6f13168ca52183f63c2dae3f4549bb51f77cba589f1b0d",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
         }
       }
     ]
@@ -306,7 +391,25 @@
         "whyItMatters": "विवरण आने से पहले दर्शक को स्थान, माहौल, पैमाना और संदर्भ देता है।"
       }
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/establishing-shot-detail.jpg",
+        "hash": "4a72604eed2ffc231876bccaebbf93bfc139728837bab3dfcc1b5bc91fd9b030",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "wide-shot",
@@ -357,7 +460,25 @@
         "whyItMatters": "शरीर की भाषा, स्थान और विषय के परिवेश से संबंध को दिखाता है।"
       }
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/wide-shot-detail.jpg",
+        "hash": "1b0334f4c7913fd81c4aa56907711f09d33862ea69f2494c1e64a34e3ac90037",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "medium-shot",
@@ -396,7 +517,25 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/medium-shot-detail.jpg",
+        "hash": "f4f53d2f165dc1db7c8dafbf356b241d540c82086414bb48e2304bcd25a1c0c2",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "close-up",
@@ -448,7 +587,25 @@
         "whyItMatters": "ध्यान को भावना, बनावट या कहानी के ज़रूरी पल पर केंद्रित करता है।"
       }
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/close-up-detail.jpg",
+        "hash": "54207d887672b0b4a28d9346f1dca944cfd3bdf41fade0992dd768cafbc9efec",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "extreme-close-up",
@@ -487,7 +644,25 @@
     "review": {
       "status": "approved"
     },
-    "assets": []
+    "assets": [
+      {
+        "type": "image",
+        "url": "/images/terms/extreme-close-up-detail.jpg",
+        "hash": "3c1d34a5ce50e34d20207dd98ef1f3687d8c43421f114fece836032d2ff54c22",
+        "rights": {
+          "licence": "CC BY 4.0",
+          "holder": "aiscreens",
+          "attribution": "Generated for aiscreens educational term media",
+          "iOwnOrLicensed": true,
+          "subjectsConsented": true,
+          "noPII": true,
+          "consentFlags": [
+            "no-personal-likeness",
+            "synthetic-educational-media"
+          ]
+        }
+      }
+    ]
   },
   {
     "id": "eye-level-angle",

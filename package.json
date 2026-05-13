@@ -12,7 +12,9 @@
     "worker:start": "npm start --prefix apps/worker --",
     "worker:enqueue": "npm run enqueue --prefix apps/worker --",
     "test:quality": "node --experimental-strip-types --import 'data:text/javascript,import{register}from\"node:module\";import{pathToFileURL}from\"node:url\";register(\"./scripts/ts-resolver.mjs\",pathToFileURL(\"./\"));' scripts/test-quality-score.mjs",
-    "audit:seo": "node scripts/seo-audit.mjs"
+    "audit:seo": "node scripts/seo-audit.mjs",
+    "media:check": "node scripts/prepare-term-media.mjs",
+    "media:prepare": "node scripts/prepare-term-media.mjs --apply"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

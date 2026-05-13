@@ -9,6 +9,7 @@ interface Props {
 const { term } = Astro.props;
 const cardImage = term.assets?.find((asset) => asset.type === "image" || asset.type === "thumbnail");
 const cardImageUrl = cardImage?.url.replace(/-detail(\.[a-z]+)$/i, "-card$1") ?? cardImage?.url;
+const previewVideoUrl = term.previewVideoUrl;
 const searchText = [
   term.name,
   term.category,
@@ -31,15 +32,31 @@ const searchText = [
 >
   {cardImage && (
     <a class="term-media-link" href={`/glossary/${term.id}`} aria-label={`Open ${term.name}`}>
-      <img
-        class="term-media"
-        src={cardImageUrl}
-        alt={`Visual example of ${term.name}`}
-        loading="lazy"
-        decoding="async"
-        width="640"
-        height="360"
-      />
+      {previewVideoUrl ? (
+        <video
+          class="term-media"
+          src={previewVideoUrl}
+          poster={cardImageUrl}
+          muted
+          loop
+          playsinline
+          preload="none"
+          width="640"
+          height="360"
+          data-preview-video
+          aria-label={`Motion preview of ${term.name}`}
+        ></video>
+      ) : (
+        <img
+          class="term-media"
+          src={cardImageUrl}
+          alt={`Visual example of ${term.name}`}
+          loading="lazy"
+          decoding="async"
+          width="640"
+          height="360"
+        />
+      )}
     </a>
   )}
 
@@ -146,6 +163,29 @@ const searchText = [
     </div>
   </div>
 </article>
+
+<script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLVideoElement>("[data-preview-video]").forEach((video) => {
+      const parent = video.closest(".term-media-link");
+      parent?.addEventListener("pointerenter", () => {
+        void video.play();
+      });
+      parent?.addEventListener("focusin", () => {
+        void video.play();
+      });
+      parent?.addEventListener("pointerleave", () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+      parent?.addEventListener("focusout", () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  }
+</script>
 
 <style>
   .term-card {

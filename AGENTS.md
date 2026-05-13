@@ -63,13 +63,16 @@ npm run audit:seo
 - `src/content/blog/` — MDX blog posts.
 - `src/i18n/messages/` — localised UI messages.
 - `data/terms.json` — terminology cards and learning content.
+- `data/mediaPipeline.json` — static media batch manifest and future Cloudflare R2 key plan.
 - `data/sequenceRules.json` — planner sequence rules by content type.
 - `lib/planner.ts` — topic classifier and shot sequence builder.
 - `lib/promptBuilder.ts` — prompt and preview prompt helpers.
 - `lib/termSearch.ts` — search/filter/related-term helpers.
 - `types/term.ts` — shared term types.
 - `packages/content-schema/` — content schema validation.
+- `docs/media-pipeline.md` — image/video generation, optimization, and R2 handoff plan.
 - `scripts/validate-content.ts` — content validator.
+- `scripts/prepare-term-media.mjs` — checks and writes optimized term media references.
 
 ## Content rules
 
@@ -78,6 +81,8 @@ npm run audit:seo
 - For terminology content, prefer editing `data/terms.json` and validate with `npm run validate:content`.
 - For planner behavior, edit `data/sequenceRules.json` first; only change `lib/planner.ts` when classification or logic changes are needed.
 - For localisation, add messages in `src/i18n/messages/<locale>.json` and update `src/i18n/index.ts` when adding a new locale.
+- For term images or videos, update `data/mediaPipeline.json`, save optimized assets under `public/images/terms/` or `public/videos/terms/`, run `npm run media:prepare`, then validate content.
+- Keep cards fast: use `*-card.jpg` thumbnails for glossary cards, `*-detail.jpg` images for detail pages, and short `*-preview.mp4` clips only when they teach the term clearly.
 
 ## Quality gates
 

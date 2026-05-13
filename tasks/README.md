@@ -37,6 +37,8 @@ aiscreens
 │   ├── PARTIAL — render queue / worker (scaffolded; awaits real adapters + ffmpeg)
 │   ├── PARTIAL — FFmpeg stitcher (scaffolded; awaits real adapters + ffmpeg)
 │   ├── PARTIAL — write generated URLs back to term assets[] (scaffolded; awaits real adapters + ffmpeg)
+│   ├── DONE  — static media manifest + local optimizer for card/detail images
+│   │           and short preview clips
 │   ├── DONE  — provenance metadata (provider, model, prompt hash, seed, C2PA)
 │   └── DONE  — quality-confidence scoring + human review gate
 │
@@ -61,6 +63,7 @@ aiscreens
 │
 └── Ops (PARTIAL)
     ├── DONE  — analytics event taxonomy (privacy-safe) + localStorage emitter
+    ├── PARTIAL — Cloudflare media path planned: Git static now, R2 public URLs later
     ├── TODO  — KPI dashboards (learning, product, generation, community)
     └── DONE  — licensing split: Apache-2.0 code + CC BY 4.0 content
 ```
@@ -101,6 +104,7 @@ aiscreens
 - [30 — Blog category & tag archive pages](done/30-blog-archive-pages.md)
 - [31 — Blog sitemap & RSS feed](done/31-blog-sitemap-rss.md)
 - [34 — Blog SEO & AI-readiness audit](done/34-blog-seo-audit.md)
+- [35 — Static media pipeline + first visual batches](done/35-media-pipeline.md)
 
 ### Pending
 _All tracked tasks are complete._
