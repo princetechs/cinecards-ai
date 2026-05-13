@@ -1,13 +1,15 @@
 # CineCards AI — Analytics Event Taxonomy
 
-Privacy-safe, no-backend event taxonomy aligned to the four KPI families from
-the deep-research report: **Learning**, **Product**, **Generation**,
-**Community**.
+Privacy-safe, no-backend product event taxonomy aligned to the four KPI
+families from the deep-research report: **Learning**, **Product**,
+**Generation**, **Community**.
 
 ## Stance
 
-- **No third-party SDK, no network.** Events are appended to `localStorage`
-  under `cinecards.events` via `lib/analytics.ts`.
+- **No third-party SDK, no network for product events.** Events are appended to
+  `localStorage` under `cinecards.events` via `lib/analytics.ts`.
+- Aggregate site analytics and SEO verification are configured separately in
+  `docs/analytics-setup.md`.
 - Ring-buffered to the last 500 entries (oldest dropped).
 - SSR-safe: emitter no-ops when `window` is undefined.
 - Naming convention: `snake_case` event names, camelCase property keys.

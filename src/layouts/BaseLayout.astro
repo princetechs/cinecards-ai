@@ -18,6 +18,9 @@ const {
   lang = "en",
   ogType = "website",
 } = Astro.props;
+
+const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
 
 <!doctype html>
@@ -28,6 +31,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index,follow" />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -39,6 +43,16 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="alternate" type="application/rss+xml" title="CineCards AI Blog" href="/blog/rss.xml" />
     <slot name="head" />
+    {
+      import.meta.env.PROD && cloudflareWebAnalyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: cloudflareWebAnalyticsToken })}
+        />
+      )
+    }
   </head>
   <body class="font-ui antialiased">
     <a href="#main-content" class="skip-link">Skip to content</a>
