@@ -1,17 +1,17 @@
 # aiscreens
 
-aiscreens is a practical learning website for AI cinematography, AI video creation, and visual storytelling. It teaches film language with simple cards, turns a topic or story into a prioritized shot sequence, and gives creators copyable prompts they can use in AI video tools.
+aiscreens is a practical AI video director for creators. It helps people plan shots before they spend generation credits: pick a recipe, turn an idea into a prioritized shot sequence, watch preview clips, and copy prompts for Runway, Pika, Sora, Kling, Veo, or other AI video tools.
 
 The project starts with AI cinematography: shots, lighting, camera movement, editing flow, prompt packs, and beginner-friendly video recipes. Over time it can grow into a broader resource for AI-powered frontend experiences, interactive 3D models, product demos, screen-based storytelling, visual UI systems, and practical client-facing examples.
 
-The business goal is to share useful knowledge for free while making aiscreens understandable to future clients. The site should help people learn, trust the work, and eventually contact the owner for services such as AI video direction, prompt design, cinematic content systems, frontend prototypes, interactive AI UI, and visual product work.
+The business goal is to share useful knowledge for free while making aiscreens understandable to future paying creators and clients. The free site should reduce random AI video results, weak continuity, confusing prompts, and wasted re-generations. Paid paths can include creator workflow packs, saved project exports, custom AI video shot plans, prompt design, cinematic content systems, frontend prototypes, interactive AI UI, and visual product work.
 
 The product direction is intentionally lightweight: Astro, TypeScript, Tailwind CSS, JSON content, static SEO-friendly pages, and local-device progress tracking. The current profile button is not server auth; it is a small localStorage layer for tracking copied prompts, built plans, and learning path progress.
 
 ## Who It Is For
 
 - Beginner videographers learning shot sizes, angles, lighting, composition, and editing logic.
-- AI video creators who need cleaner shot-direction prompts.
+- AI video creators who need cleaner shot-direction prompts and fewer wasted generations.
 - Filmmakers who want a fast previs and shot-planning vocabulary.
 - Founders, creators, and businesses exploring AI video, product demos, and interactive visual frontend ideas.
 - Open-source contributors who want to improve content, prompts, UI, or future render adapters.
@@ -45,7 +45,10 @@ Useful commands:
 npm run check
 npm run build
 npm run preview
+npm run audit:lighthouse
 ```
+
+Use `npm run audit:lighthouse` against `npm run preview`, not the dev server. The audit enforces the homepage performance, accessibility, best-practice, SEO, Core Web Vitals, and page-weight budgets documented in `docs/performance-audit.md`.
 
 ## How Terminology Is Stored
 
@@ -104,13 +107,20 @@ External analytics and SEO verification are optional and environment-driven. Use
 
 Term media is static and backend-free. Small optimized card/detail images can live in Git under `public/images/terms/`; heavier previews can later move to Cloudflare R2 while `data/terms.json` keeps the public URLs. Follow `docs/media-pipeline.md` and `data/mediaPipeline.json`.
 
+Homepage, recipe, and service explainer loops are tracked separately in `data/siteMedia.json` and rendered through `components/MediaLoop.astro`. Use `docs/visual-media-quality-loop.md` before adding or replacing public page media so videos stay useful, readable, lightweight, and not decorative.
+
 Useful commands:
 
 ```bash
 npm run media:check
 npm run media:prepare
+npm run media:pipeline
+npm run media:pipeline:apply
+npm run media:pipeline:render
 npm run media:render:term-previews
 ```
+
+For normal automated media work, prefer `npm run media:pipeline`. It checks `data/mediaPipeline.json`, validates local files and hashes, runs content validation, and builds the site. Use `npm run media:pipeline:apply` when hashes or media references should be written into `data/terms.json`. Use `npm run media:pipeline:render -- close-up insert-shot` to render missing HyperFrames preview clips for specific terms.
 
 ## How the Planner Works
 
@@ -118,9 +128,22 @@ npm run media:render:term-previews
 
 1. Classifies the topic into `product`, `travel`, `dialogue`, `tutorial`, `cinematic`, `lifestyle`, or `narrative`.
 2. Reads the matching ordered term list from `data/sequenceRules.json`.
-3. Builds a shot plan with a reason, duration, and AI prompt for each term.
+3. Builds a shot plan with a reason, duration, beginner explanation, common-failure warning, and AI prompt for each term.
+4. Lets the user export prompts for Generic, Runway, Pika, Sora, or Kling/Veo style usage.
 
 To change planner behavior, edit `data/sequenceRules.json` first. If a new content type needs smarter matching, update the keyword map in `lib/planner.ts`.
+
+## Monetization Direction
+
+The current implementation stays backend-free, but every major flow should support future revenue:
+
+- Free: glossary, basic planner, beginner recipes, and starter preview clips.
+- Creator plan: saved projects, premium prompt variants, more preview videos, and model-specific exports.
+- Pro/service: custom AI video shot plans, storyboard exports, brand/content presets, and done-for-you prompt packs.
+
+Pricing cards, recipe pack tier labels, and service CTA copy live in `data/monetization.json`. Keep these values dynamic so the site can later read the same shape from GitHub raw content, a CMS, or a generated JSON artifact without rewriting Astro pages.
+
+Do not make aiscreens feel like a generic blog. The product promise is: plan better AI video before generating.
 
 ## Future AI Video Generation
 

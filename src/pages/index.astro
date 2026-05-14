@@ -2,8 +2,14 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../../components/Hero.astro";
 import OpenSource from "../../components/OpenSource.astro";
-import { stats, tokens } from "../../src/site.config";
+import MediaLoop from "../../components/MediaLoop.astro";
+import { stats } from "../../src/site.config";
 import { getCollection } from "astro:content";
+import monetization from "../../data/monetization.json";
+import promptPacks from "../../data/promptPacks.json";
+import siteMedia from "../../data/siteMedia.json";
+import { getAllTerms } from "../../lib/termSearch";
+import type { PromptPack } from "../../types/pack";
 
 const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
 const latestPosts = blogPosts
@@ -11,17 +17,341 @@ const latestPosts = blogPosts
   .filter(p => p.data.featured)
   .slice(0, 3);
 const previewPosts = latestPosts.length >= 3 ? latestPosts : blogPosts.sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()).slice(0, 3);
+const previewTerms = getAllTerms().filter((term) => term.previewVideoUrl).slice(0, 6);
+const packs = promptPacks as PromptPack[];
 
 const categoryColors: Record<string, string> = {
-  shots:          "#E4572E",
-  lighting:       "#F59E0B",
-  movement:       "#8B5CF6",
-  editing:        "#10B981",
-  "ai-prompting": "#3B82F6",
+  shots:          "#B83A1F",
+  lighting:       "#9A5B00",
+  movement:       "#6D3EDB",
+  editing:        "#047857",
+  "ai-prompting": "#1D4ED8",
 };
+
+const { homepageOffer } = monetization as {
+  homepageOffer: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    plans: Array<{
+      name: string;
+      price: string;
+      description: string;
+      cta: string;
+      href: string;
+    }>;
+  };
+};
+
+const { onboardingFlow } = monetization as {
+  onboardingFlow: Array<{
+    step: string;
+    eyebrow: string;
+    title: string;
+    description: string;
+    action: string;
+    href: string;
+  }>;
+};
+
+const { landingDemo } = monetization as {
+  landingDemo: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: Array<{
+      n: string;
+      title: string;
+      label: string;
+      copy: string;
+      note: string;
+    }>;
+  };
+};
+
+const { audiencePaths } = monetization as {
+  audiencePaths: Array<{
+    label: string;
+    problem: string;
+    workflow: string;
+    cta: string;
+    href: string;
+  }>;
+};
+
+const audienceVisuals = [
+  {
+    label: "Course creator",
+    setting: "Lesson hook",
+    subject: "Tutor",
+    beats: ["Topic", "Demo", "CTA"],
+  },
+  {
+    label: "Ecommerce brand",
+    setting: "Product reel",
+    subject: "Hero item",
+    beats: ["Lock", "Detail", "Payoff"],
+  },
+  {
+    label: "Solo creator",
+    setting: "Short idea",
+    subject: "Creator",
+    beats: ["Recipe", "Prompt", "Post"],
+  },
+  {
+    label: "Local business",
+    setting: "Service promo",
+    subject: "Owner",
+    beats: ["Place", "Proof", "Offer"],
+  },
+];
+
+const { workflowDemo } = monetization as {
+  workflowDemo: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: Array<{
+      step: string;
+      title: string;
+      body: string;
+      caption: string;
+    }>;
+    modelTips: Array<{
+      model: string;
+      copy: string;
+    }>;
+  };
+};
+
+const { creditFixer } = monetization as {
+  creditFixer: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    weakLabel: string;
+    weakPrompt: string;
+    rewriteLabel: string;
+    rewritePrompt: string;
+    scores: Array<{
+      label: string;
+      value: string;
+    }>;
+  };
+};
+
+const { previewWall } = monetization as {
+  previewWall: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    ctaLabel: string;
+    ctaHref: string;
+  };
+};
+
+const { homepageRecipes } = monetization as {
+  homepageRecipes: {
+    title: string;
+    description: string;
+    ctaLabel: string;
+    ctaHref: string;
+    gridTitle: string;
+    gridDescription: string;
+    painPoints: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+};
+
+const { liveExample } = monetization as {
+  liveExample: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    ideaLabel: string;
+    idea: string;
+    ideaResult: string;
+    promptLabel: string;
+    prompt: string;
+    primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
+    shots: Array<{
+      n: string;
+      type: string;
+      description: string;
+      duration: string;
+      active?: boolean;
+    }>;
+  };
+};
+
+const { workflowSteps } = monetization as {
+  workflowSteps: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    steps: Array<{
+      n: string;
+      title: string;
+      description: string;
+      href: string;
+      link: string;
+    }>;
+  };
+};
+
+const { beginnerPath } = monetization as {
+  beginnerPath: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    ctaLabel: string;
+    ctaHref: string;
+    items: Array<{
+      n: string;
+      label: string;
+      detail: string;
+    }>;
+  };
+};
+
+const { toolGrid } = monetization as {
+  toolGrid: {
+    title: string;
+    items: Array<{
+      label: string;
+      title: string;
+      description: string;
+      href: string;
+      meta: string;
+    }>;
+  };
+};
+
+const recipeVisuals = [
+  {
+    label: "Cafe reel",
+    accent: "#B83A1F",
+    soft: "#F6C2A5",
+    scene: "cafe",
+    setting: "Morning cafe launch",
+    shots: ["Exterior", "Barista", "Pour"],
+    image: "/images/home/recipes/coffee-shop-reel.webp",
+  },
+  {
+    label: "Dialogue",
+    accent: "#6D3EDB",
+    soft: "#D8C9FF",
+    scene: "dialogue",
+    setting: "Two-person coverage",
+    shots: ["Wide", "Over shoulder", "Reaction"],
+    image: "/images/home/recipes/two-person-dialogue.webp",
+  },
+  {
+    label: "Product",
+    accent: "#047857",
+    soft: "#B7F7DA",
+    scene: "product",
+    setting: "Macro product hero",
+    shots: ["Hero", "Texture", "Payoff"],
+    image: "/images/home/recipes/product-macro-hero.webp",
+  },
+  {
+    label: "Travel",
+    accent: "#1D4ED8",
+    soft: "#BBD5FF",
+    scene: "travel",
+    setting: "Sunrise travel arc",
+    shots: ["Place", "Move", "Vista"],
+    image: "/images/home/recipes/travel-sunrise-montage.webp",
+  },
+  {
+    label: "Tutorial",
+    accent: "#9A5B00",
+    soft: "#FFE0A3",
+    scene: "tutorial",
+    setting: "Teach one action",
+    shots: ["Face", "Hands", "Result"],
+    image: "/images/home/recipes/tutorial-talking-head.webp",
+  },
+  {
+    label: "Interview",
+    accent: "#B83280",
+    soft: "#FFC1DD",
+    scene: "interview",
+    setting: "Founder story support",
+    shots: ["Subject", "B-roll", "Detail"],
+    image: "/images/home/recipes/interview-b-roll.webp",
+  },
+  {
+    label: "Action",
+    accent: "#B91C1C",
+    soft: "#FFC1BC",
+    scene: "action",
+    setting: "Chase with clean direction",
+    shots: ["Setup", "Pursuit", "Cutaway"],
+    image: "/images/home/recipes/cinematic-chase.webp",
+  },
+  {
+    label: "Lifestyle",
+    accent: "#0F766E",
+    soft: "#B7F3ED",
+    scene: "lifestyle",
+    setting: "Morning routine flow",
+    shots: ["Room", "Habit", "Detail"],
+    image: "/images/home/recipes/lifestyle-morning-routine.webp",
+  },
+];
+
+const homepageRecipeCards = packs.slice(0, 8).map((pack, index) => ({
+  ...pack,
+  visual: recipeVisuals[index % recipeVisuals.length],
+  level: index < 5 ? "Free starter" : "Creator pack",
+  shotCount: pack.items.length,
+}));
+
+const homeTools = toolGrid.items.map((tool) => ({
+  ...tool,
+  meta: tool.meta === "terms" ? `${stats[0]?.value ?? "124"} terms` : tool.meta === "packs" ? `${packs.length} packs` : tool.meta,
+}));
+
+const planVisuals = [
+  {
+    label: "Free path",
+    title: "Learn + plan",
+    steps: ["Glossary", "Recipe", "Planner"],
+    image: "/images/home/tools/learn-language.webp",
+  },
+  {
+    label: "Creator path",
+    title: "Save better prompts",
+    steps: ["Variants", "Model export", "Preview"],
+    image: "/images/home/workflow-storyboard-desk.webp",
+  },
+  {
+    label: "Service path",
+    title: "Done-for-you pack",
+    steps: ["Brief", "Shot plan", "Retry notes"],
+    image: "/images/home/director-demo-bakery.webp",
+  },
+];
+
+const toolVisualImages = [
+  "/images/home/tools/learn-language.webp",
+  "/images/home/tools/plan-sequence.webp",
+  "/images/home/tools/practice-progress.webp",
+  "/images/home/tools/use-recipe.webp",
+];
+
+const homeToolCards = homeTools.map((tool, index) => ({
+  ...tool,
+  image: toolVisualImages[index % toolVisualImages.length],
+}));
 ---
 
-<BaseLayout>
+<BaseLayout preloadImage="/images/home/posters/hero-director-loop.webp" preloadImageMedia="(min-width: 901px)">
   <!-- 1. Hero -->
   <Hero />
 
@@ -57,13 +387,193 @@ const categoryColors: Record<string, string> = {
             >{stat.value}</span>
             <span
               class="font-ui"
-              style="font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 500;"
+              style="font-size: 13px; color: rgba(255,255,255,0.62); font-weight: 500;"
             >{stat.label}</span>
           </div>
         ))}
       </div>
     </div>
   </div>
+
+  <!-- 2b. Landing value demo -->
+  <section class="landing-demo" data-landing-demo data-reveal>
+    <div class="container-pad landing-demo-grid">
+      <div class="landing-demo-copy">
+        <span class="section-kicker">{landingDemo.eyebrow}</span>
+        <h2>{landingDemo.title}</h2>
+        <p>{landingDemo.description}</p>
+        <div class="landing-demo-actions">
+          {landingDemo.steps.map((step, index) => (
+            <button class={index === 0 ? "active" : ""} type="button" data-demo-step={index}>
+              <span>{step.n}</span>
+              {step.title}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="director-demo-card" data-demo-stage="0">
+        <div class="demo-topbar">
+          <span>aiscreens director</span>
+          <i></i>
+        </div>
+        <div class="demo-stage">
+          <MediaLoop media={siteMedia.home.workflow} className="demo-media-loop" />
+        </div>
+        <div class="demo-output">
+          <span data-demo-label>{landingDemo.steps[0]?.label}</span>
+          <strong data-demo-copy>{landingDemo.steps[0]?.copy}</strong>
+          <p data-demo-note>{landingDemo.steps[0]?.note}</p>
+          <div class="demo-progress"><i data-demo-progress></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2c. Scroll onboarding story -->
+  <section class="scroll-story" data-scroll-story>
+    <div class="container-pad scroll-story-grid">
+      <div class="scroll-story-sticky">
+        <span class="section-kicker">Scroll onboarding</span>
+        <h2>Follow the path from confused creator to paid-ready workflow.</h2>
+        <p>
+          The site should teach without feeling like a manual. Each scroll beat shows what the user gets next and why it matters.
+        </p>
+        <div class="story-screen">
+          <div class="story-screen-top">
+            <span data-story-eyebrow>{onboardingFlow[0]?.eyebrow}</span>
+            <i></i>
+          </div>
+          <strong data-story-title>{onboardingFlow[0]?.title}</strong>
+          <p data-story-copy>{onboardingFlow[0]?.description}</p>
+          <div class="story-visual" data-story-stage="0">
+            <MediaLoop media={siteMedia.home.workflow} className="story-media-loop" />
+          </div>
+        </div>
+        <div class="story-progress" aria-hidden="true">
+          {onboardingFlow.map((item, index) => (
+            <span class={index === 0 ? "active" : ""} data-story-progress={index}>{item.step}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="scroll-story-steps">
+        {onboardingFlow.map((item, index) => (
+          <article class={index === 0 ? "story-step active" : "story-step"} data-story-step={index}>
+            <span>{item.step}</span>
+            <small>{item.eyebrow}</small>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <a class="focus-ring" href={item.href}>{item.action} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Interactive direction pipeline -->
+  <section class="direction-lab" data-reveal>
+    <div class="container-pad">
+      <div class="section-head">
+        <span>{workflowDemo.eyebrow}</span>
+        <h2>{workflowDemo.title}</h2>
+        <p>{workflowDemo.description}</p>
+      </div>
+
+      <div class="direction-grid" data-reveal>
+        <div class="pipeline-board" data-pipeline-board>
+          {workflowDemo.steps.map((item, index) => (
+            <button class={`pipeline-step ${index === 0 ? "active" : ""}`} type="button" data-pipeline-step={index} data-caption={item.caption}>
+              <span>{item.step}</span>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </button>
+          ))}
+        </div>
+
+        <div class="motion-preview">
+          <div class="preview-screen" data-pipeline-preview="0">
+            <MediaLoop media={siteMedia.home.workflow} className="pipeline-media-loop" />
+            <p data-pipeline-caption>Start from the user’s real goal, not a random cinematic adjective stack.</p>
+          </div>
+          <div class="model-export-demo">
+            <span>Export target</span>
+            <div>
+              {workflowDemo.modelTips.map((tip, index) => (
+                <button type="button" class={index === 0 ? "active" : ""} data-export-demo={tip.model} data-export-tip={tip.copy}>{tip.model}</button>
+              ))}
+            </div>
+            <p data-export-copy>{workflowDemo.modelTips[0]?.copy}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Credit waste fixer -->
+  <section class="credit-fixer" data-reveal>
+    <div class="container-pad credit-grid">
+      <div>
+        <span class="mini-eyebrow">{creditFixer.eyebrow}</span>
+        <h2>{creditFixer.title}</h2>
+        <p>{creditFixer.description}</p>
+      </div>
+      <div class="fixer-card" data-fixer-card>
+        <div class="bad-prompt">
+          <span>{creditFixer.weakLabel}</span>
+          <p>{creditFixer.weakPrompt}</p>
+        </div>
+        <div class="score-list">
+          {creditFixer.scores.map((score) => (
+            <div>
+              <span>{score.label}</span>
+              <i style={`--score:${score.value}`}></i>
+              <strong>{score.value}</strong>
+            </div>
+          ))}
+        </div>
+        <div class="fixed-prompt">
+          <span>{creditFixer.rewriteLabel}</span>
+          <p>{creditFixer.rewritePrompt}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Preview video wall -->
+  <section class="preview-wall-section" data-reveal>
+    <div class="container-pad">
+      <div class="section-head compact">
+        <span>{previewWall.eyebrow}</span>
+        <h2>{previewWall.title}</h2>
+        <p>{previewWall.description}</p>
+      </div>
+      <div class="preview-wall">
+        {previewTerms.map((term) => (
+          <a href={`/glossary/${term.id}`} class="preview-tile" aria-label={`Watch ${term.name} motion preview and open glossary term`}>
+            <video
+              data-src={term.previewVideoUrl}
+              muted
+              playsinline
+              loop
+              preload="none"
+              data-poster={term.assets?.find((asset) => asset.type === "image" || asset.type === "thumbnail")?.url.replace(/-detail(\.[a-z]+)$/i, "-card$1")}
+              aria-label={`Silent motion preview of ${term.name}`}
+            >
+              <track kind="captions" src="/captions/silent-preview.vtt" srclang="en" label="No dialogue" />
+            </video>
+            <div>
+              <strong>{term.name}</strong>
+              <span>{term.category}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="preview-wall-action">
+        <a class="focus-ring" href={previewWall.ctaHref}>{previewWall.ctaLabel} →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- 3. Beginner rescue + recipe grid -->
   <section style="background: #F8F5EF; padding-block: clamp(32px, 4vw, 56px);">
@@ -88,23 +598,30 @@ const categoryColors: Record<string, string> = {
             margin: 0 0 10px 0;
             letter-spacing: -0.01em;
           "
-        >Not sure where to start?</h2>
+        >{homepageRecipes.title}</h2>
         <p
           class="font-ui"
           style="font-size: 15px; color: #4F4A45; margin: 0 0 16px 0; line-height: 1.6;"
-        >Pick the kind of video you want to make and we'll give you a shot plan with prompts.</p>
+        >{homepageRecipes.description}</p>
         <a
-          href="/recipes"
-          class="font-ui"
+          href={homepageRecipes.ctaHref}
+          class="font-ui inline-link"
           style="
-            color: #E4572E;
+            color: #B83A1F;
             font-size: 15px;
             font-weight: 600;
             text-decoration: none;
           "
-          onmouseover="this.style.textDecoration='underline'"
-          onmouseout="this.style.textDecoration='none'"
-        >Browse all Shot Recipes →</a>
+        >{homepageRecipes.ctaLabel} →</a>
+      </div>
+
+      <div class="pain-grid" style="margin-bottom: 40px;">
+        {homepageRecipes.painPoints.map((pain) => (
+          <div style="background:#fff;border:1px solid #E6DDD1;border-radius:12px;padding:18px;">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:800;color:#171717;margin:0 0 8px;">{pain.title}</h3>
+            <p class="font-ui" style="font-size:14px;line-height:1.6;color:#4F4A45;margin:0;">{pain.description}</p>
+          </div>
+        ))}
       </div>
 
       <!-- Part B: Recipe grid -->
@@ -118,56 +635,64 @@ const categoryColors: Record<string, string> = {
             margin: 0 0 8px 0;
             letter-spacing: -0.02em;
           "
-        >What do you want to make?</h2>
+        >{homepageRecipes.gridTitle}</h2>
         <p
           class="font-ui"
           style="font-size: 16px; color: #4F4A45; margin: 0; line-height: 1.6;"
-        >Choose a video type and get a beginner-friendly shot plan with copyable AI prompts.</p>
+        >{homepageRecipes.gridDescription}</p>
+      </div>
+
+      <div class="recipe-motion-callout">
+        <MediaLoop media={siteMedia.home.recipes} className="recipe-motion-loop" />
+        <div>
+          <span>Recipe preview</span>
+          <strong>Pick a real video job, then copy a usable shot plan.</strong>
+          <p>For beginners, the recipe is the fastest path: choose cafe, product, tutorial, travel, interview, or local business before writing a prompt.</p>
+        </div>
       </div>
 
       <div class="recipe-grid">
-        {[
-          { emoji: "☕", title: "Coffee Shop Reel", shots: "7 shots", level: "Beginner" },
-          { emoji: "📦", title: "Product Video", shots: "6 shots", level: "Beginner" },
-          { emoji: "🌍", title: "Travel Montage", shots: "7 shots", level: "Beginner" },
-          { emoji: "🍽", title: "Food Video", shots: "6 shots", level: "Beginner" },
-          { emoji: "🎤", title: "Interview", shots: "7 shots", level: "Intermediate" },
-          { emoji: "📚", title: "Tutorial", shots: "6 shots", level: "Beginner" },
-          { emoji: "🏠", title: "Real Estate Tour", shots: "7 shots", level: "Beginner" },
-          { emoji: "💪", title: "Fitness Demo", shots: "6 shots", level: "Beginner" },
-        ].map((card) => (
+        {homepageRecipeCards.map((card, index) => (
           <a
-            href="/recipes"
+            href={`/recipes#recipe-${card.id}`}
             class="recipe-card"
-            style="
-              background: #ffffff;
-              border: 1.5px solid #E6DDD1;
-              border-radius: 16px;
-              padding: 20px;
-              text-decoration: none;
-              display: flex;
-              flex-direction: column;
-              gap: 8px;
-              transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
-              cursor: pointer;
-            "
-            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'; this.style.transform='translateY(-2px)'"
-            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'; this.style.transform='translateY(0)'"
+            style={`--card-accent:${card.visual.accent}; --card-soft:${card.visual.soft};`}
           >
-            <span style="font-size: 48px; line-height: 1;">{card.emoji}</span>
-            <h3
-              style="
-                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-                font-size: 16px;
-                font-weight: 700;
-                color: #171717;
-                margin: 0;
-              "
-            >{card.title}</h3>
-            <span
-              class="font-ui"
-              style="font-size: 12px; color: #7A7268;"
-            >{card.shots} · {card.level}</span>
+            <div class="recipe-cover" data-scene={card.visual.scene}>
+              <img
+                src={card.visual.image}
+                alt=""
+                class="recipe-cover-image"
+                loading="lazy"
+                decoding="async"
+                width="720"
+                height="405"
+              />
+              <div class="recipe-cover-top">
+                <span>{card.visual.label}</span>
+                <small>{card.visual.setting}</small>
+              </div>
+              <div class="recipe-shot-strip" aria-label={`${card.name} shot sequence preview`}>
+                {card.visual.shots.map((shot, shotIndex) => (
+                  <span>
+                    <b>{`0${shotIndex + 1}`}</b>
+                    {shot}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-card-meta">
+                <span>{card.shotCount} shot plan</span>
+                <span>{card.level}</span>
+              </div>
+              <h3>{card.name}</h3>
+              <p>{card.useCase}</p>
+              <div class="recipe-card-footer">
+                <span>{index + 1 < 10 ? `0${index + 1}` : index + 1}</span>
+                <strong>Open recipe</strong>
+              </div>
+            </div>
           </a>
         ))}
       </div>
@@ -175,114 +700,76 @@ const categoryColors: Record<string, string> = {
   </section>
 
   <!-- 4+5. Example + How it works (side-by-side) -->
-  <section style="background: #FFFFFF; padding-block: clamp(48px, 6vw, 80px);">
+  <section class="live-example-section">
     <div class="container-pad">
       <div class="example-split">
 
         <!-- LEFT: Real example -->
         <div class="example-left">
-          <span class="font-ui" style="font-size: 11px; font-weight: 700; color: #E4572E; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 14px;">Live Example</span>
-          <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; color: #171717; margin: 0 0 8px; letter-spacing: -0.02em;">
-            Here is what aiscreens actually does
+          <span class="section-kicker">{liveExample.eyebrow}</span>
+          <h2>
+            {liveExample.title}
           </h2>
-          <p class="font-ui" style="font-size: 15px; color: #7A7268; margin: 0 0 24px; line-height: 1.6;">
-            You give an idea. We give a shot plan with prompts.
+          <p>
+            {liveExample.description}
           </p>
 
           <!-- Idea box -->
-          <div style="background: #F8F5EF; border: 1.5px solid #E6DDD1; border-radius: 14px; padding: 18px 22px; margin-bottom: 20px;">
-            <span class="font-ui" style="font-size: 11px; font-weight: 600; color: #7A7268; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 6px;">Your idea</span>
-            <p style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #171717; margin: 0 0 10px;">"A cozy coffee shop video"</p>
-            <span class="font-ui" style="font-size: 13px; color: #4F4A45; display: flex; align-items: center; gap: 6px;">
-              <span style="color: #E4572E; font-weight: 700; font-size: 16px;">↓</span>
-              aiscreens turns it into:
-            </span>
+          <div class="idea-card">
+            <span>{liveExample.ideaLabel}</span>
+            <p>{liveExample.idea}</p>
+            <small>
+              {liveExample.ideaResult}
+            </small>
           </div>
 
           <!-- Timeline -->
-          <div style="margin-bottom: 20px;">
-            {[
-              { n: "1", type: "Wide Shot",   desc: "Full café setting",       dur: "3s" },
-              { n: "2", type: "Medium Shot", desc: "Introduce the barista",   dur: "3s" },
-              { n: "3", type: "Close-Up",    desc: "Coffee being poured",     dur: "5s", active: true },
-              { n: "4", type: "Detail Shot", desc: "Steam and latte art",     dur: "3s" },
-              { n: "5", type: "Final Shot",  desc: "Customer enjoying coffee",dur: "5s" },
-            ].map((shot) => (
-              <div style={`display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid #F0EAE2;`}>
-                <div class="font-ui" style={`width: 32px; height: 32px; border-radius: 50%; background: ${shot.active ? '#E4572E' : '#F8F5EF'}; color: ${shot.active ? '#fff' : '#7A7268'}; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: ${shot.active ? 'none' : '1.5px solid #E6DDD1'};`}>{shot.n}</div>
-                <div style="flex: 1; min-width: 0;">
-                  <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #171717;">{shot.type}</span>
-                  <span class="font-ui" style="font-size: 13px; color: #7A7268; margin-left: 8px;">{shot.desc}</span>
+          <div class="shot-timeline">
+            {liveExample.shots.map((shot) => (
+              <div class={`shot-row ${shot.active ? "active" : ""}`}>
+                <div class="shot-number">{shot.n}</div>
+                <div>
+                  <strong>{shot.type}</strong>
+                  <span>{shot.description}</span>
                 </div>
-                <span class="font-ui" style="font-size: 12px; font-weight: 600; color: #7A7268; background: #F8F5EF; border: 1px solid #E6DDD1; border-radius: 6px; padding: 2px 9px; flex-shrink: 0;">{shot.dur}</span>
+                <em>{shot.duration}</em>
               </div>
             ))}
           </div>
 
           <!-- Dark prompt block -->
-          <div style="background: #0F0F13; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;">
-            <span class="font-ui" style="font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 8px;">AI Prompt — Shot 3</span>
-            <p class="font-mono" style="font-size: 12.5px; line-height: 1.7; color: rgba(255,255,255,0.82); margin: 0 0 14px;">
-              cinematic close-up of hot coffee being poured into a ceramic cup,<br />
-              soft morning light, cozy café background, shallow DOF, 5 seconds
-            </p>
-            <button class="font-ui" onclick="navigator.clipboard.writeText('cinematic close-up of hot coffee being poured into a ceramic cup, soft morning light, cozy café background, shallow DOF, 5 seconds').then(()=>{this.textContent='Copied!';setTimeout(()=>{this.textContent='Copy Prompt'},2000)})" style="background: rgba(255,255,255,0.09); color: rgba(255,255,255,0.78); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.16)'" onmouseout="this.style.background='rgba(255,255,255,0.09)'">Copy Prompt</button>
+          <div class="prompt-card">
+            <span>{liveExample.promptLabel}</span>
+            <p>{liveExample.prompt}</p>
+            <button class="copy-prompt-button" type="button" data-copy-text={liveExample.prompt}>Copy Prompt</button>
           </div>
 
           <!-- CTAs -->
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <a href="/planner?topic=coffee+shop+reel" class="font-ui focus-ring" style="display:inline-flex;align-items:center;justify-content:center;background:#E4572E;color:#fff;font-size:14px;font-weight:700;padding:0 22px;height:44px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:background 0.15s;" onmouseover="this.style.background='#B83A1F'" onmouseout="this.style.background='#E4572E'">Try With My Idea →</a>
-            <a href="/recipes" class="font-ui focus-ring" style="display:inline-flex;align-items:center;color:#7A7268;font-size:14px;font-weight:600;text-decoration:none;" onmouseover="this.style.color='#171717'" onmouseout="this.style.color='#7A7268'">Browse recipes →</a>
+          <div class="example-actions">
+            <a href={liveExample.primaryCta.href} class="primary-pill focus-ring">{liveExample.primaryCta.label} →</a>
+            <a href={liveExample.secondaryCta.href} class="secondary-link focus-ring">{liveExample.secondaryCta.label} →</a>
           </div>
         </div>
 
         <!-- RIGHT: How it works -->
         <div class="example-right">
-          <div style="position: sticky; top: 88px;">
-            <span class="font-ui" style="font-size: 11px; font-weight: 700; color: #E4572E; text-transform: uppercase; letter-spacing: 0.12em; display: block; margin-bottom: 14px;">How It Works</span>
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; color: #171717; margin: 0 0 8px; letter-spacing: -0.02em;">
-              Three steps to AI-ready shots
+          <div class="workflow-panel">
+            <span class="section-kicker">{workflowSteps.eyebrow}</span>
+            <h2>
+              {workflowSteps.title}
             </h2>
-            <p class="font-ui" style="font-size: 15px; color: #7A7268; margin: 0 0 36px; line-height: 1.6;">
-              From zero to copy-ready prompts in minutes.
+            <p>
+              {workflowSteps.description}
             </p>
 
             <!-- Steps -->
-            <div style="display: flex; flex-direction: column; gap: 0;">
-              {[
-                {
-                  n: "1",
-                  title: "Learn a film word",
-                  desc: "Pick any of 124 terms — shots, angles, lighting, movement. Each card shows what it is, why it matters, and its AI prompt.",
-                  href: "/glossary",
-                  link: "Browse Glossary →",
-                },
-                {
-                  n: "2",
-                  title: "Type your video idea",
-                  desc: "Enter a topic — 'coffee shop reel', 'product launch', 'travel montage'. We build a prioritised shot plan instantly.",
-                  href: "/planner",
-                  link: "Open Planner →",
-                },
-                {
-                  n: "3",
-                  title: "Copy your AI prompts",
-                  desc: "Each shot comes with a ready-to-paste prompt for Runway, Pika, or Stable Video. Copy one or all.",
-                  href: "/recipes",
-                  link: "See a Recipe →",
-                },
-              ].map((step, i) => (
-                <div style={`display: flex; gap: 20px; padding-bottom: 32px; ${i < 2 ? 'border-bottom: 1px solid #F0EAE2; margin-bottom: 32px;' : ''}`}>
-                  <!-- Number + vertical line -->
-                  <div style="display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0;">
-                    <div class="font-ui" style="width: 40px; height: 40px; border-radius: 50%; background: #E4572E; color: #fff; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">{step.n}</div>
-                    {i < 2 && <div style="width: 2px; flex: 1; background: #F0EAE2; margin-top: 8px; min-height: 24px;"></div>}
-                  </div>
-                  <div style="padding-top: 8px;">
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #171717; margin: 0 0 8px;">{step.title}</h3>
-                    <p class="font-ui" style="font-size: 14px; color: #4F4A45; line-height: 1.65; margin: 0 0 12px;">{step.desc}</p>
-                    <a href={step.href} class="font-ui" style="font-size: 13px; font-weight: 600; color: #E4572E; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">{step.link}</a>
-                  </div>
+            <div class="workflow-steps">
+              {workflowSteps.steps.map((step) => (
+                <div class="workflow-step">
+                  <span>{step.n}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                  <a href={step.href}>{step.link} →</a>
                 </div>
               ))}
             </div>
@@ -294,101 +781,23 @@ const categoryColors: Record<string, string> = {
   </section>
 
   <!-- 6. Beginner Path -->
-  <section style="background: #EFE8DC; padding-block: 32px;">
+  <section class="beginner-path-section">
     <div class="container-pad">
-      <!-- Eyebrow -->
-      <span
-        class="font-ui"
-        style="
-          display: block;
-          font-size: 11px;
-          font-weight: 700;
-          color: #E4572E;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          margin-bottom: 12px;
-        "
-      >NEW TO VIDEO CREATION?</span>
-
-      <h2
-        style="
-          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-          font-size: 28px;
-          font-weight: 700;
-          color: #171717;
-          margin: 0 0 10px 0;
-          letter-spacing: -0.01em;
-        "
-      >Start here. Learn the basics in order.</h2>
-      <p
-        class="font-ui"
-        style="font-size: 15px; color: #4F4A45; margin: 0 0 20px 0; line-height: 1.6; max-width: 560px;"
-      >You do not need to know film words. Start from zero and build up.</p>
-
-      <!-- Step pills -->
-      <div class="beginner-pills">
-        {[
-          { n: "1", label: "What is a shot?" },
-          { n: "2", label: "Wide, Medium, Close-Up" },
-          { n: "3", label: "Camera angles" },
-          { n: "4", label: "Camera movement" },
-          { n: "5", label: "Basic lighting" },
-          { n: "6", label: "Your first AI prompt" },
-        ].map((pill) => (
-          <div
-            class="font-ui"
-            style="
-              display: inline-flex;
-              align-items: center;
-              gap: 10px;
-              border: 1.5px solid #D8CFC3;
-              border-radius: 16px;
-              padding: 10px 16px;
-              background: #ffffff;
-            "
-          >
-            <span
-              style="
-                width: 22px;
-                height: 22px;
-                border-radius: 50%;
-                background: #E4572E;
-                color: #ffffff;
-                font-size: 11px;
-                font-weight: 700;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-              "
-            >{pill.n}</span>
-            <span style="font-size: 13px; font-weight: 600; color: #171717;">{pill.label}</span>
-          </div>
-        ))}
+      <div class="beginner-path-head">
+        <span class="section-kicker">{beginnerPath.eyebrow}</span>
+        <h2>{beginnerPath.title}</h2>
+        <p>{beginnerPath.description}</p>
+        <a href={beginnerPath.ctaHref} class="primary-pill focus-ring">{beginnerPath.ctaLabel}</a>
       </div>
 
-      <!-- CTA -->
-      <div style="margin-top: 20px;">
-        <a
-          href="/learn"
-          class="font-ui focus-ring"
-          style="
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #E4572E;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 0 28px;
-            height: 48px;
-            border-radius: 999px;
-            text-decoration: none;
-            transition: background 0.15s;
-          "
-          onmouseover="this.style.background='#B83A1F'"
-          onmouseout="this.style.background='#E4572E'"
-        >Start Beginner Path</a>
+      <div class="beginner-path-board">
+        {beginnerPath.items.map((pill) => (
+          <a href={beginnerPath.ctaHref} class="beginner-path-card">
+            <span>{pill.n}</span>
+            <strong>{pill.label}</strong>
+            <p>{pill.detail}</p>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -405,73 +814,30 @@ const categoryColors: Record<string, string> = {
           margin: 0 0 24px 0;
           letter-spacing: -0.02em;
         "
-      >Everything in one place</h2>
+      >{toolGrid.title}</h2>
 
       <div class="tools-grid">
-        {[
-          {
-            icon: "📚",
-            title: "Learn Film Words",
-            desc: "Search and browse 124 film and video terms.",
-            href: "/glossary",
-          },
-          {
-            icon: "🎬",
-            title: "Create a Video Plan",
-            desc: "Type your idea, get a shot plan and prompts.",
-            href: "/planner",
-          },
-          {
-            icon: "🧠",
-            title: "Practice",
-            desc: "Quiz yourself. Track what you know.",
-            href: "/learn",
-          },
-          {
-            icon: "🍳",
-            title: "Shot Recipes",
-            desc: "Ready-made shot plans for real video types.",
-            href: "/recipes",
-          },
-        ].map((tool) => (
+        {homeToolCards.map((tool) => (
           <a
             href={tool.href}
-            style="
-              background: #ffffff;
-              border: 1.5px solid #E6DDD1;
-              border-radius: 16px;
-              padding: 24px;
-              text-decoration: none;
-              display: flex;
-              flex-direction: column;
-              gap: 10px;
-              transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
-            "
-            onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'; this.style.borderColor='#D8CFC3'; this.style.transform='translateY(-2px)'"
-            onmouseout="this.style.boxShadow='none'; this.style.borderColor='#E6DDD1'; this.style.transform='translateY(0)'"
+            class="tool-card"
           >
-            <span style="font-size: 32px; line-height: 1;">{tool.icon}</span>
-            <h3
-              style="
-                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-                font-size: 18px;
-                font-weight: 700;
-                color: #171717;
-                margin: 0;
-              "
-            >{tool.title}</h3>
-            <p
-              class="font-ui"
-              style="font-size: 14px; color: #4F4A45; line-height: 1.6; margin: 0; flex: 1;"
-            >{tool.desc}</p>
-            <span
-              style="
-                color: #E4572E;
-                font-size: 18px;
-                font-weight: 700;
-                display: block;
-              "
-            >→</span>
+            <div class="tool-visual" data-tool-visual={tool.title.toLowerCase().replaceAll(" ", "-")}>
+              <img
+                src={tool.image}
+                alt=""
+                class="tool-image"
+                loading="lazy"
+                decoding="async"
+                width="720"
+                height="405"
+              />
+              <span>{tool.label}</span>
+            </div>
+            <span class="tool-meta">{tool.meta}</span>
+            <h3>{tool.title}</h3>
+            <p>{tool.description}</p>
+            <strong>Explore</strong>
           </a>
         ))}
       </div>
@@ -483,12 +849,12 @@ const categoryColors: Record<string, string> = {
     <div class="container-pad">
       <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 36px; flex-wrap: wrap;">
         <div>
-          <span class="font-ui" style="display: block; font-size: 11px; font-weight: 700; color: #E4572E; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;">From the Blog</span>
+          <span class="font-ui" style="display: block; font-size: 11px; font-weight: 700; color: #F28A61; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;">From the Blog</span>
           <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 700; color: #fff; letter-spacing: -0.02em; margin: 0; line-height: 1.15;">
-            Learn Cinematography & AI Video
+            Fix the AI video problems creators search for
           </h2>
         </div>
-        <a href="/blog" class="font-ui" style="flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 600; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">
+        <a href="/blog" class="blog-all-link">
           All articles →
         </a>
       </div>
@@ -497,14 +863,12 @@ const categoryColors: Record<string, string> = {
         {previewPosts.map(post => (
           <a
             href={`/blog/${post.slug}`}
-            style="display: flex; flex-direction: column; text-decoration: none; border-radius: 16px; overflow: hidden; background: #1A1A22; border: 1px solid rgba(255,255,255,0.07); transition: transform 0.18s, border-color 0.18s;"
-            onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='rgba(255,255,255,0.15)'"
-            onmouseout="this.style.transform=''; this.style.borderColor='rgba(255,255,255,0.07)'"
+            class="blog-preview-card"
           >
-            <div style={`height: 5px; background: ${categoryColors[post.data.category] ?? '#E4572E'};`}></div>
+            <div style={`height: 5px; background: ${categoryColors[post.data.category] ?? '#B83A1F'};`}></div>
             <div style="padding: 22px 24px; display: flex; flex-direction: column; flex: 1;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                <span class="font-ui" style={`font-size: 10px; font-weight: 700; color: ${categoryColors[post.data.category] ?? '#E4572E'}; text-transform: uppercase; letter-spacing: 0.06em;`}>
+                <span class="font-ui" style={`font-size: 10px; font-weight: 700; color: ${categoryColors[post.data.category] ?? '#B83A1F'}; text-transform: uppercase; letter-spacing: 0.06em;`}>
                   {post.data.category.replace("-", " ")}
                 </span>
                 {post.data.readingTime && (
@@ -514,10 +878,10 @@ const categoryColors: Record<string, string> = {
               <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 10px; flex: 1;">
                 {post.data.title}
               </h3>
-              <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.55; margin: 0 0 18px;">
+              <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.68); line-height: 1.55; margin: 0 0 18px;">
                 {post.data.description.slice(0, 90)}…
               </p>
-              <span class="font-ui" style="font-size: 12px; font-weight: 700; color: #E4572E;">Read article →</span>
+              <span class="font-ui" style="font-size: 12px; font-weight: 700; color: #B83A1F;" aria-hidden="true">Read article →</span>
             </div>
           </a>
         ))}
@@ -526,11 +890,1295 @@ const categoryColors: Record<string, string> = {
   </section>
 
   <!-- 9. Open Source -->
+  <section class="audience-section" data-reveal>
+    <div class="container-pad">
+      <div class="audience-head">
+        <span>Who this helps</span>
+        <h2>Not a generic AI gallery. A workflow for real creator jobs.</h2>
+        <p>
+          These paths keep the product practical while aiscreens grows toward paid prompt packs, service work, and repeatable video systems.
+        </p>
+      </div>
+
+      <div class="audience-grid">
+        {audiencePaths.map((path, index) => (
+          <a class="audience-card focus-ring" href={path.href} style={`--audience-index:${index};`}>
+            <div class="audience-flow" aria-hidden="true">
+              <div class="audience-frame">
+                <span>{audienceVisuals[index]?.setting ?? "Creator brief"}</span>
+                <strong>{audienceVisuals[index]?.subject ?? path.label}</strong>
+                <small>camera plan</small>
+              </div>
+              <div class="audience-shotline">
+                {(audienceVisuals[index]?.beats ?? ["Brief", "Plan", "Prompt"]).map((beat, beatIndex) => (
+                  <em style={`--beat:${beatIndex}`}>{beat}</em>
+                ))}
+              </div>
+            </div>
+            <strong>{path.label}</strong>
+            <p>{path.problem}</p>
+            <small>{path.workflow}</small>
+            <em>{path.cta} →</em>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="offer-section">
+    <div class="container-pad">
+      <div class="offer-head">
+        <span>{homepageOffer.eyebrow}</span>
+        <h2>{homepageOffer.title}</h2>
+        <p>{homepageOffer.description}</p>
+      </div>
+      <div class="plans-grid">
+        {homepageOffer.plans.map((plan, index) => (
+          <article class={`plan-card ${index === 1 ? "featured" : ""}`}>
+            <div class="plan-visual">
+              <img
+                src={planVisuals[index]?.image ?? "/images/home/workflow-storyboard-desk.webp"}
+                alt=""
+                class="plan-visual-image"
+                loading="lazy"
+                decoding="async"
+                width="960"
+                height="540"
+              />
+              <span>{planVisuals[index]?.label ?? `0${index + 1}`}</span>
+              <strong>{planVisuals[index]?.title ?? plan.name}</strong>
+              <div aria-hidden="true">
+                {(planVisuals[index]?.steps ?? [plan.name]).map((step, stepIndex) => (
+                  <em style={`--step:${stepIndex}`}>{step}</em>
+                ))}
+              </div>
+            </div>
+            <h3>{plan.name}</h3>
+            <strong>{plan.price}</strong>
+            <p>{plan.description}</p>
+            <a class="focus-ring" href={plan.href}>{plan.cta}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <OpenSource />
 
 </BaseLayout>
 
+<script is:inline type="application/json" id="landing-demo-data" set:html={JSON.stringify(landingDemo.steps)}></script>
+<script is:inline type="application/json" id="onboarding-flow-data" set:html={JSON.stringify(onboardingFlow)}></script>
+
+<script>
+  type DirectorDemoStep = {
+    label: string;
+    copy: string;
+    note: string;
+  };
+
+  const directorDemoSteps = JSON.parse(
+    document.getElementById("landing-demo-data")?.textContent ?? "[]",
+  ) as DirectorDemoStep[];
+
+  type OnboardingItem = {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+
+  const onboardingFlow = JSON.parse(
+    document.getElementById("onboarding-flow-data")?.textContent ?? "[]",
+  ) as OnboardingItem[];
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.documentElement.classList.add("motion-ready");
+
+  if (!reducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.04, rootMargin: "0px 0px -4% 0px" });
+
+    document.querySelectorAll<HTMLElement>("[data-reveal], .recipe-card, .preview-tile, .tool-card, .blog-preview-card, .plan-card").forEach((item, index) => {
+      item.dataset.reveal = item.dataset.reveal ?? "";
+      item.style.setProperty("--reveal-delay", `${Math.min(index % 8, 7) * 45}ms`);
+      revealObserver.observe(item);
+    });
+  } else {
+    document.querySelectorAll<HTMLElement>("[data-reveal], .recipe-card, .preview-tile, .tool-card, .blog-preview-card, .plan-card").forEach((item) => {
+      item.classList.add("in-view");
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-landing-demo]").forEach((demo) => {
+    const card = demo.querySelector<HTMLElement>(".director-demo-card");
+    const label = demo.querySelector<HTMLElement>("[data-demo-label]");
+    const copy = demo.querySelector<HTMLElement>("[data-demo-copy]");
+    const note = demo.querySelector<HTMLElement>("[data-demo-note]");
+    const progress = demo.querySelector<HTMLElement>("[data-demo-progress]");
+    const buttons = Array.from(demo.querySelectorAll<HTMLButtonElement>("[data-demo-step]"));
+    let active = 0;
+    let timer: number | undefined;
+
+    const setStep = (index: number) => {
+      if (directorDemoSteps.length === 0) return;
+      active = (index + directorDemoSteps.length) % directorDemoSteps.length;
+      const step = directorDemoSteps[active];
+      card?.setAttribute("data-demo-stage", String(active));
+      if (label) label.textContent = step.label;
+      if (copy) copy.textContent = step.copy;
+      if (note) note.textContent = step.note;
+      if (progress) progress.style.transform = `scaleX(${(active + 1) / directorDemoSteps.length})`;
+      buttons.forEach((button, buttonIndex) => button.classList.toggle("active", buttonIndex === active));
+    };
+
+    const start = () => {
+      if (reducedMotion || timer) return;
+      timer = window.setInterval(() => setStep(active + 1), 2800);
+    };
+
+    const stop = () => {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    buttons.forEach((button, index) => {
+      button.addEventListener("click", () => {
+        stop();
+        setStep(index);
+        start();
+      });
+    });
+
+    demo.addEventListener("pointerenter", stop);
+    demo.addEventListener("pointerleave", start);
+    setStep(0);
+    start();
+  });
+
+  document.querySelectorAll<HTMLElement>("[data-scroll-story]").forEach((story) => {
+    const cards = Array.from(story.querySelectorAll<HTMLElement>("[data-story-step]"));
+    const progressItems = Array.from(story.querySelectorAll<HTMLElement>("[data-story-progress]"));
+    const eyebrow = story.querySelector<HTMLElement>("[data-story-eyebrow]");
+    const title = story.querySelector<HTMLElement>("[data-story-title]");
+    const copy = story.querySelector<HTMLElement>("[data-story-copy]");
+    const visual = story.querySelector<HTMLElement>("[data-story-stage]");
+
+    const setStoryStep = (index: number) => {
+      const step = onboardingFlow[index] ?? onboardingFlow[0];
+      cards.forEach((card, cardIndex) => card.classList.toggle("active", cardIndex === index));
+      progressItems.forEach((item, itemIndex) => item.classList.toggle("active", itemIndex <= index));
+      if (eyebrow) eyebrow.textContent = step.eyebrow;
+      if (title) title.textContent = step.title;
+      if (copy) copy.textContent = step.description;
+      visual?.setAttribute("data-story-stage", String(index));
+    };
+
+    let scrollFrame = 0;
+    const updateStoryFromScroll = () => {
+      scrollFrame = 0;
+      const targetY = window.innerHeight * 0.55;
+      let bestIndex = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const distance = Math.abs(center - targetY);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      });
+      setStoryStep(bestIndex);
+    };
+
+    const requestStoryUpdate = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(updateStoryFromScroll);
+    };
+
+    cards.forEach((card, index) => {
+      card.addEventListener("click", () => setStoryStep(index));
+    });
+    window.addEventListener("scroll", requestStoryUpdate, { passive: true });
+    window.addEventListener("resize", requestStoryUpdate);
+    setStoryStep(0);
+    requestStoryUpdate();
+  });
+
+  document.querySelectorAll<HTMLElement>("[data-pipeline-board]").forEach((board) => {
+    const caption = board.closest("section")?.querySelector<HTMLElement>("[data-pipeline-caption]");
+    const preview = board.closest("section")?.querySelector<HTMLElement>("[data-pipeline-preview]");
+    board.querySelectorAll<HTMLButtonElement>("[data-pipeline-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        board.querySelectorAll("[data-pipeline-step]").forEach((step) => step.classList.remove("active"));
+        button.classList.add("active");
+        preview?.setAttribute("data-pipeline-preview", button.dataset.pipelineStep ?? "0");
+        if (caption) caption.textContent = button.dataset.caption ?? caption.textContent;
+      });
+    });
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-export-demo]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const parent = button.closest(".model-export-demo");
+      parent?.querySelectorAll("[data-export-demo]").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      const copy = parent?.querySelector<HTMLElement>("[data-export-copy]");
+      if (copy) copy.textContent = button.dataset.exportTip ?? copy.textContent;
+    });
+  });
+
+  const previewObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target as HTMLVideoElement;
+      if (entry.isIntersecting) {
+        if (!video.src && video.dataset.src) {
+          video.src = video.dataset.src;
+          video.load();
+        }
+        if (!video.poster && video.dataset.poster) {
+          video.poster = video.dataset.poster;
+        }
+        video.play().catch(() => undefined);
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll<HTMLVideoElement>(".preview-tile video").forEach((video) => {
+    previewObserver.observe(video);
+  });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-text]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const original = button.textContent ?? "Copy Prompt";
+      const text = button.dataset.copyText ?? "";
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied";
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1600);
+      } catch {
+        button.textContent = "Copy failed";
+        window.setTimeout(() => {
+          button.textContent = original;
+        }, 1600);
+      }
+    });
+  });
+</script>
+
 <style>
+  .inline-link {
+    transition: text-decoration-color 0.18s ease, color 0.18s ease;
+  }
+
+  .inline-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+
+  .section-kicker {
+    display: block;
+    margin-bottom: 14px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .primary-pill,
+  .secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .primary-pill {
+    border-radius: 999px;
+    padding: 0 22px;
+    background: #B83A1F;
+    color: #fff;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .primary-pill:hover {
+    background: #962d17;
+    transform: translateY(-1px);
+  }
+
+  .secondary-link {
+    color: #7A7268;
+    transition: color 0.18s ease;
+  }
+
+  .secondary-link:hover {
+    color: #171717;
+  }
+
+  .motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  }
+
+  .motion-ready [data-reveal].in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .landing-demo {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(228,87,46,0.18), transparent 27%),
+      radial-gradient(circle at 84% 8%, rgba(255,255,255,0.08), transparent 24%),
+      #0f0f13;
+    color: #fff;
+    padding-block: clamp(64px, 9vw, 120px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .landing-demo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 76px 76px;
+    mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+    pointer-events: none;
+  }
+
+  .landing-demo-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(440px, 1fr);
+    gap: clamp(28px, 5vw, 70px);
+    align-items: center;
+  }
+
+  .landing-demo-copy h2 {
+    max-width: 760px;
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(34px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .landing-demo-copy > p {
+    max-width: 620px;
+    margin: 20px 0 0;
+    color: rgba(255,255,255,0.64);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 17px;
+    line-height: 1.72;
+  }
+
+  .landing-demo-actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .landing-demo-actions button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 54px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.045);
+    color: rgba(255,255,255,0.68);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 900;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .landing-demo-actions button:hover,
+  .landing-demo-actions button.active {
+    border-color: rgba(228,87,46,0.55);
+    background: rgba(228,87,46,0.14);
+    color: #fff;
+    transform: translateX(8px);
+  }
+
+  .landing-demo-actions button span {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: rgba(184,58,31,0.92);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .director-demo-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 620px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 34px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 52% 26%, rgba(228,87,46,0.32), transparent 25%),
+      linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+    box-shadow: 0 34px 100px rgba(0,0,0,0.34);
+  }
+
+  .director-demo-card::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 26px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px) 0 20px / 34px 10px repeat-x,
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px) 0 calc(100% - 32px) / 34px 10px repeat-x,
+      linear-gradient(135deg, #222029, #635d58 58%, #111116);
+    box-shadow: inset 0 0 90px rgba(0,0,0,0.42);
+  }
+
+  .demo-topbar,
+  .demo-stage,
+  .demo-output {
+    position: relative;
+    z-index: 1;
+  }
+
+  .demo-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 20px;
+    background: rgba(15,15,19,0.68);
+    backdrop-filter: blur(14px);
+  }
+
+  .demo-topbar span {
+    color: rgba(255,255,255,0.62);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .demo-topbar i {
+    width: 84px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #B83A1F, rgba(255,255,255,0.32));
+  }
+
+  .demo-stage {
+    position: relative;
+    height: 360px;
+    margin: 22px 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    background: #0f0f13;
+    box-shadow: inset 0 -90px 120px rgba(0,0,0,0.56);
+  }
+
+  .demo-stage :global(.demo-media-loop) {
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+  }
+
+  .demo-output {
+    margin: 0 4px 4px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 18px;
+    background: rgba(15,15,19,0.78);
+    backdrop-filter: blur(14px);
+  }
+
+  .demo-output span {
+    display: inline-flex;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    padding: 5px 10px;
+    background: rgba(228,87,46,0.18);
+    color: #f28a61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .demo-output strong {
+    display: block;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(22px, 3vw, 34px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+
+  .demo-output p {
+    margin: 10px 0 0;
+    color: rgba(255,255,255,0.62);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .demo-progress {
+    height: 7px;
+    margin-top: 16px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.09);
+  }
+
+  .demo-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #B83A1F, #F5A26E);
+    transform: scaleX(0.25);
+    transform-origin: left center;
+    transition: transform 0.45s ease;
+  }
+
+  .scroll-story {
+    background: #F8F5EF;
+    padding-block: clamp(58px, 8vw, 104px);
+  }
+
+  .scroll-story-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1fr);
+    gap: clamp(28px, 6vw, 78px);
+    align-items: start;
+  }
+
+  .scroll-story-sticky {
+    position: sticky;
+    top: 72px;
+  }
+
+  .scroll-story-sticky h2 {
+    max-width: 600px;
+    margin: 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 4.4vw, 52px);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .scroll-story-sticky > p {
+    max-width: 520px;
+    margin: 14px 0 20px;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  .story-screen {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: 16px;
+    background:
+      radial-gradient(circle at 72% 18%, rgba(228,87,46,0.18), transparent 30%),
+      linear-gradient(145deg, #fff, #EFE8DC);
+    box-shadow: 0 26px 80px rgba(23,23,23,0.1);
+  }
+
+  .story-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    background:
+      linear-gradient(90deg, rgba(23,23,23,0.06) 1px, transparent 1px),
+      linear-gradient(rgba(23,23,23,0.06) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+  }
+
+  .story-screen-top,
+  .story-screen > strong,
+  .story-screen > p,
+  .story-visual {
+    position: relative;
+    z-index: 1;
+  }
+
+  .story-screen-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .story-screen-top span {
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: rgba(228,87,46,0.12);
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .story-screen-top i {
+    width: 92px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #171717, #B83A1F);
+    opacity: 0.72;
+  }
+
+  .story-screen > strong {
+    display: block;
+    min-height: 62px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(21px, 2.4vw, 28px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    transition: opacity 0.2s ease;
+  }
+
+  .story-screen > p {
+    min-height: 66px;
+    margin: 10px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .story-visual {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    min-height: 168px;
+    margin-top: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(23,23,23,0.1);
+    border-radius: 22px;
+    background: #171720;
+  }
+
+  .story-visual :global(.story-media-loop) {
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+  }
+
+  .story-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(15,15,19,0.54), rgba(15,15,19,0.08) 42%, rgba(15,15,19,0.58));
+    pointer-events: none;
+  }
+
+  .story-progress {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .story-progress span {
+    flex: 1;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #E6DDD1;
+    color: transparent;
+    font-size: 0;
+    transition: background 0.24s ease, transform 0.24s ease;
+  }
+
+  .story-progress span.active {
+    background: linear-gradient(90deg, #171717, #B83A1F);
+    transform: scaleY(1.18);
+  }
+
+  .scroll-story-steps {
+    display: grid;
+    gap: 16px;
+  }
+
+  .story-step {
+    min-height: 206px;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: clamp(20px, 3vw, 28px);
+    background: rgba(255,255,255,0.74);
+    box-shadow: 0 12px 34px rgba(23,23,23,0.055);
+    transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+    cursor: pointer;
+  }
+
+  .story-step.active {
+    border-color: rgba(228,87,46,0.45);
+    background: #fff;
+    box-shadow: 0 26px 70px rgba(23,23,23,0.11);
+    transform: translateX(-8px);
+  }
+
+  .story-step > span {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #171717;
+    color: #F8F5EF;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .story-step small {
+    display: block;
+    margin-top: 18px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .story-step h3 {
+    max-width: 620px;
+    margin: 8px 0 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .story-step p {
+    max-width: 620px;
+    margin: 12px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .story-step a {
+    display: inline-flex;
+    margin-top: 18px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .direction-lab {
+    background: #0f0f13;
+    color: #fff;
+    padding-block: clamp(56px, 8vw, 104px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .section-head {
+    max-width: 740px;
+    margin-bottom: 30px;
+  }
+
+  .section-head span,
+  .mini-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .direction-lab .section-head span {
+    color: #F28A61;
+  }
+
+  .section-head h2,
+  .credit-grid h2 {
+    margin: 0;
+    color: inherit;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+
+  .section-head p,
+  .credit-grid > div > p {
+    max-width: 690px;
+    margin: 14px 0 0;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .section-head.compact {
+    color: #171717;
+  }
+
+  .section-head.compact p,
+  .credit-grid > div > p {
+    color: #4F4A45;
+  }
+
+  .direction-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1fr);
+    gap: clamp(24px, 5vw, 56px);
+    align-items: stretch;
+  }
+
+  .pipeline-board {
+    display: grid;
+    gap: 12px;
+  }
+
+  .pipeline-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 14px;
+    width: 100%;
+    min-height: 104px;
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 18px;
+    padding: 18px;
+    background: rgba(255,255,255,0.05);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .pipeline-step:hover,
+  .pipeline-step.active {
+    border-color: rgba(228,87,46,0.52);
+    background: rgba(228,87,46,0.14);
+    transform: translateX(8px);
+  }
+
+  .pipeline-step span {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.09);
+    color: #f28a61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .pipeline-step strong {
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 18px;
+  }
+
+  .pipeline-step p {
+    margin: 0;
+    color: rgba(255,255,255,0.56);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .motion-preview {
+    display: grid;
+    gap: 14px;
+  }
+
+  .preview-screen {
+    position: relative;
+    min-height: 420px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 28px;
+    background: #0f0f13;
+    box-shadow: inset 0 0 70px rgba(0,0,0,0.36), 0 28px 80px rgba(0,0,0,0.28);
+  }
+
+  .preview-screen :global(.pipeline-media-loop) {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    border-radius: 28px;
+  }
+
+  .preview-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 52% 54%, transparent 0 24%, rgba(15,15,19,0.2) 42%, rgba(15,15,19,0.7) 100%),
+      linear-gradient(180deg, rgba(15,15,19,0.12), rgba(15,15,19,0.72));
+    pointer-events: none;
+  }
+
+  .preview-screen p {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 26px;
+    z-index: 2;
+    margin: 0;
+    border-radius: 16px;
+    padding: 14px 16px;
+    background: rgba(15,15,19,0.74);
+    color: rgba(255,255,255,0.76);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .recipe-motion-callout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(280px, 0.8fr);
+    gap: 20px;
+    align-items: center;
+    margin: 24px 0 28px;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: clamp(14px, 2vw, 20px);
+    background: #fff;
+    box-shadow: 0 18px 56px rgba(23,23,23,0.07);
+  }
+
+  .recipe-motion-callout :global(.recipe-motion-loop) {
+    border-radius: 18px;
+    box-shadow: 0 16px 46px rgba(23,23,23,0.12);
+  }
+
+  .recipe-motion-callout span {
+    display: inline-flex;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: #FFE0D2;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .recipe-motion-callout strong {
+    display: block;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(24px, 3.4vw, 42px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .recipe-motion-callout p {
+    margin: 14px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 15px;
+    line-height: 1.62;
+  }
+
+  .model-export-demo {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 18px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .model-export-demo span {
+    color: rgba(255,255,255,0.64);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .model-export-demo div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .model-export-demo button {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.68);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .model-export-demo button.active {
+    border-color: rgba(228,87,46,0.55);
+    background: rgba(228,87,46,0.18);
+    color: #fff;
+  }
+
+  .model-export-demo p {
+    margin: 0;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .credit-fixer {
+    background: #F8F5EF;
+    padding-block: clamp(54px, 8vw, 92px);
+  }
+
+  .credit-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(420px, 1fr);
+    gap: clamp(24px, 5vw, 60px);
+    align-items: center;
+  }
+
+  .credit-grid h2 {
+    color: #171717;
+  }
+
+  .fixer-card {
+    display: grid;
+    gap: 16px;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(23,23,23,0.09);
+  }
+
+  .bad-prompt,
+  .fixed-prompt {
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .bad-prompt {
+    background: #171717;
+  }
+
+  .fixed-prompt {
+    background: #F2ECE4;
+  }
+
+  .bad-prompt span,
+  .fixed-prompt span {
+    display: block;
+    margin-bottom: 8px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .bad-prompt span {
+    color: #F28A61;
+  }
+
+  .bad-prompt p,
+  .fixed-prompt p {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .bad-prompt p {
+    color: rgba(255,255,255,0.76);
+  }
+
+  .fixed-prompt p {
+    color: #171717;
+  }
+
+  .score-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .score-list div {
+    display: grid;
+    grid-template-columns: 82px 1fr 44px;
+    gap: 10px;
+    align-items: center;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .score-list i {
+    display: block;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #B83A1F var(--score), #EFE8DC var(--score));
+  }
+
+  .preview-wall-section {
+    background: #fff;
+    padding-block: clamp(54px, 8vw, 92px);
+  }
+
+  .preview-wall {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .preview-tile {
+    position: relative;
+    min-height: 230px;
+    overflow: hidden;
+    border: 1px solid #E6DDD1;
+    border-radius: 20px;
+    background: #171717;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 12px 38px rgba(23,23,23,0.08);
+  }
+
+  .preview-tile video {
+    width: 100%;
+    height: 100%;
+    min-height: 230px;
+    object-fit: cover;
+    opacity: 0.72;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .preview-tile:hover video {
+    transform: scale(1.04);
+    opacity: 0.9;
+  }
+
+  .preview-tile div {
+    position: absolute;
+    inset-inline: 14px;
+    bottom: 14px;
+    border-radius: 14px;
+    padding: 12px;
+    background: rgba(15,15,19,0.76);
+    backdrop-filter: blur(10px);
+  }
+
+  .preview-tile strong,
+  .preview-tile span {
+    display: block;
+    font-family: var(--font-ui, "Inter", sans-serif);
+  }
+
+  .preview-tile strong {
+    font-size: 15px;
+  }
+
+  .preview-tile span {
+    margin-top: 3px;
+    color: rgba(255,255,255,0.52);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .preview-wall-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+  }
+
+  .preview-wall-action a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border: 1px solid #E6DDD1;
+    border-radius: 999px;
+    padding: 0 18px;
+    background: #F8F5EF;
+    color: #171717;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .preview-wall-action a:hover {
+    border-color: rgba(228,87,46,0.45);
+    transform: translateY(-2px);
+  }
+
   .stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -550,10 +2198,890 @@ const categoryColors: Record<string, string> = {
     gap: 16px;
   }
 
+  .recipe-card {
+    position: relative;
+    display: grid;
+    gap: 0;
+    overflow: hidden;
+    min-height: 330px;
+    border: 1px solid rgba(23,23,23,0.08);
+    border-radius: 22px;
+    background: #fff;
+    color: #171717;
+    text-decoration: none;
+    box-shadow: 0 14px 42px rgba(23,23,23,0.06);
+    transform: translateY(0);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .recipe-card:hover {
+    border-color: color-mix(in srgb, var(--card-accent) 42%, #E6DDD1);
+    box-shadow: 0 24px 70px rgba(23,23,23,0.13);
+    transform: translateY(-6px);
+  }
+
+  .recipe-cover {
+    position: relative;
+    min-height: 168px;
+    aspect-ratio: 1.55;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(23,23,23,0.08);
+    background:
+      radial-gradient(circle at 20% 18%, rgba(255,255,255,0.9), transparent 9%),
+      radial-gradient(circle at 72% 38%, color-mix(in srgb, var(--card-soft) 85%, transparent), transparent 31%),
+      linear-gradient(135deg, #15151b 0%, color-mix(in srgb, var(--card-accent) 22%, #4F4A45) 55%, #f3eee7 135%);
+  }
+
+  .recipe-cover::before,
+  .recipe-cover::after {
+    content: "";
+    position: absolute;
+    inset-inline: 16px;
+    height: 8px;
+    opacity: 0.34;
+    background: repeating-linear-gradient(90deg, rgba(255,255,255,0.92) 0 8px, transparent 8px 20px);
+  }
+
+  .recipe-cover::before {
+    top: 18px;
+  }
+
+  .recipe-cover::after {
+    bottom: 18px;
+  }
+
+  .recipe-card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 162px;
+    padding: 18px;
+  }
+
+  .recipe-card-meta,
+  .recipe-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-family: var(--font-ui, "Inter", sans-serif);
+  }
+
+  .recipe-card-meta span {
+    color: #7A7268;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .recipe-card-meta span:last-child {
+    color: #5f5147;
+  }
+
+  .recipe-card h3 {
+    margin: 12px 0 8px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .recipe-card p {
+    margin: 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .recipe-card-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #F0EAE2;
+  }
+
+  .recipe-card-footer span {
+    color: #665b50;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .recipe-card-footer strong {
+    color: #171717;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .recipe-card .recipe-cover {
+    min-height: 198px;
+    padding: 16px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    background:
+      radial-gradient(circle at 82% 22%, color-mix(in srgb, var(--card-soft) 88%, transparent), transparent 27%),
+      linear-gradient(135deg, color-mix(in srgb, var(--card-accent) 18%, #101014), #15151b 62%);
+  }
+
+  .recipe-cover-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.01);
+    transition: transform 0.36s ease, filter 0.36s ease;
+  }
+
+  .recipe-card:hover .recipe-cover-image {
+    filter: saturate(1.08) contrast(1.04);
+    transform: scale(1.06);
+  }
+
+  .recipe-card .recipe-cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: block;
+    background:
+      linear-gradient(180deg, rgba(15,15,19,0.62), rgba(15,15,19,0.1) 46%, rgba(15,15,19,0.7)),
+      linear-gradient(90deg, rgba(15,15,19,0.36), transparent 44%, rgba(15,15,19,0.12));
+  }
+
+  .recipe-card .recipe-cover::before,
+  .recipe-card .recipe-cover::after {
+    pointer-events: none;
+  }
+
+  .recipe-cover-top {
+    position: relative;
+    z-index: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .recipe-cover-top span,
+  .recipe-cover-top small {
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-weight: 900;
+  }
+
+  .recipe-cover-top span {
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .recipe-cover-top small {
+    max-width: 120px;
+    color: rgba(255,255,255,0.62);
+    font-size: 11px;
+    line-height: 1.25;
+    text-align: right;
+  }
+
+  .recipe-mini-scene {
+    position: relative;
+    z-index: 1;
+    min-height: 92px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 22px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px) 0 0 / 34px 34px,
+      rgba(255,255,255,0.06);
+  }
+
+  .recipe-mini-scene span {
+    position: absolute;
+    display: block;
+    transition: transform 0.32s ease, opacity 0.32s ease;
+  }
+
+  .scene-bg {
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.36);
+  }
+
+  .scene-subject {
+    left: 50%;
+    top: 48%;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #fff7ea, var(--card-soft));
+    box-shadow: 0 20px 42px rgba(0,0,0,0.34);
+    transform: translate(-50%, -50%) rotate(-8deg);
+  }
+
+  .scene-detail {
+    right: 38px;
+    top: 26px;
+    width: 82px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.24);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .scene-focus {
+    left: 50%;
+    top: 48%;
+    width: 84px;
+    height: 66px;
+    border: 1px dashed rgba(255,255,255,0.42);
+    border-radius: 24px;
+    transform: translate(-50%, -50%);
+  }
+
+  .recipe-cover[data-scene="cafe"] .scene-bg {
+    height: 42px;
+    border-radius: 10px 10px 0 0;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.14) 18px, transparent 18px 34px, rgba(255,255,255,0.14) 34px 52px),
+      rgba(255,255,255,0.06);
+  }
+
+  .recipe-cover[data-scene="cafe"] .scene-detail::after {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: -26px;
+    width: 18px;
+    height: 34px;
+    border-radius: 999px;
+    border-left: 2px solid rgba(255,255,255,0.36);
+    transform: rotate(-18deg);
+  }
+
+  .recipe-cover[data-scene="dialogue"] .scene-subject {
+    width: 96px;
+    background:
+      radial-gradient(circle at 32% 33%, #fff4dc 0 10px, transparent 11px),
+      radial-gradient(circle at 68% 36%, #f3c3a8 0 10px, transparent 11px),
+      linear-gradient(135deg, #2c2b34, var(--card-soft));
+  }
+
+  .recipe-cover[data-scene="dialogue"] .scene-focus {
+    width: 132px;
+  }
+
+  .recipe-cover[data-scene="product"] .scene-subject {
+    border-radius: 16px;
+  }
+
+  .recipe-cover[data-scene="product"] .scene-focus {
+    width: 74px;
+    height: 74px;
+    border-radius: 999px;
+  }
+
+  .recipe-cover[data-scene="travel"] .scene-bg {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 42px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+    clip-path: polygon(0 78%, 18% 42%, 34% 68%, 55% 24%, 76% 62%, 100% 36%, 100% 100%, 0 100%);
+  }
+
+  .recipe-cover[data-scene="travel"] .scene-subject {
+    width: 94px;
+    height: 36px;
+    border-radius: 999px;
+    top: 58%;
+  }
+
+  .recipe-cover[data-scene="tutorial"] .scene-bg {
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .recipe-cover[data-scene="tutorial"] .scene-detail {
+    left: 32px;
+    right: auto;
+    width: 76px;
+    border-radius: 8px;
+  }
+
+  .recipe-cover[data-scene="interview"] .scene-subject {
+    width: 78px;
+    border-radius: 30px 30px 18px 18px;
+  }
+
+  .recipe-cover[data-scene="interview"] .scene-detail {
+    width: 48px;
+    height: 70px;
+  }
+
+  .recipe-cover[data-scene="action"] .scene-subject {
+    width: 84px;
+    height: 44px;
+    border-radius: 999px 24px 999px 24px;
+    transform: translate(-55%, -50%) rotate(-24deg);
+  }
+
+  .recipe-cover[data-scene="action"] .scene-bg {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: rotate(-6deg);
+  }
+
+  .recipe-cover[data-scene="lifestyle"] .scene-bg {
+    right: 34px;
+    left: auto;
+    bottom: 22px;
+    width: 78px;
+    height: 54px;
+    border-radius: 18px 18px 4px 4px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .recipe-shot-strip {
+    position: relative;
+    z-index: 2;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .recipe-shot-strip span {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 7px 8px;
+    background: rgba(0,0,0,0.18);
+    color: rgba(255,255,255,0.78);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .recipe-shot-strip b {
+    display: block;
+    margin-bottom: 2px;
+    color: #F28A61;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
+  .recipe-card:hover .scene-subject {
+    transform: translate(-50%, -58%) rotate(2deg) scale(1.08);
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .audience-section {
+    position: relative;
+    overflow: hidden;
+    background: #0F0F13;
+    padding-block: clamp(58px, 8vw, 104px);
+    color: #fff;
+  }
+
+  .audience-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: radial-gradient(circle at 50% 20%, #000, transparent 72%);
+    pointer-events: none;
+  }
+
+  .audience-section .container-pad {
+    position: relative;
+    z-index: 1;
+  }
+
+  .audience-head {
+    max-width: 820px;
+    margin-bottom: 30px;
+  }
+
+  .audience-head span {
+    display: block;
+    margin-bottom: 10px;
+    color: #f28a61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .audience-head h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 5vw, 60px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .audience-head p {
+    max-width: 680px;
+    margin: 16px 0 0;
+    color: rgba(255,255,255,0.6);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .audience-card {
+    position: relative;
+    display: flex;
+    min-height: 420px;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(228,87,46,0.18), transparent 30%),
+      linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  .audience-card:hover {
+    border-color: rgba(228,87,46,0.48);
+    background:
+      radial-gradient(circle at 50% 18%, rgba(228,87,46,0.26), transparent 34%),
+      linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.045));
+    box-shadow: 0 26px 74px rgba(0,0,0,0.28);
+    transform: translateY(-6px);
+  }
+
+  .audience-flow {
+    position: relative;
+    height: 168px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    border-radius: 20px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px) 0 18px / 24px 8px repeat-x,
+      radial-gradient(circle at 78% 32%, rgba(242,138,97,0.3), transparent 28%),
+      linear-gradient(135deg, #171720, #413d3f 58%, #7c331f);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .audience-flow::before {
+    content: "";
+    position: absolute;
+    inset: 18px 20px 54px;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 18px;
+    transform: rotate(calc(var(--audience-index) * 1.2deg - 1.8deg));
+  }
+
+  .audience-frame {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 30px;
+    min-height: 72px;
+    display: grid;
+    align-content: center;
+    gap: 6px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(18,18,22,0.66);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12), 0 18px 42px rgba(0,0,0,0.26);
+    transition: transform 0.32s ease, background 0.32s ease;
+  }
+
+  .audience-frame span,
+  .audience-frame small {
+    color: rgba(255,255,255,0.58);
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .audience-frame strong {
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: -0.03em;
+  }
+
+  .audience-shotline {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .audience-shotline em {
+    min-width: 0;
+    padding: 7px 8px;
+    border-radius: 999px;
+    background: rgba(255,244,225,0.9);
+    color: #171717;
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(0);
+    transition: transform 0.28s ease, background 0.28s ease;
+  }
+
+  .audience-card:hover .audience-frame {
+    background: rgba(18,18,22,0.78);
+    transform: translateY(-5px);
+  }
+
+  .audience-card:hover .audience-shotline em {
+    background: #F28A61;
+    transform: translateY(calc((var(--beat) + 1) * -2px));
+  }
+
+  .audience-card strong {
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .audience-card p,
+  .audience-card small {
+    font-family: var(--font-ui, "Inter", sans-serif);
+    line-height: 1.58;
+  }
+
+  .audience-card p {
+    margin: 12px 0 0;
+    color: rgba(255,255,255,0.66);
+    font-size: 14px;
+  }
+
+  .audience-card small {
+    display: block;
+    margin-top: 14px;
+    color: rgba(255,255,255,0.42);
+    font-size: 13px;
+    flex: 1;
+  }
+
+  .audience-card em {
+    margin-top: 18px;
+    color: #f28a61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 900;
+  }
+
+  .offer-section {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(228,87,46,0.12), transparent 24%),
+      radial-gradient(circle at 88% 12%, rgba(23,23,23,0.08), transparent 22%),
+      #F8F5EF;
+    padding-block: clamp(54px, 7vw, 92px);
+  }
+
+  .offer-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.32;
+    background:
+      linear-gradient(90deg, rgba(23,23,23,0.05) 1px, transparent 1px),
+      linear-gradient(rgba(23,23,23,0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+  }
+
+  .offer-section .container-pad {
+    position: relative;
+    z-index: 1;
+  }
+
+  .offer-head {
+    max-width: 760px;
+    margin-bottom: 30px;
+  }
+
+  .offer-head span {
+    display: block;
+    margin-bottom: 10px;
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .offer-head h2 {
+    margin: 0 0 12px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 4.4vw, 54px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .offer-head p {
+    max-width: 700px;
+    margin: 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .plan-card {
+    position: relative;
+    display: flex;
+    min-height: 360px;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: 20px;
+    background: rgba(255,255,255,0.82);
+    box-shadow: 0 18px 56px rgba(23,23,23,0.07);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .plan-card:hover {
+    border-color: rgba(228,87,46,0.38);
+    box-shadow: 0 28px 80px rgba(23,23,23,0.13);
+    transform: translateY(-6px);
+  }
+
+  .plan-card.featured {
+    background:
+      linear-gradient(180deg, rgba(23,23,23,0.96), rgba(26,26,34,0.98));
+    border-color: rgba(228,87,46,0.38);
+    color: #fff;
+  }
+
+  .plan-visual {
+    position: relative;
+    height: 142px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #171720;
+  }
+
+  .plan-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(15,15,19,0.5), rgba(15,15,19,0.12) 42%, rgba(15,15,19,0.74)),
+      linear-gradient(90deg, rgba(15,15,19,0.56), rgba(15,15,19,0.08));
+    pointer-events: none;
+  }
+
+  .plan-visual-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.82;
+    transform: scale(1.02);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .plan-card:hover .plan-visual-image {
+    opacity: 0.94;
+    transform: scale(1.07);
+  }
+
+  .plan-visual span {
+    position: absolute;
+    z-index: 2;
+    left: 14px;
+    top: 12px;
+    border-radius: 999px;
+    padding: 5px 8px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.76);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .plan-visual strong {
+    position: absolute;
+    z-index: 2;
+    left: 16px;
+    right: 16px;
+    top: 50px;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .plan-visual div {
+    position: absolute;
+    z-index: 2;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .plan-visual em {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    padding: 6px 7px;
+    background: rgba(0,0,0,0.2);
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transform: translateY(0);
+    transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+  }
+
+  .plan-card:hover .plan-visual em {
+    border-color: rgba(242,138,97,0.48);
+    background: rgba(184,58,31,0.26);
+    transform: translateY(calc(var(--step) * -2px - 2px));
+  }
+
+  .plan-card h3 {
+    margin: 4px 0 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .plan-card.featured h3 {
+    color: #fff;
+  }
+
+  .plan-card strong {
+    color: #B83A1F;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 34px;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+  }
+
+  .plan-card p {
+    margin: 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .plan-card.featured p {
+    color: rgba(255,255,255,0.58);
+  }
+
+  .plan-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    border-radius: 999px;
+    background: #171717;
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .plan-card.featured a {
+    background: #B83A1F;
+  }
+
+  .plan-card a:hover {
+    background: #B83A1F;
+    transform: translateY(-1px);
+  }
+
   @media (min-width: 900px) {
     .recipe-grid {
       grid-template-columns: repeat(4, 1fr);
     }
+  }
+
+  .live-example-section {
+    background:
+      radial-gradient(circle at 14% 20%, rgba(228,87,46,0.08), transparent 28%),
+      linear-gradient(180deg, #fff, #FDFBF8);
+    padding-block: clamp(54px, 7vw, 92px);
   }
 
   .example-split {
@@ -563,9 +3091,281 @@ const categoryColors: Record<string, string> = {
     align-items: start;
   }
 
+  .example-left,
+  .workflow-panel {
+    position: relative;
+  }
+
+  .example-left h2,
+  .workflow-panel h2,
+  .beginner-path-head h2 {
+    margin: 0 0 10px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(26px, 3.2vw, 38px);
+    font-weight: 900;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  .example-left > p,
+  .workflow-panel > p,
+  .beginner-path-head p {
+    max-width: 660px;
+    margin: 0 0 24px;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .idea-card {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 18px;
+    border: 1px solid #E6DDD1;
+    border-radius: 22px;
+    padding: 20px 22px;
+    background:
+      radial-gradient(circle at 84% 28%, rgba(228,87,46,0.15), transparent 22%),
+      linear-gradient(135deg, #F8F5EF, #fff);
+  }
+
+  .idea-card::after {
+    content: "";
+    position: absolute;
+    right: 22px;
+    top: 24px;
+    width: 96px;
+    height: 62px;
+    border: 1px solid rgba(228,87,46,0.24);
+    border-radius: 20px;
+    background:
+      linear-gradient(90deg, rgba(228,87,46,0.18) 1px, transparent 1px) 0 16px / 18px 8px repeat-x,
+      rgba(255,255,255,0.46);
+    transform: rotate(-8deg);
+  }
+
+  .idea-card span,
+  .prompt-card span {
+    display: block;
+    margin-bottom: 8px;
+    color: #7A7268;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .idea-card p {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 10px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .idea-card small {
+    position: relative;
+    z-index: 1;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .shot-timeline {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .shot-row {
+    display: grid;
+    grid-template-columns: 38px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    border: 1px solid #F0EAE2;
+    border-radius: 16px;
+    padding: 12px;
+    background: #fff;
+    transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .shot-row.active,
+  .shot-row:hover {
+    border-color: rgba(228,87,46,0.38);
+    box-shadow: 0 12px 36px rgba(23,23,23,0.06);
+    transform: translateX(4px);
+  }
+
+  .shot-number {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: #F8F5EF;
+    color: #7A7268;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .shot-row.active .shot-number {
+    background: #B83A1F;
+    color: #fff;
+  }
+
+  .shot-row strong,
+  .workflow-step h3,
+  .beginner-path-card strong {
+    display: block;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .shot-row span {
+    display: block;
+    margin-top: 3px;
+    color: #7A7268;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+  }
+
+  .shot-row em {
+    border: 1px solid #E6DDD1;
+    border-radius: 999px;
+    padding: 5px 9px;
+    background: #F8F5EF;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 900;
+  }
+
+  .prompt-card {
+    margin-bottom: 18px;
+    border-radius: 20px;
+    padding: 18px;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px) 0 16px / 24px 8px repeat-x,
+      #0F0F13;
+    box-shadow: 0 20px 52px rgba(23,23,23,0.16);
+  }
+
+  .prompt-card span {
+    color: rgba(255,255,255,0.35);
+  }
+
+  .prompt-card p {
+    margin: 0 0 14px;
+    color: rgba(255,255,255,0.82);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.75;
+  }
+
+  .copy-prompt-button {
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    padding: 8px 13px;
+    background: rgba(255,255,255,0.09);
+    color: rgba(255,255,255,0.78);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+
+  .copy-prompt-button:hover {
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+  }
+
+  .example-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
   .example-right {
-    border-left: 1px solid #F0EAE2;
-    padding-left: 64px;
+    position: relative;
+  }
+
+  .workflow-panel {
+    position: sticky;
+    top: 88px;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: 24px;
+    background: #fff;
+    box-shadow: 0 18px 56px rgba(23,23,23,0.07);
+  }
+
+  .workflow-steps {
+    display: grid;
+    gap: 12px;
+  }
+
+  .workflow-step {
+    position: relative;
+    display: grid;
+    gap: 8px;
+    overflow: hidden;
+    border: 1px solid #F0EAE2;
+    border-radius: 18px;
+    padding: 18px;
+    background: #F8F5EF;
+  }
+
+  .workflow-step span {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+    background: #B83A1F;
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .workflow-step h3 {
+    font-size: 17px;
+  }
+
+  .workflow-step p,
+  .beginner-path-card p {
+    margin: 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .workflow-step a {
+    color: #B83A1F;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .workflow-step a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 
   @media (max-width: 900px) {
@@ -576,21 +3376,323 @@ const categoryColors: Record<string, string> = {
     .example-right {
       border-left: none;
       padding-left: 0;
-      border-top: 1px solid #F0EAE2;
-      padding-top: 40px;
     }
   }
 
-  .beginner-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  .beginner-path-section {
+    background: #EFE8DC;
+    padding-block: clamp(42px, 6vw, 72px);
+  }
+
+  .beginner-path-section .container-pad {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(22px, 5vw, 56px);
+    align-items: start;
+  }
+
+  .beginner-path-head {
+    position: sticky;
+    top: 88px;
+  }
+
+  .beginner-path-board {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .beginner-path-card {
+    position: relative;
+    display: grid;
+    gap: 8px;
+    min-height: 150px;
+    overflow: hidden;
+    border: 1px solid #D8CFC3;
+    border-radius: 20px;
+    padding: 18px;
+    background: #fff;
+    color: #171717;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  .beginner-path-card::after {
+    content: "";
+    position: absolute;
+    right: -18px;
+    top: -18px;
+    width: 94px;
+    height: 94px;
+    border-radius: 32px;
+    background: rgba(228,87,46,0.08);
+    transform: rotate(-14deg);
+  }
+
+  .beginner-path-card:hover {
+    border-color: rgba(228,87,46,0.36);
+    box-shadow: 0 16px 44px rgba(23,23,23,0.08);
+    transform: translateY(-4px);
+  }
+
+  .beginner-path-card span {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    background: #B83A1F;
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .beginner-path-card strong {
+    font-size: 17px;
+  }
+
+  @media (max-width: 900px) {
+    .beginner-path-section .container-pad {
+      grid-template-columns: 1fr;
+    }
+
+    .beginner-path-head {
+      position: relative;
+      top: auto;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .beginner-path-board {
+      grid-template-columns: 1fr;
+    }
+
+    .shot-row {
+      grid-template-columns: 34px 1fr;
+    }
+
+    .shot-row em {
+      grid-column: 2;
+      width: fit-content;
+    }
   }
 
   .tools-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+  }
+
+  .tool-card {
+    position: relative;
+    display: flex;
+    min-height: 280px;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    border: 1px solid #E6DDD1;
+    border-radius: 22px;
+    padding: 20px;
+    background:
+      radial-gradient(circle at 78% 16%, rgba(228,87,46,0.15), transparent 24%),
+      linear-gradient(180deg, #fff, #F8F5EF);
+    color: #171717;
+    text-decoration: none;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+
+  .tool-card:hover {
+    border-color: #D8CFC3;
+    box-shadow: 0 20px 62px rgba(23,23,23,0.11);
+    transform: translateY(-5px);
+  }
+
+  .tool-visual {
+    position: relative;
+    min-height: 104px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #171720;
+  }
+
+  .tool-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(15,15,19,0.18), rgba(15,15,19,0.06) 42%, rgba(15,15,19,0.68)),
+      linear-gradient(90deg, rgba(15,15,19,0.5), transparent 52%);
+    pointer-events: none;
+  }
+
+  .tool-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.88;
+    transform: scale(1.02);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .tool-card:hover .tool-image {
+    opacity: 1;
+    transform: scale(1.07);
+  }
+
+  .tool-visual span {
+    position: absolute;
+    z-index: 2;
+    left: 14px;
+    top: 12px;
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .tool-scene {
+    position: absolute;
+    inset: 34px 20px 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .tool-scene i,
+  .tool-scene b,
+  .tool-scene em {
+    position: absolute;
+    display: block;
+    transition: transform 0.25s ease;
+  }
+
+  .tool-scene i {
+    left: 16px;
+    top: 18px;
+    width: 96px;
+    height: 2px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.42);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .tool-scene b {
+    right: 18px;
+    top: 12px;
+    width: 74px;
+    height: 46px;
+    border: 1px solid rgba(255,255,255,0.32);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .tool-scene em {
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #F28A61 54%, rgba(255,255,255,0.2) 54%);
+  }
+
+  .tool-visual[data-tool-visual="learn-the-language"] .tool-scene b {
+    right: 28px;
+    width: 58px;
+    border-radius: 999px;
+  }
+
+  .tool-visual[data-tool-visual="plan-the-sequence"] .tool-scene b,
+  .tool-visual[data-tool-visual="use-a-recipe"] .tool-scene b {
+    transform: rotate(-8deg);
+  }
+
+  .tool-visual[data-tool-visual="practice-the-basics"] .tool-scene em {
+    background: linear-gradient(90deg, #10B981 72%, rgba(255,255,255,0.2) 72%);
+  }
+
+  .tool-card:hover .tool-scene b {
+    transform: translateY(-5px) rotate(0deg);
+  }
+
+  .tool-meta {
+    width: fit-content;
+    border-radius: 999px;
+    padding: 5px 9px;
+    background: #F2ECE4;
+    color: #8e2d17;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .tool-card h3 {
+    margin: 4px 0 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .tool-card p {
+    margin: 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .tool-card strong {
+    color: #171717;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .blog-all-link {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.5);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+
+  .blog-all-link:hover {
+    color: #fff;
+  }
+
+  .blog-preview-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(228,87,46,0.12), transparent 28%),
+      #1A1A22;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-preview-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.22);
+    transform: translateY(-4px);
   }
 
   @media (min-width: 900px) {
@@ -616,14 +3718,104 @@ const categoryColors: Record<string, string> = {
   }
 
   @media (max-width: 900px) {
+    .landing-demo-grid,
+    .scroll-story-grid,
+    .direction-grid,
+    .credit-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .scroll-story-sticky {
+      position: relative;
+      top: auto;
+    }
+
+    .story-step.active {
+      transform: none;
+    }
+
+    .director-demo-card {
+      min-height: 560px;
+    }
+
+    .preview-wall {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pain-grid,
+    .plans-grid,
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+
     .blog-preview-grid {
       grid-template-columns: 1fr 1fr;
     }
   }
 
   @media (max-width: 540px) {
+    .landing-demo {
+      padding-block: 54px;
+    }
+
+    .landing-demo-actions button {
+      min-height: 50px;
+      transform: none;
+    }
+
+    .landing-demo-actions button:hover,
+    .landing-demo-actions button.active {
+      transform: none;
+    }
+
+    .director-demo-card {
+      min-height: 500px;
+      border-radius: 24px;
+      padding: 12px;
+    }
+
+    .director-demo-card::before {
+      inset: 12px;
+      border-radius: 19px;
+    }
+
+    .demo-stage {
+      height: 286px;
+      margin-block: 16px;
+    }
+
+    .story-screen {
+      padding: 16px;
+      border-radius: 22px;
+    }
+
+    .story-screen > strong,
+    .story-screen > p {
+      min-height: auto;
+    }
+
+    .story-visual {
+      min-height: 164px;
+    }
+
+    .story-step {
+      min-height: auto;
+    }
+
+    .preview-wall {
+      grid-template-columns: 1fr;
+    }
+
     .blog-preview-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-ready [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
   }
 </style>

@@ -22,15 +22,45 @@ const categoryColors: Record<string, string> = {
   "ai-prompting": "#3B82F6",
 };
 
-const categoryMeta: Record<string, { headline: string; description: string; emoji: string }> = {
-  shots:          { headline: "Shot Types & Framing", description: "Master wide shots, close-ups, and everything in between — then write them into your AI video prompts.", emoji: "🎬" },
-  lighting:       { headline: "Lighting for Video & AI", description: "Golden hour, Rembrandt, neon practicals — learn the language of light and how to describe it in prompts.", emoji: "💡" },
-  movement:       { headline: "Camera Movement", description: "Dolly, pan, tilt, handheld — every movement carries emotion. Learn what each does and how to specify it.", emoji: "🎥" },
-  editing:        { headline: "Editing Techniques", description: "Cut, dissolve, match cut — understand how editing shapes rhythm, time, and meaning.", emoji: "✂️" },
-  "ai-prompting": { headline: "AI Video Prompting", description: "Frameworks, vocabulary, and techniques for writing prompts that produce cinematic results in Runway, Pika, and Stable Video.", emoji: "🤖" },
+const categoryMeta: Record<string, { headline: string; description: string; visualLabel: string; visualSteps: string[] }> = {
+  shots: {
+    headline: "Shot Types & Framing",
+    description: "Master wide shots, close-ups, and everything in between — then write them into your AI video prompts.",
+    visualLabel: "Frame plan",
+    visualSteps: ["Wide", "Medium", "Close"],
+  },
+  lighting: {
+    headline: "Lighting for Video & AI",
+    description: "Golden hour, Rembrandt, neon practicals — learn the language of light and how to describe it in prompts.",
+    visualLabel: "Light map",
+    visualSteps: ["Key", "Fill", "Rim"],
+  },
+  movement: {
+    headline: "Camera Movement",
+    description: "Dolly, pan, tilt, handheld — every movement carries emotion. Learn what each does and how to specify it.",
+    visualLabel: "Motion path",
+    visualSteps: ["Start", "Move", "Land"],
+  },
+  editing: {
+    headline: "Editing Techniques",
+    description: "Cut, dissolve, match cut — understand how editing shapes rhythm, time, and meaning.",
+    visualLabel: "Timeline",
+    visualSteps: ["Shot A", "Cut", "Shot B"],
+  },
+  "ai-prompting": {
+    headline: "AI Video Prompting",
+    description: "Frameworks, vocabulary, and techniques for writing prompts that produce cinematic results in Runway, Pika, and Stable Video.",
+    visualLabel: "Prompt stack",
+    visualSteps: ["Subject", "Motion", "Light"],
+  },
 };
 
-const meta = categoryMeta[category] ?? { headline: category, description: "", emoji: "📽️" };
+const meta = categoryMeta[category] ?? {
+  headline: category,
+  description: "",
+  visualLabel: "Video note",
+  visualSteps: ["Learn", "Plan", "Prompt"],
+};
 const color = categoryColors[category] ?? "#E4572E";
 const label = category.replace("-", " ");
 
@@ -55,7 +85,12 @@ function formatDate(d: Date) {
       </nav>
 
       <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 20px;">
-        <span style="font-size: 48px; line-height: 1;">{meta.emoji}</span>
+        <div class="category-visual" style={`--category-color:${color};`} aria-hidden="true">
+          <span>{meta.visualLabel}</span>
+          <div>
+            {meta.visualSteps.map((step) => <em>{step}</em>)}
+          </div>
+        </div>
         <div>
           <span class="font-ui" style={`display: inline-block; font-size: 10px; font-weight: 700; color: ${color}; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;`}>{posts.length} article{posts.length !== 1 ? "s" : ""}</span>
           <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(26px, 4vw, 44px); font-weight: 700; color: #fff; line-height: 1.1; letter-spacing: -0.025em; margin: 0;">
@@ -130,11 +165,70 @@ function formatDate(d: Date) {
 </BaseLayout>
 
 <style>
+  .category-visual {
+    width: 148px;
+    min-height: 92px;
+    display: grid;
+    align-content: center;
+    gap: 12px;
+    flex: 0 0 auto;
+    padding: 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px) 14px 12px / 22px 10px repeat-x,
+      radial-gradient(circle at 74% 26%, color-mix(in srgb, var(--category-color) 44%, transparent), transparent 32%),
+      linear-gradient(135deg, #171720, #2A2830 58%, color-mix(in srgb, var(--category-color) 56%, #171720));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06), 0 18px 54px rgba(0,0,0,0.2);
+  }
+
+  .category-visual span {
+    width: fit-content;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(15,15,19,0.74);
+    color: rgba(255,255,255,0.78);
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .category-visual div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .category-visual em {
+    min-width: 0;
+    padding: 6px 5px;
+    border-radius: 10px;
+    background: rgba(255,244,225,0.9);
+    color: #171717;
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
   .cat-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
   @media (max-width: 900px) { .cat-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 540px) { .cat-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) {
+    .cat-grid { grid-template-columns: 1fr; }
+    .category-visual { width: 112px; min-height: 82px; padding: 12px; }
+    .category-visual div { grid-template-columns: 1fr; }
+    .category-visual em { padding-block: 4px; }
+  }
 </style>

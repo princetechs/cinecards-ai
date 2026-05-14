@@ -34,7 +34,7 @@ const difficulties = Array.from(new Set(terms.map((t) => t.difficulty))).sort();
   <!-- Empty state -->
   <div class="empty-state hidden" data-empty-state>
     <div class="empty-inner">
-      <p class="empty-icon">🎬</p>
+      <div class="empty-mark" aria-hidden="true"><span></span><i></i></div>
       <p class="empty-heading">No matching terms</p>
       <p class="empty-sub">Try searching "camera movement," "close-up," or "lighting."</p>
       <button class="empty-reset" type="button" data-reset-filters>Reset filters</button>
@@ -74,7 +74,36 @@ const difficulties = Array.from(new Set(terms.map((t) => t.difficulty))).sort();
     border-radius: 20px;
     text-align: center;
   }
-  .empty-icon { font-size: 2.5rem; margin: 0; }
+  .empty-mark {
+    position: relative;
+    width: 76px;
+    height: 46px;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid #E6DDD1;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.45) 6px, transparent 6px) 8px 8px / 18px 8px repeat-x,
+      linear-gradient(135deg, #171717, #6B625B 66%, #E4572E);
+    box-shadow: 0 16px 40px rgba(23, 23, 23, 0.12);
+  }
+  .empty-mark span {
+    position: absolute;
+    left: 13px;
+    right: 13px;
+    bottom: 9px;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.34);
+  }
+  .empty-mark i {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 2px solid rgba(255,255,255,0.62);
+  }
   .empty-heading {
     font-family: "Space Grotesk", var(--font-display, sans-serif);
     font-size: 1.25rem; font-weight: 700; color: #171717; margin: 0;

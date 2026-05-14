@@ -99,7 +99,7 @@ const glossaryHref = localisedPath("/glossary", lang);
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </Fragment>
 
   <section class="bg-paper py-10">
@@ -128,7 +128,9 @@ const glossaryHref = localisedPath("/glossary", lang);
           width="1200"
           height="675"
           aria-label={`Motion preview of ${term.name}`}
-        ></video>
+        >
+          <track kind="captions" src="/captions/silent-preview.vtt" srclang="en" label="No dialogue" />
+        </video>
       ) : primaryImage && (
         <img
           class="mt-7 aspect-video w-full max-w-3xl rounded-lg border border-ink/10 object-cover shadow-soft"

@@ -30,46 +30,26 @@
     "previewVideo": {
       "width": 480,
       "height": 270,
-      "durationSeconds": 8,
+      "durationSeconds": 6,
       "maxKb": 600,
       "suffix": "-preview.mp4"
     }
   },
   "batches": [
     {
-      "id": "foundation-motion-previews",
+      "id": "all-glossary-preview-videos",
       "assetKind": "previewVideo",
       "status": "local-ready",
       "terms": [
-        "frame",
-        "shot",
-        "scene",
-        "sequence",
-        "aspect-ratio"
+        "*"
       ]
     },
     {
-      "id": "core-shot-stills",
+      "id": "all-glossary-images",
       "assetKind": "image",
       "status": "local-ready",
       "terms": [
-        "establishing-shot",
-        "wide-shot",
-        "medium-shot",
-        "close-up",
-        "extreme-close-up"
-      ]
-    },
-    {
-      "id": "next-motion-candidates",
-      "assetKind": "previewVideo",
-      "status": "local-ready",
-      "terms": [
-        "establishing-shot",
-        "wide-shot",
-        "medium-shot",
-        "close-up",
-        "insert-shot"
+        "*"
       ]
     }
   ]

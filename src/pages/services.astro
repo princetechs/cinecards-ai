@@ -1,0 +1,933 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MediaLoop from "../../components/MediaLoop.astro";
+import monetization from "../../data/monetization.json";
+import siteMedia from "../../data/siteMedia.json";
+
+const { servicePage } = monetization as {
+  servicePage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
+    packages: Array<{
+      name: string;
+      price: string;
+      bestFor: string;
+      deliverables: string[];
+    }>;
+    process: Array<{
+      step: string;
+      title: string;
+      description: string;
+    }>;
+    briefBuilder: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      submitLabel: string;
+      fields: Array<{
+        name: string;
+        label: string;
+        placeholder: string;
+        type: "text" | "textarea";
+      }>;
+    };
+    fitChecklist: string[];
+    faqs: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
+};
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "aiscreens AI video shot plans and prompt packs",
+  provider: {
+    "@type": "Organization",
+    name: "aiscreens",
+    url: "https://www.aiscreens.in",
+  },
+  serviceType: "AI video direction, shot planning, and prompt pack creation",
+  areaServed: "Worldwide",
+  offers: servicePage.packages.map((pkg) => ({
+    "@type": "Offer",
+    name: pkg.name,
+    priceSpecification: pkg.price,
+    description: pkg.bestFor,
+  })),
+};
+
+const servicePackageCovers = siteMedia.services.packageCovers;
+const servicePackages = servicePage.packages.map((item, index) => ({
+  ...item,
+  cover: servicePackageCovers[index % servicePackageCovers.length],
+}));
+---
+
+<BaseLayout
+  title="AI Video Prompt Packs and Shot Plans — aiscreens Services"
+  description="Hire aiscreens to create AI video shot plans, prompt packs, storyboard workflows, and model-ready prompts for creators, brands, courses, and local businesses."
+>
+  <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(serviceJsonLd)} />
+
+  <section class="services-hero">
+    <div class="container-pad services-hero-grid">
+      <div>
+        <span class="services-eyebrow">{servicePage.eyebrow}</span>
+        <h1>{servicePage.title}</h1>
+        <p>{servicePage.description}</p>
+        <div class="services-actions">
+          <a class="primary focus-ring" href={servicePage.primaryCta.href}>{servicePage.primaryCta.label}</a>
+          <a class="secondary focus-ring" href={servicePage.secondaryCta.href}>{servicePage.secondaryCta.label}</a>
+        </div>
+      </div>
+
+      <div class="services-console" aria-label="AI video direction service preview">
+        <MediaLoop media={siteMedia.services.hero} className="services-media-loop" eager />
+        <div class="console-output">
+          <span>Output</span>
+          <strong>Shot plan, prompts, failure fixes, and model notes.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fit-section">
+    <div class="container-pad fit-grid">
+      <div>
+        <span class="services-eyebrow">Good fit</span>
+        <h2>This is for projects where planning saves real money.</h2>
+        <p>
+          The service should be easy to understand before anyone emails: aiscreens helps when the hard part is converting a goal into usable shots and prompts.
+        </p>
+      </div>
+      <div class="fit-list">
+        {servicePage.fitChecklist.map((item, index) => (
+          <article>
+            <span>{index + 1 < 10 ? `0${index + 1}` : index + 1}</span>
+            <p>{item}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="services-packages">
+    <div class="container-pad">
+      <div class="section-head">
+        <span>Packages</span>
+        <h2>Start manual first. Turn repeatable work into product later.</h2>
+        <p>These offers are designed to validate demand before adding accounts, payments, or a backend.</p>
+      </div>
+
+      <div class="package-grid">
+        {servicePackages.map((item, index) => (
+          <article class={index === 1 ? "package-card featured" : "package-card"}>
+            <div class="package-visual">
+              <img
+                src={item.cover.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                width="960"
+                height="540"
+              />
+              <div class="package-visual-copy">
+                <span>{item.cover.label}</span>
+                <strong>{item.cover.note}</strong>
+                <div aria-label={`${item.name} workflow steps`}>
+                  {item.cover.steps.map((step, stepIndex) => (
+                    <em style={`--deliverable:${stepIndex}`}>{step}</em>
+                  ))}
+                </div>
+              </div>
+              <small>{index + 1 < 10 ? `0${index + 1}` : index + 1}</small>
+            </div>
+            <h3>{item.name}</h3>
+            <strong>{item.price}</strong>
+            <p>{item.bestFor}</p>
+            <ul>
+              {item.deliverables.map((deliverable) => (
+                <li>{deliverable}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="services-process">
+    <div class="container-pad process-grid">
+      <div>
+        <span class="services-eyebrow">How it works</span>
+        <h2>Make the boring planning work disappear.</h2>
+        <p>
+          The service offer should feel concrete: less guesswork, fewer failed generations, and a clearer path from idea to usable AI video.
+        </p>
+      </div>
+      <div class="process-list">
+        {servicePage.process.map((step) => (
+          <article>
+            <span>{step.step}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="brief-section">
+    <div class="container-pad brief-grid">
+      <div>
+        <span class="services-eyebrow">{servicePage.briefBuilder.eyebrow}</span>
+        <h2>{servicePage.briefBuilder.title}</h2>
+        <p>{servicePage.briefBuilder.description}</p>
+      </div>
+      <form
+        class="brief-card"
+        data-brief-builder
+        data-mailto={servicePage.primaryCta.href}
+        aria-label="AI video service brief builder"
+      >
+        {servicePage.briefBuilder.fields.map((field) => (
+          <label>
+            <span>{field.label}</span>
+            {field.type === "textarea" ? (
+              <textarea name={field.name} placeholder={field.placeholder} rows="3"></textarea>
+            ) : (
+              <input name={field.name} placeholder={field.placeholder} />
+            )}
+          </label>
+        ))}
+        <button type="submit" class="focus-ring">{servicePage.briefBuilder.submitLabel}</button>
+        <p class="brief-note" data-brief-status>
+          Your details stay in your browser until the email opens.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="container-pad faq-grid">
+      <div>
+        <span class="services-eyebrow">Before you ask</span>
+        <h2>Clear scope first. Bigger pipelines later.</h2>
+      </div>
+      <div class="faq-list">
+        {servicePage.faqs.map((faq) => (
+          <details>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector("[data-brief-builder]");
+
+  if (form instanceof HTMLFormElement) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const mailto = form.dataset.mailto || "mailto:hello@aiscreens.in";
+      const values = new FormData(form);
+      const sections = [
+        ["Project", values.get("project")],
+        ["Audience", values.get("audience")],
+        ["Preferred model", values.get("model")],
+        ["References / constraints", values.get("references")],
+      ]
+        .map(([label, value]) => `${label}:\n${String(value || "").trim() || "Not sure yet"}`)
+        .join("\n\n");
+      const separator = mailto.includes("?") ? "&" : "?";
+      const href = `${mailto}${separator}body=${encodeURIComponent(sections)}`;
+      const status = form.querySelector("[data-brief-status]");
+      if (status) {
+        status.textContent = "Opening your email app with the brief filled in.";
+      }
+      window.location.href = href;
+    });
+  }
+</script>
+
+<style>
+  .services-hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 18%, rgba(228,87,46,0.2), transparent 28%),
+      radial-gradient(circle at 86% 8%, rgba(255,255,255,0.09), transparent 24%),
+      #0F0F13;
+    color: #fff;
+    padding-block: clamp(76px, 11vw, 148px);
+  }
+
+  .services-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+  }
+
+  .services-hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1fr);
+    gap: clamp(30px, 6vw, 80px);
+    align-items: center;
+  }
+
+  .services-eyebrow,
+  .section-head span {
+    display: block;
+    margin-bottom: 12px;
+    color: #f28a61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .services-hero h1 {
+    max-width: 760px;
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 950;
+    letter-spacing: -0.058em;
+    line-height: 0.92;
+  }
+
+  .services-hero p,
+  .services-process > .container-pad > div > p,
+  .section-head p {
+    max-width: 680px;
+    margin: 20px 0 0;
+    color: rgba(255,255,255,0.62);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 17px;
+    line-height: 1.72;
+  }
+
+  .services-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .services-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    border-radius: 999px;
+    padding: 0 20px;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .services-actions .primary {
+    background: #E4572E;
+    color: #fff;
+  }
+
+  .services-actions .secondary {
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+  }
+
+  .services-console {
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 30px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 52% 30%, rgba(228,87,46,0.3), transparent 28%),
+      linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+    box-shadow: 0 34px 100px rgba(0,0,0,0.32);
+  }
+
+  .services-console :global(.services-media-loop) {
+    border-radius: 24px;
+    box-shadow: 0 24px 74px rgba(0,0,0,0.34);
+  }
+
+  .console-output {
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    background: rgba(15,15,19,0.72);
+    backdrop-filter: blur(14px);
+  }
+
+  .console-output span {
+    color: rgba(255,255,255,0.52);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .console-output {
+    margin-top: 14px;
+    padding: 16px;
+  }
+
+  .console-output strong {
+    display: block;
+    margin-top: 8px;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .services-packages {
+    background: #F8F5EF;
+    padding-block: clamp(58px, 8vw, 104px);
+  }
+
+  .fit-section {
+    background: #fff;
+    padding-block: clamp(54px, 7vw, 92px);
+  }
+
+  .fit-grid,
+  .faq-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+    gap: clamp(28px, 6vw, 76px);
+    align-items: start;
+  }
+
+  .fit-section h2,
+  .faq-section h2 {
+    margin: 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 4.8vw, 58px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .fit-section p {
+    max-width: 620px;
+    margin: 16px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .fit-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .fit-list article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    border: 1px solid #E6DDD1;
+    border-radius: 20px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 92% 18%, rgba(228,87,46,0.1), transparent 24%),
+      #F8F5EF;
+  }
+
+  .fit-list span {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #E4572E;
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .fit-list p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .section-head {
+    max-width: 760px;
+    margin-bottom: 30px;
+  }
+
+  .section-head span {
+    color: #E4572E;
+  }
+
+  .section-head h2,
+  .services-process h2 {
+    margin: 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 4.8vw, 60px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .section-head p {
+    color: #4F4A45;
+  }
+
+  .package-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .package-card {
+    display: flex;
+    min-height: 520px;
+    flex-direction: column;
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    padding: 20px;
+    background: rgba(255,255,255,0.82);
+    box-shadow: 0 18px 56px rgba(23,23,23,0.07);
+  }
+
+  .package-card.featured {
+    background: #171720;
+    border-color: rgba(228,87,46,0.38);
+    color: #fff;
+  }
+
+  .package-visual {
+    position: relative;
+    height: 138px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #171720;
+  }
+
+  .package-visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(15,15,19,0.06), rgba(15,15,19,0.58)),
+      linear-gradient(90deg, rgba(15,15,19,0.72), rgba(15,15,19,0.1));
+    pointer-events: none;
+  }
+
+  .package-visual img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+  }
+
+  .package-visual-copy {
+    position: absolute;
+    inset: auto 14px 14px;
+    z-index: 1;
+    display: grid;
+    gap: 8px;
+  }
+
+  .package-visual small {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    z-index: 1;
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .package-visual-copy span {
+    width: fit-content;
+    max-width: 100%;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(15,15,19,0.72);
+    color: rgba(255,255,255,0.84);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .package-visual-copy strong {
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 18px;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    text-shadow: 0 12px 28px rgba(0,0,0,0.4);
+  }
+
+  .package-visual-copy div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .package-visual-copy em {
+    min-width: 0;
+    padding: 7px 6px;
+    border-radius: 12px;
+    background: rgba(255,244,225,0.92);
+    color: #171717;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    transform: translateY(0);
+    transition: transform 0.24s ease, background 0.24s ease;
+    white-space: nowrap;
+  }
+
+  .package-card:hover .package-visual img {
+    filter: saturate(1.08) contrast(1.03);
+    transform: scale(1.08);
+  }
+
+  .package-card:hover .package-visual-copy em {
+    background: #F28A61;
+    transform: translateY(calc((var(--deliverable) + 1) * -2px));
+  }
+
+  .package-card h3 {
+    margin: 18px 0 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 24px;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+  }
+
+  .package-card.featured h3 {
+    color: #fff;
+  }
+
+  .package-card > strong {
+    margin-top: 4px;
+    color: #E4572E;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 34px;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+  }
+
+  .package-card p,
+  .package-card li {
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .package-card.featured p,
+  .package-card.featured li {
+    color: rgba(255,255,255,0.62);
+  }
+
+  .package-card p {
+    margin: 8px 0 0;
+  }
+
+  .package-card ul {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .package-card li {
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .package-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #E4572E;
+  }
+
+  .services-process {
+    background: #fff;
+    padding-block: clamp(58px, 8vw, 104px);
+  }
+
+  .brief-section {
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 12% 12%, rgba(228,87,46,0.12), transparent 28%),
+      #171720;
+    color: #fff;
+    padding-block: clamp(58px, 8vw, 104px);
+  }
+
+  .process-grid,
+  .brief-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(420px, 1fr);
+    gap: clamp(28px, 6vw, 76px);
+    align-items: start;
+  }
+
+  .services-process > .container-pad > div > p {
+    color: #4F4A45;
+  }
+
+  .brief-section h2 {
+    margin: 0;
+    color: #fff;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 4.8vw, 60px);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .brief-section p {
+    max-width: 620px;
+    margin: 16px 0 0;
+    color: rgba(255,255,255,0.62);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .brief-card {
+    display: grid;
+    gap: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 26px;
+    padding: clamp(18px, 3vw, 26px);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.045)),
+      rgba(15,15,19,0.64);
+    box-shadow: 0 28px 88px rgba(0,0,0,0.28);
+  }
+
+  .brief-card label {
+    display: grid;
+    gap: 8px;
+  }
+
+  .brief-card label span {
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .brief-card input,
+  .brief-card textarea {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.55;
+    outline: none;
+    padding: 13px 14px;
+    resize: vertical;
+  }
+
+  .brief-card input::placeholder,
+  .brief-card textarea::placeholder {
+    color: rgba(255,255,255,0.34);
+  }
+
+  .brief-card input:focus,
+  .brief-card textarea:focus {
+    border-color: rgba(228,87,46,0.72);
+    box-shadow: 0 0 0 4px rgba(228,87,46,0.16);
+  }
+
+  .brief-card button {
+    min-height: 48px;
+    border: 0;
+    border-radius: 999px;
+    background: #E4572E;
+    color: #fff;
+    cursor: pointer;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .brief-card .brief-note {
+    margin: -2px 0 0;
+    color: rgba(255,255,255,0.44);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .process-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .process-list article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    border: 1px solid #E6DDD1;
+    border-radius: 20px;
+    padding: 18px;
+    background: #F8F5EF;
+  }
+
+  .process-list article > span {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    background: #171717;
+    color: #fff;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .process-list h3 {
+    margin: 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .process-list p {
+    margin: 6px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .faq-section {
+    background: #F8F5EF;
+    padding-block: clamp(54px, 7vw, 92px);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .faq-list details {
+    border: 1px solid #E6DDD1;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 34px rgba(23,23,23,0.055);
+  }
+
+  .faq-list summary {
+    cursor: pointer;
+    padding: 18px;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .faq-list details[open] summary {
+    color: #B83A1F;
+  }
+
+  .faq-list p {
+    margin: 0;
+    padding: 0 18px 18px;
+    color: #4F4A45;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .services-hero-grid,
+    .package-grid,
+    .process-grid,
+    .brief-grid,
+    .fit-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .services-console {
+      max-width: 620px;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .services-hero {
+      padding-block: 58px;
+    }
+
+    .console-output strong {
+      font-size: 23px;
+    }
+
+    .package-card {
+      min-height: auto;
+    }
+  }
+
+</style>

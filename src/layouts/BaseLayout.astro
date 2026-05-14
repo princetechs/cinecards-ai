@@ -10,6 +10,8 @@ interface Props {
   description?: string;
   lang?: Locale;
   ogType?: "website" | "article";
+  preloadImage?: string;
+  preloadImageMedia?: string;
 }
 
 const {
@@ -17,6 +19,8 @@ const {
   description = seo.defaultDescription,
   lang = "en",
   ogType = "website",
+  preloadImage,
+  preloadImageMedia,
 } = Astro.props;
 
 const cloudflareWebAnalyticsToken = import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN;
@@ -39,8 +43,8 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <meta property="og:image" content="/images/aiscreens-hero.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content={seo.themeColor} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} media={preloadImageMedia} fetchpriority="high" />}
     <link rel="alternate" type="application/rss+xml" title="aiscreens Blog" href="/blog/rss.xml" />
     <slot name="head" />
     {
@@ -72,8 +76,8 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
               <span class="font-ui" style="width: 34px; height: 34px; background: #FFFFFF; color: #0F0F13; border-radius: 9px; display: grid; place-items: center; font-size: 15px; font-weight: 900; flex-shrink: 0;">a</span>
               <span class="font-ui" style="font-size: 15px; font-weight: 800; color: #FFFFFF; letter-spacing: 0.01em;">aiscreens</span>
             </a>
-            <p class="font-ui" style="font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.38); margin: 0 0 24px; max-width: 240px;">
-              Open-source visual grammar for human and AI video creation.
+            <p class="font-ui" style="font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.68); margin: 0 0 24px; max-width: 240px;">
+              AI video director for creators: plan shots before spending generation credits.
             </p>
             <!-- GitHub -->
             <a
@@ -92,7 +96,7 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
           <!-- Learn col -->
           <div class="footer-col">
-            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Learn</p>
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.62); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Learn</p>
             <nav style="display: flex; flex-direction: column; gap: 10px;">
               {[
                 { label: "Glossary",     href: "/glossary" },
@@ -100,37 +104,38 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
                 { label: "Shot Recipes", href: "/recipes" },
                 { label: "Planner",      href: "/planner" },
               ].map(l => (
-                <a class="font-ui focus-ring" href={l.href} style="font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">{l.label}</a>
+                <a class="font-ui focus-ring" href={l.href} style="font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">{l.label}</a>
               ))}
             </nav>
           </div>
 
           <!-- Project col -->
           <div class="footer-col">
-            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Project</p>
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.62); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Project</p>
             <nav style="display: flex; flex-direction: column; gap: 10px;">
               {[
                 { label: "Contribute",       href: "/contribute" },
+                { label: "Services",         href: "/services" },
                 { label: "GitHub",           href: "https://github.com/princetechs/cinecards-ai", ext: true },
                 { label: "CONTRIBUTING.md",  href: "/CONTRIBUTING.md" },
                 { label: "Code of Conduct",  href: "/CODE_OF_CONDUCT.md" },
               ].map(l => (
-                <a class="font-ui focus-ring" href={l.href} target={l.ext ? "_blank" : undefined} rel={l.ext ? "noreferrer noopener" : undefined} style="font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.5)'">{l.label}</a>
+                <a class="font-ui focus-ring" href={l.href} target={l.ext ? "_blank" : undefined} rel={l.ext ? "noreferrer noopener" : undefined} style="font-size: 14px; color: rgba(255,255,255,0.72); text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.72)'">{l.label}</a>
               ))}
             </nav>
           </div>
 
           <!-- CTA col -->
           <div class="footer-col">
-            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.28); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Get Started</p>
-            <p class="font-ui" style="font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.6; margin: 0 0 20px;">Free, open source, no sign-up needed.</p>
+            <p class="font-ui" style="font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.62); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 16px;">Get Started</p>
+            <p class="font-ui" style="font-size: 14px; color: rgba(255,255,255,0.68); line-height: 1.6; margin: 0 0 20px;">Start with a recipe, get a shot plan, then paste prompts into your AI video tool.</p>
             <a
-              href="/glossary"
+              href="/recipes"
               class="font-ui focus-ring"
-              style="display: inline-flex; align-items: center; justify-content: center; background: #E4572E; color: #fff; font-size: 14px; font-weight: 700; padding: 0 22px; height: 42px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: background 0.15s;"
-              onmouseover="this.style.background='#B83A1F'"
-              onmouseout="this.style.background='#E4572E'"
-            >Start Learning →</a>
+              style="display: inline-flex; align-items: center; justify-content: center; background: #B83A1F; color: #fff; font-size: 14px; font-weight: 700; padding: 0 22px; height: 42px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: background 0.15s;"
+              onmouseover="this.style.background='#962d17'"
+              onmouseout="this.style.background='#B83A1F'"
+            >Make a Plan →</a>
           </div>
 
         </div>
@@ -139,11 +144,11 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
       <!-- Bottom bar -->
       <div style="border-top: 1px solid rgba(255,255,255,0.07);">
         <div class="container-pad" style="padding-top: 20px; padding-bottom: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;">
-          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.25); margin: 0;">
+          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.58); margin: 0;">
             © 2025 aiscreens · MIT License · Open Source
           </p>
-          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.2); margin: 0;">
-            Built for creators learning Runway, Pika, and Stable Video
+          <p class="font-ui" style="font-size: 13px; color: rgba(255,255,255,0.56); margin: 0;">
+            Built for creators using Runway, Pika, Sora, Kling, Veo, and Stable Video
           </p>
         </div>
       </div>

@@ -21,12 +21,19 @@ const rights = {
 
 const hashFile = (filePath) => createHash("sha256").update(readFileSync(filePath)).digest("hex");
 const fileKb = (filePath) => Math.round(statSync(filePath).size / 1024);
+const allTermIds = terms.map((term) => term.id);
+
+function expandBatchTerms(batch) {
+  if (batch.terms?.includes("*")) return allTermIds;
+  return batch.terms ?? [];
+}
 
 function ensureCardVariant(termId) {
   const detailPath = join(repoRoot, manifest.storage.localImageDir, `${termId}-detail.jpg`);
   const cardPath = join(repoRoot, manifest.storage.localImageDir, `${termId}-card.jpg`);
   if (!existsSync(detailPath)) return { ok: false, reason: "missing detail image" };
   if (!apply) return { ok: existsSync(cardPath), reason: existsSync(cardPath) ? "exists" : "missing card image" };
+  if (existsSync(cardPath)) return { ok: true, reason: "preserved existing card image" };
 
   const resize = spawnSync("sips", ["-Z", String(manifest.qualityTargets.cardImage.width), detailPath, "--out", cardPath], { stdio: "pipe" });
   if (resize.status !== 0) return { ok: false, reason: resize.stderr.toString().trim() || "sips resize failed" };
@@ -47,10 +54,20 @@ function upsertAsset(term, asset) {
   }
 }
 
+function underBudget(kind, kb) {
+  const target =
+    kind === "cardImage"
+      ? manifest.qualityTargets.cardImage.maxKb
+      : kind === "detailImage"
+        ? manifest.qualityTargets.detailImage.maxKb
+        : manifest.qualityTargets.previewVideo.maxKb;
+  return { ok: kb <= target, target };
+}
+
 const rows = [];
 for (const batch of manifest.batches) {
   if (batch.status === "planned") continue;
-  for (const termId of batch.terms) {
+  for (const termId of expandBatchTerms(batch)) {
     const term = terms.find((item) => item.id === termId);
     if (!term) {
       rows.push({ termId, kind: batch.assetKind, ok: false, message: "term missing" });
@@ -62,7 +79,13 @@ for (const batch of manifest.batches) {
       const detailUrl = `/images/terms/${termId}-detail.jpg`;
       const detailPath = join(repoRoot, "public", detailUrl);
       const cardPath = join(repoRoot, "public/images/terms", `${termId}-card.jpg`);
-      const ok = variant.ok && existsSync(detailPath) && existsSync(cardPath);
+      const detailExists = existsSync(detailPath);
+      const cardExists = existsSync(cardPath);
+      const detailKb = detailExists ? fileKb(detailPath) : 0;
+      const cardKb = cardExists ? fileKb(cardPath) : 0;
+      const detailBudget = detailExists ? underBudget("detailImage", detailKb) : { ok: false, target: manifest.qualityTargets.detailImage.maxKb };
+      const cardBudget = cardExists ? underBudget("cardImage", cardKb) : { ok: false, target: manifest.qualityTargets.cardImage.maxKb };
+      const ok = variant.ok && detailExists && cardExists && detailBudget.ok && cardBudget.ok;
       if (ok && apply) {
         upsertAsset(term, {
           type: "image",
@@ -75,14 +98,27 @@ for (const batch of manifest.batches) {
         termId,
         kind: "image",
         ok,
-        message: ok ? `card ${fileKb(cardPath)}KB, detail ${fileKb(detailPath)}KB` : variant.reason
+        message: ok
+          ? `card ${cardKb}KB, detail ${detailKb}KB`
+          : !variant.ok
+            ? variant.reason
+            : !cardExists
+              ? "missing card image"
+              : !detailExists
+                ? "missing detail image"
+                : !cardBudget.ok
+                  ? `card ${cardKb}KB exceeds ${cardBudget.target}KB`
+                  : `detail ${detailKb}KB exceeds ${detailBudget.target}KB`
       });
     }
 
     if (batch.assetKind === "previewVideo") {
       const clipUrl = `/videos/terms/${termId}-preview.mp4`;
       const clipPath = join(repoRoot, "public", clipUrl);
-      const ok = existsSync(clipPath);
+      const clipExists = existsSync(clipPath);
+      const clipKb = clipExists ? fileKb(clipPath) : 0;
+      const clipBudget = clipExists ? underBudget("previewVideo", clipKb) : { ok: false, target: manifest.qualityTargets.previewVideo.maxKb };
+      const ok = clipExists && clipBudget.ok;
       if (ok && apply) {
         term.previewVideoUrl = clipUrl;
         upsertAsset(term, {
@@ -96,7 +132,7 @@ for (const batch of manifest.batches) {
         termId,
         kind: "previewVideo",
         ok,
-        message: ok ? `${fileKb(clipPath)}KB` : "missing preview video"
+        message: ok ? `${clipKb}KB` : clipExists ? `${clipKb}KB exceeds ${clipBudget.target}KB` : "missing preview video"
       });
     }
   }

@@ -5,7 +5,7 @@
 
 // ── Brand & identity ─────────────────────────────────────────────────────────
 export const SITE_NAME    = "aiscreens";
-export const SITE_TAGLINE = "Learn AI cinematography. Build better visual stories.";
+export const SITE_TAGLINE = "Your AI video director before you spend generation credits.";
 export const SITE_URL     = "https://www.aiscreens.in";
 export const GITHUB_URL   = "https://github.com/princetechs/cinecards-ai";
 
@@ -56,24 +56,24 @@ export const type = {
 
 // ── Hero section copy ────────────────────────────────────────────────────────
 export const hero = {
-  eyebrow:   "Open Source · 124 Film Terms · AI-Ready",
-  headline1: "Learn AI",
-  headline2: "cinematography.",
-  headline3: "Build better",
-  headline4: "visual stories.",
-  subtitle:  "aiscreens teaches shots, lighting, movement, editing, and practical AI video workflows — then turns your ideas into prompts you can use in Runway, Pika, and any AI video tool.",
-  cta1Label: "Start Learning",
-  cta1Href:  "/glossary",
-  cta2Label: "Plan a Sequence",
+  eyebrow:   "AI Video Director · Shot Plans · Prompt Workflows",
+  headline1: "Stop wasting",
+  headline2: "AI video credits.",
+  headline3: "Plan better",
+  headline4: "shots first.",
+  subtitle:  "aiscreens turns your idea into a practical shot plan, preview clips, and model-ready prompts for Runway, Pika, Sora, Kling, Veo, and other AI video tools.",
+  cta1Label: "Make My First Plan",
+  cta1Href:  "/recipes",
+  cta2Label: "Open Planner",
   cta2Href:  "/planner",
-  socialProof: "Used by creators learning with Runway · Pika · Stable Video",
+  socialProof: "Built for creators fighting random clips, weak continuity, and expensive re-generations",
 } as const;
 
 // ── Stats strip ──────────────────────────────────────────────────────────────
 export const stats = [
   { value: "124",  label: "Film Terms"           },
   { value: "15+",  label: "Prompt Packs"         },
-  { value: "7",    label: "Shot Sequence Types"  },
+  { value: "5",    label: "Model Export Modes"   },
 ] as const;
 
 // ── Navigation ───────────────────────────────────────────────────────────────
@@ -82,13 +82,14 @@ export const navLinks = [
   { label: "Planner",     href: "/planner"    },
   { label: "Practice",    href: "/learn"      },
   { label: "Recipes",     href: "/recipes"    },
+  { label: "Services",    href: "/services"   },
   { label: "Contribute",  href: "/contribute" },
 ] as const;
 
 // ── SEO defaults ─────────────────────────────────────────────────────────────
 export const seo = {
   defaultTitle:       `${SITE_NAME} - AI cinematography, video prompts, and visual storytelling`,
-  defaultDescription: "Simple practical guides for AI cinematography, shot planning, AI video prompts, and future interactive visual frontend resources.",
+  defaultDescription: "AI video director for creators: plan shots, reduce wasted generations, write better Runway, Pika, Sora, Kling, and Veo prompts, and learn cinematography simply.",
   ogImage:            "/images/aiscreens-hero.png",
   themeColor:         "#0F0F13",
 } as const;

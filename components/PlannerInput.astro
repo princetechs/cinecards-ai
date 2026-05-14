@@ -1,5 +1,14 @@
 ---
 import ShotSequence from "./ShotSequence.astro";
+import monetization from "../data/monetization.json";
+
+const { plannerStarterIdeas } = monetization as {
+  plannerStarterIdeas: Array<{
+    label: string;
+    topic: string;
+    audience: string;
+  }>;
+};
 ---
 
 <section class="section-pad bg-night text-bone" id="planner">
@@ -8,8 +17,29 @@ import ShotSequence from "./ShotSequence.astro";
       <p class="eyebrow text-bone/55">Video planner</p>
       <h2 class="mt-3 text-3xl font-black tracking-tight text-bone sm:text-4xl">Create Your Video Plan</h2>
       <p class="mt-4 max-w-xl text-base leading-7 text-bone/68">
-        Type your video idea and we'll build a simple shot plan with AI prompts you can copy.
+        Type your video idea and we'll build a simple director plan before you spend credits in Runway, Pika, Sora, Kling, or Veo.
       </p>
+      <div class="mt-6">
+        <p class="text-xs font-black uppercase tracking-[0.14em] text-bone/42">Start from a real job</p>
+        <div class="mt-3 grid gap-2 sm:grid-cols-2">
+          {plannerStarterIdeas.map((idea) => (
+            <button
+              type="button"
+              class="focus-ring rounded-xl border border-bone/10 bg-bone/5 p-3 text-left transition hover:border-clay/45 hover:bg-clay/15"
+              data-starter-topic={idea.topic}
+            >
+              <span class="block text-sm font-black text-bone">{idea.label}</span>
+              <span class="mt-1 block text-xs font-semibold text-bone/48">{idea.audience}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <div class="mt-5 grid gap-2 text-sm text-bone/62 sm:grid-cols-2">
+        <div class="rounded-lg border border-bone/10 bg-bone/5 p-3">1. Pick the video idea</div>
+        <div class="rounded-lg border border-bone/10 bg-bone/5 p-3">2. Get the shot order</div>
+        <div class="rounded-lg border border-bone/10 bg-bone/5 p-3">3. Watch preview clips</div>
+        <div class="rounded-lg border border-bone/10 bg-bone/5 p-3">4. Copy model-ready prompts</div>
+      </div>
       <form class="mt-8 rounded-lg border border-bone/12 bg-bone/6 p-4 shadow-soft" data-planner-form>
         <label class="block">
           <span class="text-sm font-bold text-bone/78">What are you making?</span>
@@ -23,6 +53,11 @@ import ShotSequence from "./ShotSequence.astro";
           Create My Shot Plan
         </button>
       </form>
+      <div class="mt-5 rounded-xl border border-clay/30 bg-clay/10 p-4">
+        <p class="text-sm font-black text-bone">Need this polished for a client or brand?</p>
+        <p class="mt-1 text-sm leading-6 text-bone/58">Use the free planner first. If the project matters, request a custom shot plan, prompt pack, and retry checklist.</p>
+        <a href="/services" class="focus-ring mt-3 inline-flex rounded-full bg-bone px-4 py-2 text-sm font-black text-ink no-underline transition hover:bg-white">See Services →</a>
+      </div>
     </div>
     <ShotSequence />
   </div>
@@ -39,6 +74,66 @@ import ShotSequence from "./ShotSequence.astro";
       "\"": "&quot;",
       "'": "&#039;"
     })[char] ?? char);
+
+  type ModelExport = "generic" | "runway" | "pika" | "sora" | "kling-veo";
+
+  const modelGuidance: Record<ModelExport, string> = {
+    generic: "Use this in any AI video tool. Keep the shot short and regenerate only after changing one variable.",
+    runway: "Paste into Runway. If using image-to-video, keep the image as the visual anchor and use this prompt mainly for motion, camera, and light.",
+    pika: "Paste into Pika. Keep one subject, one action, and one camera idea so the result stays playful but readable.",
+    sora: "Paste into Sora. Describe the subject, camera behavior, lighting, and temporal change as one clear scene.",
+    "kling-veo": "Paste into Kling or Veo. Use concrete physics and camera language instead of generic quality words."
+  };
+
+  const modelPrefix: Record<ModelExport, string> = {
+    generic: "",
+    runway: "Runway: ",
+    pika: "Pika: ",
+    sora: "Sora: ",
+    "kling-veo": "Kling/Veo: "
+  };
+
+  const commonFailureByCategory: Record<string, string> = {
+    Shots: "Too many actions in one clip creates random motion.",
+    Movement: "A vague movement word can make the camera drift or wobble.",
+    Lighting: "Light terms without direction can flatten the subject.",
+    "Lens / Optics": "Depth or focus effects can miss the intended detail.",
+    Editing: "The clip may not cut cleanly if the beat has no start or finish.",
+    Composition: "The subject can become small or lost without clear framing.",
+    Angles: "The angle effect can feel accidental if it is too subtle.",
+    "AI Workflow": "References can conflict if style, subject, and motion are not separated."
+  };
+
+  const modelPrompt = (prompt: string, model: ModelExport) => {
+    const suffix: Record<ModelExport, string> = {
+      generic: "",
+      runway: ", one clear camera move, avoid extra actions",
+      pika: ", playful but controlled motion, keep the subject consistent",
+      sora: ", coherent physical motion, clear beginning and ending",
+      "kling-veo": ", concrete physics, stable subject identity, no abstract quality stacking"
+    };
+    return `${modelPrefix[model]}${prompt}${suffix[model]}`;
+  };
+
+  const currentModel = (): ModelExport => {
+    const value = document.querySelector<HTMLSelectElement>("[data-model-export]")?.value;
+    return (["generic", "runway", "pika", "sora", "kling-veo"].includes(value ?? "") ? value : "generic") as ModelExport;
+  };
+
+  const updateModelGuidance = () => {
+    const model = currentModel();
+    const guidance = document.querySelector<HTMLElement>("[data-model-guidance]");
+    if (guidance) {
+      guidance.innerHTML = `<strong class="text-ink">Where to paste:</strong> ${escapeHtml(modelGuidance[model])}`;
+    }
+    document.querySelectorAll<HTMLElement>("[data-model-prompt]").forEach((el) => {
+      const base = el.dataset.basePrompt ?? "";
+      el.textContent = modelPrompt(base, model);
+    });
+    document.querySelectorAll<HTMLButtonElement>("[data-copy-prompt]").forEach((button) => {
+      button.dataset.copyPrompt = modelPrompt(button.dataset.basePrompt ?? "", model);
+    });
+  };
 
   const renderPlan = (topic: string) => {
     const plan = buildShotSequence(topic);
@@ -57,12 +152,17 @@ import ShotSequence from "./ShotSequence.astro";
               <p class="text-xs font-bold uppercase tracking-wide text-ink/48">${escapeHtml(item.category)} - ${item.duration}</p>
             </div>
           </div>
-          <button class="rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" type="button" data-copy-prompt="${escapeHtml(item.prompt)}">Copy prompt</button>
+          <button class="rounded-lg border border-ink/12 px-3 py-1.5 text-xs font-bold text-ink/70 hover:bg-ink hover:text-bone" type="button" data-base-prompt="${escapeHtml(item.prompt)}" data-copy-prompt="${escapeHtml(item.prompt)}">Copy prompt</button>
         </div>
-        <p class="mt-3 text-sm leading-6 text-ink/68">${escapeHtml(item.reason)}</p>
-        <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone">${escapeHtml(item.prompt)}</p>
+        <div class="mt-3 grid gap-2 text-sm leading-6 text-ink/68 sm:grid-cols-3">
+          <p class="rounded-lg bg-white/70 p-3"><strong class="block text-xs uppercase tracking-wide text-ink/45">What it does</strong>${escapeHtml(item.reason)}</p>
+          <p class="rounded-lg bg-white/70 p-3"><strong class="block text-xs uppercase tracking-wide text-ink/45">Why here</strong>It gives this sequence a clear ${item.order === 1 ? "starting context" : item.order === plan.sequence.length ? "final payoff or edit bridge" : "middle beat"}.</p>
+          <p class="rounded-lg bg-white/70 p-3"><strong class="block text-xs uppercase tracking-wide text-ink/45">Common failure</strong>${escapeHtml(commonFailureByCategory[item.category] ?? "The prompt becomes generic if it asks for too much at once.")}</p>
+        </div>
+        <p class="mt-3 break-words rounded-lg bg-ink p-3 font-mono text-xs leading-5 text-bone" data-model-prompt data-base-prompt="${escapeHtml(item.prompt)}">${escapeHtml(item.prompt)}</p>
       </article>
     `).join("");
+    updateModelGuidance();
     window.dispatchEvent(new CustomEvent("aiscreens:plan-built"));
   };
 
@@ -89,6 +189,16 @@ import ShotSequence from "./ShotSequence.astro";
     });
   });
 
+  document.querySelectorAll<HTMLButtonElement>("[data-starter-topic]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const topic = button.dataset.starterTopic ?? "";
+      const textarea = document.querySelector<HTMLTextAreaElement>("[data-planner-topic]");
+      if (textarea) textarea.value = topic;
+      renderPlan(topic);
+      document.querySelector<HTMLElement>("[data-plan-output]")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
   document.addEventListener("click", (event) => {
     const submitButton = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-planner-submit]");
     if (!submitButton) return;
@@ -108,6 +218,12 @@ import ShotSequence from "./ShotSequence.astro";
     setTimeout(() => {
       copyButton.textContent = original;
     }, 1200);
+  });
+
+  document.addEventListener("change", (event) => {
+    const select = (event.target as HTMLElement).closest<HTMLSelectElement>("[data-model-export]");
+    if (!select) return;
+    updateModelGuidance();
   });
 
   // Read URL params for prefill (e.g. from glossary card "Try With My Idea")

@@ -1,133 +1,83 @@
 ---
 const lanes = [
   {
-    emoji: "📝",
+    code: "01",
     title: "Content",
     desc: "Add or improve film terms and prompts",
+    visual: "copy",
+    steps: ["Term", "Prompt", "Failure"],
   },
   {
-    emoji: "🎬",
+    code: "02",
     title: "Media",
     desc: "Submit diagrams and preview assets",
+    visual: "media",
+    steps: ["Image", "Clip", "Hash"],
   },
   {
-    emoji: "💻",
+    code: "03",
     title: "Code",
     desc: "Build features and fix bugs",
+    visual: "code",
+    steps: ["Issue", "Patch", "Check"],
   },
   {
-    emoji: "🌍",
+    code: "04",
     title: "Translate",
     desc: "Add terms in your language",
+    visual: "translate",
+    steps: ["EN", "HI", "ES"],
   },
 ];
 ---
 
 <section
-  style="background: #101014; padding-block: clamp(56px, 8vw, 104px);"
+  class="opensource-section"
   id="contribute"
 >
   <div class="container-pad">
     <!-- Heading -->
-    <div style="max-width: 680px; margin-bottom: 40px;">
-      <h2
-        style="
-          font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-          font-size: clamp(26px, 4vw, 34px);
-          font-weight: 700;
-          color: #F8F5EF;
-          margin: 0 0 14px 0;
-          letter-spacing: -0.02em;
-        "
-      >Built in the open, for everyone.</h2>
-      <p
-        class="font-ui"
-        style="
-          font-size: 16px;
-          line-height: 1.6;
-          color: rgba(248, 245, 239, 0.8);
-          margin: 0;
-          max-width: 600px;
-        "
-      >aiscreens is fully open source. Contribute terms, improve prompts, fix previews, or add translations.</p>
+    <div class="opensource-head">
+      <span>Open learning system</span>
+      <h2>Built in the open, but designed like a product.</h2>
+      <p>aiscreens is open source. Contribute terms, improve prompts, fix preview media, or add translations without touching a backend.</p>
     </div>
 
     <!-- 4 contribution lane cards -->
     <div class="lanes-grid">
       {lanes.map((lane) => (
-        <article
-          style="
-            background: #1A1A22;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 22px;
-          "
-        >
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-            <span style="font-size: 22px; line-height: 1;">{lane.emoji}</span>
-            <h3
-              class="font-ui"
-              style="font-size: 15px; font-weight: 700; color: #F8F5EF; margin: 0;"
-            >{lane.title}</h3>
+        <article class="lane-card" data-visual={lane.visual}>
+          <div class="lane-visual">
+            <span>{lane.code}</span>
+            <strong>{lane.title}</strong>
+            <div>
+              {lane.steps.map((step) => (
+                <em>{step}</em>
+              ))}
+            </div>
           </div>
-          <p
-            class="font-ui"
-            style="font-size: 13px; color: rgba(248, 245, 239, 0.6); line-height: 1.55; margin: 0;"
-          >{lane.desc}</p>
+          <h3>{lane.title}</h3>
+          <p>{lane.desc}</p>
         </article>
       ))}
     </div>
 
     <!-- Stars/forks static badge -->
-    <p
-      class="font-ui"
-      style="
-        font-size: 13px;
-        color: rgba(248, 245, 239, 0.4);
-        margin: 24px 0 32px 0;
-      "
-    >⭐ Open Source</p>
+    <p class="opensource-note">Apache-2.0 code · CC BY 4.0 educational content</p>
 
     <!-- CTAs -->
-    <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+    <div class="opensource-actions">
       <a
         href="https://github.com/princetechs/cinecards-ai"
-        class="font-ui focus-ring"
+        class="github-link focus-ring"
         target="_blank"
         rel="noopener noreferrer"
-        style="
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          border: 1.5px solid rgba(255, 255, 255, 0.8);
-          color: #F8F5EF;
-          font-size: 14px;
-          font-weight: 600;
-          padding: 11px 22px;
-          border-radius: 10px;
-          text-decoration: none;
-          transition: background 0.15s, border-color 0.15s;
-        "
-        onmouseover="this.style.background='rgba(255,255,255,0.07)'"
-        onmouseout="this.style.background='transparent'"
       >
         View on GitHub
       </a>
       <a
         href="/CONTRIBUTING.md"
-        class="font-ui focus-ring"
-        style="
-          display: inline-flex;
-          align-items: center;
-          color: rgba(248, 245, 239, 0.7);
-          font-size: 14px;
-          font-weight: 600;
-          padding: 11px 4px;
-          text-decoration: none;
-          transition: color 0.15s;
-        "
-        onmouseover="this.style.color='#F8F5EF'"
-        onmouseout="this.style.color='rgba(248,245,239,0.7)'"
+        class="guide-link focus-ring"
       >
         Contribution Guide →
       </a>
@@ -136,10 +86,231 @@ const lanes = [
 </section>
 
 <style>
+  .opensource-section {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 16% 12%, rgba(228,87,46,0.18), transparent 28%),
+      radial-gradient(circle at 86% 32%, rgba(255,255,255,0.08), transparent 24%),
+      #101014;
+    padding-block: clamp(56px, 8vw, 104px);
+  }
+
+  .opensource-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.22;
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+    pointer-events: none;
+  }
+
+  .opensource-section .container-pad {
+    position: relative;
+    z-index: 1;
+  }
+
+  .opensource-head {
+    max-width: 760px;
+    margin-bottom: 40px;
+  }
+
+  .opensource-head span {
+    display: block;
+    margin-bottom: 10px;
+    color: #F28A61;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .opensource-head h2 {
+    max-width: 720px;
+    margin: 0 0 14px;
+    color: #F8F5EF;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(30px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .opensource-head p {
+    max-width: 640px;
+    margin: 0;
+    color: rgba(248, 245, 239, 0.68);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
   .lanes-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+  }
+
+  .lane-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 260px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    padding: 18px;
+    background:
+      radial-gradient(circle at 72% 24%, rgba(228,87,46,0.16), transparent 28%),
+      linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .lane-card:hover {
+    border-color: rgba(228,87,46,0.5);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.26);
+    transform: translateY(-6px);
+  }
+
+  .lane-visual {
+    position: relative;
+    height: 132px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 82% 22%, rgba(242,138,97,0.18), transparent 28%),
+      linear-gradient(135deg, #171720, #3c3430 68%, #B83A1F);
+  }
+
+  .lane-visual span {
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    color: rgba(255,255,255,0.72);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .lane-visual strong {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 42px;
+    color: #F8F5EF;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .lane-visual div {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .lane-visual em {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    padding: 7px 6px;
+    background: rgba(0,0,0,0.18);
+    color: rgba(255,255,255,0.76);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+  }
+
+  .lane-card:hover .lane-visual em {
+    border-color: rgba(242,138,97,0.5);
+    background: rgba(184,58,31,0.28);
+    transform: translateY(-4px);
+  }
+
+  .lane-card h3 {
+    margin: 16px 0 8px;
+    color: #F8F5EF;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .lane-card p {
+    margin: 0;
+    color: rgba(248, 245, 239, 0.58);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .opensource-note {
+    margin: 24px 0 32px;
+    color: rgba(248, 245, 239, 0.42);
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .opensource-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .github-link,
+  .guide-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-ui, "Inter", sans-serif);
+    font-size: 14px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  .github-link {
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px;
+    padding: 0 20px;
+    background: rgba(255,255,255,0.06);
+    color: #F8F5EF;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .github-link:hover {
+    border-color: rgba(255,255,255,0.74);
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+  }
+
+  .guide-link {
+    color: rgba(248, 245, 239, 0.7);
+    transition: color 0.18s ease;
+  }
+
+  .guide-link:hover {
+    color: #F8F5EF;
   }
 
   @media (max-width: 900px) {

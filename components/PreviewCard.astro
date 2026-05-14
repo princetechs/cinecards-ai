@@ -30,7 +30,9 @@ const previewVideoUrl = term.previewVideoUrl;
         width="640"
         height="360"
         aria-label={`Preview video for ${term.name}`}
-      ></video>
+      >
+        <track kind="captions" src="/captions/silent-preview.vtt" srclang="en" label="No dialogue" />
+      </video>
     ) : (
       <div class="relative film-frame grid aspect-video place-items-center overflow-hidden rounded-lg">
         <span class="relative z-10 rounded-full bg-bone/90 px-3 py-1 text-xs font-black text-ink">Preview clip planned</span>

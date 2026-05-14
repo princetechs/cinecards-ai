@@ -77,9 +77,9 @@ function formatDate(d: Date) {
             <div style={`height: 5px; background: ${categoryColors[post.data.category] ?? '#E4572E'};`}></div>
             <div style="padding: 22px 24px; display: flex; flex-direction: column; flex: 1;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                <a href={`/blog/category/${post.data.category}`} style={`font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: ${categoryColors[post.data.category] ?? '#E4572E'}; background: ${categoryColors[post.data.category] ?? '#E4572E'}18; border-radius: 4px; padding: 2px 8px; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;`} onclick="event.stopPropagation()">
+                <span style={`font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: ${categoryColors[post.data.category] ?? '#E4572E'}; background: ${categoryColors[post.data.category] ?? '#E4572E'}18; border-radius: 4px; padding: 2px 8px; letter-spacing: 0.06em; text-transform: uppercase;`}>
                   {post.data.category.replace("-", " ")}
-                </a>
+                </span>
               </div>
               <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; color: #171717; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 10px; flex: 1;">
                 {post.data.title}
@@ -90,12 +90,10 @@ function formatDate(d: Date) {
               <!-- Tags -->
               <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
                 {post.data.tags.map(t => (
-                  <a
-                    href={`/blog/tag/${t}`}
+                  <span
                     class="font-ui"
-                    style={`font-size: 10px; font-weight: 600; color: ${t === tag ? '#E4572E' : '#7A7268'}; background: ${t === tag ? 'rgba(228,87,46,0.08)' : '#F0EBE3'}; border-radius: 4px; padding: 2px 8px; text-decoration: none; transition: all 0.12s;`}
-                    onclick="event.stopPropagation()"
-                  >#{t}</a>
+                    style={`font-size: 10px; font-weight: 600; color: ${t === tag ? '#E4572E' : '#7A7268'}; background: ${t === tag ? 'rgba(228,87,46,0.08)' : '#F0EBE3'}; border-radius: 4px; padding: 2px 8px;`}
+                  >#{t}</span>
                 ))}
               </div>
               <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #F0EBE3;">

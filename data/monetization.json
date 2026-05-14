@@ -1,0 +1,576 @@
+{
+  "recipeService": {
+    "eyebrow": "Need this for a brand?",
+    "title": "Get a custom AI video shot plan + prompt pack.",
+    "description": "Use the free recipes now, or hire aiscreens to turn your product, course, app, or local business into ready-to-generate short-form concepts.",
+    "primaryCta": {
+      "label": "Plan myself",
+      "href": "/planner"
+    },
+    "secondaryCta": {
+      "label": "Request a pack",
+      "href": "/services"
+    }
+  },
+  "recipeTiers": [
+    {
+      "label": "Free starter",
+      "tone": "#047857",
+      "maxPackIndexExclusive": 5
+    },
+    {
+      "label": "Creator pack",
+      "tone": "#1D4ED8",
+      "maxPackIndexExclusive": 11
+    },
+    {
+      "label": "Pro service idea",
+      "tone": "#6D3EDB"
+    }
+  ],
+  "homepageOffer": {
+    "eyebrow": "Creator workflow",
+    "title": "Free learning now. Paid director workflows later.",
+    "description": "The site stays useful for beginners, while advanced creators and clients can pay for saved workflows, premium packs, model exports, and done-for-you prompt systems.",
+    "plans": [
+      {
+        "name": "Free",
+        "price": "$0",
+        "description": "Glossary, basic planner, beginner recipes, and starter preview clips.",
+        "cta": "Start free",
+        "href": "/recipes"
+      },
+      {
+        "name": "Creator",
+        "price": "$9/mo",
+        "description": "Saved projects, premium templates, more preview clips, and prompt variants.",
+        "cta": "Planned tier",
+        "href": "/planner"
+      },
+      {
+        "name": "Pro / Service",
+        "price": "$49+",
+        "description": "Shot plans, prompt packs, storyboard exports, and client-ready AI video concepts.",
+        "cta": "Hire aiscreens",
+        "href": "/services"
+      }
+    ]
+  },
+  "landingDemo": {
+    "eyebrow": "Why users stay",
+    "title": "It does not just explain film terms. It directs the next clip.",
+    "description": "A beginner arrives with a rough idea. aiscreens turns that idea into a visual path: what to shoot, what to prompt, what can fail, and what to try next.",
+    "steps": [
+      {
+        "n": "01",
+        "title": "Describe the video",
+        "label": "Brief",
+        "copy": "New cafe launch reel for Instagram",
+        "note": "Start with the business goal, not random style words."
+      },
+      {
+        "n": "02",
+        "title": "Build the shot path",
+        "label": "Plan",
+        "copy": "Exterior -> barista action -> macro pour -> customer payoff",
+        "note": "The user sees how the clip should unfold before spending credits."
+      },
+      {
+        "n": "03",
+        "title": "Preview the motion",
+        "label": "Motion",
+        "copy": "Slow push-in, steam drift, handoff, clean ending",
+        "note": "A small moving storyboard explains what the prompt means."
+      },
+      {
+        "n": "04",
+        "title": "Paste into a model",
+        "label": "Export",
+        "copy": "Runway / Pika / Sora / Kling-ready prompt",
+        "note": "The output tells beginners where to paste and what to fix if it fails."
+      }
+    ]
+  },
+  "creditFixer": {
+    "eyebrow": "Before spending credits",
+    "title": "Catch weak prompts before they become expensive random clips.",
+    "description": "For beginners, the hard part is knowing what is missing. This panel teaches the boring checks that save money: subject, action, camera, light, duration, and ending.",
+    "weakLabel": "Weak prompt",
+    "weakPrompt": "make a cool product video",
+    "rewriteLabel": "aiscreens rewrite",
+    "rewritePrompt": "macro close-up of a matte black smartwatch on a stone table, soft side light, slow push-in, screen glow turns on, clean ending, 5 seconds",
+    "scores": [
+      {
+        "label": "Subject",
+        "value": "28%"
+      },
+      {
+        "label": "Camera",
+        "value": "12%"
+      },
+      {
+        "label": "Lighting",
+        "value": "8%"
+      },
+      {
+        "label": "Ending",
+        "value": "0%"
+      }
+    ]
+  },
+  "previewWall": {
+    "eyebrow": "Watch the grammar",
+    "title": "Learn shots by seeing them move.",
+    "description": "Short preview clips make the glossary feel like a visual playground, not a dictionary.",
+    "ctaLabel": "Open visual glossary",
+    "ctaHref": "/glossary"
+  },
+  "homepageRecipes": {
+    "title": "Start with a recipe, not a film textbook.",
+    "description": "Pick the kind of video you want to make. aiscreens gives you a shot plan, preview examples, and prompts to paste into your AI video tool.",
+    "ctaLabel": "Make a plan from a recipe",
+    "ctaHref": "/recipes",
+    "gridTitle": "What do you want to make?",
+    "gridDescription": "Choose a video type and get a beginner-friendly director plan with copyable AI prompts.",
+    "painPoints": [
+      {
+        "title": "Random clips",
+        "description": "Replace vague prompts with shot order, subject, action, camera, light, and duration."
+      },
+      {
+        "title": "Weak continuity",
+        "description": "Plan context, action, detail, emotion, and payoff before generating separate clips."
+      },
+      {
+        "title": "Credit waste",
+        "description": "Check the shot idea and copy a tighter prompt before paying for another render."
+      }
+    ]
+  },
+  "liveExample": {
+    "eyebrow": "Live example",
+    "title": "From messy idea to usable shot plan",
+    "description": "A beginner does not need to know film language first. They need to see how one vague idea becomes shots they can actually generate.",
+    "ideaLabel": "Your idea",
+    "idea": "\"A cozy coffee shop video\"",
+    "ideaResult": "aiscreens turns it into:",
+    "promptLabel": "AI Prompt — Shot 3",
+    "prompt": "cinematic close-up of hot coffee being poured into a ceramic cup, soft morning light, cozy cafe background, shallow depth of field, 5 seconds",
+    "primaryCta": {
+      "label": "Try With My Idea",
+      "href": "/planner?topic=coffee+shop+reel"
+    },
+    "secondaryCta": {
+      "label": "Browse recipes",
+      "href": "/recipes"
+    },
+    "shots": [
+      {
+        "n": "1",
+        "type": "Wide Shot",
+        "description": "Show the cafe space",
+        "duration": "3s"
+      },
+      {
+        "n": "2",
+        "type": "Medium Shot",
+        "description": "Introduce the barista",
+        "duration": "3s"
+      },
+      {
+        "n": "3",
+        "type": "Close-Up",
+        "description": "Coffee being poured",
+        "duration": "5s",
+        "active": true
+      },
+      {
+        "n": "4",
+        "type": "Detail Shot",
+        "description": "Steam and latte art",
+        "duration": "3s"
+      },
+      {
+        "n": "5",
+        "type": "Payoff Shot",
+        "description": "Customer enjoying coffee",
+        "duration": "5s"
+      }
+    ]
+  },
+  "workflowSteps": {
+    "eyebrow": "How it works",
+    "title": "Three steps to AI-ready shots",
+    "description": "From zero to copy-ready prompts in minutes.",
+    "steps": [
+      {
+        "n": "1",
+        "title": "Pick a recipe",
+        "description": "Start with a real creator job: product reel, coffee shop video, travel montage, tutorial, or interview.",
+        "href": "/recipes",
+        "link": "Browse Recipes"
+      },
+      {
+        "n": "2",
+        "title": "Generate a director plan",
+        "description": "Enter your topic and get a prioritized shot order with what each shot does and why it belongs there.",
+        "href": "/planner",
+        "link": "Open Planner"
+      },
+      {
+        "n": "3",
+        "title": "Copy model-ready prompts",
+        "description": "Choose Generic, Runway, Pika, Sora, or Kling/Veo export and paste the prompt where you generate.",
+        "href": "/planner",
+        "link": "Make the Plan"
+      }
+    ]
+  },
+  "beginnerPath": {
+    "eyebrow": "New to video creation?",
+    "title": "Start here. Learn the basics in order.",
+    "description": "You do not need to know film words. This path teaches the exact ideas a beginner needs before writing AI video prompts.",
+    "ctaLabel": "Start Beginner Path",
+    "ctaHref": "/learn",
+    "items": [
+      {
+        "n": "1",
+        "label": "What is a shot?",
+        "detail": "Understand the smallest unit of a video."
+      },
+      {
+        "n": "2",
+        "label": "Wide, Medium, Close-Up",
+        "detail": "Learn how shot size changes what viewers feel."
+      },
+      {
+        "n": "3",
+        "label": "Camera angles",
+        "detail": "Use height and perspective with purpose."
+      },
+      {
+        "n": "4",
+        "label": "Camera movement",
+        "detail": "Add motion only when it helps the idea."
+      },
+      {
+        "n": "5",
+        "label": "Basic lighting",
+        "detail": "Make the subject readable before making it stylish."
+      },
+      {
+        "n": "6",
+        "label": "Your first AI prompt",
+        "detail": "Combine subject, action, camera, light, and duration."
+      }
+    ]
+  },
+  "toolGrid": {
+    "title": "Everything in one place",
+    "items": [
+      {
+        "label": "01",
+        "title": "Learn the Language",
+        "description": "Short visual definitions for shots, lighting, camera movement, and AI prompting terms.",
+        "href": "/glossary",
+        "meta": "terms"
+      },
+      {
+        "label": "02",
+        "title": "Plan the Sequence",
+        "description": "Turn a rough idea into a shot order with purpose, failure notes, and model-ready prompts.",
+        "href": "/planner",
+        "meta": "AI director"
+      },
+      {
+        "label": "03",
+        "title": "Practice the Basics",
+        "description": "Build local progress by learning the smallest concepts first, then layering real video grammar.",
+        "href": "/learn",
+        "meta": "My Progress"
+      },
+      {
+        "label": "04",
+        "title": "Use a Recipe",
+        "description": "Start from real creator jobs like product reels, cafe videos, interviews, tutorials, and tours.",
+        "href": "/recipes",
+        "meta": "packs"
+      }
+    ]
+  },
+  "servicePage": {
+    "eyebrow": "Done-for-you AI video direction",
+    "title": "Bring one idea. Leave with a usable AI video plan.",
+    "description": "For creators, ecommerce brands, course builders, local businesses, and small agencies that want better AI video outputs without wasting credits on trial and error.",
+    "primaryCta": {
+      "label": "Request a custom pack",
+      "href": "mailto:hello@aiscreens.in?subject=Custom%20AI%20video%20prompt%20pack"
+    },
+    "secondaryCta": {
+      "label": "Try the free planner",
+      "href": "/planner"
+    },
+    "packages": [
+      {
+        "name": "Prompt Pack",
+        "price": "$49–$199",
+        "bestFor": "One product, course lesson, creator idea, or local business offer.",
+        "deliverables": [
+          "5–10 shot video direction plan",
+          "Model-ready prompts for Runway, Pika, Sora, Kling, or Veo",
+          "Common failure checklist and retry notes"
+        ]
+      },
+      {
+        "name": "Content System",
+        "price": "$299–$999",
+        "bestFor": "Brands that need multiple short-form concepts or a repeatable content engine.",
+        "deliverables": [
+          "10 short-form AI video concepts",
+          "Storyboard-style shot order for each concept",
+          "Prompt variants for product, UGC, tutorial, and ad styles"
+        ]
+      },
+      {
+        "name": "Workflow Build",
+        "price": "Custom",
+        "bestFor": "Teams with a boring repeated video problem that needs a pipeline.",
+        "deliverables": [
+          "Research-backed workflow design",
+          "Reusable prompt and media asset structure",
+          "Static-site or no-backend publishing plan"
+        ]
+      }
+    ],
+    "process": [
+      {
+        "step": "01",
+        "title": "Send the goal",
+        "description": "Share the product, lesson, service, brand notes, references, and the AI video model you want to use."
+      },
+      {
+        "step": "02",
+        "title": "We plan the video",
+        "description": "aiscreens converts the idea into shots, prompts, continuity notes, and retry guidance before you generate."
+      },
+      {
+        "step": "03",
+        "title": "You generate with less waste",
+        "description": "Use the pack inside your model, then refine with specific failure fixes instead of starting over."
+      }
+    ],
+    "briefBuilder": {
+      "eyebrow": "Quick brief",
+      "title": "Write the first client email in 60 seconds.",
+      "description": "No backend required yet. A small guided brief makes the paid path feel real and helps clients send the details needed for a useful prompt pack.",
+      "submitLabel": "Open email with brief",
+      "fields": [
+        {
+          "name": "project",
+          "label": "What are we making?",
+          "placeholder": "Example: 20 second product reel for a handmade candle",
+          "type": "textarea"
+        },
+        {
+          "name": "audience",
+          "label": "Who should watch it?",
+          "placeholder": "Example: Instagram buyers who like cozy home decor",
+          "type": "text"
+        },
+        {
+          "name": "model",
+          "label": "Preferred AI video model",
+          "placeholder": "Runway, Pika, Sora, Kling, Veo, or not sure yet",
+          "type": "text"
+        },
+        {
+          "name": "references",
+          "label": "References or constraints",
+          "placeholder": "Brand colors, product images, mood, must-avoid details, deadline",
+          "type": "textarea"
+        }
+      ]
+    },
+    "fitChecklist": [
+      "You have a product, lesson, service, app, or brand story to explain.",
+      "You want AI video outputs with fewer random generations.",
+      "You need shot order, prompts, and retry notes more than a generic inspiration board.",
+      "You are using or planning to use Runway, Pika, Sora, Kling, Veo, or another AI video tool."
+    ],
+    "faqs": [
+      {
+        "question": "Do you generate the final video?",
+        "answer": "The first service offer is planning and prompt direction. If final generation is needed, the workflow can be scoped manually after the shot plan is clear."
+      },
+      {
+        "question": "What do I need to send?",
+        "answer": "Send the goal, audience, product or topic details, references if available, preferred AI video model, and any brand constraints."
+      },
+      {
+        "question": "Why pay if the planner is free?",
+        "answer": "The free planner gives a strong starting point. The paid service adds research, sequencing judgment, model-specific notes, and a client-ready prompt pack."
+      }
+    ]
+  },
+  "plannerStarterIdeas": [
+    {
+      "label": "Course lesson",
+      "topic": "30 second course lesson teaser about AI productivity",
+      "audience": "Course creators"
+    },
+    {
+      "label": "Product reel",
+      "topic": "15 second ecommerce reel for a ceramic coffee mug",
+      "audience": "Ecommerce brands"
+    },
+    {
+      "label": "Local business",
+      "topic": "12 second launch video for a neighborhood coffee shop",
+      "audience": "Local businesses"
+    },
+    {
+      "label": "Creator intro",
+      "topic": "short creator intro video for a design freelancer",
+      "audience": "Solo creators"
+    }
+  ],
+  "recipeSegments": [
+    {
+      "label": "Creators",
+      "match": ["creator", "reel", "lifestyle", "tutorial", "talking head", "morning routine"]
+    },
+    {
+      "label": "Brands",
+      "match": ["product", "ecommerce", "coffee", "food", "fashion", "real estate", "fitness"]
+    },
+    {
+      "label": "Story scenes",
+      "match": ["dialogue", "interview", "documentary", "chase", "performance", "birthday"]
+    },
+    {
+      "label": "Travel",
+      "match": ["travel", "sunrise", "sunset", "city", "coast"]
+    }
+  ],
+  "onboardingFlow": [
+    {
+      "step": "01",
+      "eyebrow": "Problem",
+      "title": "You have an idea, but the AI video result is random.",
+      "description": "Most beginners start with style words and waste credits because the subject, motion, camera, light, and ending are not planned.",
+      "action": "See the weak prompt",
+      "href": "/planner"
+    },
+    {
+      "step": "02",
+      "eyebrow": "Learning",
+      "title": "aiscreens teaches the visual language as you need it.",
+      "description": "Glossary cards stay compact first, then expand into prompts, mistakes, related terms, and practical usage only when the user asks.",
+      "action": "Browse glossary",
+      "href": "/glossary"
+    },
+    {
+      "step": "03",
+      "eyebrow": "Planning",
+      "title": "The planner turns one rough topic into a shot sequence.",
+      "description": "Instead of one overloaded prompt, users get a step-by-step director plan with shot purpose and model-specific export guidance.",
+      "action": "Open planner",
+      "href": "/planner"
+    },
+    {
+      "step": "04",
+      "eyebrow": "Shortcut",
+      "title": "Recipes give users a fast starting point.",
+      "description": "Creator-friendly packs help people make product reels, tutorials, interviews, travel clips, and local business videos faster.",
+      "action": "Start with recipes",
+      "href": "/recipes"
+    },
+    {
+      "step": "05",
+      "eyebrow": "Money path",
+      "title": "When users need it done for them, aiscreens becomes a service.",
+      "description": "The free product builds trust. Paid work can start with custom shot plans, prompt packs, storyboard exports, and AI video concepts.",
+      "action": "Request a pack",
+      "href": "/services"
+    }
+  ],
+  "workflowDemo": {
+    "eyebrow": "Interactive workflow",
+    "title": "Idea → shot plan → prompt → retry fix.",
+    "description": "aiscreens should feel like a tiny AI video director: it gives beginners a path before they open a generation model.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Idea",
+        "body": "A local bakery wants a 12-second launch reel.",
+        "caption": "Start from the user’s real goal, not a random cinematic adjective stack."
+      },
+      {
+        "step": "02",
+        "title": "Shot Plan",
+        "body": "Wide shop exterior, product close-up, human handoff, final hero plate.",
+        "caption": "Break the clip into moments so the model has less to invent."
+      },
+      {
+        "step": "03",
+        "title": "Model Prompt",
+        "body": "Warm bakery interior, macro pastry detail, slow push-in, soft window light, 5 seconds.",
+        "caption": "Turn each shot into concrete subject, action, camera, light, and time."
+      },
+      {
+        "step": "04",
+        "title": "Retry Fix",
+        "body": "If the pastry changes shape, lock product description and reduce camera motion.",
+        "caption": "Fix the failure type instead of paying for another vague retry."
+      }
+    ],
+    "modelTips": [
+      {
+        "model": "Runway",
+        "copy": "Use one clear camera move, concrete subject, lighting, and temporal direction."
+      },
+      {
+        "model": "Pika",
+        "copy": "Keep the action small, describe the subject plainly, and avoid stacking many movements."
+      },
+      {
+        "model": "Sora",
+        "copy": "Write the scene like a short director note: subject, setting, action, camera, and ending."
+      },
+      {
+        "model": "Veo",
+        "copy": "Use cinematic language with a precise payoff shot so the clip does not drift."
+      }
+    ]
+  },
+  "audiencePaths": [
+    {
+      "label": "Course creator",
+      "problem": "Needs lesson hooks, b-roll ideas, and clean explainer sequences without learning film school first.",
+      "workflow": "Turn one lesson topic into a 5-shot teaching plan with intro, visual proof, screen detail, recap, and CTA.",
+      "cta": "Plan a course clip",
+      "href": "/planner?topic=course+lesson+explainer"
+    },
+    {
+      "label": "Ecommerce brand",
+      "problem": "Needs product videos that do not morph, lose detail, or feel like random cinematic stock footage.",
+      "workflow": "Lock product identity, choose close-up/detail/payoff shots, then export prompts with failure checks.",
+      "cta": "Plan a product reel",
+      "href": "/planner?topic=ecommerce+product+reel"
+    },
+    {
+      "label": "Solo creator",
+      "problem": "Needs more ideas and better prompts without burning credits on vague experiments.",
+      "workflow": "Start from a recipe, learn the shot terms only when needed, and copy model-ready prompts.",
+      "cta": "Start with recipes",
+      "href": "/recipes"
+    },
+    {
+      "label": "Local business",
+      "problem": "Needs simple videos for cafes, salons, gyms, clinics, events, and services without hiring a full crew.",
+      "workflow": "Use practical shot order: location, person, detail, transformation, and final offer.",
+      "cta": "Plan a local video",
+      "href": "/planner?topic=local+business+promo"
+    }
+  ]
+}

@@ -206,7 +206,6 @@ const { categories, priorityGroups, difficulties } = Astro.props;
     // Override GlossaryGrid filter to also respect beginner-path
     const glossaryRoot = document.querySelector<HTMLElement>('[data-glossary-root]');
     if (glossaryRoot && beginnerCb) {
-      const origInput = glossaryRoot.querySelectorAll('input, select');
       // Re-apply filter when beginner-path changes
       beginnerCb.addEventListener('change', () => {
         const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-term-card]'));

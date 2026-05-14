@@ -13,8 +13,13 @@
     "worker:enqueue": "npm run enqueue --prefix apps/worker --",
     "test:quality": "node --experimental-strip-types --import 'data:text/javascript,import{register}from\"node:module\";import{pathToFileURL}from\"node:url\";register(\"./scripts/ts-resolver.mjs\",pathToFileURL(\"./\"));' scripts/test-quality-score.mjs",
     "audit:seo": "node scripts/seo-audit.mjs",
+    "audit:lighthouse": "node scripts/lighthouse-audit.mjs",
+    "audit:performance": "npm run audit:lighthouse",
     "media:check": "node scripts/prepare-term-media.mjs",
     "media:prepare": "node scripts/prepare-term-media.mjs --apply",
+    "media:pipeline": "node scripts/media-pipeline.mjs",
+    "media:pipeline:apply": "node scripts/media-pipeline.mjs --apply",
+    "media:pipeline:render": "node scripts/media-pipeline.mjs --render --apply",
     "media:render:term-previews": "node scripts/render-term-previews-hyperframes.mjs"
   },
   "devDependencies": {
@@ -22,6 +27,7 @@
     "@types/node": "^25.6.0",
     "ajv": "^8.20.0",
     "astro": "^5.18.1",
+    "lighthouse": "^13.3.0",
     "tailwindcss": "^3.4.19",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

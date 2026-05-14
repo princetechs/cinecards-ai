@@ -1,0 +1,58 @@
+{
+  "home": {
+    "hero": {
+      "video": "/videos/home/hero-director-loop.mp4",
+      "poster": "/images/home/posters/hero-director-loop.webp",
+      "fallbackImage": "/images/home/director-console-coffee.webp",
+      "label": "Silent aiscreens hero preview showing one idea turning into a shot plan and model-ready prompt"
+    },
+    "workflow": {
+      "video": "/videos/home/workflow-director-loop.mp4",
+      "poster": "/images/home/posters/workflow-director-loop.jpg",
+      "fallbackImage": "/images/home/workflow-storyboard-desk.webp",
+      "label": "Silent workflow preview showing a creator brief becoming a shot order and model-ready prompt"
+    },
+    "recipes": {
+      "video": "/videos/home/recipe-picker-loop.mp4",
+      "poster": "/images/home/posters/recipe-picker-loop.jpg",
+      "fallbackImage": "/images/home/recipes/coffee-shop-reel.webp",
+      "label": "Silent recipe picker preview showing a coffee shop recipe becoming a shot list and prompts"
+    }
+  },
+  "services": {
+    "hero": {
+      "video": "/videos/home/workflow-director-loop.mp4",
+      "poster": "/images/home/posters/workflow-director-loop.jpg",
+      "fallbackImage": "/images/home/director-demo-bakery.webp",
+      "label": "Silent service preview showing brief, shot plan, model prompt, and retry fix deliverables"
+    },
+    "packageCovers": [
+      {
+        "image": "/images/home/workflow-storyboard-desk.webp",
+        "label": "Shot plan",
+        "note": "Brief to usable sequence",
+        "steps": ["Brief", "Shots", "Prompt"]
+      },
+      {
+        "image": "/images/home/recipes/product-macro-hero.webp",
+        "label": "Concept pack",
+        "note": "Many angles from one offer",
+        "steps": ["Hooks", "Scenes", "Exports"]
+      },
+      {
+        "image": "/images/home/director-demo-bakery.webp",
+        "label": "Custom system",
+        "note": "Prompt rules and retry fixes",
+        "steps": ["Brand", "Models", "QA"]
+      }
+    ]
+  },
+  "recipes": {
+    "hero": {
+      "video": "/videos/home/recipe-picker-loop.mp4",
+      "poster": "/images/home/posters/recipe-picker-loop.jpg",
+      "fallbackImage": "/images/home/recipes/coffee-shop-reel.webp",
+      "label": "Silent recipes preview showing how beginners choose a video type and copy prompts"
+    }
+  }
+}

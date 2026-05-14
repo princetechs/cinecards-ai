@@ -8,11 +8,12 @@
  */
 
 import { readFileSync, existsSync, readdirSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dir = fileURLToPath(new URL("..", import.meta.url));
 const DIST = join(__dir, "dist");
+const SRC_BLOG = join(__dir, "src", "content", "blog");
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -36,11 +37,6 @@ function check(label, ok, detail = "") {
 function readHtml(filePath) {
   if (!existsSync(filePath)) return null;
   return readFileSync(filePath, "utf8");
-}
-
-function getAttr(html, attr) {
-  const re = new RegExp(`${attr}="([^"]*)"`, "i");
-  return html.match(re)?.[1] ?? null;
 }
 
 function getMeta(html, name) {
@@ -105,7 +101,17 @@ if (existsSync(rssPath)) {
   check("RSS has <title>", rss.includes("<title>"));
   check("RSS has <item>", rss.includes("<item>"), "no posts in feed");
   check("RSS has <link> per item", rss.includes("<link>"));
-  check("RSS no draft posts (check manually)", "warn", "verify draft:true posts absent from feed");
+  const draftSlugs = existsSync(SRC_BLOG)
+    ? readdirSync(SRC_BLOG)
+        .filter((file) => /\.(md|mdx)$/.test(file))
+        .filter((file) => readFileSync(join(SRC_BLOG, file), "utf8").match(/\ndraft:\s*true\b/i))
+        .map((file) => file.replace(/\.(md|mdx)$/, ""))
+    : [];
+  check(
+    "RSS excludes draft posts",
+    draftSlugs.every((slug) => !rss.includes(`/blog/${slug}`)),
+    draftSlugs.length > 0 ? `draft slug found in RSS: ${draftSlugs.join(", ")}` : "",
+  );
 }
 
 // ── 3. Global head (check blog index) ───────────────────────────────────────

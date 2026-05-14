@@ -4,7 +4,7 @@
     type="button"
     data-login-toggle
   >
-    Track
+    My Progress
   </button>
   <div
     class="absolute right-0 top-12 z-50 hidden w-72 rounded-lg border border-ink/10 bg-bone p-4 text-sm text-ink shadow-lift"
@@ -74,7 +74,7 @@
     const profile = readProfile();
     document.querySelectorAll<HTMLElement>("[data-creator-login]").forEach((root) => {
       const toggle = root.querySelector<HTMLElement>("[data-login-toggle]");
-      if (toggle) toggle.textContent = profile.name ? profile.name : "Track";
+      if (toggle) toggle.textContent = profile.name ? profile.name : "My Progress";
       root.querySelectorAll<HTMLElement>("[data-stat]").forEach((stat) => {
         const key = stat.dataset.stat as keyof Profile;
         const value = key === "groupsDone" ? profile.groupsDone.length : profile[key];

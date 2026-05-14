@@ -1,281 +1,735 @@
 ---
-import { hero, tokens } from "../src/site.config";
+import { hero } from "../src/site.config";
+import MediaLoop from "./MediaLoop.astro";
+import siteMedia from "../data/siteMedia.json";
 ---
 
-<section
-  style={`
-    background: ${tokens.bgHero};
-    min-height: calc(100vh - 64px);
-    display: flex;
-    align-items: center;
-  `}
->
-  <div
-    style="
-      width: 100%;
-      max-width: 1280px;
-      margin-inline: auto;
-      padding-inline: clamp(20px, 4vw, 64px);
-      padding-block: clamp(48px, 6vw, 80px);
-    "
-  >
-    <div class="hero-split">
+<section class="home-hero" data-home-hero>
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
 
-      <!-- ── LEFT ── -->
-      <div class="hero-left">
+  <div class="hero-shell">
+    <div class="hero-copy">
+      <span class="hero-kicker">{hero.eyebrow}</span>
+      <h1>
+        Learn to direct AI video
+        <span>before you generate.</span>
+      </h1>
+      <p>
+        Turn any idea into a shot plan, model-ready prompts, preview logic, and retry fixes before you burn credits in Runway, Pika, Sora, Kling, or Veo.
+      </p>
 
-        <!-- H1 -->
-        <h1
-          style="
-            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            font-size: clamp(40px, 5.5vw, 64px);
-            font-weight: 700;
-            line-height: 1.04;
-            color: #FFFFFF;
-            margin: 0 0 24px 0;
-            letter-spacing: -0.03em;
-          "
-        >
-          {hero.headline1} {hero.headline2}<br />
-          <span style={`color: ${tokens.textFaint};`}>{hero.headline3}<br />{hero.headline4}</span>
-        </h1>
-
-        <!-- Subtitle -->
-        <p
-          class="font-ui"
-          style="
-            font-size: clamp(15px, 1.5vw, 17px);
-            line-height: 1.7;
-            color: rgba(255,255,255,0.5);
-            max-width: 420px;
-            margin: 0 0 40px 0;
-          "
-        >
-          {hero.subtitle}
-        </p>
-
-        <!-- CTAs -->
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
-          <a
-            href="/glossary"
-            class="font-ui focus-ring"
-            style="
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              background: #E4572E;
-              color: #fff;
-              font-size: 15px;
-              font-weight: 700;
-              padding: 0 32px;
-              height: 52px;
-              border-radius: 999px;
-              text-decoration: none;
-              transition: background 0.15s;
-              white-space: nowrap;
-            "
-            onmouseover="this.style.background='#B83A1F'"
-            onmouseout="this.style.background='#E4572E'"
-          >{hero.cta1Label}</a>
-          <a
-            href={hero.cta2Href}
-            class="font-ui focus-ring"
-            style="
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              background: transparent;
-              color: rgba(255,255,255,0.85);
-              font-size: 15px;
-              font-weight: 700;
-              padding: 0 32px;
-              height: 52px;
-              border-radius: 999px;
-              border: 1.5px solid rgba(255,255,255,0.2);
-              text-decoration: none;
-              transition: border-color 0.15s, background 0.15s;
-              white-space: nowrap;
-            "
-            onmouseover="this.style.borderColor='rgba(255,255,255,0.5)'; this.style.background='rgba(255,255,255,0.06)'"
-            onmouseout="this.style.borderColor='rgba(255,255,255,0.2)'; this.style.background='transparent'"
-          >{hero.cta2Label}</a>
+      <form class="idea-composer" data-idea-form>
+        <label for="hero-idea">What do you want to make?</label>
+        <div class="idea-row">
+          <input id="hero-idea" name="idea" type="text" value="coffee brand launch reel" autocomplete="off" data-hero-idea />
+          <button type="submit">Plan</button>
         </div>
+        <div class="idea-chips" aria-label="Popular starting points">
+          <button type="button" data-idea-preset="coffee brand launch reel" data-audience="creator">Creator reel</button>
+          <button type="button" data-idea-preset="new skincare product ad" data-audience="ecommerce">Ecommerce</button>
+          <button type="button" data-idea-preset="local bakery promo" data-audience="local">Local business</button>
+          <button type="button" data-idea-preset="course intro lesson" data-audience="course">Course</button>
+        </div>
+      </form>
 
-        <!-- Social proof -->
-        <p
-          class="font-ui"
-          style="
-            font-size: 13px;
-            color: rgba(255,255,255,0.25);
-            margin: 0;
-            letter-spacing: 0.01em;
-          "
-        >{hero.socialProof}</p>
+      <div class="hero-actions">
+        <a class="primary-action" href={hero.cta1Href} data-hero-plan-link>{hero.cta1Label}</a>
+        <a class="secondary-action" href="/blog/ai-video-shot-list-template">See the shot list template</a>
+      </div>
+      <p class="hero-proof">{hero.socialProof}</p>
+    </div>
+
+    <div class="director-console" aria-label="Interactive AI video direction preview">
+      <div class="console-top">
+        <div>
+          <span>Director Console</span>
+          <strong data-console-title>Coffee brand launch reel</strong>
+        </div>
+        <div class="console-status">
+          <i></i>
+          Credit safe
+        </div>
       </div>
 
-      <!-- ── RIGHT: Demo card ── -->
-      <div class="hero-right">
-        <div class="demo-frame">
-
-          <!-- Term card (white) -->
-          <div class="demo-card">
-            <!-- Tags row -->
-            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 12px; flex-wrap: wrap;">
-              <span
-                class="font-ui"
-                style="font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase;"
-              >Shots / Beginner</span>
-              <span style="flex: 1;"></span>
-              <span
-                class="font-ui"
-                style="font-size: 10px; font-weight: 700; color: #fff; background: #E4572E; border-radius: 6px; padding: 2px 10px; letter-spacing: 0.04em;"
-              >Foundation</span>
-            </div>
-
-            <!-- White card -->
-            <div
-              style="
-                background: #FFFFFF;
-                border-radius: 14px;
-                padding: 20px;
-                margin-bottom: 14px;
-              "
-            >
-              <h3
-                style="
-                  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-                  font-size: 26px;
-                  font-weight: 700;
-                  color: #171717;
-                  margin: 0 0 8px 0;
-                  letter-spacing: -0.01em;
-                "
-              >Close-Up</h3>
-              <p
-                class="font-ui"
-                style="font-size: 14px; color: #4F4A45; line-height: 1.55; margin: 0 0 16px 0;"
-              >Frames the face or an important detail to show emotion.</p>
-
-              <!-- Prompt block -->
-              <div style="background: #0F0F13; border-radius: 10px; padding: 14px 16px;">
-                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
-                  <span class="font-ui" style="font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.12em; text-transform: uppercase;">AI Prompt →</span>
-                </div>
-                <p class="font-mono" style="font-size: 12px; line-height: 1.6; color: rgba(255,255,255,0.75); margin: 0;">
-                  <span style="color: #E4572E; font-weight: 500;">extreme close-up</span> of [subject],<br />
-                  shallow DOF, cinematic lighting,<br />
-                  5 seconds
-                </p>
-              </div>
-            </div>
-
-            <!-- Shot sequence strip -->
-            <div
-              style="
-                background: rgba(255,255,255,0.04);
-                border: 1px solid rgba(255,255,255,0.07);
-                border-radius: 12px;
-                padding: 14px 16px;
-              "
-            >
-              <span
-                class="font-ui"
-                style="font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.3); letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 12px;"
-              >Shot Sequence</span>
-              <div style="display: flex; align-items: center; gap: 0;">
-                {[
-                  { label: "Wide",    active: false },
-                  { label: "Medium",  active: false },
-                  { label: "Close",   active: true  },
-                  { label: "Detail",  active: false },
-                  { label: "Wide",    active: false },
-                ].map((step, i) => (
-                  <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0;">
-                      <div
-                        class="font-ui"
-                        style={`
-                          width: 28px; height: 28px; border-radius: 50%;
-                          background: ${step.active ? '#E4572E' : 'rgba(255,255,255,0.07)'};
-                          color: ${step.active ? '#fff' : 'rgba(255,255,255,0.4)'};
-                          font-size: 10px; font-weight: 700;
-                          display: flex; align-items: center; justify-content: center;
-                          border: ${step.active ? 'none' : '1px solid rgba(255,255,255,0.1)'};
-                          flex-shrink: 0;
-                        `}
-                      >{i + 1}</div>
-                      <span class="font-ui" style="font-size: 7.5px; color: rgba(255,255,255,0.28); text-align: center; max-width: 34px; line-height: 1.2;">{step.label}</span>
-                    </div>
-                    {i < 4 && (
-                      <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.07); margin: 0 3px 14px;"></div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div class="console-stage">
+        <div class="stage-film">
+          <MediaLoop media={siteMedia.home.hero} className="stage-video-loop" eager />
+        </div>
+        <div class="quality-meter">
+          <div>
+            <span>Prompt strength</span>
+            <strong data-quality-score>86%</strong>
+          </div>
+          <div class="meter-lines">
+            <i style="--w: 92%"></i>
+            <i style="--w: 78%"></i>
+            <i style="--w: 88%"></i>
           </div>
         </div>
       </div>
 
+      <div class="model-tabs" data-model-tabs>
+        <button type="button" class="active" data-model="generic">Generic</button>
+        <button type="button" data-model="runway">Runway</button>
+        <button type="button" data-model="sora">Sora</button>
+        <button type="button" data-model="kling">Kling/Veo</button>
+      </div>
+
+      <div class="shot-stack" data-shot-stack>
+        <article class="shot-card active">
+          <span>01</span>
+          <div>
+            <strong>Establish the world</strong>
+            <p>Wide shot, warm location, stable camera.</p>
+          </div>
+        </article>
+        <article class="shot-card">
+          <span>02</span>
+          <div>
+            <strong>Show the hero object</strong>
+            <p>Close detail, clean light, one clear action.</p>
+          </div>
+        </article>
+        <article class="shot-card">
+          <span>03</span>
+          <div>
+            <strong>End with payoff</strong>
+            <p>Human result, simple ending, brand memory.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="prompt-panel">
+        <div>
+          <span>Model-ready prompt</span>
+          <button type="button" data-copy-hero-prompt>Copy</button>
+        </div>
+        <p data-hero-prompt>macro close-up of coffee packaging on a cafe table, warm side light, slow push-in, steam moving softly, clear ending, 5 seconds</p>
+      </div>
     </div>
   </div>
 </section>
 
+<script>
+  type ModelKey = "generic" | "runway" | "sora" | "kling";
+
+  const heroRoot = document.querySelector<HTMLElement>("[data-home-hero]");
+  const presets: Record<string, { title: string; label: string; score: string; prompt: string; shots: string[] }> = {
+    creator: {
+      title: "Creator reel",
+      label: "Hook, action, payoff",
+      score: "84%",
+      prompt: "energetic creator reel about [subject], direct-to-camera hook, one clear action, quick detail cutaway, confident ending, 5 seconds",
+      shots: ["Hook the viewer", "Show one action", "End with payoff"],
+    },
+    ecommerce: {
+      title: "Ecommerce product ad",
+      label: "Macro product reveal",
+      score: "91%",
+      prompt: "premium macro shot of [subject] on a clean surface, soft rim light, slow push-in, crisp product shape, no morphing, 5 seconds",
+      shots: ["Reveal product shape", "Show texture detail", "Close on result"],
+    },
+    local: {
+      title: "Local business promo",
+      label: "Place, people, detail",
+      score: "88%",
+      prompt: "welcoming local business video of [subject], wide exterior, friendly human action, cozy detail shot, warm natural light, 5 seconds",
+      shots: ["Show the place", "Show people working", "Show final detail"],
+    },
+    course: {
+      title: "Course intro lesson",
+      label: "Teach, show, remember",
+      score: "82%",
+      prompt: "clear tutorial intro about [subject], medium talking-head framing, simple visual example, steady camera, readable ending beat, 5 seconds",
+      shots: ["Introduce the teacher", "Show the example", "Make the idea stick"],
+    },
+  };
+
+  const modelSuffix: Record<ModelKey, string> = {
+    generic: "",
+    runway: ", one camera movement only, precise subject and temporal direction",
+    sora: ", physically coherent motion, clear beginning middle and ending",
+    kling: ", stable subject identity, concrete physics, avoid abstract style stacking",
+  };
+
+  function updateHeroConsole(audience = "creator") {
+    if (!heroRoot) return;
+    const input = heroRoot.querySelector<HTMLInputElement>("[data-hero-idea]");
+    const title = heroRoot.querySelector<HTMLElement>("[data-console-title]");
+    const label = heroRoot.querySelector<HTMLElement>("[data-stage-label]");
+    const score = heroRoot.querySelector<HTMLElement>("[data-quality-score]");
+    const prompt = heroRoot.querySelector<HTMLElement>("[data-hero-prompt]");
+    const planLink = heroRoot.querySelector<HTMLAnchorElement>("[data-hero-plan-link]");
+    const cards = heroRoot.querySelectorAll<HTMLElement>(".shot-card");
+    const activeModel = heroRoot.querySelector<HTMLButtonElement>("[data-model-tabs] .active")?.dataset.model as ModelKey | undefined;
+    const data = presets[audience] ?? presets.creator;
+    const subject = input?.value.trim() || "your product reel";
+    const fullPrompt = data.prompt.replace("[subject]", subject) + modelSuffix[activeModel ?? "generic"];
+
+    if (title) title.textContent = subject;
+    if (label) label.textContent = data.label;
+    if (score) score.textContent = data.score;
+    if (prompt) prompt.textContent = fullPrompt;
+    if (planLink) planLink.href = `/planner?topic=${encodeURIComponent(subject)}`;
+    cards.forEach((card, index) => {
+      const strong = card.querySelector("strong");
+      if (strong) strong.textContent = data.shots[index] ?? data.shots[0];
+      card.classList.toggle("active", index === 1);
+    });
+  }
+
+  if (heroRoot) {
+    heroRoot.querySelectorAll<HTMLButtonElement>("[data-idea-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const input = heroRoot.querySelector<HTMLInputElement>("[data-hero-idea]");
+        if (input && button.dataset.ideaPreset) input.value = button.dataset.ideaPreset;
+        updateHeroConsole(button.dataset.audience ?? "creator");
+      });
+    });
+
+    heroRoot.querySelector<HTMLFormElement>("[data-idea-form]")?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      updateHeroConsole("creator");
+    });
+
+    heroRoot.querySelectorAll<HTMLButtonElement>("[data-model]").forEach((button) => {
+      button.addEventListener("click", () => {
+        heroRoot.querySelectorAll("[data-model]").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        updateHeroConsole("creator");
+      });
+    });
+
+    heroRoot.querySelector<HTMLButtonElement>("[data-copy-hero-prompt]")?.addEventListener("click", async (event) => {
+      const button = event.currentTarget as HTMLButtonElement;
+      const text = heroRoot.querySelector<HTMLElement>("[data-hero-prompt]")?.textContent ?? "";
+      try {
+        await navigator.clipboard?.writeText(text);
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = "Copy failed";
+      }
+      window.setTimeout(() => { button.textContent = "Copy"; }, 1300);
+    });
+
+    updateHeroConsole("creator");
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll(".reveal-on-scroll").forEach((node) => observer.observe(node));
+</script>
+
 <style>
-  .hero-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+  .home-hero {
+    position: relative;
+    min-height: calc(100vh - 64px);
+    overflow: clip;
+    background: #0f0f13;
+    color: #fff;
   }
 
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(15,15,19,0.98) 0%, rgba(15,15,19,0.9) 36%, rgba(15,15,19,0.58) 68%, rgba(15,15,19,0.86) 100%),
+      url("/images/home/ai-video-director-console.jpg") center right / cover no-repeat;
+    transform: scale(1.02);
   }
 
-  .hero-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 78% 20%, rgba(228,87,46,0.28), transparent 28%),
+      linear-gradient(180deg, transparent 0%, rgba(15,15,19,0.92) 100%);
   }
 
-  .demo-frame {
-    background: #1A1A22;
-    border-radius: 24px;
-    padding: 24px;
+  .hero-shell {
+    position: relative;
+    z-index: 1;
     width: 100%;
-    max-width: 400px;
-    border: 1px solid rgba(255,255,255,0.07);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.04),
-      0 32px 80px rgba(0,0,0,0.6),
-      0 8px 24px rgba(0,0,0,0.4);
-    transform: rotate(-1deg);
+    box-sizing: border-box;
+    max-width: 1280px;
+    min-height: calc(100vh - 64px);
+    margin-inline: auto;
+    padding: clamp(44px, 7vw, 88px) clamp(20px, 4vw, 64px);
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1fr);
+    align-items: center;
+    gap: clamp(36px, 6vw, 80px);
   }
 
-  .demo-card {
-    /* inner content of the frame */
+  .hero-kicker {
+    display: inline-flex;
+    margin-bottom: 18px;
+    color: #f28a61;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 
-  @media (max-width: 900px) {
-    .hero-split {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-    .hero-right {
-      order: -1;
-    }
-    .demo-frame {
-      max-width: 360px;
+  .hero-copy h1 {
+    margin: 0;
+    max-width: 680px;
+    color: #fff;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(44px, 7vw, 82px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-copy h1 span {
+    display: block;
+    color: rgba(255,255,255,0.56);
+  }
+
+  .hero-copy > p {
+    max-width: 590px;
+    margin: 24px 0 28px;
+    color: rgba(255,255,255,0.68);
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.72;
+  }
+
+  .idea-composer {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 610px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 22px 70px rgba(0,0,0,0.28);
+    backdrop-filter: blur(18px);
+  }
+
+  .idea-composer label {
+    display: block;
+    margin: 2px 6px 8px;
+    color: rgba(255,255,255,0.46);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .idea-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .idea-row input {
+    min-width: 0;
+    height: 52px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 0 16px;
+    background: rgba(255,255,255,0.95);
+    color: #171717;
+    font: 800 16px "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .idea-row button,
+  .primary-action {
+    border: 0;
+    border-radius: 12px;
+    background: #b83a1f;
+    color: #fff;
+    font: 900 14px "Inter", ui-sans-serif, system-ui, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .idea-row button {
+    padding-inline: 22px;
+  }
+
+  .idea-row button:hover,
+  .primary-action:hover {
+    background: #962d17;
+  }
+
+  .idea-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .idea-chips button,
+  .model-tabs button,
+  .prompt-panel button {
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.68);
+    font: 800 12px "Inter", ui-sans-serif, system-ui, sans-serif;
+    cursor: pointer;
+  }
+
+  .idea-chips button {
+    padding: 8px 11px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .primary-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding-inline: 24px;
+  }
+
+  .secondary-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 50px;
+    color: rgba(255,255,255,0.76);
+    font: 800 14px "Inter", ui-sans-serif, system-ui, sans-serif;
+    text-decoration: none;
+  }
+
+  .hero-proof {
+    margin-top: 18px;
+    color: rgba(255,255,255,0.32);
+    font-size: 13px;
+  }
+
+  .director-console {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 24px;
+    padding: 18px;
+    background: rgba(18,18,24,0.78);
+    box-shadow: 0 34px 110px rgba(0,0,0,0.58);
+    backdrop-filter: blur(20px);
+  }
+
+  .console-top,
+  .prompt-panel > div,
+  .quality-meter > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .console-top span,
+  .prompt-panel span,
+  .quality-meter span {
+    display: block;
+    color: rgba(255,255,255,0.62);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .console-top strong {
+    display: block;
+    margin-top: 3px;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.08;
+  }
+
+  .console-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    padding: 8px 11px;
+    color: rgba(255,255,255,0.72);
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .console-status i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 18px #10b981;
+  }
+
+  .console-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .stage-film {
+    position: relative;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    background: #0f0f13;
+  }
+
+  :global(.stage-video-loop) {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    opacity: 0.94;
+    transform: scale(1.01);
+    transition: transform 0.38s ease, opacity 0.38s ease;
+  }
+
+  :global(.stage-video-loop .media-loop-video),
+  :global(.stage-video-loop .media-loop-fallback) {
+    object-fit: contain;
+    background: #0f0f13;
+  }
+
+  .stage-film::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(15,15,19,0.16), rgba(15,15,19,0.22) 42%, rgba(15,15,19,0.58)),
+      radial-gradient(circle at 74% 56%, transparent 0 26%, rgba(15,15,19,0.48) 58%);
+    pointer-events: none;
+  }
+
+  .director-console:hover :global(.stage-video-loop) {
+    opacity: 0.96;
+    transform: scale(1.035);
+  }
+
+  .quality-meter {
+    display: grid;
+    grid-template-columns: auto minmax(160px, 1fr);
+    align-items: center;
+    gap: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .quality-meter strong {
+    color: #f28a61;
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-size: 26px;
+  }
+
+  .meter-lines {
+    display: grid;
+    gap: 7px;
+  }
+
+  .meter-lines i {
+    display: block;
+    height: 9px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #e4572e var(--w), rgba(255,255,255,0.12) var(--w));
+  }
+
+  .model-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .model-tabs button {
+    padding: 8px 12px;
+  }
+
+  .model-tabs button.active,
+  .idea-chips button:hover {
+    border-color: rgba(228,87,46,0.6);
+    background: rgba(228,87,46,0.18);
+    color: #fff;
+  }
+
+  .shot-stack {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .shot-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    transform: translateZ(0);
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+
+  .shot-card.active {
+    border-color: rgba(228,87,46,0.42);
+    background: rgba(228,87,46,0.14);
+    transform: translateX(8px);
+  }
+
+  .shot-card span {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.09);
+    color: #f28a61;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .shot-card strong {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+  }
+
+  .shot-card p,
+  .prompt-panel p {
+    margin: 0;
+    color: rgba(255,255,255,0.56);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .prompt-panel {
+    margin-top: 14px;
+    border-radius: 18px;
+    padding: 15px;
+    background: #0b0b0f;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .prompt-panel button {
+    padding: 6px 10px;
+  }
+
+  .prompt-panel p {
+    margin-top: 10px;
+    color: rgba(255,255,255,0.78);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    overflow-wrap: anywhere;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 980px) {
+    .hero-bg {
+      background:
+        linear-gradient(180deg, rgba(15,15,19,0.98), rgba(15,15,19,0.9) 54%, rgba(34,27,24,0.96)),
+        radial-gradient(circle at 82% 12%, rgba(228,87,46,0.24), transparent 34%);
       transform: none;
     }
+
+    .hero-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .director-console {
+      max-width: 720px;
+    }
   }
 
-  @media (max-width: 480px) {
-    .demo-frame {
-      max-width: 100%;
+  @media (max-width: 620px) {
+    .hero-shell {
+      padding-block: 32px;
+    }
+
+    .hero-copy h1 {
+      font-size: 35px;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-copy > p {
+      font-size: 15px;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .primary-action,
+    .secondary-action {
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .idea-row {
+      grid-template-columns: 1fr;
+    }
+
+    .idea-row button {
+      height: 48px;
+    }
+
+    .quality-meter {
+      grid-template-columns: 1fr;
+    }
+
+    .model-tabs,
+    .idea-chips {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 2px;
+    }
+
+    .model-tabs button,
+    .idea-chips button {
+      flex: 0 0 auto;
+    }
+
+    .console-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.stage-video-loop) {
+      transition: none;
+    }
+
+    .reveal-on-scroll {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>

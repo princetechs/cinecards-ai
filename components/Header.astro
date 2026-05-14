@@ -12,12 +12,12 @@ const home = localisedPath("/", lang);
 const localeLabels = t.locale as unknown as Record<string, string>;
 
 const navLinks = [
-  { label: t.nav.glossary, href: localisedPath("/glossary", lang) },
-  { label: t.nav.planner, href: localisedPath("/planner", lang) },
-  { label: t.nav.learn,   href: "/learn" },
   { label: t.nav.packs,   href: "/recipes" },
+  { label: t.nav.planner, href: localisedPath("/planner", lang) },
+  { label: (t.nav as Record<string, string>).services ?? "Services", href: "/services" },
+  { label: t.nav.glossary, href: localisedPath("/glossary", lang) },
+  { label: t.nav.learn,   href: "/learn" },
   { label: (t.nav as Record<string, string>).blog ?? "Blog", href: "/blog" },
-  { label: t.nav.contribute, href: "/contribute" },
 ];
 ---
 
@@ -25,7 +25,7 @@ const navLinks = [
   class="sticky top-0 z-40 backdrop-blur-xl"
   style="background: rgba(248,245,239,0.88); border-bottom: 1px solid var(--border-sand, #E6DDD1);"
 >
-  <div class="container-pad flex h-16 items-center justify-between gap-4">
+  <div class="header-inner container-pad flex h-16 items-center justify-between gap-4">
     <!-- Logo -->
     <a class="focus-ring flex items-center gap-2 rounded-lg" href={home}>
       <span
@@ -61,9 +61,10 @@ const navLinks = [
     </nav>
 
     <!-- Right side: locale switcher + CTA + hamburger -->
-    <div class="flex items-center gap-2">
+    <div class="header-actions flex items-center gap-2">
       <!-- Locale switcher -->
       <div
+        class="header-locale"
         class="flex items-center gap-1 rounded-full p-0.5 font-ui text-xs font-bold"
         style="border: 1px solid var(--border-sand-dark, #D8CFC3); background: #F8F5EF; color: var(--color-quiet, #7A7268);"
         data-locale-toggle
@@ -94,12 +95,14 @@ const navLinks = [
         onmouseout="this.style.background='var(--color-accent, #E4572E)'"
         href={localisedPath("/planner", lang)}>{t.cta.planSequence}</a>
 
-      <CreatorLogin />
+      <div class="header-progress">
+        <CreatorLogin />
+      </div>
 
       <!-- Hamburger button (mobile only) -->
       <button
         type="button"
-        class="focus-ring flex h-10 w-10 items-center justify-center rounded-lg sm:hidden"
+        class="mobile-menu-button focus-ring flex h-10 w-10 items-center justify-center rounded-lg sm:hidden"
         style="color: var(--color-ink, #171717); background: transparent;"
         aria-label="Open menu"
         id="hamburger-btn"
@@ -197,27 +200,73 @@ const navLinks = [
       ))}
     </div>
 
-    <!-- CTA -->
-    <a
-      href={localisedPath("/planner", lang)}
-      style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        min-height:48px;
-        border-radius:999px;
-        background: var(--color-accent, #E4572E);
-        color: #fff;
-        font-family: var(--font-ui, sans-serif);
-        font-size: 15px;
-        font-weight: 700;
-        text-decoration: none;
-        padding: 12px 24px;
-      "
-      id="drawer-cta-link"
-    >{t.cta.planSequence}</a>
+    <!-- CTAs -->
+    <div style="display:grid; gap:10px;">
+      <a
+        href={localisedPath("/planner", lang)}
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          min-height:48px;
+          border-radius:999px;
+          background: var(--color-accent, #E4572E);
+          color: #fff;
+          font-family: var(--font-ui, sans-serif);
+          font-size: 15px;
+          font-weight: 700;
+          text-decoration: none;
+          padding: 12px 24px;
+        "
+        id="drawer-cta-link"
+      >{t.cta.planSequence}</a>
+      <a
+        href="/services"
+        class="drawer-nav-link"
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          min-height:44px;
+          border-radius:999px;
+          border: 1px solid #D8CFC3;
+          color: #171717;
+          font-family: var(--font-ui, sans-serif);
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+          padding: 10px 20px;
+        "
+      >Need a prompt pack made?</a>
+    </div>
   </div>
 </div>
+
+<style>
+  @media (max-width: 520px) {
+    .header-actions {
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .header-inner {
+      position: relative;
+    }
+
+    .header-progress,
+    .header-locale {
+      display: none;
+    }
+
+    .mobile-menu-button {
+      display: flex !important;
+      flex: 0 0 40px;
+      position: absolute;
+      top: 12px;
+      right: 16px;
+    }
+  }
+</style>
 
 <script is:inline>
   // ── Maintainer link ──────────────────────────────────────────────────────

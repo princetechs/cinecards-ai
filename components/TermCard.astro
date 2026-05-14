@@ -31,32 +31,21 @@ const searchText = [
   data-search={searchText}
 >
   {cardImage && (
-    <a class="term-media-link" href={`/glossary/${term.id}`} aria-label={`Open ${term.name}`}>
-      {previewVideoUrl ? (
-        <video
-          class="term-media"
-          src={previewVideoUrl}
-          poster={cardImageUrl}
-          muted
-          loop
-          playsinline
-          preload="none"
-          width="640"
-          height="360"
-          data-preview-video
-          aria-label={`Motion preview of ${term.name}`}
-        ></video>
-      ) : (
-        <img
-          class="term-media"
-          src={cardImageUrl}
-          alt={`Visual example of ${term.name}`}
-          loading="lazy"
-          decoding="async"
-          width="640"
-          height="360"
-        />
-      )}
+    <a
+      class="term-media-link"
+      href={`/glossary/${term.id}`}
+      aria-label={`Open ${term.name}`}
+    >
+      <img
+        class="term-media"
+        src={cardImageUrl}
+        alt={`Visual example of ${term.name}`}
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="360"
+        data-preview-poster
+      />
     </a>
   )}
 
@@ -75,34 +64,65 @@ const searchText = [
   <!-- Short definition — always visible -->
   <p class="term-def mt-3">{term.shortDefinition}</p>
 
-  <!-- AI Prompt block — always visible -->
-  <div
-    class="prompt-block mt-5"
-    data-preview-scope
-    data-preview3={term.previewPrompt3s}
-    data-preview5={term.previewPrompt5s}
-  >
-    <div class="prompt-header">
-      <span class="prompt-label">▶ AI Prompt</span>
-      <button class="prompt-copy-btn" type="button" data-copy-prompt={term.aiPromptTemplate}>Copy</button>
-    </div>
-    <p class="prompt-text" data-preview-prompt>{term.aiPromptTemplate}</p>
-    <div class="prompt-footer">
-      <button class="duration-pill duration-active" type="button" data-preview-option="3">3s</button>
-      <button class="duration-pill" type="button" data-preview-option="5">5s</button>
-    </div>
-  </div>
-
   <!-- Collapsible details -->
   <div class="details-section" data-details hidden>
+    {previewVideoUrl && (
+      <div class="motion-preview" data-motion-preview data-preview-src={previewVideoUrl} data-preview-poster={cardImageUrl}>
+        <div class="motion-preview-copy">
+          <p class="detail-label">Motion example</p>
+          <p class="detail-text">Watch the term in motion, then copy the prompt below.</p>
+        </div>
+        <button class="motion-preview-btn" type="button" data-load-preview>
+          Watch preview
+        </button>
+      </div>
+    )}
+
+    <!-- AI Prompt block -->
+    <div
+      class="prompt-block"
+      data-preview-scope
+      data-preview3={term.previewPrompt3s}
+      data-preview5={term.previewPrompt5s}
+    >
+      <div class="prompt-header">
+        <span class="prompt-label">AI Prompt</span>
+        <button class="prompt-copy-btn" type="button" data-copy-prompt={term.aiPromptTemplate}>Copy</button>
+      </div>
+      <p class="prompt-text" data-preview-prompt>{term.aiPromptTemplate}</p>
+      <div class="prompt-footer">
+        <button class="duration-pill duration-active" type="button" data-preview-option="3">3s</button>
+        <button class="duration-pill" type="button" data-preview-option="5">5s</button>
+      </div>
+    </div>
+
+    <!-- Try With My Idea -->
+    <div class="try-idea-row" data-try-idea-row>
+      <p class="detail-label">Use this with your idea</p>
+      <div class="try-idea-wrap">
+        <input
+          class="try-idea-input"
+          type="text"
+          placeholder="Coffee shop, sunset hike, product demo..."
+          data-try-idea-input
+          aria-label="Enter your subject"
+        />
+        <a
+          class="try-idea-btn"
+          href={`/planner?term=${encodeURIComponent(term.id)}&topic=`}
+          data-try-idea-link
+        >Plan</a>
+      </div>
+    </div>
+
     <!-- Why it matters -->
     <div class="detail-row">
-      <p class="detail-label">💡 Why it matters</p>
+      <p class="detail-label">Why it matters</p>
       <p class="detail-text">{term.whyItMatters}</p>
     </div>
     <!-- Human shoot hint -->
     <div class="detail-row">
-      <p class="detail-label">🎬 Try this</p>
+      <p class="detail-label">Try this</p>
       <p class="detail-text">{term.humanShootHint}</p>
     </div>
     <!-- Common mistakes -->
@@ -133,28 +153,10 @@ const searchText = [
   <!-- Spacer pushes actions to bottom -->
   <div class="mt-auto"></div>
 
-  <!-- Try With My Idea -->
-  <div class="try-idea-row" data-try-idea-row>
-    <div class="try-idea-wrap">
-      <input
-        class="try-idea-input"
-        type="text"
-        placeholder="Your subject (e.g. coffee shop, sunset hike…)"
-        data-try-idea-input
-        aria-label="Enter your subject"
-      />
-      <a
-        class="try-idea-btn"
-        href={`/planner?term=${encodeURIComponent(term.id)}&topic=`}
-        data-try-idea-link
-      >Try →</a>
-    </div>
-  </div>
-
   <!-- Toggle + action row -->
   <div class="card-footer mt-4 flex items-center justify-between gap-2">
     <button class="show-more-btn" type="button" data-toggle-details aria-expanded="false">
-      <span data-toggle-label>Show more</span>
+      <span data-toggle-label>Expand card</span>
       <svg data-toggle-chevron class="chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="flex gap-2">
@@ -165,47 +167,60 @@ const searchText = [
 </article>
 
 <script>
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduceMotion) {
-    document.querySelectorAll<HTMLVideoElement>("[data-preview-video]").forEach((video) => {
-      const parent = video.closest(".term-media-link");
-      parent?.addEventListener("pointerenter", () => {
-        void video.play();
-      });
-      parent?.addEventListener("focusin", () => {
-        void video.play();
-      });
-      parent?.addEventListener("pointerleave", () => {
-        video.pause();
-        video.currentTime = 0;
-      });
-      parent?.addEventListener("focusout", () => {
-        video.pause();
-        video.currentTime = 0;
-      });
-    });
-  }
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-load-preview]");
+    if (!button) return;
+    const slot = button.closest<HTMLElement>("[data-motion-preview]");
+    const previewSrc = slot?.dataset.previewSrc;
+    if (!slot || !previewSrc) return;
+
+    const video = document.createElement("video");
+    video.className = "motion-preview-video";
+    video.src = previewSrc;
+    video.poster = slot.dataset.previewPoster ?? "";
+    video.controls = true;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.width = 640;
+    video.height = 360;
+
+    const track = document.createElement("track");
+    track.kind = "captions";
+    track.src = "/captions/silent-preview.vtt";
+    track.srclang = "en";
+    track.label = "No dialogue";
+    video.append(track);
+
+    slot.replaceChildren(video);
+    void video.play();
+  });
 </script>
 
 <style>
   .term-card {
     background: #FFFFFF;
     border: 1px solid #E6DDD1;
-    border-radius: 20px;
-    box-shadow: 0 12px 32px rgba(23, 23, 23, 0.06);
-    padding: 24px;
-    transition: transform 180ms ease, box-shadow 180ms ease;
+    border-radius: 18px;
+    box-shadow: 0 10px 26px rgba(23, 23, 23, 0.055);
+    padding: 18px;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   }
   .term-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 18px 48px rgba(23, 23, 23, 0.10);
   }
+  .term-card[data-expanded="true"] {
+    border-color: rgba(228, 87, 46, 0.34);
+    box-shadow: 0 20px 54px rgba(23, 23, 23, 0.12);
+  }
 
   .term-media-link {
     display: block;
-    margin: -10px -10px 18px;
+    margin: -6px -6px 16px;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 13px;
     background: #EFE8DC;
     border: 1px solid #E6DDD1;
   }
@@ -220,27 +235,68 @@ const searchText = [
     transform: scale(1.025);
   }
 
+  .motion-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 14px;
+    border: 1px solid #E6DDD1;
+    background: #F8F5EF;
+    padding: 12px;
+  }
+  .motion-preview-copy {
+    min-width: 0;
+  }
+  .motion-preview-btn {
+    flex-shrink: 0;
+    min-height: 38px;
+    border: 1px solid rgba(228, 87, 46, 0.35);
+    border-radius: 999px;
+    background: #fff;
+    color: #B83A1F;
+    cursor: pointer;
+    font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 0 14px;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  .motion-preview-btn:hover {
+    background: #E4572E;
+    border-color: #E4572E;
+    color: #fff;
+  }
+  .motion-preview-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background: #101014;
+    object-fit: cover;
+  }
+
   /* Tags */
   .tag-category {
     border-radius: 999px; padding: 3px 10px;
-    font-size: 11px; font-weight: 700; font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10.5px; font-weight: 800; font-family: var(--font-ui, Inter, sans-serif);
     background: #FFE0D2; color: #B83A1F;
   }
   .tag-difficulty {
     border-radius: 999px; padding: 3px 10px;
-    font-size: 11px; font-weight: 600; font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10.5px; font-weight: 700; font-family: var(--font-ui, Inter, sans-serif);
     background: #EFE8DC; color: #4F4A45;
   }
   .tag-priority {
     border-radius: 999px; padding: 3px 10px;
-    font-size: 11px; font-weight: 500; font-family: var(--font-ui, Inter, sans-serif);
+    font-size: 10.5px; font-weight: 600; font-family: var(--font-ui, Inter, sans-serif);
     background: transparent; color: #7A7268;
   }
 
   /* Term name */
   .term-name {
     font-family: "Space Grotesk", var(--font-display, sans-serif);
-    font-size: 1.5rem; font-weight: 700; line-height: 1.15;
+    font-size: 1.28rem; font-weight: 800; line-height: 1.12;
     letter-spacing: -0.01em; color: #171717; margin: 0;
   }
   .term-name-link { color: inherit; text-decoration: none; }
@@ -249,7 +305,15 @@ const searchText = [
   /* Definition */
   .term-def {
     font-family: var(--font-body, Inter, sans-serif);
-    font-size: 1rem; line-height: 1.6; color: #4F4A45; margin: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 0.95rem; line-height: 1.55; color: #4F4A45; margin: 0;
+  }
+  .term-card[data-expanded="true"] .term-def {
+    display: block;
+    overflow: visible;
   }
 
   /* Prompt block */
@@ -257,7 +321,7 @@ const searchText = [
     background: #101014;
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 16px;
+    padding: 14px;
   }
   .prompt-header {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
@@ -300,8 +364,11 @@ const searchText = [
 
   /* Collapsible details */
   .details-section {
-    display: flex; flex-direction: column; gap: 16px; margin-top: 20px;
-    border-top: 1px solid #E6DDD1; padding-top: 18px;
+    display: flex; flex-direction: column; gap: 14px; margin-top: 16px;
+    border-top: 1px solid #E6DDD1; padding-top: 16px;
+  }
+  .details-section[hidden] {
+    display: none !important;
   }
   .detail-row { display: flex; flex-direction: column; gap: 6px; }
   .detail-label {
@@ -332,7 +399,7 @@ const searchText = [
 
   /* Try With My Idea */
   .try-idea-row {
-    margin-top: 16px;
+    margin-top: 0;
   }
   .try-idea-wrap {
     display: flex;
@@ -341,7 +408,7 @@ const searchText = [
   }
   .try-idea-input {
     flex: 1;
-    height: 36px;
+    height: 38px;
     padding: 0 12px;
     font-family: var(--font-ui, Inter, sans-serif);
     font-size: 12.5px;
@@ -357,7 +424,7 @@ const searchText = [
   .try-idea-input:focus { border-color: #E4572E; }
   .try-idea-btn {
     flex-shrink: 0;
-    height: 36px;
+    height: 38px;
     padding: 0 14px;
     font-family: var(--font-ui, Inter, sans-serif);
     font-size: 12.5px;
@@ -376,12 +443,13 @@ const searchText = [
   /* Footer */
   .show-more-btn {
     font-family: var(--font-ui, Inter, sans-serif);
-    font-size: 12px; font-weight: 600; color: #7A7268;
-    background: none; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 800; color: #171717;
+    background: #F8F5EF; border: 1px solid #E6DDD1; border-radius: 999px; cursor: pointer;
     display: inline-flex; align-items: center; gap: 4px;
-    padding: 0; transition: color 150ms;
+    min-height: 34px;
+    padding: 0 12px; transition: color 150ms, border-color 150ms, background 150ms;
   }
-  .show-more-btn:hover { color: #E4572E; }
+  .show-more-btn:hover { color: #E4572E; border-color: #E4572E; background: #fff; }
   .chevron { transition: transform 200ms ease; }
   .chevron.open { transform: rotate(180deg); }
   .action-btn {
@@ -407,8 +475,9 @@ const searchText = [
       if (!details) return;
       const isOpen = !details.hidden;
       details.hidden = isOpen;
+      card.toggleAttribute('data-expanded', !isOpen);
       btn.setAttribute('aria-expanded', String(!isOpen));
-      if (label) label.textContent = isOpen ? 'Show more' : 'Show less';
+      if (label) label.textContent = isOpen ? 'Expand card' : 'Collapse';
       if (chevron) chevron.classList.toggle('open', !isOpen);
     });
   });

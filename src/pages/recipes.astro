@@ -1,12 +1,34 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import MediaLoop from "../../components/MediaLoop.astro";
+import monetization from "../../data/monetization.json";
 import promptPacks from "../../data/promptPacks.json";
+import siteMedia from "../../data/siteMedia.json";
 import { getAllTerms } from "../../lib/termSearch";
 import { buildPrompt } from "../../lib/promptBuilder";
 import type { PromptPack } from "../../types/pack";
 import type { Term } from "../../types/term";
 
 const packs = promptPacks as PromptPack[];
+const monetizationConfig = monetization as {
+  recipeService: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryCta: { label: string; href: string };
+    secondaryCta: { label: string; href: string };
+  };
+  recipeTiers: Array<{
+    label: string;
+    tone: string;
+    maxPackIndexExclusive?: number;
+  }>;
+  recipeSegments: Array<{
+    label: string;
+    match: string[];
+  }>;
+};
+const { recipeService, recipeTiers, recipeSegments } = monetizationConfig;
 const terms = getAllTerms();
 const termsById = new Map<string, Term>(terms.map((term) => [term.id, term]));
 
@@ -52,12 +74,19 @@ function shotReason(index: number, total: number): string {
   return "Show your main subject in action.";
 }
 
+function packTier(index: number): { label: string; tone: string } {
+  return (
+    recipeTiers.find((tier) => tier.maxPackIndexExclusive === undefined || index < tier.maxPackIndexExclusive) ??
+    { label: "Recipe", tone: "#B83A1F" }
+  );
+}
+
 const quickLinks = [
-  { emoji: "☕", label: "Coffee Shop", id: "coffee-shop-reel" },
-  { emoji: "📦", label: "Product",     id: "product-macro-hero" },
-  { emoji: "🌍", label: "Travel",      id: "travel-sunrise-montage" },
-  { emoji: "🎬", label: "Interview",   id: "interview-broll" },
-  { emoji: "📚", label: "Tutorial",    id: "tutorial-talking-head" },
+  { code: "01", label: "Coffee Shop", id: "coffee-shop-reel" },
+  { code: "02", label: "Product",     id: "product-macro-hero" },
+  { code: "03", label: "Travel",      id: "travel-sunrise-montage" },
+  { code: "04", label: "Interview",   id: "interview-broll" },
+  { code: "05", label: "Tutorial",    id: "tutorial-talking-head" },
 ];
 ---
 
@@ -67,40 +96,66 @@ const quickLinks = [
 >
   <!-- Hero -->
   <section class="page-hero">
-    <div class="container-pad">
-      <span class="page-eyebrow">Beginner Friendly · AI-Ready · {resolved.length} Recipes</span>
-      <h1 class="page-h1">Shot Recipes for AI Videos</h1>
-      <p class="page-subtitle">Pick the kind of video you want to make. We'll give you a simple shot plan with copyable AI prompts.</p>
+    <div class="container-pad recipes-hero-grid">
+      <div>
+        <span class="page-eyebrow">Beginner Friendly · AI-Ready · {resolved.length} Recipes</span>
+        <h1 class="page-h1">Shot Recipes for AI Videos</h1>
+        <p class="page-subtitle">Pick the kind of video you want to make. We'll give you a simple shot plan with copyable prompts before you spend AI video credits.</p>
+      </div>
+      <MediaLoop media={siteMedia.recipes.hero} className="recipes-hero-loop" eager />
+    </div>
+  </section>
+
+  <section style="background:#0F0F13;border-bottom:1px solid rgba(255,255,255,0.08);padding-block:22px;">
+    <div class="container-pad recipes-service-strip" style="display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;">
+      <div>
+        <p class="font-ui" style="font-size:12px;font-weight:800;color:#F28A61;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;">{recipeService.eyebrow}</p>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:900;color:#fff;margin:0 0 6px;">{recipeService.title}</h2>
+        <p class="font-ui" style="font-size:14px;line-height:1.6;color:rgba(255,255,255,.52);margin:0;">{recipeService.description}</p>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+        <a href={recipeService.primaryCta.href} class="font-ui focus-ring" style="display:inline-flex;align-items:center;justify-content:center;height:42px;border-radius:999px;background:#B83A1F;color:#fff;text-decoration:none;font-size:14px;font-weight:800;padding:0 18px;">{recipeService.primaryCta.label}</a>
+        <a href={recipeService.secondaryCta.href} class="font-ui focus-ring" style="display:inline-flex;align-items:center;justify-content:center;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#fff;text-decoration:none;font-size:14px;font-weight:800;padding:0 18px;">{recipeService.secondaryCta.label}</a>
+      </div>
     </div>
   </section>
 
   <!-- Quick links strip -->
   <section style="background: #fff; border-bottom: 1px solid #E6DDD1; padding-block: 20px;">
     <div class="container-pad">
-      <p style="font-family: var(--font-body, 'Inter', sans-serif); font-size: 13px; color: rgba(23,23,23,0.56); margin: 0 0 12px;">
+      <p style="font-family: var(--font-body, 'Inter', sans-serif); font-size: 13px; color: #5F574F; margin: 0 0 12px;">
         Not sure which recipe fits your idea? These are the most popular starting points:
       </p>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <div class="recipe-quick-links">
         {quickLinks.map((ql) => (
           <a
             href={`#recipe-${ql.id}`}
-            style="
-              display: inline-flex; align-items: center; gap: 6px;
-              padding: 6px 14px;
-              border-radius: 999px;
-              border: 1px solid #E6DDD1;
-              background: #F8F5EF;
-              font-family: var(--font-ui, sans-serif);
-              font-size: 13px;
-              font-weight: 600;
-              color: #171717;
-              text-decoration: none;
-              transition: background 0.12s, border-color 0.12s;
-            "
-            onmouseover="this.style.background='rgba(228,87,46,0.07)'; this.style.borderColor='#E4572E';"
-            onmouseout="this.style.background='#F8F5EF'; this.style.borderColor='#E6DDD1';"
-          >{ql.emoji} {ql.label}</a>
+            class="recipe-quick-link focus-ring"
+          ><span>{ql.code}</span>{ql.label}</a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="recipe-finder-section">
+    <div class="container-pad recipe-finder-grid">
+      <div>
+        <span class="recipe-kicker">Recipe finder</span>
+        <h2>Find the closest shot plan before you open a video model.</h2>
+        <p>Filter by user goal or search your idea. The page stays simple: pick a recipe, inspect the shot order, then copy prompts or continue in the planner.</p>
+      </div>
+      <div class="recipe-finder-panel">
+        <label>
+          <span>Search recipes</span>
+          <input type="search" placeholder="product, interview, real estate, tutorial..." data-recipe-search />
+        </label>
+        <div class="recipe-segment-list">
+          <button type="button" class="active" data-recipe-segment="all">All</button>
+          {recipeSegments.map((segment) => (
+            <button type="button" data-recipe-segment={segment.match.join("|")}>{segment.label}</button>
+          ))}
+        </div>
+        <p data-recipe-count>{resolved.length} recipes visible</p>
       </div>
     </div>
   </section>
@@ -109,9 +164,16 @@ const quickLinks = [
   <section class="page-section page-section-sand">
     <div class="container-pad">
       <div style="display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));">
-        {resolved.map((pack) => (
+        <div class="recipe-empty-state" data-recipe-empty hidden>
+          <strong>No recipe matched that search.</strong>
+          <p>Try a simpler word like product, cafe, interview, travel, tutorial, or use the planner for a custom shot plan.</p>
+          <a href="/planner">Open planner →</a>
+        </div>
+        {resolved.map((pack, packIndex) => (
           <article
             id={`recipe-${pack.id}`}
+            data-recipe-card
+            data-recipe-text={`${pack.name} ${pack.useCase} ${pack.notes} ${pack.resolvedItems.map((item) => item.termName).join(" ")}`.toLowerCase()}
             style="
               background: #fff;
               border: 1px solid #E6DDD1;
@@ -128,9 +190,22 @@ const quickLinks = [
           >
             <!-- Use-case tag -->
             <div>
+              <span style={`
+                display:inline-block;
+                background:${packTier(packIndex).tone}18;
+                color:${packTier(packIndex).tone};
+                font-family:var(--font-ui,sans-serif);
+                font-size:10px;
+                font-weight:800;
+                letter-spacing:.08em;
+                text-transform:uppercase;
+                padding:3px 9px;
+                border-radius:999px;
+                margin-right:6px;
+              `}>{packTier(packIndex).label}</span>
               <span style="
                 display: inline-block;
-                background: rgba(228,87,46,0.1);
+                background: rgba(184,58,31,0.1);
                 color: #B83A1F;
                 font-family: var(--font-ui, sans-serif);
                 font-size: 11px;
@@ -190,7 +265,7 @@ const quickLinks = [
                 class="recipe-open-btn"
                 data-pack-id={pack.id}
                 style="
-                  background: #E4572E;
+                  background: #B83A1F;
                   color: #fff;
                   border: none;
                   border-radius: 999px;
@@ -202,8 +277,8 @@ const quickLinks = [
                   cursor: pointer;
                   transition: background 0.12s;
                 "
-                onmouseover="this.style.background='#B83A1F'"
-                onmouseout="this.style.background='#E4572E'"
+                onmouseover="this.style.background='#962d17'"
+                onmouseout="this.style.background='#B83A1F'"
               >Open Recipe</button>
               <button
                 type="button"
@@ -235,12 +310,12 @@ const quickLinks = [
                   font-family: var(--font-ui, sans-serif);
                   font-size: 13px;
                   font-weight: 700;
-                  color: rgba(23,23,23,0.55);
+                  color: #5F574F;
                   text-decoration: none;
                   transition: color 0.12s;
                 "
-                onmouseover="this.style.color='#E4572E'"
-                onmouseout="this.style.color='rgba(23,23,23,0.55)'"
+                onmouseover="this.style.color='#B83A1F'"
+                onmouseout="this.style.color='#5F574F'"
               >→ Planner</a>
             </div>
 
@@ -265,7 +340,7 @@ const quickLinks = [
                         width: 28px;
                         height: 28px;
                         border-radius: 50%;
-                        background: #E4572E;
+                        background: #B83A1F;
                         color: #fff;
                         display: grid;
                         place-items: center;
@@ -353,7 +428,7 @@ const quickLinks = [
                     display: block;
                     width: 100%;
                     margin-top: 20px;
-                    background: #E4572E;
+                    background: #B83A1F;
                     color: #fff;
                     border: none;
                     border-radius: 999px;
@@ -364,8 +439,8 @@ const quickLinks = [
                     cursor: pointer;
                     transition: background 0.12s;
                   "
-                  onmouseover="this.style.background='#B83A1F'"
-                  onmouseout="this.style.background='#E4572E'"
+                  onmouseover="this.style.background='#962d17'"
+                  onmouseout="this.style.background='#B83A1F'"
                 >Copy All Prompts</button>
 
                 <!-- Try in planner -->
@@ -380,7 +455,7 @@ const quickLinks = [
                     font-family: var(--font-ui, sans-serif);
                     font-size: 13px;
                     font-weight: 700;
-                    color: #E4572E;
+                    color: #B83A1F;
                     text-decoration: none;
                     gap: 4px;
                   "
@@ -393,7 +468,7 @@ const quickLinks = [
                   <p style="
                     margin-top: 14px;
                     background: #F8F5EF;
-                    border-left: 3px solid #E4572E;
+                    border-left: 3px solid #B83A1F;
                     padding: 10px 14px;
                     border-radius: 0 8px 8px 0;
                     font-family: var(--font-body, 'Inter', sans-serif);
@@ -402,7 +477,7 @@ const quickLinks = [
                     color: rgba(23,23,23,0.7);
                     margin-bottom: 0;
                   ">
-                    <strong style="color: #E4572E; font-weight: 700;">Tip from a director:</strong> {pack.notes}
+                    <strong style="color: #B83A1F; font-weight: 700;">Tip from a director:</strong> {pack.notes}
                   </p>
                 )}
 
@@ -439,6 +514,43 @@ const quickLinks = [
 
   <!-- All prompts data for copy-all (hidden) -->
   <script is:inline define:vars={{ packPrompts: resolved.map(p => ({ id: p.id, prompts: p.resolvedItems.map(i => i.prompt) })) }}>
+    var activeSegment = "all";
+    var searchInput = document.querySelector("[data-recipe-search]");
+    var count = document.querySelector("[data-recipe-count]");
+    var empty = document.querySelector("[data-recipe-empty]");
+    var cards = Array.prototype.slice.call(document.querySelectorAll("[data-recipe-card]"));
+
+    function updateRecipeFilters() {
+      var query = (searchInput && searchInput.value ? searchInput.value : "").toLowerCase().trim();
+      var tokens = activeSegment === "all" ? [] : activeSegment.split("|").map(function(token) { return token.toLowerCase().trim(); }).filter(Boolean);
+      var visible = 0;
+      cards.forEach(function(card) {
+        var text = card.getAttribute("data-recipe-text") || "";
+        var matchesQuery = !query || text.indexOf(query) !== -1;
+        var matchesSegment = tokens.length === 0 || tokens.some(function(token) { return text.indexOf(token) !== -1; });
+        var show = matchesQuery && matchesSegment;
+        card.style.display = show ? "" : "none";
+        if (show) visible += 1;
+      });
+      if (count) count.textContent = visible + (visible === 1 ? " recipe visible" : " recipes visible");
+      if (empty) empty.hidden = visible !== 0;
+    }
+
+    document.querySelectorAll("[data-recipe-segment]").forEach(function(button) {
+      button.addEventListener("click", function() {
+        activeSegment = button.getAttribute("data-recipe-segment") || "all";
+        document.querySelectorAll("[data-recipe-segment]").forEach(function(item) { item.classList.remove("active"); });
+        button.classList.add("active");
+        updateRecipeFilters();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener("input", updateRecipeFilters);
+    }
+
+    updateRecipeFilters();
+
     // Open / Close recipe details
     document.querySelectorAll(".recipe-open-btn").forEach(function(btn) {
       btn.addEventListener("click", function() {
@@ -493,3 +605,228 @@ const quickLinks = [
     });
   </script>
 </BaseLayout>
+
+<style>
+  .recipes-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(380px, 0.86fr);
+    gap: clamp(22px, 5vw, 60px);
+    align-items: center;
+  }
+
+  .recipes-hero-grid :global(.recipes-hero-loop) {
+    border: 1px solid #E6DDD1;
+    border-radius: 24px;
+    box-shadow: 0 24px 74px rgba(23,23,23,0.12);
+  }
+
+  .recipe-quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .recipe-quick-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    padding: 0 14px 0 8px;
+    border-radius: 999px;
+    border: 1px solid #E6DDD1;
+    background: #F8F5EF;
+    color: #171717;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .recipe-quick-link span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #171717;
+    color: #F8F5EF;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+  }
+
+  .recipe-quick-link:hover {
+    border-color: #B83A1F;
+    background: rgba(184,58,31,0.08);
+    transform: translateY(-1px);
+  }
+
+  .recipe-finder-section {
+    background:
+      radial-gradient(circle at 88% 18%, rgba(184,58,31,0.1), transparent 24%),
+      #F8F5EF;
+    border-bottom: 1px solid #E6DDD1;
+    padding-block: clamp(34px, 5vw, 58px);
+  }
+
+  .recipe-finder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1fr);
+    gap: clamp(20px, 5vw, 60px);
+    align-items: center;
+  }
+
+  .recipe-kicker {
+    display: block;
+    margin-bottom: 10px;
+    color: #B83A1F;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .recipe-finder-grid h2 {
+    max-width: 640px;
+    margin: 0;
+    color: #171717;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .recipe-finder-grid p {
+    max-width: 620px;
+    margin: 14px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .recipe-finder-panel {
+    border: 1px solid #E6DDD1;
+    border-radius: 22px;
+    padding: 18px;
+    background: #fff;
+    box-shadow: 0 18px 56px rgba(23,23,23,0.07);
+  }
+
+  .recipe-finder-panel label span {
+    display: block;
+    color: #7A7268;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .recipe-finder-panel input {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 8px;
+    border: 1px solid #D8CFC3;
+    border-radius: 14px;
+    padding: 0 14px;
+    background: #F8F5EF;
+    color: #171717;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 14px;
+    outline: none;
+  }
+
+  .recipe-finder-panel input:focus {
+    border-color: #B83A1F;
+    box-shadow: 0 0 0 3px rgba(184,58,31,0.14);
+  }
+
+  .recipe-segment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .recipe-segment-list button {
+    min-height: 34px;
+    border: 1px solid #E6DDD1;
+    border-radius: 999px;
+    padding: 0 12px;
+    background: #fff;
+    color: #4F4A45;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .recipe-segment-list button.active,
+  .recipe-segment-list button:hover {
+    border-color: #B83A1F;
+    background: #B83A1F;
+    color: #fff;
+  }
+
+  .recipe-finder-panel > p {
+    margin: 14px 0 0;
+    color: #7A7268;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .recipe-empty-state {
+    grid-column: 1 / -1;
+    border: 1px dashed #D8CFC3;
+    border-radius: 18px;
+    padding: 24px;
+    background: #fff;
+    color: #171717;
+  }
+
+  .recipe-empty-state strong {
+    display: block;
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+
+  .recipe-empty-state p {
+    max-width: 640px;
+    margin: 8px 0 0;
+    color: #4F4A45;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .recipe-empty-state a {
+    display: inline-flex;
+    margin-top: 14px;
+    color: #B83A1F;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 13px;
+    font-weight: 900;
+    text-decoration: none;
+  }
+
+  @media (max-width: 760px) {
+    .recipes-hero-grid,
+    .recipes-service-strip {
+      grid-template-columns: 1fr !important;
+    }
+    .recipes-service-strip > div:last-child {
+      justify-content: flex-start !important;
+    }
+
+    .recipe-finder-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
